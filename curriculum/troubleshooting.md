@@ -14,21 +14,17 @@ Run this on one lab machine:
 ```powershell
 python --version                # should print 3.x
 python -c "import tkinter"      # must produce no output
-git --version
 cc-ds                           # should launch and accept a prompt
 ```
 
-Git identity should be pre-set or the first commit prompts for it:
-
-```powershell
-git config --global user.name "Student"
-git config --global user.email "student@compucon.local"
-```
+No git check needed — students don't use git. Save points are folder copies; see
+"Save Point / Undo Problems" below.
 
 ### PowerShell gotchas worth knowing before you're in front of 25 kids
 
-- **`&&` does not work** in Windows PowerShell 5.1 (the Windows 11 default). One command
-  per line. If a student copies a chained command off the internet, this is why it failed.
+- **`&&` does not work in PowerShell 5.1.** Lab machines may run 5.1 or 7, and there's
+  no reliable way to tell which from the outside — so write and teach every command
+  one-per-line regardless of version. That syntax works on both.
 - **Paths use backslashes** — `$HOME\Documents`, not `~/Documents`. `/` often works
   anyway, but the AI may generate either; both are fine in Python.
 - **Execution policy** can block scripts. It won't affect anything in this curriculum
@@ -93,7 +89,7 @@ ls      # is my file here?
 The conversation has locked onto a wrong theory. Escalate:
 
 1. `/clear`, then describe the *problem* fresh — not the failed fixes
-2. `git checkout .` back to working
+2. Restore their last working folder copy
 3. Delete the broken file, ask for it again from scratch
 
 ### It wrote something in a language we're not using
@@ -144,44 +140,66 @@ Mixed tabs and spaces. Easiest fix: *"There's an indentation error on line 23, f
 
 ---
 
-## Git Problems
+## Save Point / Undo Problems
 
-### First commit asks for name and email
-
-Pre-set it (above), or:
-
-```powershell
-git config --global user.name "Student"
-git config --global user.email "student@compucon.local"
-```
-
-### `git add -A && git commit -m "..."` fails
-
-PowerShell 5.1 doesn't support `&&`. Two separate lines:
+Students don't use git. Save points are folder copies — see `day-3.md`. The reference
+commands:
 
 ```powershell
-git add -A
-git commit -m "message here"
+cd $HOME\Documents
+Copy-Item -Recurse myproject myproject-working    # SAVE
+
+Remove-Item -Recurse myproject                    # UNDO (two steps)
+Copy-Item -Recurse myproject-working myproject
 ```
 
-### `git checkout .` didn't restore
+### They never made a copy
 
-They never committed. Nothing to restore to. Hard lesson, teaches itself — but soften it
-and help them rebuild. Then have them commit immediately.
+Nothing to restore to. Hard lesson, teaches itself — but soften it and help them rebuild.
+Then have them make a copy immediately, and check on them again in ten minutes.
 
-### It restored but the file's still broken
+### `Remove-Item -Recurse` asks for confirmation
 
-`git checkout .` only restores *tracked* files. A file created after the last commit is
-untracked and survives. `git status` shows it. Delete it manually.
-
-### They committed a broken version over a working one
+On some setups it prompts per-item. Add `-Force`:
 
 ```powershell
-git log --oneline          # find the good one
-git checkout <hash> -- .   # restore files from it
+Remove-Item -Recurse -Force myproject
 ```
 
-Rare with students, but it happens.
+Only teach `-Force` when it comes up — it's one more thing to explain, and it makes the
+delete irreversible.
+
+### "Cannot remove item — being used by another process"
+
+The app is still running, or Claude Code is open in that folder. Close the tkinter
+window, `Ctrl+C` out of `cc-ds`, then retry.
+
+This is the most common failure in the restore cycle. Check it first.
+
+### They restored but it's still broken
+
+Usually one of:
+
+- **They copied the broken version over the good one** by reversing the argument order.
+  `Copy-Item -Recurse SOURCE DESTINATION` — source first. If they've destroyed the good
+  copy, check for an older one; students often have several.
+- **The copy they restored was never actually working.** They copied at a moment they
+  assumed was good. Reinforce: run it, *then* copy.
+
+### Copies are piling up and they can't tell them apart
+
+Expected by mid-session. Have them name copies meaningfully — `quiz-scoring-works`, not
+`quiz2`, `quiz3`, `quiz4`. Deleting old copies is fine once a newer one is confirmed
+working.
+
+### A student is copying into the project folder instead of beside it
+
+Produces `myproject\myproject-working\...`, which confuses both the student and the AI —
+Claude Code will read the nested copy as part of the project. Make sure they `cd
+$HOME\Documents` first, so copies sit *next to* the project, not inside it.
+
+Worth showing on the projector once. It's the mistake that generates the weirdest
+downstream symptoms.
 
 ---
 
@@ -231,7 +249,7 @@ have to be able to explain what your app does.*
 
 ### A student is frustrated and shutting down
 
-- Get them to a working state first — `git checkout .` or a fresh start. Do not debug
+- Get them to a working state first — restore a folder copy, or start fresh. Do not debug
   with them while they're frustrated.
 - Take the smallest possible next step. Any win.
 - Name it honestly: "This is what it's actually like. Every professional has days like

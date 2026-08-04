@@ -1,10 +1,25 @@
 # CompuCon Vibe Coding Track
 
-Four 3-hour sessions. Students build real, working apps by describing what they want to
+Four sessions. Students build real, working apps by describing what they want to
 an AI coding assistant, then testing, checking, and refining until it's right.
 
-**Day 1 is standalone.** A student who shows up for one session leaves with a finished
-app they built and can demo. Days 2–4 go deeper for students who stay.
+**Session 1 is standalone.** A student who shows up for one session leaves with a
+finished app they built and can demo. Later sessions go deeper for students who stay.
+
+**Session lengths differ by age group, and so does the content:**
+
+| | Session 1 | Session 2 | Session 3 | Session 4 | Total |
+|---|---|---|---|---|---|
+| **Middle school** | 85 min | 85 min | 85 min | 85 min | 5h40m |
+| **High school** | 120 min | 180 min | 180 min | 60 min | 9h |
+
+Two things follow from this and are baked into the curriculum:
+
+- **HS Session 4 is demos only.** No build time. The HS capstone is pitched at the end
+  of Session 2 and finished during Session 3.
+- **MS drops multi-file projects entirely.** With 340 minutes total against HS's 540,
+  MS Session 3 is "make one app solid" rather than "build something bigger." MS pitches
+  its capstone in Session 4 and builds it that same session.
 
 ---
 
@@ -17,19 +32,23 @@ knowing what to ask for, how much to ask for at once, and how to tell whether yo
 
 ## Session Map
 
-| Day | Theme | Students leave with |
+| Session | Middle school (85 each) | High school |
 |---|---|---|
-| **1** | *Make Something Work* | A finished app + the build → run → fix loop |
-| **2** | *Ask Better, Check Harder* | Prompting technique + the habit of verifying |
-| **3** | *Build Something Bigger* | A multi-file project + planning before building |
-| **4** | *Make It Yours* | A capstone project, demoed to the room |
+| **1** | *Make Something Work* — first app, the build→run→fix loop | Same, 120 min |
+| **2** | *Ask Better, Check Harder* — prompting + verification | Same + capstone pitch and kickoff, 180 min |
+| **3** | *Make It Solid* — save points, debugging, hardening one app | *Build Something Bigger* — multi-file, capstone finished, 180 min |
+| **4** | *Make It Yours* — capstone built and demoed | *Demo Day* — demos and wrap-up only, 60 min |
 
-Each file in `curriculum/` is a full instructor script for one session:
+Sessions 1–2 share a block sequence across age groups with different durations. Sessions
+3–4 split into separate MS and HS sections in the same file, because the content
+genuinely differs.
 
-- [`day-1.md`](curriculum/day-1.md) — standalone session
-- [`day-2.md`](curriculum/day-2.md)
-- [`day-3.md`](curriculum/day-3.md)
-- [`day-4.md`](curriculum/day-4.md)
+Each file in `curriculum/` is a full instructor script:
+
+- [`day-1.md`](curriculum/day-1.md) — standalone session, both age groups
+- [`day-2.md`](curriculum/day-2.md) — prompting + verification; HS pitches capstone
+- [`day-3.md`](curriculum/day-3.md) — split: MS *Make It Solid* / HS *Build Something Bigger*
+- [`day-4.md`](curriculum/day-4.md) — split: MS capstone day / HS 60-min demo day
 - [`prompt-cheat-sheet.md`](curriculum/prompt-cheat-sheet.md) — one-page student handout
 - [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
 - [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
@@ -89,9 +108,11 @@ cc-ds
 Working in a project folder, not Documents itself, matters — that folder is the AI's
 whole world, and a focused folder means focused attention.
 
-> **PowerShell note for instructors:** Windows PowerShell 5.1 (the Windows 11 default)
-> does **not** support `&&` for chaining commands. Every command in this curriculum is
-> written one per line for that reason. If you rewrite any of them, keep them separate.
+> **PowerShell note for instructors:** lab machines may run PowerShell 5.1 or 7, and
+> 5.1 does **not** support `&&` for chaining commands. Since there's no reliable way to
+> tell which version a given machine has, every command in this curriculum is written
+> one per line — that syntax works on both. If you rewrite any of them, keep them
+> separate.
 
 ### The stack
 
@@ -103,12 +124,18 @@ likely alternative and works fine. The curriculum's actual content — prompt si
 verification, scope cutting, save points — is stack-independent. Only the example code
 changes.
 
+**No git.** Students don't use version control. "Save points" means copying the project
+folder when it works and copying it back to undo — taught in
+[`day-3.md`](curriculum/day-3.md) for both age groups.
+
 ---
 
 ## Middle School vs. High School
 
-Same spine, different dials. Each session file has a **`MS/HS`** callout box wherever
-the two diverge. The general pattern:
+Same teaching philosophy, different structure. MS has 5h40m against HS's 9h, so this is
+not a pacing dial — MS has real cuts (multi-file projects are gone entirely). Every
+session file carries separate MS and HS timing tables, plus **`MS/HS`** callout boxes
+wherever the content diverges within a shared block. The general pattern:
 
 | | Middle School | High School |
 |---|---|---|
@@ -119,7 +146,9 @@ the two diverge. The general pattern:
 | **Reading code** | Optional, encouraged for the curious | Expected by Day 3 |
 | **Group work** | Pairs throughout | Solo with pair-debugging |
 
-The demo apps and the arc are identical. Adjust ambition, not substance.
+The demo apps and general arc are shared. Adjust ambition and scope, not the underlying
+teaching content — but note MS's total time (5h40m) is well under half of HS's (9h), so
+"adjust ambition" now means real cuts for MS, not just smaller steps.
 
 ---
 

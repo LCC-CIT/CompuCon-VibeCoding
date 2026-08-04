@@ -155,16 +155,27 @@ Python + tkinter multiple-choice quiz.
 
 ## Save Points
 
+**SAVE — copy the whole folder every time your app works:**
+
 ```powershell
-git init                            # once, at the start
-
-git add -A                          # SAVE — both lines, every time it works
-git commit -m "scoring works"
-
-git checkout .                      # UNDO everything since the last save
+cd $HOME\Documents
+Copy-Item -Recurse myproject myproject-working
 ```
 
-> **Commit every time it works.** Not when you finish. Every time it works.
+**UNDO — throw away the broken version, copy the good one back:**
+
+```powershell
+cd $HOME\Documents
+Remove-Item -Recurse myproject
+Copy-Item -Recurse myproject-working myproject
+```
+
+You can do exactly the same thing in File Explorer: right-click the folder → Copy →
+Paste → rename it.
+
+> **Copy every time it works.** Not when you finish. Every time it works.
+
+Give copies names that mean something — `quiz-scoring-works`, not `quiz2`.
 
 ---
 
@@ -175,7 +186,7 @@ Try in this order:
 1. **Describe the bug out loud** to a person. You'll often fix it mid-sentence.
 2. **`/clear`** and describe the problem fresh — the conversation may have a bad theory
    stuck in it.
-3. **`git checkout .`** back to working. Take a smaller step.
+3. **Restore your last working copy.** Take a smaller step this time.
 4. **Delete the broken file** and ask for it again with a better description.
 5. **Ask a human.** After 20 minutes, always.
 

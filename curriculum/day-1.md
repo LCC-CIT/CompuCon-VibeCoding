@@ -1,29 +1,48 @@
-# Day 1 — Make Something Work
+# Session 1 — Make Something Work
 
-**3 hours. Standalone.** A student who attends only this session leaves with a working
-app they built, understands the loop that produced it, and could do it again at home.
+**Standalone, for both age groups.** A student who attends only this session leaves with
+a working app they built, understands the loop that produced it, and could do it again
+at home.
 
-Nothing in this session assumes a Day 2.
+Nothing in this session assumes a Session 2.
 
 ---
 
-## Session Arc
+## Timing
+
+MS and HS run the same seven blocks. HS gets 35 more minutes, spent almost entirely on
+independent build time and on the concepts blocks.
+
+### Middle school — 85 min
 
 | Time | Block | Mode |
 |---|---|---|
-| 0:00–0:15 | Hook: build an app in front of them | Instructor demo |
-| 0:15–0:30 | What just happened | Short talk |
-| 0:30–1:00 | Build #1: everyone builds the same app | Guided, lockstep |
-| 1:00–1:10 | **Break** | |
-| 1:10–1:25 | The three moves: Ask, Run, Fix | Short talk + demo |
-| 1:25–2:20 | Build #2: pick your own app | Independent |
-| 2:20–2:35 | The AI was wrong (planted bug exercise) | Whole group |
-| 2:35–2:55 | Showcase | Students demo |
-| 2:55–3:00 | Take it home | Wrap |
+| 0:00–0:08 | Hook: build an app in front of them | Instructor demo |
+| 0:08–0:15 | What just happened | Short talk |
+| 0:15–0:40 | Build #1: everyone builds Mad Libs | Guided, lockstep |
+| 0:40–0:48 | The three moves: Ask, Run, Fix | Short talk + demo |
+| 0:48–1:10 | Build #2: make it yours | Independent |
+| 1:10–1:18 | The AI was wrong + break your app | Whole group |
+| 1:18–1:25 | Showcase + take it home | Students demo |
+
+> **No break is scheduled.** 85 minutes is the whole session. If your group needs one,
+> take 5 at the 0:48 mark and cut Build #2 to 17 minutes — don't cut the 1:10 block.
+
+### High school — 120 min
+
+| Time | Block | Mode |
+|---|---|---|
+| 0:00–0:10 | Hook: build an app in front of them | Instructor demo |
+| 0:10–0:22 | What just happened | Short talk |
+| 0:22–0:50 | Build #1: everyone builds Mad Libs | Guided, lockstep |
+| 0:50–1:05 | The three moves: Ask, Run, Fix | Short talk + demo |
+| 1:05–1:40 | Build #2: pick your own app | Independent |
+| 1:40–1:52 | The AI was wrong + break your app | Whole group |
+| 1:52–2:00 | Showcase + take it home | Students demo |
 
 ---
 
-## 0:00 — Hook (15 min)
+## Hook (MS 8 min / HS 10 min)
 
 **Do not explain anything first.** Open a terminal on the projector and build something.
 
@@ -59,14 +78,14 @@ Run it again. Roll until you get a 20.
 > else today is getting good at those four things."
 
 **MS/HS**
-> **MS:** Do the color change as a second demo — the visual payoff lands hard. Take
-> requests from the room for the third change.
+> **MS:** Take one request from the room for a third change. The visual payoff lands
+> hard and it buys you their attention for the next 25 minutes.
 > **HS:** After the demo, show them the actual `dice.py` file. Ask: "Anything in here
-> surprise you? Anything you'd have done differently?" Sets up Day 2 verification.
+> surprise you? Anything you'd have done differently?" Sets up Session 2 verification.
 
 ---
 
-## 0:15 — What Just Happened (15 min)
+## What Just Happened (MS 7 min / HS 12 min)
 
 Keep this tight. Three ideas, no more.
 
@@ -108,13 +127,14 @@ Point at the terminal:
 > don't say both every time.
 
 **MS/HS**
-> **MS:** Stop after the intern analogy. Skip the tool/model distinction.
-> **HS:** Worth 2 minutes on tool-vs-model — it's a genuinely useful mental model for how
+> **MS:** Stop after the intern analogy and the tool basics. Skip the tool/model
+> distinction entirely — it costs 3 minutes you don't have.
+> **HS:** Worth 2 minutes on tool-vs-model. It's a genuinely useful mental model for how
 > AI products are built, and it explains why different setups behave differently.
 
 ---
 
-## 0:30 — Build #1: Everyone Builds Mad Libs (30 min)
+## Build #1: Everyone Builds Mad Libs (MS 25 min / HS 28 min)
 
 Lockstep. Everyone builds the same thing so nobody is lost and everyone succeeds early.
 
@@ -129,7 +149,7 @@ cc-ds
 
 Walk the room. This is where setup problems surface — catch them now.
 
-### Prompt 1 (10 min)
+### Prompt 1 (MS 10 min / HS 10 min)
 
 Put this on the projector. Students type it themselves (typing it makes them read it):
 
@@ -150,7 +170,7 @@ python story.py
 **Everyone stops here until everyone's app runs.** Fast finishers help neighbors — this
 is a real job too.
 
-### Notice the prompt (5 min)
+### Notice the prompt (MS 4 min / HS 5 min)
 
 Put the prompt back up and mark it up:
 
@@ -163,7 +183,7 @@ Put the prompt back up and mark it up:
 > That's a good prompt. Notice what's *not* there — nothing about *how* to write the
 > code. That's the AI's job."
 
-### One change each (10 min)
+### One change each (MS 6 min / HS 8 min)
 
 Everyone makes one change of their own choosing. Suggestions on the board:
 
@@ -176,13 +196,9 @@ Rule: **make the change, run it, then stop.** Hands up when yours works.
 
 ---
 
-## 1:00 — Break (10 min)
+## The Three Moves (MS 8 min / HS 15 min)
 
----
-
-## 1:10 — The Three Moves (15 min)
-
-This is the conceptual core of the day. Everything else is practice.
+This is the conceptual core of the session. Everything else is practice.
 
 ### Move 1: ASK
 
@@ -202,9 +218,6 @@ A good ask answers four questions:
 Not because the AI can't do five things — it often can. Because when five things come
 back at once and one is broken, you don't know which one. When you ask for one thing and
 it breaks, you know exactly where to look.
-
-Demo this. Ask for five changes at once, let it come back tangled, then show the same
-five done one at a time. The difference is obvious and they'll remember it.
 
 **When you *should* ask for a lot at once:** the very first prompt. Starting from
 nothing, describe the whole app. After that, one change at a time.
@@ -242,31 +255,41 @@ That's not an AI trick — that's how you report a bug to any human on earth, fo
 It's a real professional skill and they're learning it today.
 
 **MS/HS**
-> **MS:** Focus on Move 1 (size rule) and Move 3 (what happened vs. what you expected).
-> Move 2's three outcomes can be simplified to "works / crashes / weird."
-> **HS:** Push on outcome 3. Ask: "How would you *know* your app is wrong?" Get them to
-> propose tests before running.
+> **MS:** Cover the size rule and Move 3 properly; compress Move 2's three outcomes to
+> "works / crashes / weird." Skip the four-question table as a table — just say the four
+> things out loud while pointing at the Mad Libs prompt still on screen.
+> **HS:** Full version, plus the demo: ask for five changes at once, let it come back
+> tangled, then show the same five done one at a time. The difference is obvious and
+> they'll remember it. Then push on outcome 3 — "How would you *know* your app is wrong?"
 
 ---
 
-## 1:25 — Build #2: Your Own App (55 min)
+## Build #2 (MS 22 min / HS 35 min)
 
-Students pick from the idea board (see [`project-ideas.md`](project-ideas.md)) or bring
-their own. Instructor approves the idea before they start — sanity check on scope.
+This is where the two age groups genuinely diverge in ambition.
 
-### Before they touch the keyboard (5 min)
+**MS: make it yours.** Students keep working on `story.py` and customize it heavily —
+their own story templates, inside jokes, colors, extra buttons, a random-story mode.
+Anyone who finishes early and wants a fresh app may start one from
+[`project-ideas.md`](project-ideas.md), Starter tier only.
 
-Everyone writes their first prompt **on paper** and gets it checked against the four
-questions. Two minutes each. This catches the "make me a game" prompts before they waste
-20 minutes.
+**HS: pick your own app.** Students choose from [`project-ideas.md`](project-ideas.md)
+or bring their own. Instructor approves the idea before they start — sanity check on
+scope. Starter or Solid tier.
 
-### Build (40 min)
+### Before they touch the keyboard (MS 3 min / HS 5 min)
+
+Everyone writes their first prompt (or their next three changes, for MS) **on paper** and
+gets it checked against the four questions. This catches the "make me a game" prompts
+before they waste the whole block.
+
+### Build (MS 15 min / HS 25 min)
 
 Independent work. Instructor circulates.
 
 **Checkpoints on the board:**
 
-- [ ] First version runs
+- [ ] It runs
 - [ ] Made 3 changes, ran it after each one
 - [ ] Something broke and I fixed it
 - [ ] Made it look the way I want
@@ -274,7 +297,7 @@ Independent work. Instructor circulates.
 
 **Instructor moves while circulating:**
 
-- Student stuck on the same bug for 10+ minutes → tell them to describe the bug out
+- Student stuck on the same bug for 8+ minutes → tell them to describe the bug out
   loud to you first. They'll often fix it mid-sentence.
 - Student asking for huge changes → "What's the smallest version of that? Ask for that."
 - Student who finishes fast → "Now try to break it. Type nothing in the boxes. Type a
@@ -282,22 +305,21 @@ Independent work. Instructor circulates.
 - Student whose app got tangled → `Ctrl+C`, delete the file, start fresh with a better
   first prompt. Restarting is cheap and this is a valuable lesson.
 
+### Land it (MS 4 min / HS 5 min)
+
+Everyone stops building. Last change gets tested, and they write one sentence:
+*"My app lets you ___."*
+
 **MS/HS**
-> **MS:** Pairs. Blocks of 15 with a stretch/share at each break. Steer toward the
-> Starter tier of the idea list.
-> **HS:** Solo, one 40-minute block. Push toward Stretch tier. Add a checkbox: "I read
-> the code and understood one part of it."
-
-### Land it (10 min)
-
-Everyone stops building 10 minutes before showcase. Last change gets tested, and they
-write one sentence: *"My app lets you ___."*
+> **MS:** Pairs. Call a checkpoint at the halfway mark — "hands up if your app runs
+> right now." Anyone with a hand down gets you next.
+> **HS:** Solo. Add a checkbox: "I read the code and understood one part of it."
 
 ---
 
-## 2:20 — The AI Was Wrong (15 min)
+## The AI Was Wrong (MS 8 min / HS 12 min)
 
-The most important 15 minutes of the day. Do not cut this for time.
+The most important block of the session. Do not cut this for time.
 
 Put this on the projector — a real thing an AI will produce for "make a quiz app that
 shows my score at the end":
@@ -330,7 +352,7 @@ Then land the point:
 > computer will ever tell you the difference. That's your job — and it's why this class
 > exists."
 
-Then, hands-on: **everyone spends 5 minutes trying to break their own app.**
+Then, hands-on: **everyone spends the last few minutes trying to break their own app.**
 
 - Leave every box empty and click the button
 - Type a number where a word goes
@@ -341,35 +363,31 @@ Then, hands-on: **everyone spends 5 minutes trying to break their own app.**
 Found something? Fix it. That's the last change of the day.
 
 **MS/HS**
-> **MS:** Do the breaking exercise first (it's fun and physical), then show the code
-> example. Case sensitivity is the most graspable of the three bugs.
+> **MS:** Do the breaking exercise *first* (it's fun and physical), then show the code
+> example with only the case-sensitivity bug. Skip the percentage and whitespace bugs.
 > **HS:** Ask them to write the *fix* for each bug before you show it. Then ask the
 > better question: "How would you have caught this if I hadn't told you?" Answer:
 > you test with the wrong input on purpose.
 
 ---
 
-## 2:35 — Showcase (20 min)
+## Showcase + Take It Home (MS 7 min / HS 8 min)
 
-Everyone demos. 60 seconds each, hard limit.
+### Showcase (MS 5 min / HS 5 min)
 
-Format — three things, in this order:
+There is not time for everyone to present. Run a **gallery walk**: everyone leaves their
+app running, students circulate for 3 minutes, then 3–4 volunteers show theirs to the
+whole room for 45 seconds each.
+
+Volunteers cover two things:
 
 1. **Show it working** (don't describe it, run it)
 2. **One thing that broke and how you fixed it**
-3. **One thing you'd add with more time**
 
-Item 2 is non-optional. Making the struggle public is the point — it normalizes the
-loop and defuses the idea that anyone got it right the first time.
+Item 2 is non-optional. Making the struggle public normalizes the loop and defuses the
+idea that anyone got it right the first time.
 
-**MS/HS**
-> **MS:** 45 seconds. Do it as a gallery walk instead if the group is shy — everyone
-> leaves their app running and circulates.
-> **HS:** Add a fourth item: "One thing the AI got wrong that you had to correct."
-
----
-
-## 2:55 — Take It Home (5 min)
+### Take it home (MS 2 min / HS 3 min)
 
 Three things they leave with:
 
@@ -385,11 +403,16 @@ Three things they leave with:
 > what that does and doesn't mean. It means you can build things right now that would
 > have taken you months to learn. It doesn't mean you know how the code works. If you
 > want to *actually* get good at this, the next thing to do is read the code the AI
-> wrote and figure out what each part does. The people who can do both — steer the AI
-> *and* read the code — are going to be unbelievably good at this."
+> wrote and figure out what each part does."
 
-If they're coming back for Day 2, tell them the teaser: **"Tomorrow we find out how to
-tell when the AI is lying to you."**
+**MS/HS**
+> **MS:** Trim the honest note to its first two sentences. Then: "You made a thing that
+> works. Show somebody."
+> **HS:** Full version, plus: "The people who can do both — steer the AI *and* read the
+> code — are going to be unbelievably good at this."
+
+If they're coming back for Session 2, tell them the teaser: **"Next time we find out how
+to tell when the AI is lying to you."**
 
 ---
 
@@ -403,3 +426,5 @@ tell when the AI is lying to you."**
 - [ ] Index cards for the take-home loop
 - [ ] Know how to `Ctrl+C` out of a hung session and restart — you'll do it a dozen times
 - [ ] Read [`troubleshooting.md`](troubleshooting.md)
+- [ ] **Decide your break policy for MS** before you start — see the note under the MS
+      timing table
