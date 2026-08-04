@@ -10,7 +10,7 @@ in front of a classroom or handed to a student.
 
 **Current state: rebuilt against the real schedule, git removed throughout.** All four
 session files carry separate MS and HS timing tables. Nothing has been taught yet — see
-`HANDOFF.md` for what's still unverified.
+`PREFLIGHT.md` for what's still unverified.
 
 ---
 
@@ -18,7 +18,7 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 
 ```
 README.md                      Track overview — start here
-HANDOFF.md                     Decisions, open questions, what's unverified
+PREFLIGHT.md                   Untested assumptions, known gaps, pre-teaching checklist
 curriculum/
   day-1.md                     Standalone session — shared blocks, MS/HS durations
   day-2.md                     Prompting + verification; HS pitches capstone at the end
@@ -29,16 +29,21 @@ curriculum/
   troubleshooting.md           Instructor reference for when things break
 ```
 
-Days 1–2 use one block sequence with dual durations. Days 3–4 are split into separate
-`# MIDDLE SCHOOL` and `# HIGH SCHOOL` sections because the content genuinely differs.
+Sessions 1–2 use one block sequence with dual durations. Sessions 3–4 are split into
+separate `# MIDDLE SCHOOL` and `# HIGH SCHOOL` sections because the content genuinely
+differs.
+
+**Terminology:** filenames are `day-N.md` for historical reasons, but all prose says
+"Session N". Keep it that way — the camp calls them sessions, and MS/HS sessions aren't
+the same length so "day" is misleading.
 
 ---
 
 ## Hard constraints — do not change without asking
 
-**Day 1 must stand alone**, for both age groups. Students can attend one session only.
-Day 1 has to deliver a complete experience ending in a working app they built. Never add
-a Day 1 dependency on later material.
+**Session 1 must stand alone**, for both age groups. Students can attend one session
+only. Session 1 has to deliver a complete experience ending in a working app they built.
+Never add a Session 1 dependency on later material.
 
 **The real schedule — MS and HS are structurally different, not just paced
 differently:**
@@ -108,8 +113,9 @@ this. The most common failure mode when expanding a curriculum is adding lecture
 - **`cc`** — Claude Code on Anthropic models, for students with their own Claude Pro
   account. Functionally identical for this curriculum.
 
-Mentioned once on Day 1, then treated as the same thing. Don't add material that
-distinguishes them beyond the Day 2 "the interface and the model are separable" aside.
+Mentioned once in Session 1, then treated as the same thing. Don't add material that
+distinguishes them beyond the Session 2 "the interface and the model are separable"
+aside (HS only).
 
 **No git.** Not part of the toolset. See the no-git constraint above for the save-point
 alternative.
@@ -154,8 +160,8 @@ use case.
 
 ## Editing this repo
 
-- **Read `HANDOFF.md` first.** It records why things are the way they are and what's
-  still unverified. Several apparent gaps are deliberate.
+- **Read `PREFLIGHT.md` first.** It records what's still unverified and what's missing
+  on purpose. Several apparent gaps are deliberate — don't "fix" them.
 - **Check timing tables after any edit to a day file** — for both MS and HS, since they
   no longer sum to the same total. This is the easiest thing to silently break.
 - **Grep for `git` before treating a file as finished.** It should only appear inside an

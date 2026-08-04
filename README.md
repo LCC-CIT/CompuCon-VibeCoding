@@ -53,7 +53,8 @@ Each file in `curriculum/` is a full instructor script:
 - [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
 - [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
 
-Plus [`HANDOFF.md`](HANDOFF.md) — decisions, open questions, and what's still unverified.
+Plus [`PREFLIGHT.md`](PREFLIGHT.md) — what's untested, what's deliberately missing, and
+what to do before Session 1.
 
 ---
 
@@ -86,7 +87,7 @@ This launches Claude Code wired to a DeepSeek model. Students never touch an API
 
 **Students with their own Claude Pro account** can type `cc` instead, which runs Claude
 Code on Anthropic's models. Both work identically for everything in this curriculum —
-students should use whichever they have. Mention both on Day 1 and then stop
+students should use whichever they have. Mention both in Session 1 and then stop
 distinguishing.
 
 **Instructors should know:** Claude Code is Anthropic's terminal coding agent. It can
@@ -94,7 +95,7 @@ read and write files in the current folder, run commands, and hold a conversatio
 a codebase. On lab machines we run it against DeepSeek's models rather than Anthropic's
 — same tool, different engine underneath. That `cc` and `cc-ds` behave the same while
 running different models *is* the lesson: the interface and the model are separable
-pieces. Worth surfacing on Day 2.
+pieces. Worth surfacing in Session 2 (HS only — MS skips it for time).
 
 Each student works in their own folder:
 
@@ -143,7 +144,7 @@ wherever the content diverges within a shared block. The general pattern:
 | **Pacing** | More checkpoints, shorter work blocks (15–20 min) | Longer independent blocks (25–35 min) |
 | **Concepts** | "The AI guessed wrong" | "The AI's context window doesn't include that" |
 | **Verification** | Does it do the thing? Try to break it. | Edge cases, reading the code, does it match spec? |
-| **Reading code** | Optional, encouraged for the curious | Expected by Day 3 |
+| **Reading code** | Optional, encouraged for the curious | Expected by Session 3 |
 | **Group work** | Pairs throughout | Solo with pair-debugging |
 
 The demo apps and general arc are shared. Adjust ambition and scope, not the underlying

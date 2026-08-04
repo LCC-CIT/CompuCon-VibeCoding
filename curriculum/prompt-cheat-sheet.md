@@ -121,6 +121,10 @@ Commit this with a message describing what we added.
 
 ## Bigger Projects
 
+> *High school covers this in Session 3. Middle school doesn't — if you're in the MS
+> track and want to try it anyway, everything here works, it's just not something we
+> teach in class.*
+
 **Split by job.** One file, one purpose.
 
 ```

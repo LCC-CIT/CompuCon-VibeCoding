@@ -217,7 +217,7 @@ Say these out loud. They'll undersell it to themselves otherwise.
 
 ### Last thing
 
-> "You built four things this week that didn't exist on Monday. Go build a fifth."
+> "You built three things that didn't exist before you got here. Go build a fourth."
 
 Make sure everyone gets their project off the machine — USB, email, or shared folder.
 

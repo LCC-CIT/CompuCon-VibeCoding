@@ -1,13 +1,13 @@
 # Troubleshooting — Instructor Reference
 
-Skim before Day 1. Keep open during sessions.
+Skim before Session 1. Keep open during sessions.
 
 **Environment: Windows 11 laptops, PowerShell via Windows Terminal, `python` on PATH.**
 All commands below assume that.
 
 ---
 
-## Before Students Arrive (every day)
+## Before Students Arrive (every session)
 
 Run this on one lab machine:
 
@@ -55,7 +55,8 @@ identical. Differences you may see:
 - **A student didn't log in.** `cc` will prompt for auth. If they don't have an account,
   `cc-ds` is the answer.
 
-Don't let this become a topic. One mention on Day 1, then treat them as the same thing.
+Don't let this become a topic. One mention in Session 1, then treat them as the same
+thing.
 
 ### It's stuck thinking / no output for a long time
 
@@ -274,7 +275,8 @@ Have this ready. It's a real risk and it will happen at least once.
 
 **Analog activities that still teach the actual skills:**
 
-- **Prompt lab** — the six bad prompts from Day 2. Works entirely on paper.
+- **Prompt lab** — the bad prompts from Session 2 (six for HS, three for MS). Works
+  entirely on paper.
 - **Spec sheets** — write specs and tests for the next project.
 - **Bug report drill** — instructor describes a broken app verbally; students write a
   proper what-I-did / what-I-expected / what-happened report.

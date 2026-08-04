@@ -1,6 +1,20 @@
 # Project Idea Bank
 
-Sorted by how much can go wrong. Project this on Day 1 and keep it up all week.
+Sorted by how much can go wrong. Project this in Session 1 and keep it up for the rest
+of the track.
+
+**Which tier, by age group and session:**
+
+| | MS (85 min sessions) | HS (120/180/180/60) |
+|---|---|---|
+| **Session 1** build #2 | Starter — but most MS students customize Mad Libs instead | Starter or Solid |
+| **Session 2** spec-first build | Starter | Solid |
+| **Session 3** | *No new project* — MS hardens an existing app | Capstone continues (Solid or Stretch) |
+| **Session 4** | Capstone — **Starter**, two must-haves max | *No build time* — demos only |
+
+**Starter is a hard ceiling for middle school.** MS has 340 minutes total against HS's
+540, and the longest MS build block in the track is 38 minutes. A Solid-tier project
+will not finish.
 
 **All of these assume Python + tkinter.** That's deliberate — one language, one GUI
 library, no install friction on the Windows lab image, instant visual payoff.
@@ -14,7 +28,7 @@ idea; the stack is a detail. See the "different language" entry in
 
 ## Starter — build in 10–20 minutes
 
-Good for Day 1's second build and for middle school throughout.
+**Everything middle school builds comes from this tier**, plus HS's Session 1 build.
 
 | App | What it does | Why it works |
 |---|---|---|
@@ -33,7 +47,8 @@ Good for Day 1's second build and for middle school throughout.
 
 ## Solid — build in 30–60 minutes
 
-Day 2 spec-first builds, Day 3 for middle school, and Day 4 capstones.
+**High school only.** HS Session 2's spec-first build, and the smaller end of HS
+capstones. Too big for any MS block.
 
 | App | What it does | The interesting part |
 |---|---|---|
@@ -56,7 +71,8 @@ Day 2 spec-first builds, Day 3 for middle school, and Day 4 capstones.
 
 ## Stretch — 60–90 minutes, some ambition
 
-Day 3–4 for high school. Assume they'll cut something.
+**High school capstones only** — pitched end of Session 2, built in Session 3. Assume
+they'll cut something.
 
 | App | What it does | Why it stretches |
 |---|---|---|
@@ -82,7 +98,7 @@ Reach for these when you want to teach a particular thing.
 | Lesson | Use this |
 |---|---|
 | **Wrong-input testing** | Unit Converter, Grade Calculator, Tip Splitter |
-| **Splitting into files** | Choose-Your-Own-Story Engine, Quiz Game |
+| **Splitting into files** (HS only) | Choose-Your-Own-Story Engine, Quiz Game |
 | **Saving data** | Todo List, Habit Tracker, Budget Tracker |
 | **The AI's code runs but is wrong** | Grade Calculator (empty list), Wordle (duplicate letters) |
 | **Scope cutting** | Anything a student describes as "like [big famous app]" |
@@ -124,4 +140,9 @@ Always allow it. Sign it off against three questions:
 3. **What's the smallest version that's still the same idea?** Build that one.
 
 A student building their own idea badly is learning more than a student building your
-idea well. Protect that — just protect them from a 3-hour session with nothing to demo.
+idea well. Protect that — just protect them from reaching the showcase with nothing to
+demo.
+
+**Be strictest in MS Session 4.** It's the only MS session with a self-chosen project,
+and there are 38 minutes to build it. "Rebuild my Session 1 app, better" is a completely
+legitimate answer for anyone who can't settle on something.
