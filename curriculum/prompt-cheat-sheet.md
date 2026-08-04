@@ -12,15 +12,23 @@
 
 ## Starting Up
 
-```bash
-mkdir ~/vibe/my-project     # make a folder for your project
-cd ~/vibe/my-project        # go into it
-cc-ds                       # start Claude Code
+Open **PowerShell** (Windows Terminal), then:
+
+```powershell
+cd $HOME\Documents      # go to Documents
+mkdir my-project        # make a folder for your project
+cd my-project           # go into it
+cc-ds                   # start Claude Code
 ```
 
 `Ctrl+C` to quit. `cc-ds` to come back.
 
+**Got your own Claude Pro account?** Type `cc` instead of `cc-ds`. Everything else is
+identical.
+
 **Always start in your project folder.** That folder is the AI's whole world.
+
+> One command per line. PowerShell doesn't let you chain them with `&&`.
 
 ---
 
@@ -147,12 +155,13 @@ Python + tkinter multiple-choice quiz.
 
 ## Save Points
 
-```bash
-git init                                    # once, at the start
+```powershell
+git init                            # once, at the start
 
-git add -A && git commit -m "scoring works"  # SAVE — do this every time it works
+git add -A                          # SAVE — both lines, every time it works
+git commit -m "scoring works"
 
-git checkout .                              # UNDO everything since the last save
+git checkout .                      # UNDO everything since the last save
 ```
 
 > **Commit every time it works.** Not when you finish. Every time it works.

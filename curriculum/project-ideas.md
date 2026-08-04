@@ -2,8 +2,13 @@
 
 Sorted by how much can go wrong. Project this on Day 1 and keep it up all week.
 
-**All of these are Python + tkinter unless noted.** That's deliberate — one language, one
-GUI library, no install friction, instant visual payoff.
+**All of these assume Python + tkinter.** That's deliberate — one language, one GUI
+library, no install friction on the Windows lab image, instant visual payoff.
+
+**Students who already know another stack may use it.** Every idea below works in
+HTML/CSS/JS in a browser too, and most work as a plain terminal program. The idea is the
+idea; the stack is a detail. See the "different language" entry in
+[`troubleshooting.md`](troubleshooting.md) for the two conditions.
 
 ---
 

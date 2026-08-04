@@ -87,8 +87,10 @@ Say the reasoning out loud, because it's the real lesson:
 
 Everyone does these four things before writing anything:
 
-```bash
-mkdir ~/vibe/capstone && cd ~/vibe/capstone
+```powershell
+cd $HOME\Documents
+mkdir capstone
+cd capstone
 git init
 cc-ds
 ```

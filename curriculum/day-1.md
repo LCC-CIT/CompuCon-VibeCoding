@@ -27,8 +27,10 @@ Nothing in this session assumes a Day 2.
 
 **Do not explain anything first.** Open a terminal on the projector and build something.
 
-```bash
-mkdir ~/vibe/demo && cd ~/vibe/demo
+```powershell
+cd $HOME\Documents
+mkdir demo
+cd demo
 cc-ds
 ```
 
@@ -41,7 +43,7 @@ Type your prompt out loud so they see you thinking:
 Let it generate. Narrate what you see scroll by — "it's writing a file, it's showing me
 the code." Then run it:
 
-```bash
+```powershell
 python dice.py
 ```
 
@@ -96,9 +98,14 @@ Point at the terminal:
   you're in and run commands
 - It's running on a model from a company called **DeepSeek** — the tool and the AI
   brain behind it are separate pieces
+- **If you have your own Claude Pro account, type `cc` instead.** Same tool, different
+  model behind it. Everything today works the same either way.
 - It sees the folder you started it in. That's its whole world. Start it in your
   project folder.
-- `Ctrl+C` gets you out. `cc-ds` gets you back in.
+- `Ctrl+C` gets you out. `cc-ds` (or `cc`) gets you back in.
+
+> Say `cc-ds` for the rest of the session. Students on `cc` will follow along fine —
+> don't say both every time.
 
 **MS/HS**
 > **MS:** Stop after the intern analogy. Skip the tool/model distinction.
@@ -113,8 +120,10 @@ Lockstep. Everyone builds the same thing so nobody is lost and everyone succeeds
 
 ### Setup (5 min)
 
-```bash
-mkdir ~/vibe/madlibs && cd ~/vibe/madlibs
+```powershell
+cd $HOME\Documents
+mkdir madlibs
+cd madlibs
 cc-ds
 ```
 
@@ -134,7 +143,7 @@ Save it as story.py
 
 Then:
 
-```bash
+```powershell
 python story.py
 ```
 
@@ -202,7 +211,7 @@ nothing, describe the whole app. After that, one change at a time.
 
 ### Move 2: RUN
 
-```bash
+```powershell
 python story.py
 ```
 
@@ -387,8 +396,8 @@ tell when the AI is lying to you."**
 ## Instructor Prep Checklist
 
 - [ ] Test `cc-ds` on a lab machine the morning of
-- [ ] Confirm `python` (not `python3`) is on PATH, and tkinter is available:
-      `python -c "import tkinter"`
+- [ ] Confirm tkinter is available: `python -c "import tkinter"` (no output = good)
+- [ ] Know that students with Claude Pro can use `cc` — mention it once at the start
 - [ ] Have `dice.py` demo working before students arrive
 - [ ] Project the idea board and the prompt template
 - [ ] Index cards for the take-home loop

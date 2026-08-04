@@ -2,28 +2,40 @@
 
 Skim before Day 1. Keep open during sessions.
 
+**Environment: Windows 11 laptops, PowerShell via Windows Terminal, `python` on PATH.**
+All commands below assume that.
+
 ---
 
 ## Before Students Arrive (every day)
 
 Run this on one lab machine:
 
-```bash
-python --version                # confirm it's python, not just python3
+```powershell
+python --version                # should print 3.x
 python -c "import tkinter"      # must produce no output
 git --version
 cc-ds                           # should launch and accept a prompt
 ```
 
-If `python` isn't on PATH but `python3` is, **tell students that on the board** rather
-than fixing 25 machines. Same for `pip`/`pip3`.
-
 Git identity should be pre-set or the first commit prompts for it:
 
-```bash
+```powershell
 git config --global user.name "Student"
 git config --global user.email "student@compucon.local"
 ```
+
+### PowerShell gotchas worth knowing before you're in front of 25 kids
+
+- **`&&` does not work** in Windows PowerShell 5.1 (the Windows 11 default). One command
+  per line. If a student copies a chained command off the internet, this is why it failed.
+- **Paths use backslashes** — `$HOME\Documents`, not `~/Documents`. `/` often works
+  anyway, but the AI may generate either; both are fine in Python.
+- **Execution policy** can block scripts. It won't affect anything in this curriculum
+  (we only run `python file.py`), but if you hit it: `Get-ExecutionPolicy` to check.
+- **`python` with no arguments** on some Windows setups opens the Microsoft Store instead
+  of Python. If that happens, Python isn't properly installed on that image — swap the
+  machine, don't debug it during class.
 
 ---
 
@@ -34,6 +46,20 @@ git config --global user.email "student@compucon.local"
 1. `Ctrl+C`, run `cc-ds` again — fixes most of them
 2. Check the network — it needs to reach the model API
 3. Move to a spare machine rather than debugging in front of the class
+
+### A student is using `cc` and something differs
+
+`cc` runs Claude Code on Anthropic's models via the student's own Claude Pro account;
+`cc-ds` runs it on DeepSeek. The tool, commands, and everything in this curriculum are
+identical. Differences you may see:
+
+- **Slightly different code style or verbosity.** Not a problem. Don't chase it.
+- **`cc` hits a usage limit.** Pro accounts have caps. Have them switch to `cc-ds` —
+  the project folder is unchanged, so they just restart and keep going.
+- **A student didn't log in.** `cc` will prompt for auth. If they don't have an account,
+  `cc-ds` is the answer.
+
+Don't let this become a topic. One mention on Day 1, then treat them as the same thing.
 
 ### It's stuck thinking / no output for a long time
 
@@ -55,7 +81,7 @@ Code is untouched. If there's a `CLAUDE.md`, the AI re-reads the project immedia
 
 Almost always started in the wrong folder.
 
-```bash
+```powershell
 pwd     # where am I?
 ls      # is my file here?
 ```
@@ -91,17 +117,19 @@ opposite of the whole curriculum.
 
 ### `ModuleNotFoundError: No module named 'tkinter'`
 
-Not installed. On Debian/Ubuntu lab images: `sudo apt install python3-tk`. Needs to
-happen before Day 1, not during.
+On Windows, tkinter ships with the standard python.org installer, so this means Python
+was installed without the "tcl/tk and IDLE" option ticked. **Not a class-time fix** —
+move the student to another machine and reimage later.
 
-### `python: command not found`
+### `python` opens the Microsoft Store
 
-Try `python3`. Put whichever works on the board.
+Windows' app-execution alias is intercepting it and real Python isn't on PATH. Swap
+machines. Don't fix this during a session.
 
 ### The tkinter window doesn't appear
 
-- On a remote/SSH session there's no display — students must be at the physical machine
-- The window may have opened behind the terminal — check the taskbar
+- **Check the taskbar** — it usually opened behind Windows Terminal. This is the answer
+  most of the time.
 - Missing `root.mainloop()` at the end. Tell the AI: *"The window doesn't appear when I
   run it."*
 
@@ -122,9 +150,18 @@ Mixed tabs and spaces. Easiest fix: *"There's an indentation error on line 23, f
 
 Pre-set it (above), or:
 
-```bash
+```powershell
 git config --global user.name "Student"
 git config --global user.email "student@compucon.local"
+```
+
+### `git add -A && git commit -m "..."` fails
+
+PowerShell 5.1 doesn't support `&&`. Two separate lines:
+
+```powershell
+git add -A
+git commit -m "message here"
 ```
 
 ### `git checkout .` didn't restore
@@ -139,7 +176,7 @@ untracked and survives. `git status` shows it. Delete it manually.
 
 ### They committed a broken version over a working one
 
-```bash
+```powershell
 git log --oneline          # find the good one
 git checkout <hash> -- .   # restore files from it
 ```
@@ -159,6 +196,22 @@ Never "add more features." Instead:
   me."
 - "Go help someone who's stuck." (Best option. Teaching is how they consolidate.)
 - "Write a README so someone else could run it."
+
+### A student wants to use a language other than Python
+
+Allowed — if they already know it. Say yes and set two conditions:
+
+1. **It has to run on this laptop with no installs.** Web (HTML/CSS/JS in a browser) is
+   the easy yes. Anything needing a toolchain, SDK, or account is a no today.
+2. **They're on their own for language-specific bugs.** You're supporting 25 students in
+   Python. Be upfront and friendly about it.
+
+Everything you're teaching still applies unchanged — prompt sizing, the four checks,
+scope cutting, commits. Only the example code differs. A student building in JS is
+getting the same curriculum.
+
+Watch for the student who picks an unfamiliar language *because* it sounds impressive.
+Ask: "have you written this before?" If no, steer to Python for today.
 
 ### One student is way behind
 

@@ -24,15 +24,17 @@ knowing what to ask for, how much to ask for at once, and how to tell whether yo
 | **3** | *Build Something Bigger* | A multi-file project + planning before building |
 | **4** | *Make It Yours* | A capstone project, demoed to the room |
 
-Each file in this folder is a full instructor script for one session:
+Each file in `curriculum/` is a full instructor script for one session:
 
-- [`day-1.md`](day-1.md) — standalone session
-- [`day-2.md`](day-2.md)
-- [`day-3.md`](day-3.md)
-- [`day-4.md`](day-4.md)
-- [`prompt-cheat-sheet.md`](prompt-cheat-sheet.md) — one-page student handout
-- [`project-ideas.md`](project-ideas.md) — idea bank, sorted by difficulty
-- [`troubleshooting.md`](troubleshooting.md) — instructor-facing "when it breaks"
+- [`day-1.md`](curriculum/day-1.md) — standalone session
+- [`day-2.md`](curriculum/day-2.md)
+- [`day-3.md`](curriculum/day-3.md)
+- [`day-4.md`](curriculum/day-4.md)
+- [`prompt-cheat-sheet.md`](curriculum/prompt-cheat-sheet.md) — one-page student handout
+- [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
+- [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
+
+Plus [`HANDOFF.md`](HANDOFF.md) — decisions, open questions, and what's still unverified.
 
 ---
 
@@ -54,30 +56,52 @@ every single day.
 
 ## The Setup
 
-Lab machines are pre-configured. Students open a terminal and type:
+**Windows 11 lab laptops, pre-configured.** Students open **PowerShell** (via Windows
+Terminal) and type:
 
-```bash
+```powershell
 cc-ds
 ```
 
 This launches Claude Code wired to a DeepSeek model. Students never touch an API key.
 
+**Students with their own Claude Pro account** can type `cc` instead, which runs Claude
+Code on Anthropic's models. Both work identically for everything in this curriculum —
+students should use whichever they have. Mention both on Day 1 and then stop
+distinguishing.
+
 **Instructors should know:** Claude Code is Anthropic's terminal coding agent. It can
 read and write files in the current folder, run commands, and hold a conversation about
-a codebase. We run it against DeepSeek's models rather than Anthropic's — same tool,
-different engine underneath. This is worth mentioning to students on Day 2 as a real
-lesson about how AI tools are built: the *interface* and the *model* are separable
-pieces.
+a codebase. On lab machines we run it against DeepSeek's models rather than Anthropic's
+— same tool, different engine underneath. That `cc` and `cc-ds` behave the same while
+running different models *is* the lesson: the interface and the model are separable
+pieces. Worth surfacing on Day 2.
 
 Each student works in their own folder:
 
-```bash
-mkdir ~/vibe/my-project && cd ~/vibe/my-project
+```powershell
+cd $HOME\Documents
+mkdir my-project
+cd my-project
 cc-ds
 ```
 
-Working in a project folder, not the home directory, matters — it keeps the AI's
-attention on the right files.
+Working in a project folder, not Documents itself, matters — that folder is the AI's
+whole world, and a focused folder means focused attention.
+
+> **PowerShell note for instructors:** Windows PowerShell 5.1 (the Windows 11 default)
+> does **not** support `&&` for chaining commands. Every command in this curriculum is
+> written one per line for that reason. If you rewrite any of them, keep them separate.
+
+### The stack
+
+Python + tkinter is the default and what every example uses. It's chosen deliberately:
+zero install friction on the lab image, and a visible window in the first 60 seconds.
+
+**Students who already know another stack may use it.** Web (HTML/CSS/JS) is the most
+likely alternative and works fine. The curriculum's actual content — prompt sizing,
+verification, scope cutting, save points — is stack-independent. Only the example code
+changes.
 
 ---
 

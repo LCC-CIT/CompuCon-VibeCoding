@@ -233,11 +233,16 @@ Without save points, you're rebuilding from scratch.
 
 Three commands. That's the whole lesson.
 
-```bash
-git init                        # once, at the start
-git add -A && git commit -m "working version with scoring"   # save point
-git checkout .                  # undo everything since the last save point
+```powershell
+git init                    # once, at the start
+
+git add -A                  # SAVE POINT — these two together
+git commit -m "working version with scoring"
+
+git checkout .              # UNDO everything since the last save point
 ```
+
+> Two separate lines for the save point. PowerShell 5.1 doesn't support `&&`.
 
 Practice right now, everyone:
 
