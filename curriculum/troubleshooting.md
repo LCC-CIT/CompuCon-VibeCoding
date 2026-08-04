@@ -143,7 +143,7 @@ Mixed tabs and spaces. Easiest fix: *"There's an indentation error on line 23, f
 
 ## Save Point / Undo Problems
 
-Students don't use git. Save points are folder copies — see `day-3.md`. The reference
+Students don't use git. Save points are folder copies — see Session 3. The reference
 commands:
 
 ```powershell

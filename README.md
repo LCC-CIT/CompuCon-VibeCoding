@@ -45,13 +45,24 @@ genuinely differs.
 
 Each file in `curriculum/` is a full instructor script:
 
-- [`day-1.md`](curriculum/day-1.md) — standalone session, both age groups
-- [`day-2.md`](curriculum/day-2.md) — prompting + verification; HS pitches capstone
-- [`day-3.md`](curriculum/day-3.md) — split: MS *Make It Solid* / HS *Build Something Bigger*
-- [`day-4.md`](curriculum/day-4.md) — split: MS capstone day / HS 60-min demo day
-- [`prompt-cheat-sheet.md`](curriculum/prompt-cheat-sheet.md) — one-page student handout
+Each session has its own folder containing an instructor lesson plan and a self-contained
+handout for each age group:
+
+| Session | Lesson plan | Camper notes |
+|---|---|---|
+| **1** | [plan](curriculum/session-1/lesson-plan.md) | [MS](curriculum/session-1/ms-camper-notes.md) · [HS](curriculum/session-1/hs-camper-notes.md) |
+| **2** | [plan](curriculum/session-2/lesson-plan.md) | [MS](curriculum/session-2/ms-camper-notes.md) · [HS](curriculum/session-2/hs-camper-notes.md) |
+| **3** | [plan](curriculum/session-3/lesson-plan.md) | [MS](curriculum/session-3/ms-camper-notes.md) · [HS](curriculum/session-3/hs-camper-notes.md) |
+| **4** | [plan](curriculum/session-4/lesson-plan.md) | [MS](curriculum/session-4/ms-camper-notes.md) · [HS](curriculum/session-4/hs-camper-notes.md) |
+
+Shared reference material:
+
 - [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
 - [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
+
+**Camper notes are self-contained** — each one carries the commands, prompts, and
+reminders for that session, so campers never juggle two documents. Print one per camper
+per session.
 
 Plus [`PREFLIGHT.md`](PREFLIGHT.md) — what's untested, what's deliberately missing, and
 what to do before Session 1.
@@ -127,7 +138,7 @@ changes.
 
 **No git.** Students don't use version control. "Save points" means copying the project
 folder when it works and copying it back to undo — taught in
-[`day-3.md`](curriculum/day-3.md) for both age groups.
+[Session 3](curriculum/session-3/lesson-plan.md) for both age groups.
 
 ---
 

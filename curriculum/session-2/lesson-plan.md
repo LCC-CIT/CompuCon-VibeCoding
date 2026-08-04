@@ -518,6 +518,7 @@ capstone. Session 4 is demos only."
 
 ## Instructor Prep Checklist
 
+- [ ] **Print camper notes** for the right age group, one per camper
 - [ ] Print the bad-prompts handout (one per pair) — 3 prompts for MS, 6 for HS
 - [ ] Print spec sheets (one per student, plus spares)
 - [ ] Have a Session 1 app on hand for the six-changes-at-once demo (HS)

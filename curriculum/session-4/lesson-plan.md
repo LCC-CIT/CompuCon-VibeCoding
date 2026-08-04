@@ -78,7 +78,7 @@ Every student gets a ~15-second sign-off. You are looking for one thing:
 > sessions?**
 
 Default to **yes** on anything from the Starter tier of
-[`project-ideas.md`](project-ideas.md), and **cut hard** on anything else.
+[`project-ideas.md`](../project-ideas.md), and **cut hard** on anything else.
 
 | They pitched | Cut it to |
 |---|---|
@@ -370,6 +370,11 @@ next time you run this track — write down what you hear.
 ---
 
 ## Instructor Prep Checklist
+
+**Both groups:**
+
+- [ ] **Print camper notes** for the right age group, one per camper. Session 4's notes
+      end with take-home guidance, so campers should leave with them.
 
 **MS:**
 

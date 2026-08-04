@@ -622,6 +622,8 @@ Have a fallback ready: if it crashes on stage, say what it does and keep going.
 
 **Both groups:**
 
+- [ ] **Print camper notes** for the right age group, one per camper
+
 - [ ] Practice the `Copy-Item -Recurse` / `Remove-Item -Recurse` restore cycle yourself
       first — you'll be walking students through it under time pressure
 - [ ] Know the File Explorer version too (right-click → Copy → Paste → rename); some

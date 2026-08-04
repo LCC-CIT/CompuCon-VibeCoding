@@ -50,8 +50,9 @@ Deliberately not done, so nobody "fixes" them by accident.
 - **MS has no scheduled breaks.** All four MS sessions are 85 minutes straight. Each file
   notes where to take five minutes and what to cut for it, but the call is the
   instructor's and should be made before the session.
-- **Session 2's bad-prompts handout and spec sheet are inline in `day-2.md`,** not
-  separate printable files.
+- **Session 2's bad-prompts handout and spec sheet are inline in the lesson plan,** not
+  separate printable files. The spec sheet is reproduced in the camper notes, so campers
+  have it; the bad-prompts list is instructor-side only.
 
 ---
 
@@ -73,8 +74,10 @@ Deliberately not done, so nobody "fixes" them by accident.
    track and the one that must land perfectly, since it's standalone
 3. **Confirm class size**; adjust HS Session 4's showcase format if above ~20
 4. **Decide the MS break policy**
-5. **Print `prompt-cheat-sheet.md`** double-sided and confirm it fits on one sheet
-6. **Print the Session 2 handouts** (bad prompts, spec sheets) — or pull them into
-   separate files first if you'd rather
+5. **Print the camper notes** — one per camper per session, correct age group. Check how
+   many pages each runs at your printer settings; they're written to be kept and
+   referred back to, not skimmed once
+6. **Print the Session 2 bad-prompts handout** from the lesson plan — or pull it into a
+   separate file first if you'd rather
 7. **Dry-run the Session 1 opening demo.** The 6-minute live build is the hook for the
    entire track and there's no script for it

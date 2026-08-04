@@ -20,22 +20,31 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 README.md                      Track overview — start here
 PREFLIGHT.md                   Untested assumptions, known gaps, pre-teaching checklist
 curriculum/
-  day-1.md                     Standalone session — shared blocks, MS/HS durations
-  day-2.md                     Prompting + verification; HS pitches capstone at the end
-  day-3.md                     SPLIT: MS "Make It Solid" / HS "Build Something Bigger"
-  day-4.md                     SPLIT: MS capstone day / HS 60-min demo day
-  prompt-cheat-sheet.md        Student handout, printed double-sided
+  session-1/
+    lesson-plan.md             Instructor script — both age groups
+    ms-camper-notes.md         Student handout, middle school
+    hs-camper-notes.md         Student handout, high school
+  session-2/                   (same three files)
+  session-3/
+  session-4/
   project-ideas.md             Idea bank by difficulty
   troubleshooting.md           Instructor reference for when things break
 ```
 
-Sessions 1–2 use one block sequence with dual durations. Sessions 3–4 are split into
-separate `# MIDDLE SCHOOL` and `# HIGH SCHOOL` sections because the content genuinely
-differs.
+Every session folder has exactly three files: one lesson plan, two camper handouts.
 
-**Terminology:** filenames are `day-N.md` for historical reasons, but all prose says
-"Session N". Keep it that way — the camp calls them sessions, and MS/HS sessions aren't
-the same length so "day" is misleading.
+Sessions 1–2 lesson plans use one block sequence with dual durations. Sessions 3–4 are
+split into separate `# MIDDLE SCHOOL` and `# HIGH SCHOOL` sections because the content
+genuinely differs.
+
+**Terminology:** "Session N" everywhere — folders, filenames, and prose. The camp calls
+them sessions, and MS/HS sessions aren't the same length, so "day" is misleading. There
+is no `day-N.md` anymore.
+
+**Camper notes are self-contained.** Each one repeats the commands and reminders needed
+for that session, so a camper never needs a second document mid-class. There is no
+separate cheat sheet — it was retired to stop two handouts from drifting apart. If you
+add a command or a rule, check whether the camper notes for that session need it too.
 
 ---
 
@@ -85,7 +94,7 @@ Remove-Item -Recurse myproject                    # undo, step 1
 Copy-Item -Recurse myproject-working myproject    # undo, step 2
 ```
 
-Taught in `day-3.md` for both age groups. Same concept as a commit, no new tool. Always
+Taught in Session 3 for both age groups. Same concept as a commit, no new tool. Always
 offer the File Explorer equivalent alongside the commands — some students need the
 visual route. **Grep for `git` before calling any file finished.**
 
