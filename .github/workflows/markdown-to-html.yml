@@ -1,12 +1,14 @@
-name: Convert Markdown to HTML
+name: Convert changed curriculum markdown to docs HTML
 
 on:
   push:
-    branches:
-      - main
     paths:
       - 'curriculum/**/*.md'
+      - '.github/workflows/markdown-to-html.yml'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   convert:
@@ -14,56 +16,60 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Get changed markdown files
-        id: changed-md
-        uses: tj-actions/changed-files@v45
+        id: changed
+        uses: tj-actions/changed-files@v47
         with:
           files: |
             curriculum/**/*.md
 
       - name: Install pandoc
-        if: steps.changed-md.outputs.any_changed == 'true'
+        if: steps.changed.outputs.any_changed == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
 
-      - name: Convert changed markdown files to HTML
-        if: steps.changed-md.outputs.any_changed == 'true'
+      - name: Convert only changed markdown files to docs
+        if: steps.changed.outputs.any_changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
-
-          # Ensure docs folder and .nojekyll exist so GitHub Pages skips Jekyll build
           mkdir -p docs
-          touch docs/.nojekyll
 
-          for md in ${{ steps.changed-md.outputs.all_changed_files }}; do
-            if [ -f "$md" ]; then
-              # Replace 'curriculum/' prefix with 'docs/' and change extension to .html
-              rel_path="${md#curriculum/}"
-              html="docs/${rel_path%.md}.html"
+          # changed-files output is newline-separated
+          while IFS= read -r md; do
+            [ -z "$md" ] && continue
+            [ ! -f "$md" ] && continue  # skip deleted/renamed-away files
 
-              # Automatically create destination subfolders if needed
-              mkdir -p "$(dirname "$html")"
+            rel="${md#curriculum/}"          # unit1/lesson.md
+            out="docs/${rel%.md}.html"       # docs/unit1/lesson.html
+            mkdir -p "$(dirname "$out")"
 
-              echo "Converting $md -> $html"
-              pandoc "$md" -f markdown -t html5 -s -o "$html"
-            fi
-          done
+            echo "Converting $md -> $out"
+            pandoc "$md" -f markdown -t html5 -s -o "$out"
+          done <<< "${{ steps.changed.outputs.all_changed_files }}"
 
-      - name: Commit and push changes
-        if: steps.changed-md.outputs.any_changed == 'true'
+      - name: Commit docs updates
+        if: steps.changed.outputs.any_changed == 'true'
+        shell: bash
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add docs/
-          if ! git diff --staged --quiet; then
-            git commit -m "Auto-convert updated markdown files to HTML in docs/"
-            git push
-          else
-            echo "No HTML changes to commit."
+          set -euo pipefail
+          git add docs
+
+          if git diff --cached --quiet; then
+            echo "No docs changes to commit."
+            exit 0
           fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Auto-generate docs HTML from changed curriculum markdown"
+          git push
+
+      - name: No markdown changes
+        if: steps.changed.outputs.any_changed != 'true'
+        run: echo "No curriculum markdown changes detected."
