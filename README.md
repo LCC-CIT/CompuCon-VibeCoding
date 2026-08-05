@@ -60,8 +60,19 @@ Shared reference material:
 - [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
 - [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
 
-Public site: [`docs/index.html`](docs/index.html) — camper-facing landing page, published
-via GitHub Pages from the `docs/` folder.
+## Published site
+
+GitHub Pages serves from `docs/`. Hand-authored pages:
+
+- [`index.html`](docs/index.html) — landing page
+- [`middle-school.html`](docs/middle-school.html) — MS session index, links the `ms-` notes
+- [`high-school.html`](docs/high-school.html) — HS session index, links the `hs-` notes
+- [`faq.html`](docs/faq.html) — questions
+
+Everything else in `docs/` is generated from `curriculum/` by a GitHub Action and should
+not be edited directly. **Adding a hand-authored page means adding it to the
+`HANDWRITTEN` list in `.github/workflows/cleanup-deleted-markdown-html.yml`**, or the
+cleanup step will delete it.
 
 **Camper notes are self-contained** — each one carries the commands, prompts, and
 reminders for that session, so campers never juggle two documents. Print one per camper

@@ -20,7 +20,14 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 README.md                      Track overview — start here
 PREFLIGHT.md                   Untested assumptions, known gaps, pre-teaching checklist
 docs/                          PUBLISHED SITE — GitHub Pages serves from here
-  index.html                   Public-facing camp landing page
+  index.html                   Landing page          ┐
+  middle-school.html           MS session index      │ hand-authored,
+  high-school.html             HS session index      │ see warning below
+  faq.html                     Questions             ┘
+  style.css                    Shared theme for the four pages above
+  session-N/*.html             AUTO-GENERATED from curriculum/ — do not edit
+  project-ideas.html           AUTO-GENERATED
+  troubleshooting.html         AUTO-GENERATED
   .nojekyll                    Skips Jekyll processing; leave it alone
 curriculum/
   session-1/
@@ -49,15 +56,35 @@ for that session, so a camper never needs a second document mid-class. There is 
 separate cheat sheet — it was retired to stop two handouts from drifting apart. If you
 add a command or a rule, check whether the camper notes for that session need it too.
 
-**All HTML goes in `docs/`.** GitHub Pages is configured to serve from that folder, so a
-page anywhere else simply won't be published. Keep pages self-contained — inline CSS and
-JS, no CDN links, no build step. The camp network may block outside requests, and there's
-no pipeline here to bundle anything.
+**All HTML goes in `docs/`.** GitHub Pages serves from that folder, so a page anywhere
+else won't be published. No CDN links and no build step — the camp network may block
+outside requests. Relative local files (`style.css`) are fine; external requests aren't.
 
-`docs/index.html` is public-facing marketing aimed at campers and parents. It quotes
-figures from the curriculum (session lengths, project examples, the "genius intern"
-line). **If the schedule changes, update it too** — it's the one file that can go stale
-without any of the internal cross-checks catching it.
+**`docs/` has two kinds of file, and they're handled completely differently:**
+
+*Auto-generated* — `session-N/*.html`, `project-ideas.html`, `troubleshooting.html`. A
+GitHub Action runs pandoc over `curriculum/**/*.md` on every push and rewrites these.
+**Editing them directly is pointless; your changes get overwritten.** Edit the markdown.
+
+*Hand-authored* — `index.html`, `middle-school.html`, `high-school.html`, `faq.html`,
+plus `style.css`. No markdown source. These are the public-facing pages.
+
+> **⚠ Adding a new hand-authored page? You must add it to the `HANDWRITTEN` array in
+> `.github/workflows/cleanup-deleted-markdown-html.yml`.** That workflow deletes any
+> `.html` in `docs/` with no matching `.md` in `curriculum/`. It has already silently
+> deleted `index.html` once. The array is the only thing preventing a repeat.
+
+The four hand-authored pages share `style.css` rather than each inlining the theme, so a
+colour or spacing change happens in one place. `index.html` keeps its terminal animation
+as an inline `<script>`.
+
+These pages quote figures from the curriculum (session lengths, project examples, the
+"genius intern" line). **If the schedule changes, update them too** — they're outside
+every internal cross-check, so nothing else will catch it.
+
+They're also written at roughly a 4th–6th grade reading level on purpose, since middle
+schoolers are the youngest readers. Keep sentences short and gloss any jargon
+(`prompt`, `capstone`, `multi-file`) on first use.
 
 ---
 

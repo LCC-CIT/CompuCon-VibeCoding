@@ -45,8 +45,31 @@ jobs:
 
           echo "Converted $count files."
 
-          # Step 2: Delete any .html in docs/ whose corresponding .md no longer exists in curriculum/
+          # Hand-authored pages. These have no markdown source in curriculum/ and must
+          # NOT be treated as stale. Add any new hand-written page here, or the cleanup
+          # step below will delete it on the next run.
+          HANDWRITTEN=(
+            "docs/index.html"
+            "docs/middle-school.html"
+            "docs/high-school.html"
+            "docs/faq.html"
+          )
+
+          is_handwritten() {
+            local candidate="$1"
+            for keep in "${HANDWRITTEN[@]}"; do
+              [ "$candidate" = "$keep" ] && return 0
+            done
+            return 1
+          }
+
+          # Step 2: Delete any .html in docs/ whose corresponding .md no longer exists in
+          # curriculum/ — except the hand-authored pages listed above.
           while IFS= read -r -d '' html; do
+            if is_handwritten "$html"; then
+              echo "Keeping hand-authored page: $html"
+              continue
+            fi
             rel="${html#docs/}"
             source_md="curriculum/${rel%.html}.md"
             if [ ! -f "$source_md" ]; then

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding — CompuCon Summer Camp</title>
+<meta name="description" content="Build real apps by describing what you want. A four-session coding track at CompuCon for middle and high school campers. No experience required.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="#top" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="middle-school.html">Middle School</a>
+      <a href="high-school.html">High School</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge"><span class="dot"></span>Middle &amp; High School</span>
+      <h1>Describe an app.<br><span class="grad">Watch it get built.</span><br>Find out if it's any good.</h1>
+      <p class="lede">
+        You won't type the code. You'll tell an AI what you want, then run it and find out
+        what's wrong. Something always is.
+      </p>
+      <p class="sub">
+        Four sessions. Real apps that actually run. No experience needed, and we mean that
+        literally. You build your first app on day one.
+      </p>
+    </div>
+
+    <div class="term" aria-hidden="true">
+      <div class="term-bar">
+        <span class="tl" style="background:#ff5f57"></span>
+        <span class="tl" style="background:#febc2e"></span>
+        <span class="tl" style="background:#28c840"></span>
+        <span class="term-title">PowerShell — session 1</span>
+      </div>
+      <div class="term-body" id="term"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IT IS ============ -->
+<section id="what">
+  <div class="wrap">
+    <span class="tag">what is vibe coding, actually</span>
+    <h2>It's steering, not typing.</h2>
+    <p style="max-width:60ch">
+      You describe what you want in plain English. An AI writes the code. Then the interesting
+      part starts. You run it, decide if it's actually right, and tell it what to change.
+      Over and over, until it's good.
+    </p>
+
+    <div class="cards c3">
+      <div class="card rv">
+        <div class="ico i-cy">01</div>
+        <h3>Ask</h3>
+        <p>
+          "Build a dice roller with a big ROLL button. Show a number from 1 to 20 in huge text."
+          That's a real prompt. (Prompt just means what you type to the AI.) Knowing what to
+          say is the whole skill.
+        </p>
+      </div>
+      <div class="card rv">
+        <div class="ico i-am">02</div>
+        <h3>Run</h3>
+        <p>
+          A window opens on your screen. Sometimes it's exactly right. Sometimes it crashes.
+          Sometimes it works perfectly and does completely the wrong thing.
+        </p>
+      </div>
+      <div class="card rv">
+        <div class="ico i-vi">03</div>
+        <h3>Fix</h3>
+        <p>
+          You say what broke: what you did, what you expected, what actually happened. That's
+          also exactly how engineers report bugs to each other. You pick up a real job skill
+          without noticing.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:34px;font-size:.94rem">
+      Things campers build. Every one opens a real window, and you take it home:
+    </p>
+    <div class="chips">
+      <span class="chip">Mad Libs generator</span>
+      <span class="chip">d20 dice roller</span>
+      <span class="chip">Quiz game</span>
+      <span class="chip">Wordle clone</span>
+      <span class="chip">Pomodoro timer</span>
+      <span class="chip">Hangman</span>
+      <span class="chip">Pixel art editor</span>
+      <span class="chip">Typing speed test</span>
+      <span class="chip">Text adventure</span>
+      <span class="chip">…or your own idea</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CATCH ============ -->
+<section id="catch" class="band">
+  <div class="wrap catch-grid">
+    <div>
+      <span class="tag">the part nobody tells you</span>
+      <h2>It ran ≠ it's right.</h2>
+      <p>
+        The AI is an incredibly fast guesser. It has read more code than any person ever will.
+        It will also hand you something broken and act like nothing is wrong.
+      </p>
+      <blockquote class="quote">
+        It's like a genius intern on day one. Super fast, knows every trick, has no idea what
+        you actually want. And it will never tell you it's confused.
+      </blockquote>
+      <p>
+        Catching that is the actual class. Anyone can get code to run. Not everyone can tell
+        if it's <em>right</em>. That skill keeps working no matter how the tools change.
+      </p>
+    </div>
+
+    <div>
+      <div class="code-block">
+<span class="cm"># asked for: a quiz that shows my score</span>
+<span class="k">for</span> q <span class="k">in</span> questions:
+    ans = input(q[<span class="s">"text"</span>])
+    <span class="k">if</span> ans == q[<span class="s">"correct"</span>]:
+        score += <span class="n">1</span>
+
+print(<span class="s">f"That's {score/len(questions)*100}%!"</span>)
+      </div>
+      <div class="bug"><span>▲</span><span>Type "paris" instead of "Paris" → marked wrong.</span></div>
+      <div class="bug"><span>▲</span><span>Score 1 out of 3 → prints <b>33.33333333333333%</b></span></div>
+      <div class="bug"><span>▲</span><span>Runs perfectly. Crashes never. Still wrong.</span></div>
+      <p style="margin-top:16px;font-size:.88rem">
+        Nothing on your computer will ever catch this. That's your job. By session two you'll
+        spot it in about four seconds.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRACKS ============ -->
+<!-- ============ SESSIONS ============ -->
+<section id="sessions">
+  <div class="wrap">
+    <span class="tag">the arc</span>
+    <h2>Four sessions that build on each other.</h2>
+    <p style="max-width:60ch">
+      Session 1 works all by itself. If you can only come to one, you'll still leave with a
+      finished app you built.
+    </p>
+
+    <div class="tl-wrap">
+      <div class="step rv">
+        <div class="snum">01</div>
+        <div>
+          <h3>Make Something Work</h3>
+          <p>
+            No lecture first. Your teacher builds an app live in front of you. Then you build
+            one. Then you break it on purpose and fix it.
+          </p>
+        </div>
+      </div>
+
+      <div class="step rv">
+        <div class="snum">02</div>
+        <div>
+          <h3>Ask Better, Check Harder</h3>
+          <p>
+            How much to ask for at once, and how to check what you got back. Ends with everyone
+            swapping computers to try to break a partner's app.
+          </p>
+        </div>
+      </div>
+
+      <div class="step rv">
+        <div class="snum">03</div>
+        <div>
+          <h3>Make It Solid / Build Something Bigger</h3>
+          <p>Middle school and high school do different things in this session.</p>
+          <div class="split">
+            <div><b class="b-ms">MS</b>Learn to save your work so a mistake is never permanent. Then toughen up one app until it refuses to break.</div>
+            <div><b class="b-hs">HS</b>Spread a project across several files, plan it out before building, and finish your big final project.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step rv">
+        <div class="snum">04</div>
+        <div>
+          <h3>Make It Yours / Demo Day</h3>
+          <p>
+            Everyone shows what they made. Two things are required every time: one thing that
+            broke, and one thing the AI got wrong that you caught. Nobody gets to pretend it
+            was easy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var lines = [
+    {t:'$ ', c:'c-prompt', inst:true},
+    {t:'cc-ds', c:'c-you', inst:true},
+    {t:'', inst:true},
+    {t:'> Build a dice roller in Python with a tkinter', c:'c-you'},
+    {t:'  window. Big ROLL button. Show a random number', c:'c-you'},
+    {t:'  from 1 to 20 in huge text. Save as dice.py', c:'c-you'},
+    {t:'', inst:true},
+    {t:'  ✓ created dice.py', c:'c-ok', inst:true},
+    {t:'', inst:true},
+    {t:'$ ', c:'c-prompt', inst:true},
+    {t:'python dice.py', c:'c-you', inst:true},
+    {t:'', inst:true},
+    {t:'  # a window opens. you click it. it works.', c:'c-cmt', inst:true},
+    {t:'  # elapsed: 4 min 12 s', c:'c-cmt', inst:true},
+    {t:'', inst:true},
+    {t:'> now make it green on a 20 and red on a 1', c:'c-you'}
+  ];
+
+  var term = document.getElementById('term');
+  if(term){
+    var cur = document.createElement('span');
+    cur.className = 'cursor-blk';
+
+    if(reduce){
+      lines.forEach(function(l){
+        var s=document.createElement('span');
+        s.className='ln '+(l.c||''); s.textContent=l.t; term.appendChild(s);
+      });
+      term.appendChild(cur);
+    } else {
+      var li=0, ci=0, span=null;
+      var step=function(){
+        if(li>=lines.length) return;
+        var L=lines[li];
+        if(!span){
+          span=document.createElement('span');
+          span.className='ln '+(L.c||'');
+          term.insertBefore(span,cur);
+        }
+        if(L.inst || ci>=L.t.length){
+          if(L.inst) span.textContent=L.t;
+          li++; ci=0; span=null;
+          setTimeout(step, L.inst? 190 : 340);
+          return;
+        }
+        span.textContent=L.t.slice(0,++ci);
+        setTimeout(step, 22);
+      };
+      term.appendChild(cur);
+      setTimeout(step, 520);
+    }
+  }
+
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el,i){
+      el.style.transitionDelay=(i%3)*70+'ms';
+      io.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
+</body>
+</html>
