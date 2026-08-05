@@ -1,79 +1,60 @@
-name: Remove docs HTML for deleted curriculum markdown
+name: Convert curriculum markdown to docs HTML
 
 on:
   push:
     paths:
       - 'curriculum/**/*.md'
+      - '.github/workflows/markdown-to-html.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  cleanup:
+  convert:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
-      - name: Get deleted markdown files
-        id: changed
-        uses: tj-actions/changed-files@v47
-        with:
-          files: |
-            curriculum/**/*.md
-          files_ignore: |
-            **/*.html
-          separator: "\n"
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
 
-      - name: Remove matching docs html for deleted markdown
-        if: steps.changed.outputs.deleted_files != ''
+      - name: Convert all curriculum markdown into docs
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p docs
 
-          deleted="${{ steps.changed.outputs.deleted_files }}"
-          if [ -z "$deleted" ]; then
-            echo "No deleted markdown files."
-            exit 0
-          fi
+          count=0
+          while IFS= read -r -d '' md; do
+            rel="${md#curriculum/}"
+            out="docs/${rel%.md}.html"
+            mkdir -p "$(dirname "$out")"
+            echo "Converting $md -> $out"
+            pandoc "$md" -f markdown -t html5 -s -o "$out"
+            count=$((count+1))
+          done < <(find curriculum -type f -name '*.md' -print0)
 
-          removed_any=0
-          while IFS= read -r md; do
-            [ -z "$md" ] && continue
+          echo "Converted files: $count"
+          find docs -type f -name '*.html' -print || true
 
-            rel="${md#curriculum/}"        # e.g. unit1/lesson.md
-            html="docs/${rel%.md}.html"    # e.g. docs/unit1/lesson.html
-
-            if [ -f "$html" ]; then
-              echo "Removing stale file: $html"
-              rm -f "$html"
-              removed_any=1
-            else
-              echo "Already absent: $html"
-            fi
-          done <<< "$deleted"
-
-          if [ "$removed_any" -eq 0 ]; then
-            echo "Nothing removed."
-          fi
-
-      - name: Commit removals
-        if: steps.changed.outputs.deleted_files != ''
+      - name: Commit docs updates
         shell: bash
         run: |
           set -euo pipefail
-          git add -A docs
+          git add docs
+          git status --short
 
           if git diff --cached --quiet; then
-            echo "No cleanup changes to commit."
+            echo "No docs changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Remove stale docs HTML for deleted curriculum markdown"
+          git commit -m "Auto-generate docs HTML from curriculum markdown"
           git push
