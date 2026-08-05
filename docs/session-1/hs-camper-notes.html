@@ -6,8 +6,9 @@
 <title>Session 1 — Make Something Work — CompuCon Vibe Coding</title>
 <style>
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -89,17 +90,30 @@ code span.wa { color: #da4453; } /* Warning */
 <main class="wrap prose">
   <a href="../high-school.html" class="crumb">High School</a>
 
-<h1 id="session-1-make-something-work">Session 1 — Make Something Work</h1>
-<h3 id="vibe-coding-high-school-keep-this-with-you">Vibe Coding · High School · Keep this with you</h3>
+<h1 id="session-1-make-something-work">Session 1 — Make Something
+Work</h1>
+<h3 id="vibe-coding-high-school-keep-this-with-you">Vibe Coding · High
+School · Keep this with you</h3>
 <hr />
 <h2 id="what-youre-doing-today">What you’re doing today</h2>
-<p>Building a real, working application — with a window, buttons, the whole thing — in about two hours, without typing the code yourself.</p>
-<p>You’ll describe what you want to an AI. It writes the code. You run it, judge whether it’s actually right, and tell it what to change. Then you do that again, and again.</p>
-<p>The skill being taught isn’t syntax. It’s <strong>knowing what to ask for, how much to ask for at once, and how to tell whether you got it.</strong> That skill transfers to every tool that comes after this one.</p>
-<p><strong>By the end of today you’ll have an app you built and can demo.</strong></p>
+<p>Building a real, working application — with a window, buttons, the
+whole thing — in about two hours, without typing the code yourself.</p>
+<p>You’ll describe what you want to an AI. It writes the code. You run
+it, judge whether it’s actually right, and tell it what to change. Then
+you do that again, and again.</p>
+<p>The skill being taught isn’t syntax. It’s <strong>knowing what to ask
+for, how much to ask for at once, and how to tell whether you got
+it.</strong> That skill transfers to every tool that comes after this
+one.</p>
+<p><strong>By the end of today you’ll have an app you built and can
+demo.</strong></p>
 <hr />
 <h2 id="todays-plan">Today’s plan</h2>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th></th>
@@ -121,7 +135,8 @@ code span.wa { color: #da4453; } /* Warning */
 </tr>
 <tr class="even">
 <td><strong>4</strong></td>
-<td>The three moves: <strong>Ask</strong>, <strong>Run</strong>, <strong>Fix</strong></td>
+<td>The three moves: <strong>Ask</strong>, <strong>Run</strong>,
+<strong>Fix</strong></td>
 </tr>
 <tr class="odd">
 <td><strong>5</strong></td>
@@ -139,34 +154,68 @@ code span.wa { color: #da4453; } /* Warning */
 </table>
 <hr />
 <h2 id="getting-started">Getting started</h2>
-<p>Open <strong>PowerShell</strong> (through Windows Terminal). One command per line:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>mkdir madlibs</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">cd</span> madlibs</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
-<p><code>cc-ds</code> launches <strong>Claude Code</strong> running on a DeepSeek model.</p>
+<p>Open <strong>PowerShell</strong> (through Windows Terminal). One
+command per line:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mkdir madlibs</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> madlibs</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<p><code>cc-ds</code> launches <strong>Claude Code</strong> running on a
+DeepSeek model.</p>
 <blockquote>
-<p><strong>If you have your own Claude Pro account,</strong> use <code>cc</code> instead — same tool, Anthropic’s models behind it. Functionally identical for everything this week. If you hit a usage limit on <code>cc</code>, just switch to <code>cc-ds</code>; your project folder is untouched.</p>
+<p><strong>If you have your own Claude Pro account,</strong> use
+<code>cc</code> instead — same tool, Anthropic’s models behind it.
+Functionally identical for everything this week. If you hit a usage
+limit on <code>cc</code>, just switch to <code>cc-ds</code>; your
+project folder is untouched.</p>
 </blockquote>
-<p><strong>Exit:</strong> <code>Ctrl+C</code> · <strong>Restart:</strong> <code>cc-ds</code></p>
+<p><strong>Exit:</strong> <code>Ctrl+C</code> ·
+<strong>Restart:</strong> <code>cc-ds</code></p>
 <p><strong>Run your app</strong> (in PowerShell, not inside the AI):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>python story.<span class="fu">py</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python story<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
 <h3 id="one-command-per-line">One command per line</h3>
-<p>Lab machines run either PowerShell 5.1 or 7. 5.1 doesn’t support <code>&amp;&amp;</code> for chaining, and you can’t tell which version you’re on. Write everything one per line and it works either way.</p>
+<p>Lab machines run either PowerShell 5.1 or 7. 5.1 doesn’t support
+<code>&amp;&amp;</code> for chaining, and you can’t tell which version
+you’re on. Write everything one per line and it works either way.</p>
 <hr />
-<h2 id="what-youre-actually-working-with">What you’re actually working with</h2>
-<p><code>cc-ds</code> starts an AI that can <strong>read and write files in the folder you started it in</strong>, and run commands. That folder is its entire world — which is why you always start it inside your project folder, not in Documents.</p>
-<h3 id="two-things-worth-understanding">Two things worth understanding</h3>
-<p><strong>The tool and the model are separate.</strong> Claude Code is the interface — the thing that reads your files and edits them. The model is the intelligence behind it. We’re running Anthropic’s tool on DeepSeek’s model. That’s why <code>cc</code> and <code>cc-ds</code> behave nearly identically despite different companies’ AI underneath. Most AI products are assembled this way, and knowing that makes the whole landscape less mysterious.</p>
-<p><strong>The model is a very fast, very well-read guesser.</strong> It predicts what code should come next based on an enormous amount of code it has read. It is not reasoning about your project. It doesn’t know your intent unless you stated it.</p>
+<h2 id="what-youre-actually-working-with">What you’re actually working
+with</h2>
+<p><code>cc-ds</code> starts an AI that can <strong>read and write files
+in the folder you started it in</strong>, and run commands. That folder
+is its entire world — which is why you always start it inside your
+project folder, not in Documents.</p>
+<h3 id="two-things-worth-understanding">Two things worth
+understanding</h3>
+<p><strong>The tool and the model are separate.</strong> Claude Code is
+the interface — the thing that reads your files and edits them. The
+model is the intelligence behind it. We’re running Anthropic’s tool on
+DeepSeek’s model. That’s why <code>cc</code> and <code>cc-ds</code>
+behave nearly identically despite different companies’ AI underneath.
+Most AI products are assembled this way, and knowing that makes the
+whole landscape less mysterious.</p>
+<p><strong>The model is a very fast, very well-read guesser.</strong> It
+predicts what code should come next based on an enormous amount of code
+it has read. It is not reasoning about your project. It doesn’t know
+your intent unless you stated it.</p>
 <blockquote>
-<p>Genius intern, first day. Extremely fast, knows every library, no idea what you actually want, and will never tell you it’s confused.</p>
+<p>Genius intern, first day. Extremely fast, knows every library, no
+idea what you actually want, and will never tell you it’s confused.</p>
 </blockquote>
-<p><strong>The consequence:</strong> it will confidently produce code that runs perfectly and is wrong. Nothing on your computer will flag that. Catching it is the human’s job — and it’s the actual subject of this course.</p>
+<p><strong>The consequence:</strong> it will confidently produce code
+that runs perfectly and is wrong. Nothing on your computer will flag
+that. Catching it is the human’s job — and it’s the actual subject of
+this course.</p>
 <hr />
 <h2 id="writing-a-prompt-that-works">Writing a prompt that works</h2>
 <p>Answer four questions:</p>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Question</th>
@@ -203,46 +252,66 @@ Ask the user for 5 words: a noun, a verb, an adjective, a place, and a food.
 Each one gets its own text box with a label.
 When they click a &quot;Make Story&quot; button, show a funny story using their words.
 Save it as story.py</code></pre>
-<p>Note what’s absent: any instruction about <em>how</em> to write the code. Architecture, loops, function names — none of it. Specify what you care about; let the AI decide the rest. Every implementation detail you specify is a decision you now own.</p>
+<p>Note what’s absent: any instruction about <em>how</em> to write the
+code. Architecture, loops, function names — none of it. Specify what you
+care about; let the AI decide the rest. Every implementation detail you
+specify is a decision you now own.</p>
 <hr />
 <h2 id="how-much-to-ask-for-at-once">How much to ask for at once</h2>
 <blockquote>
-<h2 id="starting-from-nothing-describe-the-whole-app.">Starting from nothing → describe the whole app.</h2>
-<h2 id="changing-something-that-works-one-thing-at-a-time.">Changing something that works → one thing at a time.</h2>
+<h2 id="starting-from-nothing-describe-the-whole-app.">Starting from
+nothing → describe the whole app.</h2>
+<h2 id="changing-something-that-works-one-thing-at-a-time.">Changing
+something that works → one thing at a time.</h2>
 </blockquote>
 <p>The reason isn’t caution, it’s <strong>speed</strong>:</p>
 <pre><code>5 changes → run → broken → which one? could be any. could be two interacting.
                             you&#39;re debugging blind.
 
 1 change  → run → broken → it&#39;s that one. fix it in 30 seconds.</code></pre>
-<p>Every batch of untested changes is a debugging session you’re saving up for later, with interest.</p>
-<p><strong>Size test:</strong> can you say what should be different in one sentence? Yes → good size. No → break it up.</p>
+<p>Every batch of untested changes is a debugging session you’re saving
+up for later, with interest.</p>
+<p><strong>Size test:</strong> can you say what should be different in
+one sentence? Yes → good size. No → break it up.</p>
 <hr />
 <h2 id="the-loop">The loop</h2>
 <blockquote>
-<h3 id="ask-small-run-it-say-exactly-what-went-wrong-repeat">Ask small → Run it → Say exactly what went wrong → Repeat</h3>
+<h3 id="ask-small-run-it-say-exactly-what-went-wrong-repeat">Ask small →
+Run it → Say exactly what went wrong → Repeat</h3>
 </blockquote>
 <hr />
-<h2 id="running-and-reading-the-result">Running and reading the result</h2>
+<h2 id="running-and-reading-the-result">Running and reading the
+result</h2>
 <p>Three outcomes:</p>
 <ol type="1">
 <li><strong>It works</strong> → next change</li>
-<li><strong>It crashes</strong> → copy the <em>entire</em> error, paste it to the AI. Not just the last line — the whole stack trace tells it where to look.</li>
-<li><strong>It runs and does the wrong thing</strong> → the dangerous one</li>
+<li><strong>It crashes</strong> → copy the <em>entire</em> error, paste
+it to the AI. Not just the last line — the whole stack trace tells it
+where to look.</li>
+<li><strong>It runs and does the wrong thing</strong> → the dangerous
+one</li>
 </ol>
-<p>Outcome 3 is where you matter. The computer cannot tell you your quiz scored 3/5 when it should have been 4/5, or that your timer counts up. It has no idea what you intended.</p>
+<p>Outcome 3 is where you matter. The computer cannot tell you your quiz
+scored 3/5 when it should have been 4/5, or that your timer counts up.
+It has no idea what you intended.</p>
 <h3 id="reporting-a-bug">Reporting a bug</h3>
 <ul>
 <li>❌ “it’s broken” — useless</li>
 <li>⚠️ “the button doesn’t work” — better, still vague</li>
-<li>✅ “When I click Make Story, nothing happens. No error in the terminal. The window just sits there.”</li>
+<li>✅ “When I click Make Story, nothing happens. No error in the
+terminal. The window just sits there.”</li>
 </ul>
 <blockquote>
-<p><strong>What you did · What you expected · What actually happened</strong></p>
+<p><strong>What you did · What you expected · What actually
+happened</strong></p>
 </blockquote>
-<p>This is how you report a bug to any engineer anywhere. Learning to write it well is worth more than anything else on this page — and a well-written bug report turns out to be a well-written prompt, which is not a coincidence.</p>
+<p>This is how you report a bug to any engineer anywhere. Learning to
+write it well is worth more than anything else on this page — and a
+well-written bug report turns out to be a well-written prompt, which is
+not a coincidence.</p>
 <hr />
-<h2 id="useful-things-to-say-to-the-ai">Useful things to say to the AI</h2>
+<h2 id="useful-things-to-say-to-the-ai">Useful things to say to the
+AI</h2>
 <pre><code>Explain what this function does in plain English.
 
 What could go wrong with this? What inputs would break it?
@@ -252,42 +321,58 @@ What did you just change? List every change.
 I expected X but got Y. Why?
 
 Is there a simpler way to do this?</code></pre>
-<p>That third one matters more than it looks. The AI sometimes changes things you didn’t ask about — you request a color change and it also “helpfully” rewrites your scoring logic. Ask what changed, then check the answer against what you actually asked for.</p>
+<p>That third one matters more than it looks. The AI sometimes changes
+things you didn’t ask about — you request a color change and it also
+“helpfully” rewrites your scoring logic. Ask what changed, then check
+the answer against what you actually asked for.</p>
 <hr />
 <h2 id="try-to-break-it">Try to break it</h2>
 <p>Late in the session, everyone attacks their own app:</p>
 <ul class="task-list">
-<li><input type="checkbox" disabled="" />
-Empty input in every field</li>
-<li><input type="checkbox" disabled="" />
-Wrong type — text where a number goes, and vice versa</li>
-<li><input type="checkbox" disabled="" />
-Extreme values — 0, negatives, 999999, a paragraph of text</li>
-<li><input type="checkbox" disabled="" />
-Every button clicked twice, fast, and out of order</li>
-<li><input type="checkbox" disabled="" />
-Window resized to nothing</li>
+<li><label><input type="checkbox" />Empty input in every
+field</label></li>
+<li><label><input type="checkbox" />Wrong type — text where a number
+goes, and vice versa</label></li>
+<li><label><input type="checkbox" />Extreme values — 0, negatives,
+999999, a paragraph of text</label></li>
+<li><label><input type="checkbox" />Every button clicked twice, fast,
+and out of order</label></li>
+<li><label><input type="checkbox" />Window resized to
+nothing</label></li>
 </ul>
-<p>This is where AI-written code fails most often, because the AI optimizes for the case you described and ignores the ones you didn’t.</p>
-<p>Consider this example — real output for “make a quiz app that shows my score”:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>score <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="cf">for</span> question <span class="kw">in</span> questions:</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    answer <span class="op">=</span> <span class="bu">input</span>(question[<span class="st">&quot;text&quot;</span>] <span class="op">+</span> <span class="st">&quot; &quot;</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="cf">if</span> answer <span class="op">==</span> question[<span class="st">&quot;correct&quot;</span>]:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>        score <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="bu">print</span>(<span class="ss">f&quot;That&#39;s </span><span class="sc">{</span>score <span class="op">/</span> <span class="bu">len</span>(questions) <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ss">%!&quot;</span>)</span></code></pre></div>
-<p>Runs perfectly. Three bugs: answers are case-sensitive (type “paris”, get marked wrong), leading spaces break it, and the percentage prints as <code>33.33333333333333%</code>. None of it crashes. All of it is wrong.</p>
+<p>This is where AI-written code fails most often, because the AI
+optimizes for the case you described and ignores the ones you
+didn’t.</p>
+<p>Consider this example — real output for “make a quiz app that shows
+my score”:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>score <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> question <span class="kw">in</span> questions:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="bu">input</span>(question[<span class="st">&quot;text&quot;</span>] <span class="op">+</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> answer <span class="op">==</span> question[<span class="st">&quot;correct&quot;</span>]:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        score <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;That&#39;s </span><span class="sc">{</span>score <span class="op">/</span> <span class="bu">len</span>(questions) <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ss">%!&quot;</span>)</span></code></pre></div>
+<p>Runs perfectly. Three bugs: answers are case-sensitive (type “paris”,
+get marked wrong), leading spaces break it, and the percentage prints as
+<code>33.33333333333333%</code>. None of it crashes. All of it is
+wrong.</p>
 <blockquote>
-<p>The AI didn’t make a mistake. It answered exactly what was asked. The <em>question</em> was incomplete.</p>
+<p>The AI didn’t make a mistake. It answered exactly what was asked. The
+<em>question</em> was incomplete.</p>
 </blockquote>
-<p>The way you’d catch this without being told: <strong>test with wrong input on purpose.</strong></p>
+<p>The way you’d catch this without being told: <strong>test with wrong
+input on purpose.</strong></p>
 <hr />
 <h2 id="when-youre-stuck">When you’re stuck</h2>
 <ol type="1">
-<li><strong>Describe the bug out loud</strong> to a person — you’ll often solve it mid-sentence</li>
-<li><strong>Report it properly</strong> to the AI (what you did / expected / got)</li>
-<li><strong>Delete the file and regenerate</strong> with a better description. Restarting is cheap.</li>
-<li><strong>Ask an instructor.</strong> Ten minutes stuck is the limit.</li>
+<li><strong>Describe the bug out loud</strong> to a person — you’ll
+often solve it mid-sentence</li>
+<li><strong>Report it properly</strong> to the AI (what you did /
+expected / got)</li>
+<li><strong>Delete the file and regenerate</strong> with a better
+description. Restarting is cheap.</li>
+<li><strong>Ask an instructor.</strong> Ten minutes stuck is the
+limit.</li>
 </ol>
 <hr />
 <h2 id="the-showcase">The showcase</h2>
@@ -297,15 +382,24 @@ Window resized to nothing</li>
 <li><strong>One thing that broke</strong> and how you fixed it</li>
 <li><strong>One thing you’d add</strong> with more time</li>
 </ol>
-<p>Number 2 is required. Everyone’s app broke today; making that public is the point.</p>
+<p>Number 2 is required. Everyone’s app broke today; making that public
+is the point.</p>
 <hr />
 <h2 id="before-you-go">Before you go</h2>
 <p>Get your file off this machine — email or USB.</p>
-<p><strong>And the honest version of what happened today:</strong> the AI wrote the code. What you did — deciding what to build, catching what was wrong, steering it — is real work, and it’s most of what senior engineers actually spend their time on. But you don’t yet know how that code works.</p>
-<p>That’s fine for day one. The thing worth knowing is which gap is which. The people who get genuinely good at this are the ones who can <em>also</em> read the code, because they catch what the AI gets wrong and they know when it’s being confidently useless.</p>
+<p><strong>And the honest version of what happened today:</strong> the
+AI wrote the code. What you did — deciding what to build, catching what
+was wrong, steering it — is real work, and it’s most of what senior
+engineers actually spend their time on. But you don’t yet know how that
+code works.</p>
+<p>That’s fine for day one. The thing worth knowing is which gap is
+which. The people who get genuinely good at this are the ones who can
+<em>also</em> read the code, because they catch what the AI gets wrong
+and they know when it’s being confidently useless.</p>
 <p>Start here, on your own project:</p>
 <pre><code>Explain what the function on line 40 does, like I&#39;m 12.</code></pre>
-<p>It’s very good at that, and it’s the fastest way to actually learn to code while you build.</p>
+<p>It’s very good at that, and it’s the fastest way to actually learn to
+code while you build.</p>
 </main>
 
 <footer>

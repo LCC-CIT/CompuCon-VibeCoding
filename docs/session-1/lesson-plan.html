@@ -6,8 +6,9 @@
 <title>Session 1 — Make Something Work — CompuCon Vibe Coding</title>
 <style>
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -89,12 +90,18 @@ code span.wa { color: #da4453; } /* Warning */
 <main class="wrap prose">
   <a href="../index.html" class="crumb">Home</a>
 
-<h1 id="session-1-make-something-work">Session 1 — Make Something Work</h1>
-<p><strong>Standalone, for both age groups.</strong> A student who attends only this session leaves with a working app they built, understands the loop that produced it, and could do it again at home.</p>
+<h1 id="session-1-make-something-work">Session 1 — Make Something
+Work</h1>
+<p><strong>Standalone, for both age groups.</strong> A student who
+attends only this session leaves with a working app they built,
+understands the loop that produced it, and could do it again at
+home.</p>
 <p>Nothing in this session assumes a Session 2.</p>
 <hr />
 <h2 id="timing">Timing</h2>
-<p>MS and HS run the same seven blocks. HS gets 35 more minutes, spent almost entirely on independent build time and on the concepts blocks.</p>
+<p>MS and HS run the same seven blocks. HS gets 35 more minutes, spent
+almost entirely on independent build time and on the concepts
+blocks.</p>
 <h3 id="middle-school-85-min">Middle school — 85 min</h3>
 <table>
 <thead>
@@ -143,7 +150,9 @@ code span.wa { color: #da4453; } /* Warning */
 </tbody>
 </table>
 <blockquote>
-<p><strong>No break is scheduled.</strong> 85 minutes is the whole session. If your group needs one, take 5 at the 0:48 mark and cut Build #2 to 17 minutes — don’t cut the 1:10 block.</p>
+<p><strong>No break is scheduled.</strong> 85 minutes is the whole
+session. If your group needs one, take 5 at the 0:48 mark and cut Build
+#2 to 17 minutes — don’t cut the 1:10 block.</p>
 </blockquote>
 <h3 id="high-school-120-min">High school — 120 min</h3>
 <table>
@@ -194,94 +203,153 @@ code span.wa { color: #da4453; } /* Warning */
 </table>
 <hr />
 <h2 id="hook-ms-8-min-hs-10-min">Hook (MS 8 min / HS 10 min)</h2>
-<p><strong>Do not explain anything first.</strong> Open a terminal on the projector and build something.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>mkdir demo</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">cd</span> demo</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
+<p><strong>Do not explain anything first.</strong> Open a terminal on
+the projector and build something.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mkdir demo</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> demo</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
 <p>Type your prompt out loud so they see you thinking:</p>
 <blockquote>
-<p>Build a dice roller in Python with a tkinter window. Big button that says ROLL, and when I click it, it shows a random number from 1 to 20 in huge text. Save it as <code>dice.py</code>.</p>
+<p>Build a dice roller in Python with a tkinter window. Big button that
+says ROLL, and when I click it, it shows a random number from 1 to 20 in
+huge text. Save it as <code>dice.py</code>.</p>
 </blockquote>
-<p>Let it generate. Narrate what you see scroll by — “it’s writing a file, it’s showing me the code.” Then run it:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>python dice.<span class="fu">py</span></span></code></pre></div>
+<p>Let it generate. Narrate what you see scroll by — “it’s writing a
+file, it’s showing me the code.” Then run it:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python dice<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
 <p>Click the button a few times. Then, live:</p>
 <blockquote>
-<p>Make the number change color — green if it’s 20, red if it’s 1, black otherwise.</p>
+<p>Make the number change color — green if it’s 20, red if it’s 1, black
+otherwise.</p>
 </blockquote>
 <p>Run it again. Roll until you get a 20.</p>
-<p><strong>Total elapsed: under 6 minutes.</strong> Spend the remaining time letting them react, then:</p>
+<p><strong>Total elapsed: under 6 minutes.</strong> Spend the remaining
+time letting them react, then:</p>
 <blockquote>
-<p>“That’s the whole class. You describe, it builds, you run it, you fix it. Everything else today is getting good at those four things.”</p>
+<p>“That’s the whole class. You describe, it builds, you run it, you fix
+it. Everything else today is getting good at those four things.”</p>
 </blockquote>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Take one request from the room for a third change. The visual payoff lands &gt; hard and it buys you their attention for the next 25 minutes. &gt; <strong>HS:</strong> After the demo, show them the actual <code>dice.py</code> file. Ask: “Anything in here &gt; surprise you? Anything you’d have done differently?” Sets up Session 2 verification.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Take one request
+from the room for a third change. The visual payoff lands &gt; hard and
+it buys you their attention for the next 25 minutes. &gt;
+<strong>HS:</strong> After the demo, show them the actual
+<code>dice.py</code> file. Ask: “Anything in here &gt; surprise you?
+Anything you’d have done differently?” Sets up Session 2
+verification.</p>
 <hr />
-<h2 id="what-just-happened-ms-7-min-hs-12-min">What Just Happened (MS 7 min / HS 12 min)</h2>
+<h2 id="what-just-happened-ms-7-min-hs-12-min">What Just Happened (MS 7
+min / HS 12 min)</h2>
 <p>Keep this tight. Three ideas, no more.</p>
-<h3 id="youre-the-boss-not-the-typist">1. You’re the boss, not the typist</h3>
-<p>The AI writes the code. You decide what gets built, whether it’s good, and what changes. That’s a real job — it’s most of what senior engineers actually do.</p>
-<h3 id="the-ai-is-a-very-fast-guesser">2. The AI is a very fast guesser</h3>
-<p>It has read an enormous amount of code and it’s very good at predicting what code should come next. That’s it. It is not thinking about your project. It doesn’t know what you meant unless you said it. <strong>It will confidently produce something wrong</strong>, and it will look just as polished as something right.</p>
+<h3 id="youre-the-boss-not-the-typist">1. You’re the boss, not the
+typist</h3>
+<p>The AI writes the code. You decide what gets built, whether it’s
+good, and what changes. That’s a real job — it’s most of what senior
+engineers actually do.</p>
+<h3 id="the-ai-is-a-very-fast-guesser">2. The AI is a very fast
+guesser</h3>
+<p>It has read an enormous amount of code and it’s very good at
+predicting what code should come next. That’s it. It is not thinking
+about your project. It doesn’t know what you meant unless you said it.
+<strong>It will confidently produce something wrong</strong>, and it
+will look just as polished as something right.</p>
 <blockquote>
-<p>“It’s like a genius intern on day one. Incredibly fast, knows every library, has no idea what you actually want, and will never tell you it’s confused.”</p>
+<p>“It’s like a genius intern on day one. Incredibly fast, knows every
+library, has no idea what you actually want, and will never tell you
+it’s confused.”</p>
 </blockquote>
-<h3 id="running-it-is-the-only-real-test">3. Running it is the only real test</h3>
-<p>Code that looks right and doesn’t run is worth nothing. You’ll run your app more times today than you’d guess.</p>
+<h3 id="running-it-is-the-only-real-test">3. Running it is the only real
+test</h3>
+<p>Code that looks right and doesn’t run is worth nothing. You’ll run
+your app more times today than you’d guess.</p>
 <h3 id="the-tool">The tool</h3>
 <p>Point at the terminal:</p>
 <ul>
-<li><code>cc-ds</code> starts <strong>Claude Code</strong>, an AI that can read and write files in the folder you’re in and run commands</li>
-<li>It’s running on a model from a company called <strong>DeepSeek</strong> — the tool and the AI brain behind it are separate pieces</li>
-<li><strong>If you have your own Claude Pro account, type <code>cc</code> instead.</strong> Same tool, different model behind it. Everything today works the same either way.</li>
-<li>It sees the folder you started it in. That’s its whole world. Start it in your project folder.</li>
-<li><code>Ctrl+C</code> gets you out. <code>cc-ds</code> (or <code>cc</code>) gets you back in.</li>
+<li><code>cc-ds</code> starts <strong>Claude Code</strong>, an AI that
+can read and write files in the folder you’re in and run commands</li>
+<li>It’s running on a model from a company called
+<strong>DeepSeek</strong> — the tool and the AI brain behind it are
+separate pieces</li>
+<li><strong>If you have your own Claude Pro account, type
+<code>cc</code> instead.</strong> Same tool, different model behind it.
+Everything today works the same either way.</li>
+<li>It sees the folder you started it in. That’s its whole world. Start
+it in your project folder.</li>
+<li><code>Ctrl+C</code> gets you out. <code>cc-ds</code> (or
+<code>cc</code>) gets you back in.</li>
 </ul>
 <blockquote>
-<p>Say <code>cc-ds</code> for the rest of the session. Students on <code>cc</code> will follow along fine — don’t say both every time.</p>
+<p>Say <code>cc-ds</code> for the rest of the session. Students on
+<code>cc</code> will follow along fine — don’t say both every time.</p>
 </blockquote>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Stop after the intern analogy and the tool basics. Skip the tool/model &gt; distinction entirely — it costs 3 minutes you don’t have. &gt; <strong>HS:</strong> Worth 2 minutes on tool-vs-model. It’s a genuinely useful mental model for how &gt; AI products are built, and it explains why different setups behave differently.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Stop after the
+intern analogy and the tool basics. Skip the tool/model &gt; distinction
+entirely — it costs 3 minutes you don’t have. &gt; <strong>HS:</strong>
+Worth 2 minutes on tool-vs-model. It’s a genuinely useful mental model
+for how &gt; AI products are built, and it explains why different setups
+behave differently.</p>
 <hr />
-<h2 id="build-1-everyone-builds-mad-libs-ms-25-min-hs-28-min">Build #1: Everyone Builds Mad Libs (MS 25 min / HS 28 min)</h2>
-<p>Lockstep. Everyone builds the same thing so nobody is lost and everyone succeeds early.</p>
+<h2 id="build-1-everyone-builds-mad-libs-ms-25-min-hs-28-min">Build #1:
+Everyone Builds Mad Libs (MS 25 min / HS 28 min)</h2>
+<p>Lockstep. Everyone builds the same thing so nobody is lost and
+everyone succeeds early.</p>
 <h3 id="setup-5-min">Setup (5 min)</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>mkdir madlibs</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="fu">cd</span> madlibs</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
-<p>Walk the room. This is where setup problems surface — catch them now.</p>
-<h3 id="prompt-1-ms-10-min-hs-10-min">Prompt 1 (MS 10 min / HS 10 min)</h3>
-<p>Put this on the projector. Students type it themselves (typing it makes them read it):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mkdir madlibs</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> madlibs</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<p>Walk the room. This is where setup problems surface — catch them
+now.</p>
+<h3 id="prompt-1-ms-10-min-hs-10-min">Prompt 1 (MS 10 min / HS 10
+min)</h3>
+<p>Put this on the projector. Students type it themselves (typing it
+makes them read it):</p>
 <pre><code>Build a Mad Libs generator in Python with a tkinter window.
 Ask the user for 5 words: a noun, a verb, an adjective, a place, and a food.
 Each one gets its own text box with a label.
 When they click a &quot;Make Story&quot; button, show a funny story using their words.
 Save it as story.py</code></pre>
 <p>Then:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>python story.<span class="fu">py</span></span></code></pre></div>
-<p><strong>Everyone stops here until everyone’s app runs.</strong> Fast finishers help neighbors — this is a real job too.</p>
-<h3 id="notice-the-prompt-ms-4-min-hs-5-min">Notice the prompt (MS 4 min / HS 5 min)</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>python story<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
+<p><strong>Everyone stops here until everyone’s app runs.</strong> Fast
+finishers help neighbors — this is a real job too.</p>
+<h3 id="notice-the-prompt-ms-4-min-hs-5-min">Notice the prompt (MS 4 min
+/ HS 5 min)</h3>
 <p>Put the prompt back up and mark it up:</p>
 <ul>
 <li><strong>What kind of program</strong> — Python, tkinter window</li>
 <li><strong>What it does</strong> — asks for 5 words, shows a story</li>
-<li><strong>What it looks like</strong> — text boxes with labels, a button</li>
+<li><strong>What it looks like</strong> — text boxes with labels, a
+button</li>
 <li><strong>Where it goes</strong> — <code>story.py</code></li>
 </ul>
 <blockquote>
-<p>“Four things: what kind of thing, what it does, what it looks like, where to put it. That’s a good prompt. Notice what’s <em>not</em> there — nothing about <em>how</em> to write the code. That’s the AI’s job.”</p>
+<p>“Four things: what kind of thing, what it does, what it looks like,
+where to put it. That’s a good prompt. Notice what’s <em>not</em> there
+— nothing about <em>how</em> to write the code. That’s the AI’s
+job.”</p>
 </blockquote>
-<h3 id="one-change-each-ms-6-min-hs-8-min">One change each (MS 6 min / HS 8 min)</h3>
-<p>Everyone makes one change of their own choosing. Suggestions on the board:</p>
+<h3 id="one-change-each-ms-6-min-hs-8-min">One change each (MS 6 min /
+HS 8 min)</h3>
+<p>Everyone makes one change of their own choosing. Suggestions on the
+board:</p>
 <ul>
 <li>“Make the window bigger and use a fun font”</li>
 <li>“Add a button that clears all the boxes”</li>
 <li>“Use three different story templates and pick one at random”</li>
 <li>“Change the background color to dark blue with white text”</li>
 </ul>
-<p>Rule: <strong>make the change, run it, then stop.</strong> Hands up when yours works.</p>
+<p>Rule: <strong>make the change, run it, then stop.</strong> Hands up
+when yours works.</p>
 <hr />
-<h2 id="the-three-moves-ms-8-min-hs-15-min">The Three Moves (MS 8 min / HS 15 min)</h2>
-<p>This is the conceptual core of the session. Everything else is practice.</p>
+<h2 id="the-three-moves-ms-8-min-hs-15-min">The Three Moves (MS 8 min /
+HS 15 min)</h2>
+<p>This is the conceptual core of the session. Everything else is
+practice.</p>
 <h3 id="move-1-ask">Move 1: ASK</h3>
 <p>A good ask answers four questions:</p>
 <table>
@@ -320,91 +388,148 @@ Save it as story.py</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>The size rule.</strong> The single most important thing today:</p>
+<p><strong>The size rule.</strong> The single most important thing
+today:</p>
 <blockquote>
 <p><strong>Ask for one thing at a time.</strong></p>
 </blockquote>
-<p>Not because the AI can’t do five things — it often can. Because when five things come back at once and one is broken, you don’t know which one. When you ask for one thing and it breaks, you know exactly where to look.</p>
-<p><strong>When you <em>should</em> ask for a lot at once:</strong> the very first prompt. Starting from nothing, describe the whole app. After that, one change at a time.</p>
+<p>Not because the AI can’t do five things — it often can. Because when
+five things come back at once and one is broken, you don’t know which
+one. When you ask for one thing and it breaks, you know exactly where to
+look.</p>
+<p><strong>When you <em>should</em> ask for a lot at once:</strong> the
+very first prompt. Starting from nothing, describe the whole app. After
+that, one change at a time.</p>
 <h3 id="move-2-run">Move 2: RUN</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>python story.<span class="fu">py</span></span></code></pre></div>
-<p>Run after every single change. Not “every few changes.” Every one.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>python story<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
+<p>Run after every single change. Not “every few changes.” Every
+one.</p>
 <p>Three things can happen:</p>
 <ol type="1">
 <li><strong>It works</strong> → good, next change</li>
-<li><strong>It crashes</strong> → copy the error message, paste the whole thing to the AI</li>
-<li><strong>It runs but does the wrong thing</strong> → the dangerous one</li>
+<li><strong>It crashes</strong> → copy the error message, paste the
+whole thing to the AI</li>
+<li><strong>It runs but does the wrong thing</strong> → the dangerous
+one</li>
 </ol>
-<p>Number 3 is where humans matter. The computer can’t tell you your Mad Libs story is boring, that your timer counts <em>up</em>, or that your quiz says you got 3/5 when you got 4/5. Only you can.</p>
+<p>Number 3 is where humans matter. The computer can’t tell you your Mad
+Libs story is boring, that your timer counts <em>up</em>, or that your
+quiz says you got 3/5 when you got 4/5. Only you can.</p>
 <h3 id="move-3-fix">Move 3: FIX</h3>
 <p>How to report a problem, worst to best:</p>
 <ul>
 <li>❌ “it’s broken” — the AI has no idea what you mean</li>
 <li>⚠️ “the button doesn’t work” — better, still vague</li>
-<li>✅ “When I click Make Story, nothing happens. No error in the terminal. The window just sits there.”</li>
+<li>✅ “When I click Make Story, nothing happens. No error in the
+terminal. The window just sits there.”</li>
 </ul>
 <blockquote>
-<p><strong>Say what you did, what you expected, and what actually happened.</strong></p>
+<p><strong>Say what you did, what you expected, and what actually
+happened.</strong></p>
 </blockquote>
-<p>That’s not an AI trick — that’s how you report a bug to any human on earth, forever. It’s a real professional skill and they’re learning it today.</p>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Cover the size rule and Move 3 properly; compress Move 2’s three outcomes to &gt; “works / crashes / weird.” Skip the four-question table as a table — just say the four &gt; things out loud while pointing at the Mad Libs prompt still on screen. &gt; <strong>HS:</strong> Full version, plus the demo: ask for five changes at once, let it come back &gt; tangled, then show the same five done one at a time. The difference is obvious and &gt; they’ll remember it. Then push on outcome 3 — “How would you <em>know</em> your app is wrong?”</p>
+<p>That’s not an AI trick — that’s how you report a bug to any human on
+earth, forever. It’s a real professional skill and they’re learning it
+today.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Cover the size rule
+and Move 3 properly; compress Move 2’s three outcomes to &gt; “works /
+crashes / weird.” Skip the four-question table as a table — just say the
+four &gt; things out loud while pointing at the Mad Libs prompt still on
+screen. &gt; <strong>HS:</strong> Full version, plus the demo: ask for
+five changes at once, let it come back &gt; tangled, then show the same
+five done one at a time. The difference is obvious and &gt; they’ll
+remember it. Then push on outcome 3 — “How would you <em>know</em> your
+app is wrong?”</p>
 <hr />
-<h2 id="build-2-ms-22-min-hs-35-min">Build #2 (MS 22 min / HS 35 min)</h2>
+<h2 id="build-2-ms-22-min-hs-35-min">Build #2 (MS 22 min / HS 35
+min)</h2>
 <p>This is where the two age groups genuinely diverge in ambition.</p>
-<p><strong>MS: make it yours.</strong> Students keep working on <code>story.py</code> and customize it heavily — their own story templates, inside jokes, colors, extra buttons, a random-story mode. Anyone who finishes early and wants a fresh app may start one from <a href="../project-ideas.html"><code>project-ideas.md</code></a>, Starter tier only.</p>
-<p><strong>HS: pick your own app.</strong> Students choose from <a href="../project-ideas.html"><code>project-ideas.md</code></a> or bring their own. Instructor approves the idea before they start — sanity check on scope. Starter or Solid tier.</p>
-<h3 id="before-they-touch-the-keyboard-ms-3-min-hs-5-min">Before they touch the keyboard (MS 3 min / HS 5 min)</h3>
-<p>Everyone writes their first prompt (or their next three changes, for MS) <strong>on paper</strong> and gets it checked against the four questions. This catches the “make me a game” prompts before they waste the whole block.</p>
+<p><strong>MS: make it yours.</strong> Students keep working on
+<code>story.py</code> and customize it heavily — their own story
+templates, inside jokes, colors, extra buttons, a random-story mode.
+Anyone who finishes early and wants a fresh app may start one from <a
+href="../project-ideas.html"><code>project-ideas.md</code></a>, Starter
+tier only.</p>
+<p><strong>HS: pick your own app.</strong> Students choose from <a
+href="../project-ideas.html"><code>project-ideas.md</code></a> or bring
+their own. Instructor approves the idea before they start — sanity check
+on scope. Starter or Solid tier.</p>
+<h3 id="before-they-touch-the-keyboard-ms-3-min-hs-5-min">Before they
+touch the keyboard (MS 3 min / HS 5 min)</h3>
+<p>Everyone writes their first prompt (or their next three changes, for
+MS) <strong>on paper</strong> and gets it checked against the four
+questions. This catches the “make me a game” prompts before they waste
+the whole block.</p>
 <h3 id="build-ms-15-min-hs-25-min">Build (MS 15 min / HS 25 min)</h3>
 <p>Independent work. Instructor circulates.</p>
 <p><strong>Checkpoints on the board:</strong></p>
 <ul class="task-list">
-<li><input type="checkbox" disabled="" />
-It runs</li>
-<li><input type="checkbox" disabled="" />
-Made 3 changes, ran it after each one</li>
-<li><input type="checkbox" disabled="" />
-Something broke and I fixed it</li>
-<li><input type="checkbox" disabled="" />
-Made it look the way I want</li>
-<li><input type="checkbox" disabled="" />
-I can explain what my app does without looking at the code</li>
+<li><label><input type="checkbox" />It runs</label></li>
+<li><label><input type="checkbox" />Made 3 changes, ran it after each
+one</label></li>
+<li><label><input type="checkbox" />Something broke and I fixed
+it</label></li>
+<li><label><input type="checkbox" />Made it look the way I
+want</label></li>
+<li><label><input type="checkbox" />I can explain what my app does
+without looking at the code</label></li>
 </ul>
 <p><strong>Instructor moves while circulating:</strong></p>
 <ul>
-<li>Student stuck on the same bug for 8+ minutes → tell them to describe the bug out loud to you first. They’ll often fix it mid-sentence.</li>
-<li>Student asking for huge changes → “What’s the smallest version of that? Ask for that.”</li>
-<li>Student who finishes fast → “Now try to break it. Type nothing in the boxes. Type a number where a word goes. Click the button 20 times.”</li>
-<li>Student whose app got tangled → <code>Ctrl+C</code>, delete the file, start fresh with a better first prompt. Restarting is cheap and this is a valuable lesson.</li>
+<li>Student stuck on the same bug for 8+ minutes → tell them to describe
+the bug out loud to you first. They’ll often fix it mid-sentence.</li>
+<li>Student asking for huge changes → “What’s the smallest version of
+that? Ask for that.”</li>
+<li>Student who finishes fast → “Now try to break it. Type nothing in
+the boxes. Type a number where a word goes. Click the button 20
+times.”</li>
+<li>Student whose app got tangled → <code>Ctrl+C</code>, delete the
+file, start fresh with a better first prompt. Restarting is cheap and
+this is a valuable lesson.</li>
 </ul>
 <h3 id="land-it-ms-4-min-hs-5-min">Land it (MS 4 min / HS 5 min)</h3>
-<p>Everyone stops building. Last change gets tested, and they write one sentence: *"My app lets you ___."*</p>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Pairs. Call a checkpoint at the halfway mark — “hands up if your app runs &gt; right now.” Anyone with a hand down gets you next. &gt; <strong>HS:</strong> Solo. Add a checkbox: “I read the code and understood one part of it.”</p>
+<p>Everyone stops building. Last change gets tested, and they write one
+sentence: *“My app lets you ___.”*</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Pairs. Call a
+checkpoint at the halfway mark — “hands up if your app runs &gt; right
+now.” Anyone with a hand down gets you next. &gt; <strong>HS:</strong>
+Solo. Add a checkbox: “I read the code and understood one part of
+it.”</p>
 <hr />
-<h2 id="the-ai-was-wrong-ms-8-min-hs-12-min">The AI Was Wrong (MS 8 min / HS 12 min)</h2>
-<p>The most important block of the session. Do not cut this for time.</p>
-<p>Put this on the projector — a real thing an AI will produce for “make a quiz app that shows my score at the end”:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>score <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="cf">for</span> question <span class="kw">in</span> questions:</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    answer <span class="op">=</span> <span class="bu">input</span>(question[<span class="st">&quot;text&quot;</span>] <span class="op">+</span> <span class="st">&quot; &quot;</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="cf">if</span> answer <span class="op">==</span> question[<span class="st">&quot;correct&quot;</span>]:</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>        score <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="bu">print</span>(<span class="ss">f&quot;You got </span><span class="sc">{</span>score<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(questions)<span class="sc">}</span><span class="ss">!&quot;</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="bu">print</span>(<span class="ss">f&quot;That&#39;s </span><span class="sc">{</span>score <span class="op">/</span> <span class="bu">len</span>(questions) <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ss">%!&quot;</span>)</span></code></pre></div>
+<h2 id="the-ai-was-wrong-ms-8-min-hs-12-min">The AI Was Wrong (MS 8 min
+/ HS 12 min)</h2>
+<p>The most important block of the session. Do not cut this for
+time.</p>
+<p>Put this on the projector — a real thing an AI will produce for “make
+a quiz app that shows my score at the end”:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>score <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> question <span class="kw">in</span> questions:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="bu">input</span>(question[<span class="st">&quot;text&quot;</span>] <span class="op">+</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> answer <span class="op">==</span> question[<span class="st">&quot;correct&quot;</span>]:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        score <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;You got </span><span class="sc">{</span>score<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(questions)<span class="sc">}</span><span class="ss">!&quot;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;That&#39;s </span><span class="sc">{</span>score <span class="op">/</span> <span class="bu">len</span>(questions) <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ss">%!&quot;</span>)</span></code></pre></div>
 <p>Ask the room: <strong>“What’s wrong with this?”</strong></p>
 <p>Let them find it. Seed hints only if they stall:</p>
 <ul>
-<li>What if the answer is “Paris” and I type “paris”? <em>(case sensitivity — marked wrong)</em></li>
-<li>What if I type " Paris" with a space? <em>(marked wrong)</em></li>
-<li>What does the percentage print if I get 1 out of 3? <em>(<code>33.33333333333333%</code>)</em></li>
+<li>What if the answer is “Paris” and I type “paris”? <em>(case
+sensitivity — marked wrong)</em></li>
+<li>What if I type ” Paris” with a space? <em>(marked wrong)</em></li>
+<li>What does the percentage print if I get 1 out of 3?
+<em>(<code>33.33333333333333%</code>)</em></li>
 </ul>
-<p>None of this crashes. It runs perfectly. It’s just wrong, and it will hand a student a score they didn’t earn.</p>
+<p>None of this crashes. It runs perfectly. It’s just wrong, and it will
+hand a student a score they didn’t earn.</p>
 <p>Then land the point:</p>
 <blockquote>
-<p>“The AI wrote code that runs. It didn’t write code that’s <em>right</em>. Nothing in your computer will ever tell you the difference. That’s your job — and it’s why this class exists.”</p>
+<p>“The AI wrote code that runs. It didn’t write code that’s
+<em>right</em>. Nothing in your computer will ever tell you the
+difference. That’s your job — and it’s why this class exists.”</p>
 </blockquote>
-<p>Then, hands-on: <strong>everyone spends the last few minutes trying to break their own app.</strong></p>
+<p>Then, hands-on: <strong>everyone spends the last few minutes trying
+to break their own app.</strong></p>
 <ul>
 <li>Leave every box empty and click the button</li>
 <li>Type a number where a word goes</li>
@@ -413,52 +538,81 @@ I can explain what my app does without looking at the code</li>
 <li>Resize the window very small</li>
 </ul>
 <p>Found something? Fix it. That’s the last change of the day.</p>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Do the breaking exercise <em>first</em> (it’s fun and physical), then show the code &gt; example with only the case-sensitivity bug. Skip the percentage and whitespace bugs. &gt; <strong>HS:</strong> Ask them to write the <em>fix</em> for each bug before you show it. Then ask the &gt; better question: “How would you have caught this if I hadn’t told you?” Answer: &gt; you test with the wrong input on purpose.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Do the breaking
+exercise <em>first</em> (it’s fun and physical), then show the code &gt;
+example with only the case-sensitivity bug. Skip the percentage and
+whitespace bugs. &gt; <strong>HS:</strong> Ask them to write the
+<em>fix</em> for each bug before you show it. Then ask the &gt; better
+question: “How would you have caught this if I hadn’t told you?” Answer:
+&gt; you test with the wrong input on purpose.</p>
 <hr />
-<h2 id="showcase-take-it-home-ms-7-min-hs-8-min">Showcase + Take It Home (MS 7 min / HS 8 min)</h2>
+<h2 id="showcase-take-it-home-ms-7-min-hs-8-min">Showcase + Take It Home
+(MS 7 min / HS 8 min)</h2>
 <h3 id="showcase-ms-5-min-hs-5-min">Showcase (MS 5 min / HS 5 min)</h3>
-<p>There is not time for everyone to present. Run a <strong>gallery walk</strong>: everyone leaves their app running, students circulate for 3 minutes, then 3–4 volunteers show theirs to the whole room for 45 seconds each.</p>
+<p>There is not time for everyone to present. Run a <strong>gallery
+walk</strong>: everyone leaves their app running, students circulate for
+3 minutes, then 3–4 volunteers show theirs to the whole room for 45
+seconds each.</p>
 <p>Volunteers cover two things:</p>
 <ol type="1">
 <li><strong>Show it working</strong> (don’t describe it, run it)</li>
 <li><strong>One thing that broke and how you fixed it</strong></li>
 </ol>
-<p>Item 2 is non-optional. Making the struggle public normalizes the loop and defuses the idea that anyone got it right the first time.</p>
-<h3 id="take-it-home-ms-2-min-hs-3-min">Take it home (MS 2 min / HS 3 min)</h3>
+<p>Item 2 is non-optional. Making the struggle public normalizes the
+loop and defuses the idea that anyone got it right the first time.</p>
+<h3 id="take-it-home-ms-2-min-hs-3-min">Take it home (MS 2 min / HS 3
+min)</h3>
 <p>Three things they leave with:</p>
 <ol type="1">
-<li><p><strong>The loop, on an index card:</strong> &gt; <strong>Ask small → Run it → Say exactly what went wrong → Repeat</strong></p></li>
-<li><p><strong>Their app.</strong> It’s theirs. It’s on the machine, and if they have a USB stick or email, it’s a single file they can take.</p></li>
+<li><p><strong>The loop, on an index card:</strong> &gt; <strong>Ask
+small → Run it → Say exactly what went wrong → Repeat</strong></p></li>
+<li><p><strong>Their app.</strong> It’s theirs. It’s on the machine, and
+if they have a USB stick or email, it’s a single file they can
+take.</p></li>
 <li><p><strong>The honest note.</strong> Say this out loud:</p></li>
 </ol>
 <blockquote>
-<p>“You built something real today. Also — the AI wrote the code, and you should know what that does and doesn’t mean. It means you can build things right now that would have taken you months to learn. It doesn’t mean you know how the code works. If you want to <em>actually</em> get good at this, the next thing to do is read the code the AI wrote and figure out what each part does.”</p>
+<p>“You built something real today. Also — the AI wrote the code, and
+you should know what that does and doesn’t mean. It means you can build
+things right now that would have taken you months to learn. It doesn’t
+mean you know how the code works. If you want to <em>actually</em> get
+good at this, the next thing to do is read the code the AI wrote and
+figure out what each part does.”</p>
 </blockquote>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Trim the honest note to its first two sentences. Then: “You made a thing that &gt; works. Show somebody.” &gt; <strong>HS:</strong> Full version, plus: “The people who can do both — steer the AI <em>and</em> read the &gt; code — are going to be unbelievably good at this.”</p>
-<p>If they’re coming back for Session 2, tell them the teaser: <strong>“Next time we find out how to tell when the AI is lying to you.”</strong></p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Trim the honest note
+to its first two sentences. Then: “You made a thing that &gt; works.
+Show somebody.” &gt; <strong>HS:</strong> Full version, plus: “The
+people who can do both — steer the AI <em>and</em> read the &gt; code —
+are going to be unbelievably good at this.”</p>
+<p>If they’re coming back for Session 2, tell them the teaser:
+<strong>“Next time we find out how to tell when the AI is lying to
+you.”</strong></p>
 <hr />
 <h2 id="instructor-prep-checklist">Instructor Prep Checklist</h2>
 <ul class="task-list">
-<li><input type="checkbox" disabled="" />
-<strong>Print camper notes</strong> — <code>ms-camper-notes.md</code> or <code>hs-camper-notes.md</code>, one per camper. Hand out at the start; they’re written to be followed along with.</li>
-<li><input type="checkbox" disabled="" />
-Test <code>cc-ds</code> on a lab machine the morning of</li>
-<li><input type="checkbox" disabled="" />
-Confirm tkinter is available: <code>python -c "import tkinter"</code> (no output = good)</li>
-<li><input type="checkbox" disabled="" />
-Know that students with Claude Pro can use <code>cc</code> — mention it once at the start</li>
-<li><input type="checkbox" disabled="" />
-Have <code>dice.py</code> demo working before students arrive</li>
-<li><input type="checkbox" disabled="" />
-Project the idea board and the prompt template</li>
-<li><input type="checkbox" disabled="" />
-Index cards for the take-home loop</li>
-<li><input type="checkbox" disabled="" />
-Know how to <code>Ctrl+C</code> out of a hung session and restart — you’ll do it a dozen times</li>
-<li><input type="checkbox" disabled="" />
-Read <a href="../troubleshooting.html"><code>troubleshooting.md</code></a></li>
-<li><input type="checkbox" disabled="" />
-<strong>Decide your break policy for MS</strong> before you start — see the note under the MS timing table</li>
+<li><label><input type="checkbox" /><strong>Print camper notes</strong>
+— <code>ms-camper-notes.md</code> or <code>hs-camper-notes.md</code>,
+one per camper. Hand out at the start; they’re written to be followed
+along with.</label></li>
+<li><label><input type="checkbox" />Test <code>cc-ds</code> on a lab
+machine the morning of</label></li>
+<li><label><input type="checkbox" />Confirm tkinter is available:
+<code>python -c "import tkinter"</code> (no output = good)</label></li>
+<li><label><input type="checkbox" />Know that students with Claude Pro
+can use <code>cc</code> — mention it once at the start</label></li>
+<li><label><input type="checkbox" />Have <code>dice.py</code> demo
+working before students arrive</label></li>
+<li><label><input type="checkbox" />Project the idea board and the
+prompt template</label></li>
+<li><label><input type="checkbox" />Index cards for the take-home
+loop</label></li>
+<li><label><input type="checkbox" />Know how to <code>Ctrl+C</code> out
+of a hung session and restart — you’ll do it a dozen times</label></li>
+<li><label><input type="checkbox" />Read <a
+href="../troubleshooting.html"><code>troubleshooting.md</code></a></label></li>
+<li><label><input type="checkbox" /><strong>Decide your break policy for
+MS</strong> before you start — see the note under the MS timing
+table</label></li>
 </ul>
 </main>
 
