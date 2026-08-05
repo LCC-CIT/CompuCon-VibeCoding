@@ -19,6 +19,9 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 ```
 README.md                      Track overview — start here
 PREFLIGHT.md                   Untested assumptions, known gaps, pre-teaching checklist
+docs/                          PUBLISHED SITE — GitHub Pages serves from here
+  index.html                   Public-facing camp landing page
+  .nojekyll                    Skips Jekyll processing; leave it alone
 curriculum/
   session-1/
     lesson-plan.md             Instructor script — both age groups
@@ -45,6 +48,16 @@ is no `day-N.md` anymore.
 for that session, so a camper never needs a second document mid-class. There is no
 separate cheat sheet — it was retired to stop two handouts from drifting apart. If you
 add a command or a rule, check whether the camper notes for that session need it too.
+
+**All HTML goes in `docs/`.** GitHub Pages is configured to serve from that folder, so a
+page anywhere else simply won't be published. Keep pages self-contained — inline CSS and
+JS, no CDN links, no build step. The camp network may block outside requests, and there's
+no pipeline here to bundle anything.
+
+`docs/index.html` is public-facing marketing aimed at campers and parents. It quotes
+figures from the curriculum (session lengths, project examples, the "genius intern"
+line). **If the schedule changes, update it too** — it's the one file that can go stale
+without any of the internal cross-checks catching it.
 
 ---
 

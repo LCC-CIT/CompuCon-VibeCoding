@@ -60,6 +60,9 @@ Shared reference material:
 - [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
 - [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
 
+Public site: [`docs/index.html`](docs/index.html) — camper-facing landing page, published
+via GitHub Pages from the `docs/` folder.
+
 **Camper notes are self-contained** — each one carries the commands, prompts, and
 reminders for that session, so campers never juggle two documents. Print one per camper
 per session.

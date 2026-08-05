@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding — CompuCon Summer Camp</title>
+<meta name="description" content="Build real apps by describing what you want. A four-session coding track at CompuCon for middle and high school campers. No experience required.">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --surface:#141b25;
+    --surface-2:#1a2330;
+    --border:#242f3d;
+    --border-bright:#33445a;
+    --text:#e8eef5;
+    --muted:#93a3b5;
+    --dim:#6b7c91;
+    --cyan:#4fd6c4;
+    --amber:#ffbe5c;
+    --violet:#b18aff;
+    --green:#79e88a;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono","Fira Code",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+    --radius:14px;
+    --maxw:1060px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(900px 500px at 12% -5%, rgba(79,214,196,.12), transparent 60%),
+      radial-gradient(800px 500px at 88% 10%, rgba(177,138,255,.10), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  main,footer{position:relative;z-index:1}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  .tag{
+    font-family:var(--mono);
+    font-size:.78rem;
+    color:var(--dim);
+    letter-spacing:.04em;
+    margin-bottom:14px;
+    display:block;
+  }
+  .tag::before{content:"// ";color:var(--cyan);opacity:.65}
+
+  h1,h2,h3{line-height:1.15;letter-spacing:-.02em;font-weight:700}
+  h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:14px}
+  h3{font-size:1.14rem;margin-bottom:8px}
+  p{color:var(--muted)}
+  section{padding:clamp(52px,7.5vw,92px) 0}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(10,14,20,.82);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;gap:14px}
+  .logo{font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--text);text-decoration:none;white-space:nowrap}
+  .logo .b{color:var(--cyan)}
+  .logo .cur{color:var(--amber);animation:blink 1.15s steps(1) infinite}
+  @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+  .nav-links{margin-left:auto;display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .18s}
+  .nav-links a:hover{color:var(--cyan)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(52px,9vw,100px) 0 clamp(40px,5vw,64px)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--mono);font-size:.79rem;
+    background:rgba(79,214,196,.09);
+    border:1px solid rgba(79,214,196,.3);
+    color:var(--cyan);
+    padding:6px 13px;border-radius:100px;margin-bottom:22px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 9px var(--cyan);animation:pulse 2.1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  .hero h1{
+    font-size:clamp(2.2rem,5.6vw,3.6rem);
+    margin-bottom:20px;
+    letter-spacing:-.035em;
+  }
+  .grad{
+    background:linear-gradient(103deg,var(--cyan) 0%,var(--violet) 52%,var(--amber) 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .lede{font-size:clamp(1rem,1.8vw,1.16rem);max-width:52ch;margin-bottom:14px}
+  .sub{font-size:.95rem;color:var(--dim);max-width:52ch}
+
+  /* ---------- terminal ---------- */
+  .term{
+    background:linear-gradient(170deg,var(--surface),#101720);
+    border:1px solid var(--border-bright);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 22px 52px rgba(0,0,0,.5);
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:11px 15px;background:rgba(255,255,255,.03);
+    border-bottom:1px solid var(--border);
+  }
+  .tl{width:11px;height:11px;border-radius:50%}
+  .term-title{margin-left:8px;font-family:var(--mono);font-size:.76rem;color:var(--dim)}
+  .term-body{padding:18px 17px;font-family:var(--mono);font-size:.83rem;line-height:1.85;min-height:230px}
+  @media(max-width:480px){.term-body{font-size:.74rem;padding:14px 13px;min-height:210px}}
+  .ln{display:block;white-space:pre-wrap;word-break:break-word}
+  .c-prompt{color:var(--green)}
+  .c-you{color:var(--text)}
+  .c-cmt{color:var(--dim)}
+  .c-ok{color:var(--cyan)}
+  .cursor-blk{display:inline-block;width:8px;height:1em;background:var(--cyan);vertical-align:text-bottom;animation:blink 1.05s steps(1) infinite}
+
+  /* ---------- cards ---------- */
+  .cards{display:grid;gap:18px;margin-top:32px}
+  .c3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:860px){.c3{grid-template-columns:1fr}}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:25px 23px;
+    transition:border-color .22s,transform .22s,background .22s;
+  }
+  .card:hover{border-color:var(--border-bright);transform:translateY(-3px);background:var(--surface-2)}
+  .card p{font-size:.92rem}
+  .ico{
+    width:38px;height:38px;border-radius:10px;
+    display:grid;place-items:center;margin-bottom:14px;
+    font-family:var(--mono);font-weight:700;font-size:1rem;
+  }
+  .i-cy{background:rgba(79,214,196,.12);color:var(--cyan);border:1px solid rgba(79,214,196,.26)}
+  .i-am{background:rgba(255,190,92,.12);color:var(--amber);border:1px solid rgba(255,190,92,.26)}
+  .i-vi{background:rgba(177,138,255,.12);color:var(--violet);border:1px solid rgba(177,138,255,.26)}
+
+  /* ---------- band ---------- */
+  .band{
+    background:linear-gradient(150deg,rgba(255,190,92,.05),rgba(177,138,255,.04));
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  }
+  .catch-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  @media(max-width:900px){.catch-grid{grid-template-columns:1fr;gap:30px}}
+  .quote{
+    font-size:clamp(1.08rem,2.2vw,1.35rem);
+    color:var(--text);font-weight:600;line-height:1.45;
+    border-left:3px solid var(--amber);padding-left:19px;margin:20px 0;
+  }
+  .code-block{
+    background:#0b1016;border:1px solid var(--border);
+    border-radius:12px;padding:17px 16px;
+    font-family:var(--mono);font-size:.82rem;line-height:1.8;
+    overflow-x:auto;
+  }
+  @media(max-width:480px){.code-block{font-size:.73rem}}
+  .k{color:var(--violet)}.s{color:var(--green)}.n{color:var(--amber)}.cm{color:var(--dim)}
+  .bug{
+    margin-top:14px;font-size:.86rem;color:var(--amber);
+    font-family:var(--mono);display:flex;gap:9px;align-items:flex-start;
+  }
+
+  /* ---------- projects ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .chip{
+    font-family:var(--mono);font-size:.82rem;
+    background:var(--surface);border:1px solid var(--border);
+    padding:7px 14px;border-radius:100px;color:var(--muted);
+    transition:all .19s;cursor:default;
+  }
+  .chip:hover{border-color:var(--cyan);color:var(--cyan)}
+
+  /* ---------- sessions ---------- */
+  .tl-wrap{margin-top:34px;display:grid;gap:13px}
+  .step{
+    display:grid;grid-template-columns:50px 1fr;gap:19px;align-items:start;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:21px 23px;
+    transition:border-color .22s;
+  }
+  .step:hover{border-color:var(--border-bright)}
+  @media(max-width:600px){.step{grid-template-columns:1fr;gap:10px}}
+  .snum{
+    font-family:var(--mono);font-size:1.6rem;font-weight:700;
+    background:linear-gradient(160deg,var(--cyan),var(--violet));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    line-height:1;
+  }
+  .step h3{margin-bottom:5px}
+  .step p{font-size:.91rem}
+  .split{
+    margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);
+    display:grid;gap:6px;font-size:.84rem;
+  }
+  .split div{color:var(--dim)}
+  .split b{font-family:var(--mono);font-size:.75rem;padding:1px 7px;border-radius:5px;margin-right:8px}
+  .b-ms{background:rgba(79,214,196,.13);color:var(--cyan)}
+  .b-hs{background:rgba(177,138,255,.13);color:var(--violet)}
+
+  /* ---------- faq ---------- */
+  .faq{margin-top:30px;display:grid;gap:11px}
+  details{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:12px;overflow:hidden;transition:border-color .2s;
+  }
+  details[open]{border-color:var(--border-bright)}
+  summary{
+    padding:16px 20px;cursor:pointer;font-weight:600;font-size:.96rem;
+    list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;
+    transition:color .18s;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary:hover{color:var(--cyan)}
+  summary::after{content:"+";font-family:var(--mono);color:var(--cyan);font-size:1.2rem;flex-shrink:0;transition:transform .22s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:0 20px 17px;font-size:.91rem}
+
+  footer{border-top:1px solid var(--border);padding:32px 0;text-align:center}
+  footer p{font-family:var(--mono);font-size:.8rem;color:var(--dim)}
+  footer .hl{color:var(--cyan)}
+
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="#top" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="#what">What it is</a>
+      <a href="#sessions">Sessions</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge"><span class="dot"></span>Middle &amp; High School</span>
+      <h1>Describe an app.<br><span class="grad">Watch it get built.</span><br>Find out if it's any good.</h1>
+      <p class="lede">
+        You won't type the code. You'll tell an AI what you want, run what it gives you,
+        and figure out what's wrong with it — because something always is.
+      </p>
+      <p class="sub">
+        Four sessions. Real apps that actually run. Zero experience required, and we mean
+        that literally — the first thing you build, you build on day one.
+      </p>
+    </div>
+
+    <div class="term" aria-hidden="true">
+      <div class="term-bar">
+        <span class="tl" style="background:#ff5f57"></span>
+        <span class="tl" style="background:#febc2e"></span>
+        <span class="tl" style="background:#28c840"></span>
+        <span class="term-title">PowerShell — session 1</span>
+      </div>
+      <div class="term-body" id="term"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IT IS ============ -->
+<section id="what">
+  <div class="wrap">
+    <span class="tag">what is vibe coding, actually</span>
+    <h2>It's steering, not typing.</h2>
+    <p style="max-width:60ch">
+      You describe what you want in plain English. An AI writes the code. Then the interesting
+      part starts — you run it, decide whether it's actually right, and tell it what to change.
+      Over and over, until it's genuinely good.
+    </p>
+
+    <div class="cards c3">
+      <div class="card rv">
+        <div class="ico i-cy">01</div>
+        <h3>Ask</h3>
+        <p>
+          "Build a dice roller with a big ROLL button that shows a number from 1 to 20 in huge
+          text." That's a real prompt — and knowing what to say is the whole skill.
+        </p>
+      </div>
+      <div class="card rv">
+        <div class="ico i-am">02</div>
+        <h3>Run</h3>
+        <p>
+          A window opens on your screen. Sometimes it's exactly right. Sometimes it crashes.
+          Sometimes it works perfectly and does completely the wrong thing.
+        </p>
+      </div>
+      <div class="card rv">
+        <div class="ico i-vi">03</div>
+        <h3>Fix</h3>
+        <p>
+          You say what broke: what you did, what you expected, what actually happened. Turns out
+          that's how you report a bug to any human engineer too. Convenient.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:34px;font-size:.94rem">
+      Things campers build — every one opens a real window, and you take it home:
+    </p>
+    <div class="chips">
+      <span class="chip">Mad Libs generator</span>
+      <span class="chip">d20 dice roller</span>
+      <span class="chip">Quiz game</span>
+      <span class="chip">Wordle clone</span>
+      <span class="chip">Pomodoro timer</span>
+      <span class="chip">Hangman</span>
+      <span class="chip">Pixel art editor</span>
+      <span class="chip">Typing speed test</span>
+      <span class="chip">Text adventure</span>
+      <span class="chip">…or your own idea</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CATCH ============ -->
+<section id="catch" class="band">
+  <div class="wrap catch-grid">
+    <div>
+      <span class="tag">the part nobody tells you</span>
+      <h2>It ran ≠ it's right.</h2>
+      <p>
+        The AI is a spectacularly fast guesser. It has read more code than any human ever will,
+        and it will confidently hand you something broken with a completely straight face.
+      </p>
+      <blockquote class="quote">
+        It's like a genius intern on day one. Incredibly fast, knows every library, has no idea
+        what you actually want — and will never tell you it's confused.
+      </blockquote>
+      <p>
+        Catching that is the actual class. Anyone can get code to run. Not everyone can tell
+        whether it's <em>correct</em> — and that skill doesn't expire when the tools change.
+      </p>
+    </div>
+
+    <div>
+      <div class="code-block">
+<span class="cm"># asked for: a quiz that shows my score</span>
+<span class="k">for</span> q <span class="k">in</span> questions:
+    ans = input(q[<span class="s">"text"</span>])
+    <span class="k">if</span> ans == q[<span class="s">"correct"</span>]:
+        score += <span class="n">1</span>
+
+print(<span class="s">f"That's {score/len(questions)*100}%!"</span>)
+      </div>
+      <div class="bug"><span>▲</span><span>Type "paris" instead of "Paris" → marked wrong.</span></div>
+      <div class="bug"><span>▲</span><span>Score 1 out of 3 → prints <b>33.33333333333333%</b></span></div>
+      <div class="bug"><span>▲</span><span>Runs perfectly. Crashes never. Still wrong.</span></div>
+      <p style="margin-top:16px;font-size:.88rem">
+        Nothing on your computer will ever flag this. That's your job — and by session two
+        you'll spot it in about four seconds.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRACKS ============ -->
+<!-- ============ SESSIONS ============ -->
+<section id="sessions">
+  <div class="wrap">
+    <span class="tag">the arc</span>
+    <h2>Four sessions that build on each other.</h2>
+    <p style="max-width:60ch">
+      Session 1 stands completely on its own — if you can only make one, you'll still leave with
+      a finished app you built.
+    </p>
+
+    <div class="tl-wrap">
+      <div class="step rv">
+        <div class="snum">01</div>
+        <div>
+          <h3>Make Something Work</h3>
+          <p>
+            No lecture first. Your instructor builds an app live, then you build one, then you
+            break it on purpose and fix what you broke.
+          </p>
+        </div>
+      </div>
+
+      <div class="step rv">
+        <div class="snum">02</div>
+        <div>
+          <h3>Ask Better, Check Harder</h3>
+          <p>
+            How much to ask for at once, and how to actually verify what came back. Ends with
+            everyone swapping computers to try to break a partner's app.
+          </p>
+        </div>
+      </div>
+
+      <div class="step rv">
+        <div class="snum">03</div>
+        <div>
+          <h3>Make It Solid / Build Something Bigger</h3>
+          <p>The two tracks genuinely split here — not just pacing, different material.</p>
+          <div class="split">
+            <div><b class="b-ms">MS</b>Save points, debugging technique, and hardening one app until it refuses to break.</div>
+            <div><b class="b-hs">HS</b>Multi-file projects, planning before building, and finishing the capstone.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step rv">
+        <div class="snum">04</div>
+        <div>
+          <h3>Make It Yours / Demo Day</h3>
+          <p>
+            Everyone demos. Two things are required every time: one thing that broke, and one
+            thing the AI got wrong that you caught. Nobody gets to look like it was effortless.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="band">
+  <div class="wrap">
+    <span class="tag">questions you probably have</span>
+    <h2>Reasonable concerns, addressed.</h2>
+
+    <div class="faq">
+      <details>
+        <summary>Do I need to know how to code?</summary>
+        <p>
+          No. Genuinely, actually no — not "no, but it helps if you do." Campers who have never
+          written a line of code build a working app in their first session. If you <em>do</em>
+          already code, you'll get more out of it, because you'll catch things other people miss.
+        </p>
+      </details>
+      <details>
+        <summary>Isn't this just letting a robot do my homework?</summary>
+        <p>
+          Fair question, and we're upfront about it in class. The AI writes the code. You decide
+          what gets built, catch what's wrong, and steer the whole thing — which is most of what
+          professional engineers actually spend their time doing. We also tell you plainly what
+          you <em>haven't</em> learned yet, and exactly how to go learn it.
+        </p>
+      </details>
+      <details>
+        <summary>What do I need to bring?</summary>
+        <p>
+          Nothing. Lab laptops are set up and ready — no installs, no accounts, no software to
+          download. Show up and open a terminal.
+        </p>
+      </details>
+      <details>
+        <summary>What if I miss a session?</summary>
+        <p>
+          Session 1 is deliberately built to stand alone, so you can attend only that one and
+          still leave with a finished app. Later sessions each open with a way to catch newcomers
+          up.
+        </p>
+      </details>
+      <details>
+        <summary>What language do we use?</summary>
+        <p>
+          Python, with a library called tkinter that makes windows and buttons. It was picked
+          because there's nothing to install and you get a real window on screen in about sixty
+          seconds. Already fluent in something else? Talk to your instructor.
+        </p>
+      </details>
+      <details>
+        <summary>Do I get to keep what I build?</summary>
+        <p>
+          Yes. It's yours — email it to yourself or bring a USB stick. The tools are free to
+          install at home, so you can keep going the day after camp ends.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var lines = [
+    {t:'$ ', c:'c-prompt', inst:true},
+    {t:'cc-ds', c:'c-you', inst:true},
+    {t:'', inst:true},
+    {t:'> Build a dice roller in Python with a tkinter', c:'c-you'},
+    {t:'  window. Big ROLL button. Show a random number', c:'c-you'},
+    {t:'  from 1 to 20 in huge text. Save as dice.py', c:'c-you'},
+    {t:'', inst:true},
+    {t:'  ✓ created dice.py', c:'c-ok', inst:true},
+    {t:'', inst:true},
+    {t:'$ ', c:'c-prompt', inst:true},
+    {t:'python dice.py', c:'c-you', inst:true},
+    {t:'', inst:true},
+    {t:'  # a window opens. you click it. it works.', c:'c-cmt', inst:true},
+    {t:'  # elapsed: 4 min 12 s', c:'c-cmt', inst:true},
+    {t:'', inst:true},
+    {t:'> now make it green on a 20 and red on a 1', c:'c-you'}
+  ];
+
+  var term = document.getElementById('term');
+  if(term){
+    var cur = document.createElement('span');
+    cur.className = 'cursor-blk';
+
+    if(reduce){
+      lines.forEach(function(l){
+        var s=document.createElement('span');
+        s.className='ln '+(l.c||''); s.textContent=l.t; term.appendChild(s);
+      });
+      term.appendChild(cur);
+    } else {
+      var li=0, ci=0, span=null;
+      var step=function(){
+        if(li>=lines.length) return;
+        var L=lines[li];
+        if(!span){
+          span=document.createElement('span');
+          span.className='ln '+(L.c||'');
+          term.insertBefore(span,cur);
+        }
+        if(L.inst || ci>=L.t.length){
+          if(L.inst) span.textContent=L.t;
+          li++; ci=0; span=null;
+          setTimeout(step, L.inst? 190 : 340);
+          return;
+        }
+        span.textContent=L.t.slice(0,++ci);
+        setTimeout(step, 22);
+      };
+      term.appendChild(cur);
+      setTimeout(step, 520);
+    }
+  }
+
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el,i){
+      el.style.transitionDelay=(i%3)*70+'ms';
+      io.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
+</body>
+</html>

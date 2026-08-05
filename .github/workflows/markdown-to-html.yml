@@ -37,13 +37,17 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Ensure docs folder and .nojekyll exist so GitHub Pages skips Jekyll build
+          mkdir -p docs
+          touch docs/.nojekyll
+
           for md in ${{ steps.changed-md.outputs.all_changed_files }}; do
             if [ -f "$md" ]; then
               # Replace 'curriculum/' prefix with 'docs/' and change extension to .html
               rel_path="${md#curriculum/}"
               html="docs/${rel_path%.md}.html"
 
-              # Automatically create the docs/ destination folder & subfolders if they don't exist
+              # Automatically create destination subfolders if needed
               mkdir -p "$(dirname "$html")"
 
               echo "Converting $md -> $html"
