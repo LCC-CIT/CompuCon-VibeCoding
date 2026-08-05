@@ -1,10 +1,12 @@
-name: Convert curriculum markdown to docs HTML
+name: Convert curriculum markdown to docs HTML (Full Sync & Cleanup)
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'curriculum/**/*.md'
-      - '.github/workflows/markdown-to-html.yml'
+      - '.github/workflows/cleanup-deleted-markdown-html.yml'
   workflow_dispatch:
 
 permissions:
@@ -16,19 +18,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Install pandoc
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
 
-      - name: Convert all curriculum markdown into docs
+      - name: Convert all curriculum markdown into docs and clean up stale HTML
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p docs
+          touch docs/.nojekyll
 
+          # Step 1: Convert all existing .md files in curriculum/ to docs/
           count=0
           while IFS= read -r -d '' md; do
             rel="${md#curriculum/}"
@@ -39,15 +43,23 @@ jobs:
             count=$((count+1))
           done < <(find curriculum -type f -name '*.md' -print0)
 
-          echo "Converted files: $count"
-          find docs -type f -name '*.html' -print || true
+          echo "Converted $count files."
+
+          # Step 2: Delete any .html in docs/ whose corresponding .md no longer exists in curriculum/
+          while IFS= read -r -d '' html; do
+            rel="${html#docs/}"
+            source_md="curriculum/${rel%.html}.md"
+            if [ ! -f "$source_md" ]; then
+              echo "Removing stale HTML file: $html"
+              rm -f "$html"
+            fi
+          done < <(find docs -type f -name '*.html' -print0)
 
       - name: Commit docs updates
         shell: bash
         run: |
           set -euo pipefail
-          git add docs
-          git status --short
+          git add docs/
 
           if git diff --cached --quiet; then
             echo "No docs changes to commit."
@@ -56,5 +68,5 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Auto-generate docs HTML from curriculum markdown"
+          git commit -m "Auto-generate docs HTML from curriculum markdown and cleanup stale files"
           git push

@@ -2,6 +2,8 @@ name: Convert changed curriculum markdown to docs HTML
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'curriculum/**/*.md'
       - '.github/workflows/markdown-to-html.yml'
@@ -16,13 +18,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Get changed markdown files
         id: changed
-        uses: tj-actions/changed-files@v47
+        uses: tj-actions/changed-files@v45
         with:
           files: |
             curriculum/**/*.md
@@ -39,26 +41,25 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p docs
+          touch docs/.nojekyll
 
-          # changed-files output is newline-separated
-          while IFS= read -r md; do
-            [ -z "$md" ] && continue
-            [ ! -f "$md" ] && continue  # skip deleted/renamed-away files
+          for md in ${{ steps.changed.outputs.all_changed_files }}; do
+            if [ -f "$md" ]; then
+              rel="${md#curriculum/}"          # session-1/lesson-plan.md
+              out="docs/${rel%.md}.html"       # docs/session-1/lesson-plan.html
+              mkdir -p "$(dirname "$out")"
 
-            rel="${md#curriculum/}"          # unit1/lesson.md
-            out="docs/${rel%.md}.html"       # docs/unit1/lesson.html
-            mkdir -p "$(dirname "$out")"
-
-            echo "Converting $md -> $out"
-            pandoc "$md" -f markdown -t html5 -s -o "$out"
-          done <<< "${{ steps.changed.outputs.all_changed_files }}"
+              echo "Converting $md -> $out"
+              pandoc "$md" -f markdown -t html5 -s -o "$out"
+            fi
+          done
 
       - name: Commit docs updates
         if: steps.changed.outputs.any_changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
-          git add docs
+          git add docs/
 
           if git diff --cached --quiet; then
             echo "No docs changes to commit."
