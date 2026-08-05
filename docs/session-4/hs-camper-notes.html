@@ -1,244 +1,101 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>hs-camper-notes</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Session 4 — Demo Day — CompuCon Vibe Coding</title>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+</style>
+<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
+
+<nav>
+  <div class="nav-in">
+    <a href="../index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="../middle-school.html">Middle School</a>
+      <a href="../high-school.html">High School</a>
+      <a href="../faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+  <a href="../high-school.html" class="crumb">High School</a>
+
 <h1 id="session-4-demo-day">Session 4 — Demo Day</h1>
-<h3 id="vibe-coding-high-school-keep-this-with-you">Vibe Coding · High
-School · Keep this with you</h3>
+<h3 id="vibe-coding-high-school-keep-this-with-you">Vibe Coding · High School · Keep this with you</h3>
 <hr />
 <h2 id="what-today-is">What today is</h2>
 <p><strong>60 minutes. Demos and wrap-up. No build time.</strong></p>
-<p>Your capstone was finished last session. Today you show it, you hear
-what everyone else made, and we talk about where this goes next.</p>
-<p>The only coding that happens today is if your app won’t launch and
-you need to restore a working copy.</p>
+<p>Your capstone was finished last session. Today you show it, you hear what everyone else made, and we talk about where this goes next.</p>
+<p>The only coding that happens today is if your app won’t launch and you need to restore a working copy.</p>
 <hr />
 <h2 id="todays-plan">Today’s plan</h2>
 <table>
@@ -275,21 +132,16 @@ you need to restore a working copy.</p>
 <hr />
 <h2 id="setup">Setup</h2>
 <p>Get your app running:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>python main<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">cd</span> capstone</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>python main.<span class="fu">py</span></span></code></pre></div>
 <h3 id="if-it-doesnt-run">If it doesn’t run</h3>
 <p>Restore the demo copy you made at the end of last session:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse capstone</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone<span class="op">-</span>demo capstone</span></code></pre></div>
-<p>This is the payoff for all that copying. If it saves you today,
-that’s not luck — that’s a habit you built on purpose.</p>
-<p><strong>“Being used by another process”?</strong> Your app is still
-running or the AI is open in that folder. Close the window,
-<code>Ctrl+C</code>, retry.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="fu">Remove-Item</span> -Recurse capstone</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse capstone-demo capstone</span></code></pre></div>
+<p>This is the payoff for all that copying. If it saves you today, that’s not luck — that’s a habit you built on purpose.</p>
+<p><strong>“Being used by another process”?</strong> Your app is still running or the AI is open in that folder. Close the window, <code>Ctrl+C</code>, retry.</p>
 <h3 id="rehearse-twice">Rehearse twice</h3>
 <ol type="1">
 <li>The exact clicks of your demo path</li>
@@ -307,18 +159,12 @@ running or the AI is open in that folder. Close the window,
 4. One thing the AI got wrong that you caught.
 
 5. What you&#39;d add next.</code></pre>
-<p><strong>Items 3 and 4 are required.</strong> If you skip them, we’ll
-ask.</p>
-<p>Item 4 is the one that matters most. It’s this entire course
-compressed into one sentence per person — and hearing twenty of them in
-a row makes the point better than any lecture could.</p>
-<h3 id="if-it-crashes-in-front-of-everyone">If it crashes in front of
-everyone</h3>
-<p>Say what it’s supposed to do and keep going. Every person in this
-room has had code break on them this week.</p>
+<p><strong>Items 3 and 4 are required.</strong> If you skip them, we’ll ask.</p>
+<p>Item 4 is the one that matters most. It’s this entire course compressed into one sentence per person — and hearing twenty of them in a row makes the point better than any lecture could.</p>
+<h3 id="if-it-crashes-in-front-of-everyone">If it crashes in front of everyone</h3>
+<p>Say what it’s supposed to do and keep going. Every person in this room has had code break on them this week.</p>
 <h3 id="while-others-demo">While others demo</h3>
-<p>Watch. Applaud — everyone, no exceptions. Ask one question or give
-one compliment.</p>
+<p>Watch. Applaud — everyone, no exceptions. Ask one question or give one compliment.</p>
 <p>Good questions to ask:</p>
 <ul>
 <li>“Why did you split it that way?”</li>
@@ -329,98 +175,74 @@ one compliment.</p>
 <h2 id="what-you-actually-learned">What you actually learned</h2>
 <p>Worth saying out loud, because you’ll undersell it to yourself:</p>
 <ul>
-<li>How to <strong>describe</strong> something precisely enough that it
-can be built</li>
-<li>How to <strong>break a big idea</strong> into pieces small enough to
-check</li>
-<li>How to tell whether something is <strong>right</strong>, not just
-whether it runs</li>
+<li>How to <strong>describe</strong> something precisely enough that it can be built</li>
+<li>How to <strong>break a big idea</strong> into pieces small enough to check</li>
+<li>How to tell whether something is <strong>right</strong>, not just whether it runs</li>
 <li>How to <strong>report a bug</strong> properly</li>
-<li>How to <strong>plan</strong> before building, and <strong>cut
-scope</strong> when you have to</li>
-<li>How to use <strong>save points</strong> so mistakes aren’t
-fatal</li>
-<li>How to <strong>split a project</strong> so you can find things — and
-so the AI works better</li>
+<li>How to <strong>plan</strong> before building, and <strong>cut scope</strong> when you have to</li>
+<li>How to use <strong>save points</strong> so mistakes aren’t fatal</li>
+<li>How to <strong>split a project</strong> so you can find things — and so the AI works better</li>
 </ul>
 <blockquote>
-<p>Notice that almost none of that is about Python, and every one of
-them will still be true in twenty years, whatever tools exist by
-then.</p>
+<p>Notice that almost none of that is about Python, and every one of them will still be true in twenty years, whatever tools exist by then.</p>
 </blockquote>
 <hr />
 <h2 id="the-honest-part">The honest part</h2>
 <p>The AI wrote most of the code you shipped this week.</p>
-<p>What you did — deciding what to build, catching what was wrong,
-steering it — is real work, and it’s genuinely most of what senior
-engineers spend their time on.</p>
-<p>But if you sat down with a blank file and no AI, most of you couldn’t
-write these apps yet.</p>
-<p><strong>That’s fine. That’s where you are after four
-sessions.</strong> The thing worth knowing is which gap is which.</p>
+<p>What you did — deciding what to build, catching what was wrong, steering it — is real work, and it’s genuinely most of what senior engineers spend their time on.</p>
+<p>But if you sat down with a blank file and no AI, most of you couldn’t write these apps yet.</p>
+<p><strong>That’s fine. That’s where you are after four sessions.</strong> The thing worth knowing is which gap is which.</p>
 <blockquote>
-<p>The people who get really good at this are the ones who can
-<em>also</em> read the code. Because they catch what the AI gets wrong,
-and they know when it’s giving them a bad answer confidently.</p>
+<p>The people who get really good at this are the ones who can <em>also</em> read the code. Because they catch what the AI gets wrong, and they know when it’s giving them a bad answer confidently.</p>
 </blockquote>
 <hr />
 <h2 id="where-to-go-next">Where to go next</h2>
 <h3 id="keep-what-youve-got">Keep what you’ve got</h3>
 <ul>
-<li><strong>Get your project off this machine today</strong> — USB,
-email, shared folder. Do it in the last block, not “later.”</li>
-<li>Claude Code is free to install, and there are free model
-options</li>
+<li><strong>Get your project off this machine today</strong> — USB, email, shared folder. Do it in the last block, not “later.”</li>
+<li>Claude Code is free to install, and there are free model options</li>
 <li>Add one feature a week to what you built</li>
 </ul>
 <h3 id="learn-whats-underneath">Learn what’s underneath</h3>
-<p>The fastest way to actually learn to code while you’re vibe
-coding:</p>
+<p>The fastest way to actually learn to code while you’re vibe coding:</p>
 <pre><code>Explain what this function does, like I&#39;m 12.</code></pre>
-<p>Do it function by function through your own project. Then try the
-reverse: <strong>write one small function yourself first, then ask the
-AI to review it.</strong> That flips who’s checking whom, and it’s where
-real learning happens.</p>
-<p>What your app is probably made of, if you want a starting list:
-variables, loops, functions, lists, and conditionals. That’s most of
-it.</p>
+<p>Do it function by function through your own project. Then try the reverse: <strong>write one small function yourself first, then ask the AI to review it.</strong> That flips who’s checking whom, and it’s where real learning happens.</p>
+<p>What your app is probably made of, if you want a starting list: variables, loops, functions, lists, and conditionals. That’s most of it.</p>
 <h3 id="build-for-somebody-else">Build for somebody else</h3>
-<p>Best possible next project: <strong>ask a family member what would
-make something easier for them, then build that.</strong></p>
-<p>Real users find real bugs. They use your app in ways you never
-imagined, and they’ll tell you things about your own interface you’d
-never have noticed. It’s also just more satisfying than building for
-yourself.</p>
+<p>Best possible next project: <strong>ask a family member what would make something easier for them, then build that.</strong></p>
+<p>Real users find real bugs. They use your app in ways you never imagined, and they’ll tell you things about your own interface you’d never have noticed. It’s also just more satisfying than building for yourself.</p>
 <hr />
 <h2 id="the-commands-one-last-time">The commands, one last time</h2>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents          <span class="co"># go to Documents</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mkdir myproject             <span class="co"># make a project folder</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> myproject                <span class="co"># go into it</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds                       <span class="co"># start Claude Code  (or: cc)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>python app<span class="op">.</span><span class="fu">py</span>               <span class="co"># run your app</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse myproject myproject<span class="op">-</span>working    <span class="co"># save point</span></span></code></pre></div>
-<p><code>Ctrl+C</code> to quit the AI · <code>/clear</code> to reset the
-conversation without touching your code</p>
-<p><strong>One command per line. No
-<code>&amp;&amp;</code>.</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents          <span class="co"># go to Documents</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>mkdir myproject             <span class="co"># make a project folder</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="fu">cd</span> myproject                <span class="co"># go into it</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>cc-ds                       <span class="co"># start Claude Code  (or: cc)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>python app.<span class="fu">py</span>               <span class="co"># run your app</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse myproject myproject-working    <span class="co"># save point</span></span></code></pre></div>
+<p><code>Ctrl+C</code> to quit the AI · <code>/clear</code> to reset the conversation without touching your code</p>
+<p><strong>One command per line. No <code>&amp;&amp;</code>.</strong></p>
 <hr />
-<h2 id="the-whole-course-in-four-lines">The whole course, in four
-lines</h2>
+<h2 id="the-whole-course-in-four-lines">The whole course, in four lines</h2>
 <blockquote>
-<p><strong>Ask small. Run it. Say exactly what went wrong.
-Repeat.</strong></p>
+<p><strong>Ask small. Run it. Say exactly what went wrong. Repeat.</strong></p>
 <p><strong>It ran ≠ it’s right.</strong></p>
-<p><strong>A small thing that works beats a big thing that
-doesn’t.</strong></p>
+<p><strong>A small thing that works beats a big thing that doesn’t.</strong></p>
 <p><strong>Copy it every time it works.</strong></p>
 </blockquote>
 <hr />
 <blockquote>
-<p>“You built something this week that didn’t exist before you sat down.
-Whatever you do next — that’s what it feels like. Go do it again.”</p>
+<p>“You built something this week that didn’t exist before you sat down. Whatever you do next — that’s what it feels like. Go do it again.”</p>
 </blockquote>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
 </body>
 </html>

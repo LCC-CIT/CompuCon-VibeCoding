@@ -1,245 +1,99 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>lesson-plan</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Session 4 — Make It Yours / Demo Day — CompuCon Vibe Coding</title>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+</style>
+<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-<h1 id="session-4-make-it-yours-demo-day">Session 4 — Make It Yours /
-Demo Day</h1>
-<p><strong>The two age groups are doing completely different things
-today.</strong></p>
+
+<nav>
+  <div class="nav-in">
+    <a href="../index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="../middle-school.html">Middle School</a>
+      <a href="../high-school.html">High School</a>
+      <a href="../faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+  <a href="../index.html" class="crumb">Home</a>
+
+<h1 id="session-4-make-it-yours-demo-day">Session 4 — Make It Yours / Demo Day</h1>
+<p><strong>The two age groups are doing completely different things today.</strong></p>
 <ul>
-<li><strong>MS (85 min): <em>Make It Yours.</em></strong> A capstone
-built from scratch and demoed, all in one session. This is MS’s first
-and only self-directed project.</li>
-<li><strong>HS (60 min): <em>Demo Day.</em></strong> No build time at
-all. The capstone was finished in Session 3. Today is demos, reflection,
-and where-to-next.</li>
+<li><strong>MS (85 min): <em>Make It Yours.</em></strong> A capstone built from scratch and demoed, all in one session. This is MS’s first and only self-directed project.</li>
+<li><strong>HS (60 min): <em>Demo Day.</em></strong> No build time at all. The capstone was finished in Session 3. Today is demos, reflection, and where-to-next.</li>
 </ul>
 <p>Read your age group’s section.</p>
 <hr />
@@ -282,8 +136,7 @@ and where-to-next.</li>
 </tbody>
 </table>
 <blockquote>
-<p><strong>No break scheduled.</strong> If your group needs one, take 5
-at 0:50 and cut the build to 33 minutes.</p>
+<p><strong>No break scheduled.</strong> If your group needs one, take 5 at 0:50 and cut the build to 33 minutes.</p>
 </blockquote>
 <h3 id="high-school-60-min">High school — 60 min</h3>
 <table>
@@ -318,14 +171,10 @@ at 0:50 and cut the build to 33 minutes.</p>
 </tbody>
 </table>
 <hr />
-<h1 id="middle-school-make-it-yours-85-min">MIDDLE SCHOOL — Make It
-Yours (85 min)</h1>
-<p>38 minutes of build time. That is not much, and the scope check at
-the start is what makes it work. Be ruthless there and the session
-lands; be generous and half the room demos something broken.</p>
+<h1 id="middle-school-make-it-yours-85-min">MIDDLE SCHOOL — Make It Yours (85 min)</h1>
+<p>38 minutes of build time. That is not much, and the scope check at the start is what makes it work. Be ruthless there and the session lands; be generous and half the room demos something broken.</p>
 <hr />
-<h2 id="pitch-scope-check-12-min">0:00 — Pitch + Scope Check (12
-min)</h2>
+<h2 id="pitch-scope-check-12-min">0:00 — Pitch + Scope Check (12 min)</h2>
 <h3 id="pitch-to-a-partner-5-min">Pitch to a partner (5 min)</h3>
 <p>Each student gets ~2 minutes to pitch:</p>
 <pre><code>I&#39;m building ______.
@@ -338,29 +187,18 @@ The two things it has to do:
 
 I&#39;ll know it works when:
   - If I ______, it ______</code></pre>
-<p><strong>Two must-haves, not three.</strong> MS has 38 minutes of
-build time.</p>
+<p><strong>Two must-haves, not three.</strong> MS has 38 minutes of build time.</p>
 <p>Partner asks one question:</p>
 <blockquote>
-<p><strong>“Could you cut one of the two and still have something
-cool?”</strong></p>
+<p><strong>“Could you cut one of the two and still have something cool?”</strong></p>
 </blockquote>
-<h3 id="instructor-scope-check-7-min">Instructor scope check (7
-min)</h3>
-<p>Every student gets a ~15-second sign-off. You are looking for one
-thing:</p>
+<h3 id="instructor-scope-check-7-min">Instructor scope check (7 min)</h3>
+<p>Every student gets a ~15-second sign-off. You are looking for one thing:</p>
 <blockquote>
-<p><strong>Can this be built in 38 minutes by someone who has been doing
-this for three sessions?</strong></p>
+<p><strong>Can this be built in 38 minutes by someone who has been doing this for three sessions?</strong></p>
 </blockquote>
-<p>Default to <strong>yes</strong> on anything from the Starter tier of
-<a href="../project-ideas.md"><code>project-ideas.md</code></a>, and
-<strong>cut hard</strong> on anything else.</p>
+<p>Default to <strong>yes</strong> on anything from the Starter tier of <a href="../project-ideas.html"><code>project-ideas.md</code></a>, and <strong>cut hard</strong> on anything else.</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>They pitched</th>
@@ -392,75 +230,53 @@ this for three sessions?</strong></p>
 </table>
 <p>Say the reasoning out loud:</p>
 <blockquote>
-<p>“Cutting is the actual skill. A small thing that works beats a big
-thing that doesn’t — today, and forever, in every job you will ever
-have.”</p>
+<p>“Cutting is the actual skill. A small thing that works beats a big thing that doesn’t — today, and forever, in every job you will ever have.”</p>
 </blockquote>
-<p><strong>A completely fine MS capstone:</strong> “the app I built in
-Session 1, rebuilt better, with the two features I wanted but didn’t
-have time for.” Pre-approve this for anyone struggling to choose.
-Ownership matters more than novelty.</p>
+<p><strong>A completely fine MS capstone:</strong> “the app I built in Session 1, rebuilt better, with the two features I wanted but didn’t have time for.” Pre-approve this for anyone struggling to choose. Ownership matters more than novelty.</p>
 <hr />
 <h2 id="build-block-38-min">0:12 — Build Block (38 min)</h2>
 <h3 id="first-5-minutes-no-code">First 5 minutes, no code</h3>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mkdir capstone</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>mkdir capstone</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="fu">cd</span> capstone</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
 <ol type="1">
-<li>Write the first prompt on paper — the whole app, answering the four
-questions</li>
+<li>Write the first prompt on paper — the whole app, answering the four questions</li>
 <li>Get it checked by the instructor or a partner</li>
 <li><em>Then</em> type it in</li>
 </ol>
 <p>The paper step feels slow and saves ten minutes of thrash.</p>
 <h3 id="then-build-run-check-copy">Then: build, run, check, copy</h3>
 <p>Post it. Say it every ten minutes.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>working</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse capstone capstone-working</span></code></pre></div>
 <h3 id="timed-callouts">Timed callouts</h3>
 <ul>
-<li><strong>At 0:30 (18 min in):</strong> “You should have something
-running by now. Not finished — running. If you don’t, come see me.”</li>
-<li><strong>12 min left:</strong> “Last new thing starts now or not at
-all.”</li>
-<li><strong>6 min left:</strong> “No new features. Make what you have
-work properly.”</li>
-<li><strong>3 min left:</strong> “Copy your working folder. Right now,
-whatever state it’s in.”</li>
+<li><strong>At 0:30 (18 min in):</strong> “You should have something running by now. Not finished — running. If you don’t, come see me.”</li>
+<li><strong>12 min left:</strong> “Last new thing starts now or not at all.”</li>
+<li><strong>6 min left:</strong> “No new features. Make what you have work properly.”</li>
+<li><strong>3 min left:</strong> “Copy your working folder. Right now, whatever state it’s in.”</li>
 </ul>
 <p>Walk the room enforcing the last one.</p>
 <h3 id="the-halftime-rule">The halftime rule</h3>
-<p>Not having a running app at the 18-minute mark is the single best
-early warning signal you have. Catch those students there, not at
-0:50.</p>
-<h3 id="instructor-circulation-in-priority-order">Instructor
-circulation, in priority order</h3>
+<p>Not having a running app at the 18-minute mark is the single best early warning signal you have. Catch those students there, not at 0:50.</p>
+<h3 id="instructor-circulation-in-priority-order">Instructor circulation, in priority order</h3>
 <ol type="1">
-<li><strong>Anyone with nothing running.</strong> Get them to a working
-something, however small.</li>
-<li><strong>Anyone who hasn’t copied their folder in 15
-minutes.</strong></li>
-<li><strong>Anyone quietly stuck.</strong> The frustrated ones raise
-their hands; the quiet ones don’t.</li>
-<li><strong>Anyone cruising.</strong> “Try to break it. What happens if
-you leave it empty?”</li>
+<li><strong>Anyone with nothing running.</strong> Get them to a working something, however small.</li>
+<li><strong>Anyone who hasn’t copied their folder in 15 minutes.</strong></li>
+<li><strong>Anyone quietly stuck.</strong> The frustrated ones raise their hands; the quiet ones don’t.</li>
+<li><strong>Anyone cruising.</strong> “Try to break it. What happens if you leave it empty?”</li>
 </ol>
 <hr />
 <h2 id="polish-demo-prep-10-min">0:50 — Polish + Demo Prep (10 min)</h2>
 <h3 id="five-minutes-of-polish">Five minutes of polish</h3>
-<p>Cosmetics only. Window title, colors, a friendlier message.
-<strong>No new logic.</strong></p>
+<p>Cosmetics only. Window title, colors, a friendlier message. <strong>No new logic.</strong></p>
 <h3 id="five-minutes-of-demo-prep">Five minutes of demo prep</h3>
 <p>Plan 45 seconds:</p>
 <pre><code>1. What it is, in one sentence.
 2. Show it working. (Practice the exact clicks. Twice.)
 3. One thing that broke and how you fixed it.</code></pre>
-<p><strong>Practice the clicks.</strong> The most common demo failure is
-a student clicking around live, hitting a bug they’ve never hit before,
-and freezing.</p>
+<p><strong>Practice the clicks.</strong> The most common demo failure is a student clicking around live, hitting a bug they’ve never hit before, and freezing.</p>
 <hr />
 <h2 id="showcase-20-min">1:00 — Showcase (20 min)</h2>
 <p>45 seconds each, hard limit, visible timer.</p>
@@ -470,81 +286,50 @@ and freezing.</p>
 <li>Applause for every single demo, no exceptions</li>
 <li>One compliment per demo from the audience</li>
 </ul>
-<p><strong>Instructor:</strong> for each demo, name one specific thing
-that student did well. Not “great job” — “you caught that the score
-could go negative,” “you tested that before you showed it.” Specific
-praise for the <em>process</em>, not the output. It teaches everyone
-watching what to value.</p>
-<p>Item 3 is required. If a student skips it, ask: <em>“What
-broke?”</em> Never let a demo look effortless — that’s how you get a
-room full of kids who think they’re the only one who struggled.</p>
+<p><strong>Instructor:</strong> for each demo, name one specific thing that student did well. Not “great job” — “you caught that the score could go negative,” “you tested that before you showed it.” Specific praise for the <em>process</em>, not the output. It teaches everyone watching what to value.</p>
+<p>Item 3 is required. If a student skips it, ask: <em>“What broke?”</em> Never let a demo look effortless — that’s how you get a room full of kids who think they’re the only one who struggled.</p>
 <blockquote>
-<p>If the group is large or shy, run a <strong>gallery walk</strong> for
-the first 10 minutes — everyone leaves their app running and circulates
-— then have 6–8 volunteers present to the whole room.</p>
+<p>If the group is large or shy, run a <strong>gallery walk</strong> for the first 10 minutes — everyone leaves their app running and circulates — then have 6–8 volunteers present to the whole room.</p>
 </blockquote>
 <hr />
-<h2 id="where-this-goes-next-5-min">1:20 — Where This Goes Next (5
-min)</h2>
+<h2 id="where-this-goes-next-5-min">1:20 — Where This Goes Next (5 min)</h2>
 <h3 id="what-they-actually-learned">What they actually learned</h3>
 <p>Say these out loud. They’ll undersell it to themselves otherwise.</p>
 <ul>
-<li>How to describe something you want precisely enough that it can be
-built</li>
+<li>How to describe something you want precisely enough that it can be built</li>
 <li>How to tell whether something is right, not just whether it ran</li>
 <li>How to say exactly what went wrong</li>
 <li>How to save your work so a mistake is never fatal</li>
 <li>How to cut an idea down to something you can actually finish</li>
 </ul>
 <blockquote>
-<p>“Almost none of that is about Python. All of it will still be true in
-twenty years.”</p>
+<p>“Almost none of that is about Python. All of it will still be true in twenty years.”</p>
 </blockquote>
 <h3 id="the-honest-part">The honest part</h3>
 <blockquote>
-<p>“The AI wrote the code. That’s real work you did — you decided what
-to build, you found what was wrong, you fixed it. And if you want to get
-properly good at this, the next step is reading the code and figuring
-out what each part does.”</p>
+<p>“The AI wrote the code. That’s real work you did — you decided what to build, you found what was wrong, you fixed it. And if you want to get properly good at this, the next step is reading the code and figuring out what each part does.”</p>
 </blockquote>
 <h3 id="last-thing">Last thing</h3>
 <blockquote>
-<p>“You built three things that didn’t exist before you got here. Go
-build a fourth.”</p>
+<p>“You built three things that didn’t exist before you got here. Go build a fourth.”</p>
 </blockquote>
-<p>Make sure everyone gets their project off the machine — USB, email,
-or shared folder.</p>
+<p>Make sure everyone gets their project off the machine — USB, email, or shared folder.</p>
 <hr />
-<h1 id="high-school-demo-day-60-min">HIGH SCHOOL — Demo Day (60
-min)</h1>
-<p><strong>No build time.</strong> The capstone was finished in Session
-3. Anyone who shows up expecting to code today was told twice last
-session that this wasn’t happening — hold the line, or demos run over
-and the wrap-up gets cut, which is the part that actually sticks.</p>
-<p>The one exception: the 10-minute setup block exists so a student
-whose app won’t launch can restore their <code>capstone-demo</code>
-copy. That’s recovery, not building.</p>
+<h1 id="high-school-demo-day-60-min">HIGH SCHOOL — Demo Day (60 min)</h1>
+<p><strong>No build time.</strong> The capstone was finished in Session 3. Anyone who shows up expecting to code today was told twice last session that this wasn’t happening — hold the line, or demos run over and the wrap-up gets cut, which is the part that actually sticks.</p>
+<p>The one exception: the 10-minute setup block exists so a student whose app won’t launch can restore their <code>capstone-demo</code> copy. That’s recovery, not building.</p>
 <hr />
-<h2 id="setup-last-rehearsal-10-min">0:00 — Setup + Last Rehearsal (10
-min)</h2>
-<p>Everyone gets their app running and rehearses the demo path
-twice.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>python main<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
-<p><strong>If it doesn’t run:</strong> restore the demo copy made at the
-end of Session 3.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse capstone</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone<span class="op">-</span>demo capstone</span></code></pre></div>
-<p>This is the payoff for the save-point discipline. Point it out when
-it saves someone — it will save someone.</p>
-<p>Instructor: circulate and find the students whose app
-<em>doesn’t</em> run. Those are the only people who need you in this
-block. Get them to a working version even if it’s an older one with
-fewer features.</p>
+<h2 id="setup-last-rehearsal-10-min">0:00 — Setup + Last Rehearsal (10 min)</h2>
+<p>Everyone gets their app running and rehearses the demo path twice.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu">cd</span> capstone</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>python main.<span class="fu">py</span></span></code></pre></div>
+<p><strong>If it doesn’t run:</strong> restore the demo copy made at the end of Session 3.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="fu">Remove-Item</span> -Recurse capstone</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse capstone-demo capstone</span></code></pre></div>
+<p>This is the payoff for the save-point discipline. Point it out when it saves someone — it will save someone.</p>
+<p>Instructor: circulate and find the students whose app <em>doesn’t</em> run. Those are the only people who need you in this block. Get them to a working version even if it’s an older one with fewer features.</p>
 <p>Rehearsal, twice through:</p>
 <ol type="1">
 <li>The exact clicks of the demo path</li>
@@ -552,144 +337,113 @@ fewer features.</p>
 </ol>
 <hr />
 <h2 id="showcase-30-min">0:10 — Showcase (30 min)</h2>
-<p>90 seconds each, hard limit, visible timer. With ~20 students that’s
-tight — keep it moving and don’t let questions expand.</p>
+<p>90 seconds each, hard limit, visible timer. With ~20 students that’s tight — keep it moving and don’t let questions expand.</p>
 <p><strong>Format — five things:</strong></p>
 <pre><code>1. What it is, in one sentence.
 2. Show it working.
 3. One thing that broke and how you fixed it.
 4. One thing the AI got wrong that you caught.
 5. What you&#39;d add next.</code></pre>
-<p>Items 3 and 4 are <strong>required</strong>. If a student skips them,
-ask: <em>“What broke?”</em> and <em>“What did the AI get wrong?”</em>
-Never let a demo look effortless.</p>
-<p>Item 4 is the one that matters most. It’s the entire track compressed
-into one sentence per student, and hearing twenty of them back to back
-makes the point better than any lecture could.</p>
+<p>Items 3 and 4 are <strong>required</strong>. If a student skips them, ask: <em>“What broke?”</em> and <em>“What did the AI get wrong?”</em> Never let a demo look effortless.</p>
+<p>Item 4 is the one that matters most. It’s the entire track compressed into one sentence per student, and hearing twenty of them back to back makes the point better than any lecture could.</p>
 <p><strong>Rules for the room:</strong></p>
 <ul>
 <li>Everyone watches</li>
 <li>Applause for every demo, no exceptions</li>
-<li>One question or compliment per demo — encourage technical ones:
-<em>“why did you split it that way?”</em>, <em>“what happens if I put a
-negative number in?”</em></li>
+<li>One question or compliment per demo — encourage technical ones: <em>“why did you split it that way?”</em>, <em>“what happens if I put a negative number in?”</em></li>
 </ul>
-<p><strong>Instructor:</strong> for each demo, name one specific thing
-that student did well. Process, not output — “you split that into three
-files and it made your bug obvious,” “you caught that before it bit
-you.” You know each project from Session 3; use that.</p>
-<p><strong>If you’re running behind:</strong> cut item 5 first, then
-item 1. Never cut 3 or 4.</p>
+<p><strong>Instructor:</strong> for each demo, name one specific thing that student did well. Process, not output — “you split that into three files and it made your bug obvious,” “you caught that before it bit you.” You know each project from Session 3; use that.</p>
+<p><strong>If you’re running behind:</strong> cut item 5 first, then item 1. Never cut 3 or 4.</p>
 <hr />
-<h2 id="what-you-actually-learned-12-min">0:40 — What You Actually
-Learned (12 min)</h2>
-<p>Go through these out loud. They’ll undersell it to themselves
-otherwise.</p>
+<h2 id="what-you-actually-learned-12-min">0:40 — What You Actually Learned (12 min)</h2>
+<p>Go through these out loud. They’ll undersell it to themselves otherwise.</p>
 <ul>
-<li>How to describe a thing you want precisely enough that it can be
-built</li>
+<li>How to describe a thing you want precisely enough that it can be built</li>
 <li>How to break a big idea into pieces small enough to check</li>
-<li>How to tell whether something is right, not just whether it
-runs</li>
+<li>How to tell whether something is right, not just whether it runs</li>
 <li>How to report a bug well</li>
-<li>How to plan before building, and how to cut scope when you have
-to</li>
+<li>How to plan before building, and how to cut scope when you have to</li>
 <li>How to use save points so mistakes aren’t fatal</li>
-<li>How to split a project so you can find things — and so the AI works
-better</li>
+<li>How to split a project so you can find things — and so the AI works better</li>
 </ul>
 <blockquote>
-<p>“Notice that almost none of that is about Python, and every one of
-them will still be true in twenty years, whatever tools exist by
-then.”</p>
+<p>“Notice that almost none of that is about Python, and every one of them will still be true in twenty years, whatever tools exist by then.”</p>
 </blockquote>
 <h3 id="the-honest-part-1">The honest part</h3>
-<p>Say this plainly. It’s the most important 90 seconds of the
-session.</p>
+<p>Say this plainly. It’s the most important 90 seconds of the session.</p>
 <blockquote>
-<p>“The AI wrote most of the code you shipped this week. That’s a real
-thing you did — you decided what to build, you caught what was wrong,
-you steered it. But if I sat you down with a blank file and no AI, most
-of you couldn’t write these apps yet.</p>
-<p>That’s fine. That’s where you are, after four sessions. The thing I
-want you to know is which gap is which. The people who get really good
-at this are the ones who can <em>also</em> read the code — because they
-catch what the AI gets wrong, and they know when it’s giving them a bad
-answer confidently.”</p>
+<p>"The AI wrote most of the code you shipped this week. That’s a real thing you did — you decided what to build, you caught what was wrong, you steered it. But if I sat you down with a blank file and no AI, most of you couldn’t write these apps yet.</p>
+<p>That’s fine. That’s where you are, after four sessions. The thing I want you to know is which gap is which. The people who get really good at this are the ones who can <em>also</em> read the code — because they catch what the AI gets wrong, and they know when it’s giving them a bad answer confidently."</p>
 </blockquote>
-<h3 id="one-round-of-reflection-5-min">One round of reflection (5
-min)</h3>
+<h3 id="one-round-of-reflection-5-min">One round of reflection (5 min)</h3>
 <p>Go around the room. One sentence each:</p>
 <blockquote>
-<p>**“The thing I’ll actually use again is ___.”**</p>
+<p>**"The thing I’ll actually use again is ___."**</p>
 </blockquote>
-<p>Fast, no discussion. It surfaces what landed, which is genuinely
-useful feedback for the next time you run this track — write down what
-you hear.</p>
+<p>Fast, no discussion. It surfaces what landed, which is genuinely useful feedback for the next time you run this track — write down what you hear.</p>
 <hr />
-<h2 id="where-this-goes-next-8-min">0:52 — Where This Goes Next (8
-min)</h2>
+<h2 id="where-this-goes-next-8-min">0:52 — Where This Goes Next (8 min)</h2>
 <p><strong>Keep going with what you have:</strong></p>
 <ul>
-<li>Get your project off this machine — USB, email, or shared folder. Do
-it now, in this block, not later.</li>
-<li>Claude Code is free to install, and there are free model
-options</li>
+<li>Get your project off this machine — USB, email, or shared folder. Do it now, in this block, not later.</li>
+<li>Claude Code is free to install, and there are free model options</li>
 <li>Add one feature a week to the thing you built</li>
 </ul>
 <p><strong>Learn what’s underneath:</strong></p>
 <ul>
-<li>Open your own code and ask the AI to explain it, function by
-function</li>
-<li>Try writing one small function yourself first, then ask the AI to
-review it</li>
-<li>Python basics: variables, loops, functions, lists. That’s most of
-what your app uses.</li>
+<li>Open your own code and ask the AI to explain it, function by function</li>
+<li>Try writing one small function yourself first, then ask the AI to review it</li>
+<li>Python basics: variables, loops, functions, lists. That’s most of what your app uses.</li>
 </ul>
 <p><strong>Build for someone else:</strong></p>
 <ul>
-<li>Best possible next project: ask a family member what would make
-something easier for them, then build that. Real users find real
-bugs.</li>
+<li>Best possible next project: ask a family member what would make something easier for them, then build that. Real users find real bugs.</li>
 </ul>
 <h3 id="last-thing-1">Last thing</h3>
 <blockquote>
-<p>“You built something this week that didn’t exist before you sat down.
-Whatever you do next — that’s what it feels like. Go do it again.”</p>
+<p>“You built something this week that didn’t exist before you sat down. Whatever you do next — that’s what it feels like. Go do it again.”</p>
 </blockquote>
 <hr />
 <h2 id="instructor-prep-checklist">Instructor Prep Checklist</h2>
 <p><strong>Both groups:</strong></p>
 <ul class="task-list">
-<li><label><input type="checkbox" /><strong>Print camper notes</strong>
-for the right age group, one per camper. Session 4’s notes end with
-take-home guidance, so campers should leave with them.</label></li>
+<li><input type="checkbox" disabled="" />
+<strong>Print camper notes</strong> for the right age group, one per camper. Session 4’s notes end with take-home guidance, so campers should leave with them.</li>
 </ul>
 <p><strong>MS:</strong></p>
 <ul class="task-list">
-<li><label><input type="checkbox" />Scope-cut table printed for the
-pitch block</label></li>
-<li><label><input type="checkbox" />Pre-approve “rebuild my Session 1
-app, better” for anyone who can’t choose</label></li>
-<li><label><input type="checkbox" />Visible countdown timer for the
-showcase</label></li>
-<li><label><input type="checkbox" />Plan for getting projects off the
-machines — USB, email, or shared folder</label></li>
+<li><input type="checkbox" disabled="" />
+Scope-cut table printed for the pitch block</li>
+<li><input type="checkbox" disabled="" />
+Pre-approve “rebuild my Session 1 app, better” for anyone who can’t choose</li>
+<li><input type="checkbox" disabled="" />
+Visible countdown timer for the showcase</li>
+<li><input type="checkbox" disabled="" />
+Plan for getting projects off the machines — USB, email, or shared folder</li>
 </ul>
 <p><strong>HS:</strong></p>
 <ul class="task-list">
-<li><label><input type="checkbox" />Visible countdown timer — 60 minutes
-with ~20 demos has no slack</label></li>
-<li><label><input type="checkbox" />Know every student’s project going
-in, so you can name something specific per demo</label></li>
-<li><label><input type="checkbox" />Be ready to restore
-<code>capstone-demo</code> copies in the setup block</label></li>
-<li><label><input type="checkbox" />Decide your cut order in advance if
-demos run long (item 5, then item 1 — never 3 or 4)</label></li>
-<li><label><input type="checkbox" />Write down the reflection answers;
-they’re your notes for next year</label></li>
-<li><label><input type="checkbox" />Certificates or something to hand
-out, if CompuCon does that</label></li>
+<li><input type="checkbox" disabled="" />
+Visible countdown timer — 60 minutes with ~20 demos has no slack</li>
+<li><input type="checkbox" disabled="" />
+Know every student’s project going in, so you can name something specific per demo</li>
+<li><input type="checkbox" disabled="" />
+Be ready to restore <code>capstone-demo</code> copies in the setup block</li>
+<li><input type="checkbox" disabled="" />
+Decide your cut order in advance if demos run long (item 5, then item 1 — never 3 or 4)</li>
+<li><input type="checkbox" disabled="" />
+Write down the reflection answers; they’re your notes for next year</li>
+<li><input type="checkbox" disabled="" />
+Certificates or something to hand out, if CompuCon does that</li>
 </ul>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
 </body>
 </html>

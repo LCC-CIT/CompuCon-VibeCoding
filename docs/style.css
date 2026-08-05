@@ -76,7 +76,27 @@
   .nav-links{margin-left:auto;display:flex;gap:26px;align-items:center}
   .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .18s}
   .nav-links a:hover{color:var(--cyan)}
-  @media(max-width:640px){.nav-links{display:none}}
+  /* Phones: stack the nav instead of hiding it. Hiding it left index.html with no
+     navigation at all, since that page has no in-body links. */
+  @media(max-width:640px){
+    .nav-in{flex-wrap:wrap;gap:0;padding:9px 18px}
+    .logo{font-size:.92rem}
+    .nav-links{
+      margin-left:0;width:100%;gap:0;margin-top:8px;
+      border-top:1px solid var(--border);
+    }
+    .nav-links a{
+      flex:1;text-align:center;font-size:.85rem;
+      padding:10px 4px;              /* ~40px tap target */
+      border-bottom:2px solid transparent;
+    }
+    .nav-links a:active{color:var(--cyan);border-bottom-color:var(--cyan)}
+  }
+  @media(max-width:360px){
+    .nav-in{padding:8px 14px}
+    .logo{font-size:.86rem}
+    .nav-links a{font-size:.79rem;padding:9px 2px}
+  }
 
   /* ---------- hero ---------- */
   .hero{padding:clamp(52px,9vw,100px) 0 clamp(40px,5vw,64px)}
@@ -298,4 +318,158 @@
   nav{display:none}
   body{background:#fff;color:#111}
   .note,.extra,.card,details{border-color:#bbb;background:#fff}
+}
+
+/* ==========================================================================
+   PROSE — pandoc-generated pages (camper notes, lesson plans, references)
+   Pandoc emits plain semantic HTML, so everything here targets bare tags.
+   ========================================================================== */
+.prose{padding:clamp(34px,5vw,56px) 0 clamp(48px,7vw,88px);max-width:820px}
+.prose > .crumb{margin-bottom:26px}
+
+.prose h1{
+  font-size:clamp(1.9rem,4.4vw,2.7rem);letter-spacing:-.03em;line-height:1.15;
+  margin:0 0 22px;padding-bottom:18px;border-bottom:1px solid var(--border);
+}
+.prose h2{
+  font-size:clamp(1.3rem,2.6vw,1.65rem);margin:44px 0 14px;
+  padding-top:22px;border-top:1px solid var(--border);color:var(--text);
+}
+.prose h1 + h2{border-top:none;padding-top:0;margin-top:26px}
+.prose h3{font-size:1.13rem;margin:30px 0 10px;color:var(--cyan)}
+.prose h4{font-size:1rem;margin:24px 0 8px;color:var(--amber);font-weight:700}
+
+.prose p{margin:0 0 15px;color:var(--muted)}
+.prose strong{color:var(--text);font-weight:700}
+.prose em{color:var(--text)}
+.prose a{color:var(--cyan);text-decoration:underline;text-underline-offset:2px}
+.prose a:hover{color:var(--amber)}
+.prose hr{border:0;border-top:1px solid var(--border);margin:34px 0}
+
+.prose ul,.prose ol{margin:0 0 16px;padding-left:24px;color:var(--muted)}
+.prose li{margin-bottom:7px;line-height:1.6}
+.prose li::marker{color:var(--cyan)}
+.prose ol li::marker{color:var(--violet);font-family:var(--mono);font-size:.9em}
+.prose li > ul,.prose li > ol{margin-top:7px}
+
+/* task list checkboxes ( - [ ] items ) */
+.prose input[type=checkbox]{
+  appearance:none;-webkit-appearance:none;
+  width:15px;height:15px;border:1px solid var(--border-bright);border-radius:4px;
+  vertical-align:-2px;margin-right:9px;background:var(--surface);
+}
+.prose ul:has(input[type=checkbox]){list-style:none;padding-left:4px}
+
+.prose blockquote{
+  margin:20px 0;padding:2px 0 2px 19px;
+  border-left:3px solid var(--amber);
+  color:var(--text);font-weight:600;
+}
+.prose blockquote p{color:var(--text);margin-bottom:8px}
+.prose blockquote p:last-child{margin-bottom:0}
+.prose blockquote strong{color:var(--amber)}
+
+.prose code{
+  font-family:var(--mono);font-size:.87em;
+  background:rgba(79,214,196,.09);color:var(--cyan);
+  padding:2px 6px;border-radius:5px;
+}
+.prose pre{
+  background:#0b1016;border:1px solid var(--border);border-radius:11px;
+  padding:16px 17px;overflow-x:auto;margin:0 0 18px;
+  font-family:var(--mono);font-size:.85rem;line-height:1.75;
+}
+.prose pre code{background:none;color:var(--text);padding:0;font-size:inherit}
+.prose div.sourceCode{margin:0 0 18px}
+@media(max-width:520px){.prose pre{font-size:.76rem}}
+
+.prose table{
+  width:100%;border-collapse:collapse;margin:0 0 22px;
+  font-size:.92rem;display:block;overflow-x:auto;
+}
+.prose th,.prose td{
+  border:1px solid var(--border);padding:9px 13px;text-align:left;vertical-align:top;
+}
+.prose th{background:var(--surface-2);color:var(--text);font-weight:700;white-space:nowrap}
+.prose td{color:var(--muted)}
+.prose tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+
+/* ---------- print: flip to paper ---------- */
+@media print{
+  :root{
+    --bg:#fff; --surface:#fff; --surface-2:#f4f4f4;
+    --border:#c8c8c8; --border-bright:#999;
+    --text:#111; --muted:#222; --dim:#555;
+    --cyan:#00695f; --amber:#8a5a00; --violet:#5b3fa8; --green:#1c6b2b;
+  }
+  html,body{background:#fff !important;color:#111 !important}
+  body::before{display:none !important}
+  nav,footer,.crumb{display:none !important}
+  .prose{padding:0;max-width:100%}
+  .prose h1{font-size:20pt}
+  .prose h2{font-size:14pt;page-break-after:avoid}
+  .prose h3,.prose h4{page-break-after:avoid}
+  .prose p,.prose li{color:#111 !important}
+  .prose pre{background:#f6f6f6 !important;border:1px solid #ccc;page-break-inside:avoid}
+  .prose code{background:#f0f0f0 !important;color:#00514a !important}
+  .prose blockquote{border-left:3px solid #8a5a00;color:#111 !important}
+  .prose table{page-break-inside:avoid}
+  .prose th{background:#eee !important}
+  .prose tr:nth-child(even) td{background:#fafafa !important}
+  .prose a{color:#111 !important;text-decoration:underline}
+  .prose input[type=checkbox]{border:1px solid #555;background:#fff}
+  @page{margin:1.6cm}
+}
+
+/* syntax highlighting: flatten on paper — breezedark's pastels vanish on white */
+@media print{
+  .prose pre code span{color:#1a1a1a !important;font-weight:normal !important}
+  .prose pre code span.co{color:#6a6a6a !important;font-style:italic}
+  .prose pre code span.st{color:#00514a !important}
+}
+
+/* ==========================================================================
+   MOBILE HARDENING
+   ========================================================================== */
+
+/* iOS inflates text in landscape unless this is set */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/* Long tokens (file paths, commands, URLs) must not push the page sideways */
+body{overflow-wrap:break-word}
+.prose{overflow-wrap:break-word}
+.prose code{overflow-wrap:break-word}
+.prose h1,.prose h2,.prose h3{overflow-wrap:break-word;hyphens:none}
+
+/* Reclaim side padding on small screens — 24px each side is a lot at 360px */
+@media(max-width:520px){
+  .wrap{padding:0 16px}
+  .prose{padding-top:26px}
+  .card,.note,.extra{padding:18px 16px}
+  details summary{padding:14px 16px}
+  details p{padding:0 16px 15px}
+  .prose pre{padding:13px 13px;border-radius:9px}
+}
+
+/* Wide tables: let headers wrap so they use the screen instead of forcing a
+   long horizontal scroll. project-ideas.html has 3-column tables. */
+@media(max-width:640px){
+  .prose table{font-size:.86rem}
+  .prose th{white-space:normal}
+  .prose th,.prose td{padding:8px 10px}
+}
+
+/* Scrollable regions get momentum scrolling on iOS */
+.prose pre,.prose table{-webkit-overflow-scrolling:touch}
+
+/* Comfortable tap targets for in-prose links on touch devices */
+@media(hover:none){
+  .prose a{padding:2px 0;display:inline-block}
+  .note,.extra{min-height:56px}
+}
+
+/* Terminal: keep it readable rather than letting it dominate a small screen */
+@media(max-width:420px){
+  .term-body{font-size:.68rem;line-height:1.75;min-height:0}
+  .term-title{font-size:.7rem}
 }

@@ -1,248 +1,101 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>ms-camper-notes</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Session 1 — Make Something Work — CompuCon Vibe Coding</title>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+</style>
+<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-<h1 id="session-1-make-something-work">Session 1 — Make Something
-Work</h1>
-<h3 id="vibe-coding-middle-school-keep-this-with-you">Vibe Coding ·
-Middle School · Keep this with you</h3>
+
+<nav>
+  <div class="nav-in">
+    <a href="../index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="../middle-school.html">Middle School</a>
+      <a href="../high-school.html">High School</a>
+      <a href="../faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+  <a href="../middle-school.html" class="crumb">Middle School</a>
+
+<h1 id="session-1-make-something-work">Session 1 — Make Something Work</h1>
+<h3 id="vibe-coding-middle-school-keep-this-with-you">Vibe Coding · Middle School · Keep this with you</h3>
 <hr />
 <h2 id="what-youre-doing-today">What you’re doing today</h2>
-<p>You’re going to build a real app. Not a pretend one — a program with
-a window and buttons that actually runs on this computer.</p>
-<p>You won’t type the code. You’ll <strong>describe what you
-want</strong> to an AI, it writes the code, and then you test it, find
-what’s wrong, and tell it what to fix. Over and over until it’s
-good.</p>
-<p><strong>By the end of today you will have an app that works, that you
-made.</strong></p>
+<p>You’re going to build a real app. Not a pretend one — a program with a window and buttons that actually runs on this computer.</p>
+<p>You won’t type the code. You’ll <strong>describe what you want</strong> to an AI, it writes the code, and then you test it, find what’s wrong, and tell it what to fix. Over and over until it’s good.</p>
+<p><strong>By the end of today you will have an app that works, that you made.</strong></p>
 <hr />
 <h2 id="todays-plan">Today’s plan</h2>
 <table>
@@ -267,8 +120,7 @@ made.</strong></p>
 </tr>
 <tr class="even">
 <td><strong>4</strong></td>
-<td>Learn the three moves: <strong>Ask</strong>, <strong>Run</strong>,
-<strong>Fix</strong></td>
+<td>Learn the three moves: <strong>Ask</strong>, <strong>Run</strong>, <strong>Fix</strong></td>
 </tr>
 <tr class="odd">
 <td><strong>5</strong></td>
@@ -286,57 +138,34 @@ made.</strong></p>
 </table>
 <hr />
 <h2 id="how-to-start">How to start</h2>
-<p>Open <strong>PowerShell</strong>. Type these lines <strong>one at a
-time</strong>, pressing Enter after each:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mkdir madlibs</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> madlibs</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<p>Open <strong>PowerShell</strong>. Type these lines <strong>one at a time</strong>, pressing Enter after each:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>mkdir madlibs</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">cd</span> madlibs</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
 <p>That last one, <code>cc-ds</code>, starts the AI.</p>
 <blockquote>
-<p><strong>Got your own Claude Pro account?</strong> Type
-<code>cc</code> instead of <code>cc-ds</code>. Everything else is
-exactly the same.</p>
+<p><strong>Got your own Claude Pro account?</strong> Type <code>cc</code> instead of <code>cc-ds</code>. Everything else is exactly the same.</p>
 </blockquote>
-<p><strong>To quit the AI:</strong> hold <code>Ctrl</code> and press
-<code>C</code>. <strong>To start it again:</strong> type
-<code>cc-ds</code>.</p>
-<p><strong>To run your app</strong> (do this in PowerShell, not in the
-AI):</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python story<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
+<p><strong>To quit the AI:</strong> hold <code>Ctrl</code> and press <code>C</code>. <strong>To start it again:</strong> type <code>cc-ds</code>.</p>
+<p><strong>To run your app</strong> (do this in PowerShell, not in the AI):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>python story.<span class="fu">py</span></span></code></pre></div>
 <hr />
 <h2 id="type-one-command-per-line">Type one command per line</h2>
-<p>Don’t put two commands on the same line with <code>&amp;&amp;</code>.
-It doesn’t work on these computers. One line, press Enter, next
-line.</p>
+<p>Don’t put two commands on the same line with <code>&amp;&amp;</code>. It doesn’t work on these computers. One line, press Enter, next line.</p>
 <hr />
 <h2 id="what-the-ai-actually-is">What the AI actually is</h2>
 <p>It’s a very, very fast guesser.</p>
-<p>It has read an enormous amount of code, and it’s extremely good at
-guessing what code should come next. That’s what it does. It is
-<strong>not</strong> thinking about your project, and it does not know
-what you meant unless you said it.</p>
+<p>It has read an enormous amount of code, and it’s extremely good at guessing what code should come next. That’s what it does. It is <strong>not</strong> thinking about your project, and it does not know what you meant unless you said it.</p>
 <blockquote>
-<p>Think of it like a genius intern on their first day. Unbelievably
-fast, knows every trick — and has no idea what you actually want. It
-will never tell you it’s confused. It’ll just confidently hand you
-something wrong.</p>
+<p>Think of it like a genius intern on their first day. Unbelievably fast, knows every trick — and has no idea what you actually want. It will never tell you it’s confused. It’ll just confidently hand you something wrong.</p>
 </blockquote>
-<p><strong>This is the most important thing today:</strong> the AI can
-write code that runs perfectly and is still completely wrong. Your
-computer will never tell you the difference.</p>
-<p>That’s your job. That’s why you’re here and not just watching a
-robot.</p>
+<p><strong>This is the most important thing today:</strong> the AI can write code that runs perfectly and is still completely wrong. Your computer will never tell you the difference.</p>
+<p>That’s your job. That’s why you’re here and not just watching a robot.</p>
 <hr />
 <h2 id="how-to-ask-for-what-you-want">How to ask for what you want</h2>
 <p>A good ask answers <strong>four questions</strong>:</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>Question</th>
@@ -368,29 +197,20 @@ Ask the user for 5 words: a noun, a verb, an adjective, a place, and a food.
 Each one gets its own text box with a label.
 When they click a &quot;Make Story&quot; button, show a funny story using their words.
 Save it as story.py</code></pre>
-<p>See what’s <strong>not</strong> in there? Anything about <em>how</em>
-to write the code. That’s the AI’s job. Yours is deciding what gets
-built.</p>
+<p>See what’s <strong>not</strong> in there? Anything about <em>how</em> to write the code. That’s the AI’s job. Yours is deciding what gets built.</p>
 <hr />
-<h2 id="the-one-rule-that-matters-most">The one rule that matters
-most</h2>
+<h2 id="the-one-rule-that-matters-most">The one rule that matters most</h2>
 <blockquote>
 <h2 id="ask-for-one-thing-at-a-time.">Ask for ONE thing at a time.</h2>
 </blockquote>
 <p>Starting a brand new app? Describe the whole thing.</p>
-<p>Changing an app that already works? <strong>One change. Then run it.
-Then the next one.</strong></p>
-<p>Here’s why. If you ask for five changes and something breaks, you
-have no idea which one broke it. If you ask for one change and something
-breaks — well, it was that one. Obviously. You fix it in ten
-seconds.</p>
-<p>This isn’t about being careful. It’s about being
-<strong>fast</strong>.</p>
+<p>Changing an app that already works? <strong>One change. Then run it. Then the next one.</strong></p>
+<p>Here’s why. If you ask for five changes and something breaks, you have no idea which one broke it. If you ask for one change and something breaks — well, it was that one. Obviously. You fix it in ten seconds.</p>
+<p>This isn’t about being careful. It’s about being <strong>fast</strong>.</p>
 <hr />
 <h2 id="the-loop">The loop</h2>
 <blockquote>
-<h3 id="ask-small-run-it-say-exactly-what-went-wrong-repeat">Ask small →
-Run it → Say exactly what went wrong → Repeat</h3>
+<h3 id="ask-small-run-it-say-exactly-what-went-wrong-repeat">Ask small → Run it → Say exactly what went wrong → Repeat</h3>
 </blockquote>
 <p>That’s the whole class. Everything else is practice.</p>
 <hr />
@@ -398,40 +218,32 @@ Run it → Say exactly what went wrong → Repeat</h3>
 <p>Three things can happen when you run your app:</p>
 <ol type="1">
 <li><strong>It works.</strong> Great — next change.</li>
-<li><strong>It crashes</strong> and the terminal fills up with red text.
-<strong>Copy all of it</strong> and paste it to the AI.</li>
-<li><strong>It runs, but does the wrong thing.</strong> This is the
-sneaky one. No error, no crash — it just does something dumb. Only
-<em>you</em> can catch this.</li>
+<li><strong>It crashes</strong> and the terminal fills up with red text. <strong>Copy all of it</strong> and paste it to the AI.</li>
+<li><strong>It runs, but does the wrong thing.</strong> This is the sneaky one. No error, no crash — it just does something dumb. Only <em>you</em> can catch this.</li>
 </ol>
 <h3 id="how-to-report-a-problem">How to report a problem</h3>
 <p>Don’t say “it’s broken.” The AI has no idea what that means.</p>
 <p>Say <strong>three things</strong>:</p>
 <blockquote>
-<p><strong>What I did:</strong> I clicked the Make Story button
-<strong>What I expected:</strong> a story should show up <strong>What
-actually happened:</strong> nothing happened, and there’s no error</p>
+<p><strong>What I did:</strong> I clicked the Make Story button <strong>What I expected:</strong> a story should show up <strong>What actually happened:</strong> nothing happened, and there’s no error</p>
 </blockquote>
-<p>That’s not an AI trick. That’s how you report a problem to any human
-being, ever. It’s a real skill and you’re learning it right now.</p>
+<p>That’s not an AI trick. That’s how you report a problem to any human being, ever. It’s a real skill and you’re learning it right now.</p>
 <hr />
 <h2 id="break-your-own-app">Break your own app</h2>
-<p>Near the end of class, everyone tries to break their own app on
-purpose. Try all of these:</p>
+<p>Near the end of class, everyone tries to break their own app on purpose. Try all of these:</p>
 <ul class="task-list">
-<li><label><input type="checkbox" />Leave <strong>every box
-empty</strong> and click the button</label></li>
-<li><label><input type="checkbox" />Type a <strong>number</strong> where
-a word should go</label></li>
-<li><label><input type="checkbox" />Type something <strong>really,
-really long</strong> (like 200 characters)</label></li>
-<li><label><input type="checkbox" />Click the button <strong>20 times
-fast</strong></label></li>
-<li><label><input type="checkbox" />Make the window <strong>as small as
-it goes</strong></label></li>
+<li><input type="checkbox" disabled="" />
+Leave <strong>every box empty</strong> and click the button</li>
+<li><input type="checkbox" disabled="" />
+Type a <strong>number</strong> where a word should go</li>
+<li><input type="checkbox" disabled="" />
+Type something <strong>really, really long</strong> (like 200 characters)</li>
+<li><input type="checkbox" disabled="" />
+Click the button <strong>20 times fast</strong></li>
+<li><input type="checkbox" disabled="" />
+Make the window <strong>as small as it goes</strong></li>
 </ul>
-<p>Found something broken? Fix it. That’s your last change of the
-day.</p>
+<p>Found something broken? Fix it. That’s your last change of the day.</p>
 <blockquote>
 <p>Everybody’s app breaks. Everybody’s. Finding it is the win.</p>
 </blockquote>
@@ -439,14 +251,10 @@ day.</p>
 <h2 id="if-you-get-stuck">If you get stuck</h2>
 <p>Try these in order:</p>
 <ol type="1">
-<li><strong>Say the problem out loud</strong> to a person. Seriously —
-you’ll often figure it out halfway through the sentence.</li>
-<li><strong>Tell the AI exactly what happened</strong> using the three
-things above.</li>
-<li><strong>Start the file over.</strong> Delete it, write a better
-prompt, go again. This is cheap and totally normal.</li>
-<li><strong>Ask an instructor.</strong> If you’ve been stuck 10 minutes,
-just ask.</li>
+<li><strong>Say the problem out loud</strong> to a person. Seriously — you’ll often figure it out halfway through the sentence.</li>
+<li><strong>Tell the AI exactly what happened</strong> using the three things above.</li>
+<li><strong>Start the file over.</strong> Delete it, write a better prompt, go again. This is cheap and totally normal.</li>
+<li><strong>Ask an instructor.</strong> If you’ve been stuck 10 minutes, just ask.</li>
 </ol>
 <hr />
 <h2 id="words-youll-hear-today">Words you’ll hear today</h2>
@@ -489,23 +297,24 @@ just ask.</li>
 <p>At the end you’ll show what you made. Two things:</p>
 <ol type="1">
 <li><strong>Run it</strong> — don’t describe it, show it working</li>
-<li><strong>Tell us one thing that broke</strong> and how you fixed
-it</li>
+<li><strong>Tell us one thing that broke</strong> and how you fixed it</li>
 </ol>
-<p>Number 2 is not optional! Everybody’s app broke today. Saying so out
-loud is the point.</p>
+<p>Number 2 is not optional! Everybody’s app broke today. Saying so out loud is the point.</p>
 <hr />
 <h2 id="taking-it-home">Taking it home</h2>
-<p>Your app is a file on this computer. Ask an instructor how to email
-it to yourself or put it on a USB stick.</p>
-<p><strong>One last thing, and it’s honest:</strong> the AI wrote the
-code. You decided what to build, you found what was wrong, and you fixed
-it — that’s real, and it’s most of what the job actually is. But you
-don’t know how the code works yet.</p>
-<p>If you want to get properly good at this, here’s the next step: open
-your own code and ask the AI</p>
+<p>Your app is a file on this computer. Ask an instructor how to email it to yourself or put it on a USB stick.</p>
+<p><strong>One last thing, and it’s honest:</strong> the AI wrote the code. You decided what to build, you found what was wrong, and you fixed it — that’s real, and it’s most of what the job actually is. But you don’t know how the code works yet.</p>
+<p>If you want to get properly good at this, here’s the next step: open your own code and ask the AI</p>
 <pre><code>Explain what this part does, like I&#39;m 12.</code></pre>
-<p>The people who can <em>both</em> steer the AI and read the code are
-going to be incredibly good at this.</p>
+<p>The people who can <em>both</em> steer the AI and read the code are going to be incredibly good at this.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
 </body>
 </html>

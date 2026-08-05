@@ -1,250 +1,101 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>lesson-plan</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Session 2 — Ask Better, Check Harder — CompuCon Vibe Coding</title>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+</style>
+<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-<h1 id="session-2-ask-better-check-harder">Session 2 — Ask Better, Check
-Harder</h1>
-<p>Session 1 taught the loop. Session 2 makes them good at it: how much
-to specify, how to say it, and how to actually verify what came
-back.</p>
-<p><strong>HS also pitches and starts the capstone in this
-session.</strong> HS’s capstone build lives in Sessions 2–3, because HS
-Session 4 is only 60 minutes and is demo-and-wrap-up only. MS does not
-pitch a capstone until Session 4.</p>
-<p><strong>If new students joined today:</strong> run the 6-minute dice
-roller demo from Session 1 and give them the four-question prompt
-template. They’ll keep up.</p>
+
+<nav>
+  <div class="nav-in">
+    <a href="../index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="../middle-school.html">Middle School</a>
+      <a href="../high-school.html">High School</a>
+      <a href="../faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+  <a href="../index.html" class="crumb">Home</a>
+
+<h1 id="session-2-ask-better-check-harder">Session 2 — Ask Better, Check Harder</h1>
+<p>Session 1 taught the loop. Session 2 makes them good at it: how much to specify, how to say it, and how to actually verify what came back.</p>
+<p><strong>HS also pitches and starts the capstone in this session.</strong> HS’s capstone build lives in Sessions 2–3, because HS Session 4 is only 60 minutes and is demo-and-wrap-up only. MS does not pitch a capstone until Session 4.</p>
+<p><strong>If new students joined today:</strong> run the 6-minute dice roller demo from Session 1 and give them the four-question prompt template. They’ll keep up.</p>
 <hr />
 <h2 id="timing">Timing</h2>
-<p>The first five blocks are shared. HS then adds a break, a longer
-build, and the capstone pitch and kickoff.</p>
+<p>The first five blocks are shared. HS then adds a break, a longer build, and the capstone pitch and kickoff.</p>
 <h3 id="middle-school-85-min">Middle school — 85 min</h3>
 <table>
 <thead>
@@ -288,8 +139,7 @@ build, and the capstone pitch and kickoff.</p>
 </tbody>
 </table>
 <blockquote>
-<p><strong>No break scheduled.</strong> If your group needs one, take 5
-at 0:48 and cut the build to 19 minutes.</p>
+<p><strong>No break scheduled.</strong> If your group needs one, take 5 at 0:48 and cut the build to 19 minutes.</p>
 </blockquote>
 <h3 id="high-school-180-min">High school — 180 min</h3>
 <table>
@@ -349,10 +199,8 @@ at 0:48 and cut the build to 19 minutes.</p>
 </tbody>
 </table>
 <hr />
-<h2 id="warm-up-same-prompt-four-ways-ms-6-min-hs-10-min">Warm-Up: Same
-Prompt, Four Ways (MS 6 min / HS 10 min)</h2>
-<p>On the projector, four prompts for the same app. Ask which one they’d
-write, then ask which one they’d <em>want to have written</em>.</p>
+<h2 id="warm-up-same-prompt-four-ways-ms-6-min-hs-10-min">Warm-Up: Same Prompt, Four Ways (MS 6 min / HS 10 min)</h2>
+<p>On the projector, four prompts for the same app. Ask which one they’d write, then ask which one they’d <em>want to have written</em>.</p>
 <pre><code>A: make a study timer
 
 B: make a pomodoro timer in python
@@ -369,41 +217,22 @@ D: Build a Pomodoro timer in Python with tkinter using a class-based
    type hints and docstrings on every method. Save as pomodoro.py</code></pre>
 <p>Most will pick C, which is right. Then push:</p>
 <ul>
-<li><strong>What’s wrong with A and B?</strong> The AI will guess. It
-might guess right. It might build a command-line app when you wanted a
-window, or 5 minutes when you wanted 25. Guessing is fine when you don’t
-care. It’s a problem when you do.</li>
-<li><strong>What’s wrong with D?</strong> Nothing, technically — but
-every one of those decisions is a decision you now own. If
-<code>threading.Timer</code> is the wrong call, that’s on you. And you
-spent five minutes writing a prompt to save two minutes of work.</li>
+<li><strong>What’s wrong with A and B?</strong> The AI will guess. It might guess right. It might build a command-line app when you wanted a window, or 5 minutes when you wanted 25. Guessing is fine when you don’t care. It’s a problem when you do.</li>
+<li><strong>What’s wrong with D?</strong> Nothing, technically — but every one of those decisions is a decision you now own. If <code>threading.Timer</code> is the wrong call, that’s on you. And you spent five minutes writing a prompt to save two minutes of work.</li>
 </ul>
 <blockquote>
-<p><strong>Specify what you care about. Let the AI decide the
-rest.</strong></p>
+<p><strong>Specify what you care about. Let the AI decide the rest.</strong></p>
 </blockquote>
-<p>That’s the whole lesson. The trick is knowing what you care
-about.</p>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Use A vs. C only. D
-is noise for them and costs 4 minutes you don’t have. &gt;
-<strong>HS:</strong> All four. Then ask when D would actually be right.
-(Answer: when you have a &gt; real constraint — matching existing code,
-a library requirement, a teacher’s rubric.)</p>
+<p>That’s the whole lesson. The trick is knowing what you care about.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Use A vs. C only. D is noise for them and costs 4 minutes you don’t have. &gt; <strong>HS:</strong> All four. Then ask when D would actually be right. (Answer: when you have a &gt; real constraint — matching existing code, a library requirement, a teacher’s rubric.)</p>
 <hr />
-<h2 id="how-much-to-ask-for-at-once-ms-12-min-hs-20-min">How Much To Ask
-For At Once (MS 12 min / HS 20 min)</h2>
+<h2 id="how-much-to-ask-for-at-once-ms-12-min-hs-20-min">How Much To Ask For At Once (MS 12 min / HS 20 min)</h2>
 <h3 id="the-two-modes">The two modes</h3>
-<p><strong>Mode 1: Starting from nothing → describe the whole
-thing.</strong></p>
-<p>You want the AI to build a complete, coherent first version. It
-should know the shape of the finished app so the pieces fit together.
-Ask for the whole thing.</p>
-<p><strong>Mode 2: Changing something that exists → one thing at a
-time.</strong></p>
-<p>Now the code exists and works. Every change risks breaking it. Ask
-for one, run it, and only then ask for the next.</p>
-<h3 id="why-one-at-a-time-the-real-reason">Why one at a time (the real
-reason)</h3>
+<p><strong>Mode 1: Starting from nothing → describe the whole thing.</strong></p>
+<p>You want the AI to build a complete, coherent first version. It should know the shape of the finished app so the pieces fit together. Ask for the whole thing.</p>
+<p><strong>Mode 2: Changing something that exists → one thing at a time.</strong></p>
+<p>Now the code exists and works. Every change risks breaking it. Ask for one, run it, and only then ask for the next.</p>
+<h3 id="why-one-at-a-time-the-real-reason">Why one at a time (the real reason)</h3>
 <p>Draw this on the board:</p>
 <pre><code>Ask for 5 changes  →  run it  →  it&#39;s broken
                                   ↓
@@ -416,21 +245,14 @@ Ask for 1 change   →  run it  →  it&#39;s broken
                      it&#39;s that one. obviously.
                      undo it or fix it. 30 seconds.</code></pre>
 <blockquote>
-<p>“Testing one change at a time isn’t about being careful. It’s about
-being <strong>fast</strong>. Every batch of changes you don’t test is a
-debugging session you’re saving up for later, with interest.”</p>
+<p>“Testing one change at a time isn’t about being careful. It’s about being <strong>fast</strong>. Every batch of changes you don’t test is a debugging session you’re saving up for later, with interest.”</p>
 </blockquote>
 <h3 id="the-size-test">The size test</h3>
 <blockquote>
-<p><strong>Can you describe what should be different after this change
-in one sentence?</strong></p>
+<p><strong>Can you describe what should be different after this change in one sentence?</strong></p>
 </blockquote>
 <p>Yes → good size. No → break it up.</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>Too big</th>
@@ -448,35 +270,20 @@ in one sentence?</strong></p>
 </tr>
 <tr class="odd">
 <td>“Add saving”</td>
-<td>“When I click Save, write the current list to
-<code>tasks.txt</code>”</td>
+<td>“When I click Save, write the current list to <code>tasks.txt</code>”</td>
 </tr>
 </tbody>
 </table>
 <h3 id="the-exception-worth-naming">The exception worth naming</h3>
-<p>Sometimes changes genuinely come as a set — if you’re adding a second
-player you need a score <em>and</em> a turn indicator <em>and</em> a way
-to switch. Fine. Ask for the set, but say so explicitly, and expect to
-spend more time checking:</p>
+<p>Sometimes changes genuinely come as a set — if you’re adding a second player you need a score <em>and</em> a turn indicator <em>and</em> a way to switch. Fine. Ask for the set, but say so explicitly, and expect to spend more time checking:</p>
 <blockquote>
-<p>Add two-player mode. That means: a second score counter, a label
-showing whose turn it is, and turns alternating after each roll. Those
-three things only.</p>
+<p>Add two-player mode. That means: a second score counter, a label showing whose turn it is, and turns alternating after each roll. Those three things only.</p>
 </blockquote>
-<p>Naming the pieces yourself gives you a checklist to verify
-against.</p>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> The one-sentence
-size test is the whole takeaway. Practice it out loud — you &gt; say a
-change, they call out “too big” or “just right.” Skip the exception.
-&gt; <strong>HS:</strong> Full version, plus the live demo: open a
-working app, ask for six things at &gt; once, run it. Even if it works,
-ask “which part would you check first? How long would &gt; checking all
-six take?” Then do one of the six properly in 90 seconds.</p>
+<p>Naming the pieces yourself gives you a checklist to verify against.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> The one-sentence size test is the whole takeaway. Practice it out loud — you &gt; say a change, they call out “too big” or “just right.” Skip the exception. &gt; <strong>HS:</strong> Full version, plus the live demo: open a working app, ask for six things at &gt; once, run it. Even if it works, ask “which part would you check first? How long would &gt; checking all six take?” Then do one of the six properly in 90 seconds.</p>
 <hr />
-<h2 id="prompt-lab-ms-15-min-hs-25-min">Prompt Lab (MS 15 min / HS 25
-min)</h2>
-<p>Pairs. Bad prompts on a handout. For each: <strong>say what’s
-missing, then rewrite it.</strong></p>
+<h2 id="prompt-lab-ms-15-min-hs-25-min">Prompt Lab (MS 15 min / HS 25 min)</h2>
+<p>Pairs. Bad prompts on a handout. For each: <strong>say what’s missing, then rewrite it.</strong></p>
 <pre><code>1. &quot;make a game&quot;
 
 2. &quot;build a website for my club&quot;
@@ -490,44 +297,24 @@ missing, then rewrite it.</strong></p>
 6. &quot;make it work on my phone&quot;</code></pre>
 <p>Answer sketches for the instructor:</p>
 <ol type="1">
-<li><strong>What kind of game?</strong> Missing everything. Needs:
-genre, input, win condition, platform.</li>
-<li><strong>Website doing what?</strong> Missing: pages, content, static
-or interactive, hosted where.</li>
-<li><strong>Ugly how, and what do you want instead?</strong> “Fix” isn’t
-an instruction. Needs a target: “use a dark background with light
-text.”</li>
-<li><strong>“Stuff” is doing a lot of work.</strong> Player names?
-Scores per game? Season totals? Needs a concrete list of what gets
-tracked and what you do with it.</li>
-<li><strong>Four changes.</strong> Split it. Ask for the leaderboard,
-run it, then dark mode.</li>
-<li><strong>Ambiguous <em>and</em> huge.</strong> “Work on my phone”
-could mean a website, an app, or responsive layout. Also this may be a
-rewrite, not a change — worth asking the AI “what would it take to…”
-before asking it to do it.</li>
+<li><strong>What kind of game?</strong> Missing everything. Needs: genre, input, win condition, platform.</li>
+<li><strong>Website doing what?</strong> Missing: pages, content, static or interactive, hosted where.</li>
+<li><strong>Ugly how, and what do you want instead?</strong> “Fix” isn’t an instruction. Needs a target: “use a dark background with light text.”</li>
+<li><strong>“Stuff” is doing a lot of work.</strong> Player names? Scores per game? Season totals? Needs a concrete list of what gets tracked and what you do with it.</li>
+<li><strong>Four changes.</strong> Split it. Ask for the leaderboard, run it, then dark mode.</li>
+<li><strong>Ambiguous <em>and</em> huge.</strong> “Work on my phone” could mean a website, an app, or responsive layout. Also this may be a rewrite, not a change — worth asking the AI “what would it take to…” before asking it to do it.</li>
 </ol>
-<p>Then: <strong>each pair writes a real first prompt for the app
-they’ll build next</strong> and trades with another pair. The other
-pair’s job is to find the ambiguity — anywhere the AI could reasonably
-guess wrong.</p>
+<p>Then: <strong>each pair writes a real first prompt for the app they’ll build next</strong> and trades with another pair. The other pair’s job is to find the ambiguity — anywhere the AI could reasonably guess wrong.</p>
 <blockquote>
-<p>“If your partner can find two ways to read your prompt, so can the
-AI.”</p>
+<p>“If your partner can find two ways to read your prompt, so can the AI.”</p>
 </blockquote>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Prompts 1, 3, and 5
-only. Do #1 together on the projector as a worked example &gt; before
-they try the other two in pairs. &gt; <strong>HS:</strong> All six, plus
-the trade-and-critique step.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Prompts 1, 3, and 5 only. Do #1 together on the projector as a worked example &gt; before they try the other two in pairs. &gt; <strong>HS:</strong> All six, plus the trade-and-critique step.</p>
 <hr />
 <h2 id="break-hs-only-10-min">Break — HS only (10 min)</h2>
-<p>MS runs straight through. See the note under the MS timing table if
-your group needs a pause.</p>
+<p>MS runs straight through. See the note under the MS timing table if your group needs a pause.</p>
 <hr />
-<h2 id="how-to-check-the-ais-work-ms-15-min-hs-25-min">How To Check The
-AI’s Work (MS 15 min / HS 25 min)</h2>
-<p>The heart of the whole track. Session 1 planted the idea; today it
-becomes a method.</p>
+<h2 id="how-to-check-the-ais-work-ms-15-min-hs-25-min">How To Check The AI’s Work (MS 15 min / HS 25 min)</h2>
+<p>The heart of the whole track. Session 1 planted the idea; today it becomes a method.</p>
 <h3 id="it-ran-its-right">It ran ≠ it’s right</h3>
 <p>Four levels of “checked,” weakest to strongest:</p>
 <table>
@@ -567,31 +354,13 @@ becomes a method.</p>
 </tbody>
 </table>
 <blockquote>
-<p>“Most people stop at level 1 and think they’re at level 4. That gap
-is where every disaster lives.”</p>
+<p>“Most people stop at level 1 and think they’re at level 4. That gap is where every disaster lives.”</p>
 </blockquote>
-<h3
-id="the-four-checks-put-these-on-the-wall-they-stay-up-through-session-4">The
-four checks (put these on the wall — they stay up through Session
-4)</h3>
-<p><strong>1. Does it do the thing?</strong> Use it the way it’s meant
-to be used. Does it produce the right answer? Not “an answer” — the
-<em>right</em> one. If it’s a calculator, do the math yourself and
-compare.</p>
-<p><strong>2. Does it survive the wrong thing?</strong> Empty input.
-Text where a number goes. A negative number. Clicking twice fast. Zero
-items. A thousand items. This is where AI-written code fails most often,
-because the AI optimizes for the case you described.</p>
-<p><strong>3. Did it change anything you didn’t ask for?</strong> Ask
-the AI directly: <em>“What did you change? List it.”</em> Then check the
-list against what you asked for. This is a real failure mode — you ask
-for a color change and it also “helpfully” rewrites your scoring
-logic.</p>
-<p><strong>4. Can you explain it?</strong> Point at a chunk of the code
-and ask: what does this do? If you can’t say, ask the AI — <em>“Explain
-what the function on line 40 does, like I’m 12.”</em> It’s very good at
-this, and this is the single fastest way to actually learn to code while
-vibe coding.</p>
+<h3 id="the-four-checks-put-these-on-the-wall-they-stay-up-through-session-4">The four checks (put these on the wall — they stay up through Session 4)</h3>
+<p><strong>1. Does it do the thing?</strong> Use it the way it’s meant to be used. Does it produce the right answer? Not “an answer” — the <em>right</em> one. If it’s a calculator, do the math yourself and compare.</p>
+<p><strong>2. Does it survive the wrong thing?</strong> Empty input. Text where a number goes. A negative number. Clicking twice fast. Zero items. A thousand items. This is where AI-written code fails most often, because the AI optimizes for the case you described.</p>
+<p><strong>3. Did it change anything you didn’t ask for?</strong> Ask the AI directly: <em>“What did you change? List it.”</em> Then check the list against what you asked for. This is a real failure mode — you ask for a color change and it also “helpfully” rewrites your scoring logic.</p>
+<p><strong>4. Can you explain it?</strong> Point at a chunk of the code and ask: what does this do? If you can’t say, ask the AI — <em>“Explain what the function on line 40 does, like I’m 12.”</em> It’s very good at this, and this is the single fastest way to actually learn to code while vibe coding.</p>
 <h3 id="making-the-ai-check-itself">Making the AI check itself</h3>
 <p>Useful prompts to hand them:</p>
 <pre><code>What could go wrong with this? What inputs would break it?
@@ -601,44 +370,25 @@ What did you just change? List every change.
 Explain what this does in plain English.
 
 I expected X but got Y. Why?</code></pre>
-<p>The catch, and say it plainly: <strong>the AI checking its own work
-is a hint, not a guarantee.</strong> It’s the same guesser that wrote
-the bug. Use it to find candidate problems, not to prove there aren’t
-any.</p>
+<p>The catch, and say it plainly: <strong>the AI checking its own work is a hint, not a guarantee.</strong> It’s the same guesser that wrote the bug. Use it to find candidate problems, not to prove there aren’t any.</p>
 <h3 id="the-60-second-demo">The 60-second demo</h3>
 <p>Ask for something with a hidden bug:</p>
 <blockquote>
-<p>Write a Python function that takes a list of test scores and returns
-the average.</p>
+<p>Write a Python function that takes a list of test scores and returns the average.</p>
 </blockquote>
 <p>You’ll get something like:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> average(scores):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(scores) <span class="op">/</span> <span class="bu">len</span>(scores)</span></code></pre></div>
-<p>Ask the room to run the four checks. Level 2 passes fine. Level 3:
-<strong>what if the list is empty?</strong>
-<code>ZeroDivisionError</code>. The AI wrote correct code for the case
-you described and had nothing to say about the case you didn’t.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">def</span> average(scores):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    <span class="cf">return</span> <span class="bu">sum</span>(scores) <span class="op">/</span> <span class="bu">len</span>(scores)</span></code></pre></div>
+<p>Ask the room to run the four checks. Level 2 passes fine. Level 3: <strong>what if the list is empty?</strong> <code>ZeroDivisionError</code>. The AI wrote correct code for the case you described and had nothing to say about the case you didn’t.</p>
 <blockquote>
-<p>“It didn’t make a mistake. It answered exactly what you asked.
-<em>You</em> left out the question.”</p>
+<p>“It didn’t make a mistake. It answered exactly what you asked. <em>You</em> left out the question.”</p>
 </blockquote>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Checks 1 and 2 only,
-hands-on. Frame check 2 as “be a jerk to your app.” Of &gt; the
-self-checking prompts, teach only “explain this like I’m 12.” Skip the
-levels &gt; table — demo the empty-list bug instead, it lands better
-than the taxonomy. &gt; <strong>HS:</strong> All four checks and the
-levels table. Emphasize check 3 — unrequested changes &gt; are the
-failure mode that bites hardest on real projects.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Checks 1 and 2 only, hands-on. Frame check 2 as “be a jerk to your app.” Of &gt; the self-checking prompts, teach only “explain this like I’m 12.” Skip the levels &gt; table — demo the empty-list bug instead, it lands better than the taxonomy. &gt; <strong>HS:</strong> All four checks and the levels table. Emphasize check 3 — unrequested changes &gt; are the failure mode that bites hardest on real projects.</p>
 <hr />
-<h2 id="build-spec-first-ms-24-min-hs-35-min">Build: Spec First (MS 24
-min / HS 35 min)</h2>
-<p>This build has a rule: <strong>write the spec before the
-prompt.</strong></p>
-<p>For HS this is a practice project, not the capstone — the capstone
-gets pitched later in this session. Keep it small on purpose.</p>
-<h3 id="spec-sheet-ms-6-min-hs-10-min-on-paper">Spec sheet (MS 6 min /
-HS 10 min, on paper)</h3>
+<h2 id="build-spec-first-ms-24-min-hs-35-min">Build: Spec First (MS 24 min / HS 35 min)</h2>
+<p>This build has a rule: <strong>write the spec before the prompt.</strong></p>
+<p>For HS this is a practice project, not the capstone — the capstone gets pitched later in this session. Keep it small on purpose.</p>
+<h3 id="spec-sheet-ms-6-min-hs-10-min-on-paper">Spec sheet (MS 6 min / HS 10 min, on paper)</h3>
 <p>Every student fills this out before touching a keyboard:</p>
 <pre><code>APP NAME:
 
@@ -655,37 +405,27 @@ HOW I&#39;LL KNOW IT WORKS (3 specific tests):
   1. If I ______, it should ______
   2. If I ______, it should ______
   3. If I ______ (something wrong), it should ______</code></pre>
-<p>The last section is the new thing. <strong>They write their tests
-before the code exists.</strong> Test 3 must be a wrong-input test.</p>
-<p>Instructor signs off on the spec before they start. Reject anything
-with more than 3 must-haves or a vague test.</p>
+<p>The last section is the new thing. <strong>They write their tests before the code exists.</strong> Test 3 must be a wrong-input test.</p>
+<p>Instructor signs off on the spec before they start. Reject anything with more than 3 must-haves or a vague test.</p>
 <h3 id="build-ms-15-min-hs-20-min">Build (MS 15 min / HS 20 min)</h3>
-<p>Work from the spec. First prompt is the whole app (Mode 1). Every
-change after is one thing (Mode 2).</p>
+<p>Work from the spec. First prompt is the whole app (Mode 1). Every change after is one thing (Mode 2).</p>
 <p>Board checklist:</p>
 <ul class="task-list">
-<li><label><input type="checkbox" />All must-haves work</label></li>
-<li><label><input type="checkbox" />All of my tests pass</label></li>
-<li><label><input type="checkbox" />I asked the AI “what did you
-change?” at least once and checked the answer</label></li>
-<li><label><input type="checkbox" />I tried three wrong
-inputs</label></li>
+<li><input type="checkbox" disabled="" />
+All must-haves work</li>
+<li><input type="checkbox" disabled="" />
+All of my tests pass</li>
+<li><input type="checkbox" disabled="" />
+I asked the AI “what did you change?” at least once and checked the answer</li>
+<li><input type="checkbox" disabled="" />
+I tried three wrong inputs</li>
 </ul>
 <h3 id="land-it-ms-3-min-hs-5-min">Land it (MS 3 min / HS 5 min)</h3>
-<p>Run all three of your own tests one last time and mark pass/fail on
-the spec sheet honestly. <strong>A failed test you can name is a better
-outcome than a passed test you didn’t really check.</strong> Say this
-out loud — it sets the culture for the rest of the track.</p>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> 2 must-haves and 2
-tests, not 3. Pairs — one drives, one runs the tests, swap &gt; halfway.
-The tester role makes verification a job, not an afterthought. &gt;
-<strong>HS:</strong> 3 must-haves. Add a checkbox: “I asked the AI to
-explain one part of the code &gt; and I understood it.”</p>
+<p>Run all three of your own tests one last time and mark pass/fail on the spec sheet honestly. <strong>A failed test you can name is a better outcome than a passed test you didn’t really check.</strong> Say this out loud — it sets the culture for the rest of the track.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> 2 must-haves and 2 tests, not 3. Pairs — one drives, one runs the tests, swap &gt; halfway. The tester role makes verification a job, not an afterthought. &gt; <strong>HS:</strong> 3 must-haves. Add a checkbox: “I asked the AI to explain one part of the code &gt; and I understood it.”</p>
 <hr />
-<h2 id="swap-and-break-ms-13-min-hs-15-min">Swap And Break (MS 13 min /
-HS 15 min)</h2>
-<p>Pairs swap machines. Your job: <strong>break your partner’s
-app.</strong></p>
+<h2 id="swap-and-break-ms-13-min-hs-15-min">Swap And Break (MS 13 min / HS 15 min)</h2>
+<p>Pairs swap machines. Your job: <strong>break your partner’s app.</strong></p>
 <p>You may not look at the code. You may only use the app.</p>
 <p>Rules of engagement:</p>
 <ul>
@@ -695,35 +435,18 @@ app.</strong></p>
 <li>Click everything twice, and out of order</li>
 <li>Resize the window to nothing</li>
 </ul>
-<p>Write down every problem you find using the good bug-report format
-from Session 1: <em>what you did, what you expected, what
-happened.</em></p>
+<p>Write down every problem you find using the good bug-report format from Session 1: <em>what you did, what you expected, what happened.</em></p>
 <p>Swap back. Fix the top bug your partner found.</p>
 <blockquote>
-<p>“Your partner found in five minutes what you missed in twenty. That’s
-not because they’re better — it’s because you were trying to make it
-work and they were trying to make it fail. Both are necessary.
-Professionals hire people whose whole job is the second one.”</p>
+<p>“Your partner found in five minutes what you missed in twenty. That’s not because they’re better — it’s because you were trying to make it work and they were trying to make it fail. Both are necessary. Professionals hire people whose whole job is the second one.”</p>
 </blockquote>
-<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Frame as a
-competition — most bugs found wins. 6 min breaking, 5 min fixing, &gt; 2
-min whole-group callout of the funniest bug found. &gt;
-<strong>HS:</strong> 7 min breaking, 8 min fixing. Require the bug
-report in writing, formatted &gt; properly. Then have them paste that
-report straight to the AI — a well-written bug &gt; report is a
-well-written prompt, and that’s not a coincidence.</p>
+<p><strong>MS/HS</strong> &gt; <strong>MS:</strong> Frame as a competition — most bugs found wins. 6 min breaking, 5 min fixing, &gt; 2 min whole-group callout of the funniest bug found. &gt; <strong>HS:</strong> 7 min breaking, 8 min fixing. Require the bug report in writing, formatted &gt; properly. Then have them paste that report straight to the AI — a well-written bug &gt; report is a well-written prompt, and that’s not a coincidence.</p>
 <hr />
-<h2 id="capstone-pitch-scope-check-hs-only-20-min">Capstone Pitch +
-Scope Check — HS only (20 min)</h2>
-<p><strong>MS does not do this today.</strong> MS pitches in Session 4.
-Skip to the wrap.</p>
-<p>HS’s capstone build has to fit in the rest of this session plus
-Session 3, because Session 4 is 60 minutes of demo and wrap-up with no
-build time. Students need to know that now.</p>
+<h2 id="capstone-pitch-scope-check-hs-only-20-min">Capstone Pitch + Scope Check — HS only (20 min)</h2>
+<p><strong>MS does not do this today.</strong> MS pitches in Session 4. Skip to the wrap.</p>
+<p>HS’s capstone build has to fit in the rest of this session plus Session 3, because Session 4 is 60 minutes of demo and wrap-up with no build time. Students need to know that now.</p>
 <blockquote>
-<p>“Your Session 4 is one hour, and it’s all demos. That means your
-project has to be finished by the end of next session. Plan accordingly
-— and that mostly means picking something smaller than you want to.”</p>
+<p>“Your Session 4 is one hour, and it’s all demos. That means your project has to be finished by the end of next session. Plan accordingly — and that mostly means picking something smaller than you want to.”</p>
 </blockquote>
 <h3 id="pitch-to-a-partner-8-min">Pitch to a partner (8 min)</h3>
 <p>Each student gets 3 minutes to pitch, using this:</p>
@@ -742,17 +465,13 @@ I&#39;ll know it works when:
 <p>Partner’s job — ask these two questions:</p>
 <ol type="1">
 <li><strong>“What happens if I do the wrong thing?”</strong></li>
-<li><strong>“Could you cut one of the three and still have something
-cool?”</strong></li>
+<li><strong>“Could you cut one of the three and still have something cool?”</strong></li>
 </ol>
 <p>Question 2 is the important one. Almost everyone should cut one.</p>
-<h3 id="instructor-scope-check-12-min">Instructor scope check (12
-min)</h3>
-<p>Every student gets a ~30-second sign-off. You are looking for one
-thing:</p>
+<h3 id="instructor-scope-check-12-min">Instructor scope check (12 min)</h3>
+<p>Every student gets a ~30-second sign-off. You are looking for one thing:</p>
 <blockquote>
-<p><strong>Can this be built in the time left in this session plus one
-more session?</strong></p>
+<p><strong>Can this be built in the time left in this session plus one more session?</strong></p>
 </blockquote>
 <p>Common over-scopes and the cut:</p>
 <table>
@@ -791,79 +510,67 @@ more session?</strong></p>
 </table>
 <p>Say the reasoning out loud, because it’s the real lesson:</p>
 <blockquote>
-<p>“Cutting scope isn’t giving up. It’s the actual skill. A small thing
-that works beats a big thing that doesn’t, every single time, forever,
-in every job you will ever have.”</p>
+<p>“Cutting scope isn’t giving up. It’s the actual skill. A small thing that works beats a big thing that doesn’t, every single time, forever, in every job you will ever have.”</p>
 </blockquote>
 <hr />
-<h2 id="capstone-plan-and-first-build-hs-only-20-min">Capstone: Plan And
-First Build — HS only (20 min)</h2>
-<p>Set up the project properly. This 20 minutes is what makes Session 3
-productive.</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mkdir capstone</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<h2 id="capstone-plan-and-first-build-hs-only-20-min">Capstone: Plan And First Build — HS only (20 min)</h2>
+<p>Set up the project properly. This 20 minutes is what makes Session 3 productive.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>mkdir capstone</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="fu">cd</span> capstone</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
 <p>Four things, in order:</p>
 <ol type="1">
 <li><p><strong>Ask for a plan, not code:</strong></p>
 <pre><code>I want to build [their app]. Don&#39;t write any code yet. Tell me what
 files you&#39;d create, what goes in each one, and what order you&#39;d
 build them in.</code></pre></li>
-<li><p><strong>Argue with the plan.</strong> Change at least two things.
-Combine files, drop a feature, reorder the build. Changing a plan is
-free; changing code is not.</p></li>
-<li><p><strong>Save the plan</strong> as <code>PLAN.md</code> in the
-project folder.</p></li>
-<li><p><strong>Build component 1 only.</strong> Run it. Check
-it.</p></li>
+<li><p><strong>Argue with the plan.</strong> Change at least two things. Combine files, drop a feature, reorder the build. Changing a plan is free; changing code is not.</p></li>
+<li><p><strong>Save the plan</strong> as <code>PLAN.md</code> in the project folder.</p></li>
+<li><p><strong>Build component 1 only.</strong> Run it. Check it.</p></li>
 </ol>
-<p>Full multi-file technique comes in Session 3 — this block is about
-getting a plan on disk and one working piece before students leave.</p>
+<p>Full multi-file technique comes in Session 3 — this block is about getting a plan on disk and one working piece before students leave.</p>
 <h3 id="end-of-session">End of session</h3>
-<p>Everyone makes a save-point copy of their project folder before they
-leave:</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>working</span></code></pre></div>
-<p>That’s the whole backup system, taught properly in Session 3. For
-now: <strong>it works, so copy it.</strong></p>
+<p>Everyone makes a save-point copy of their project folder before they leave:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse capstone capstone-working</span></code></pre></div>
+<p>That’s the whole backup system, taught properly in Session 3. For now: <strong>it works, so copy it.</strong></p>
 <hr />
-<h2 id="wrap-built-into-the-last-block-for-both-groups">Wrap (built into
-the last block for both groups)</h2>
+<h2 id="wrap-built-into-the-last-block-for-both-groups">Wrap (built into the last block for both groups)</h2>
 <p>Two things on the board:</p>
-<p><strong>How much to ask for:</strong> &gt; New app → describe the
-whole thing. Existing app → one change at a time. &gt; If you can’t say
-what should be different in one sentence, it’s too big.</p>
-<p><strong>How to check:</strong> &gt; 1. Does it do the thing? &gt; 2.
-Does it survive the wrong thing? &gt; 3. Did it change something I
-didn’t ask for? &gt; 4. Can I explain it?</p>
+<p><strong>How much to ask for:</strong> &gt; New app → describe the whole thing. Existing app → one change at a time. &gt; If you can’t say what should be different in one sentence, it’s too big.</p>
+<p><strong>How to check:</strong> &gt; 1. Does it do the thing? &gt; 2. Does it survive the wrong thing? &gt; 3. Did it change something I didn’t ask for? &gt; 4. Can I explain it?</p>
 <p>Teaser for Session 3:</p>
-<p><strong>MS:</strong> “Next time: how to save your work so you can
-never lose it, and how to fix things when the AI makes them worse.”</p>
-<p><strong>HS:</strong> “Next time: your project gets too big for one
-file, and you finish your capstone. Session 4 is demos only.”</p>
+<p><strong>MS:</strong> “Next time: how to save your work so you can never lose it, and how to fix things when the AI makes them worse.”</p>
+<p><strong>HS:</strong> “Next time: your project gets too big for one file, and you finish your capstone. Session 4 is demos only.”</p>
 <hr />
 <h2 id="instructor-prep-checklist">Instructor Prep Checklist</h2>
 <ul class="task-list">
-<li><label><input type="checkbox" /><strong>Print camper notes</strong>
-for the right age group, one per camper</label></li>
-<li><label><input type="checkbox" />Print the bad-prompts handout (one
-per pair) — 3 prompts for MS, 6 for HS</label></li>
-<li><label><input type="checkbox" />Print spec sheets (one per student,
-plus spares)</label></li>
-<li><label><input type="checkbox" />Have a Session 1 app on hand for the
-six-changes-at-once demo (HS)</label></li>
-<li><label><input type="checkbox" />Have the empty-list average bug
-ready to demo live</label></li>
-<li><label><input type="checkbox" />Post the four checks on the wall —
-they stay up through Session 4</label></li>
-<li><label><input type="checkbox" /><strong>HS only:</strong> print the
-scope-cut table for the pitch block</label></li>
-<li><label><input type="checkbox" /><strong>HS only:</strong> be ready
-to sign off on ~25 capstone pitches in 12 minutes. Practice saying “cut
-one” quickly and kindly.</label></li>
+<li><input type="checkbox" disabled="" />
+<strong>Print camper notes</strong> for the right age group, one per camper</li>
+<li><input type="checkbox" disabled="" />
+Print the bad-prompts handout (one per pair) — 3 prompts for MS, 6 for HS</li>
+<li><input type="checkbox" disabled="" />
+Print spec sheets (one per student, plus spares)</li>
+<li><input type="checkbox" disabled="" />
+Have a Session 1 app on hand for the six-changes-at-once demo (HS)</li>
+<li><input type="checkbox" disabled="" />
+Have the empty-list average bug ready to demo live</li>
+<li><input type="checkbox" disabled="" />
+Post the four checks on the wall — they stay up through Session 4</li>
+<li><input type="checkbox" disabled="" />
+<strong>HS only:</strong> print the scope-cut table for the pitch block</li>
+<li><input type="checkbox" disabled="" />
+<strong>HS only:</strong> be ready to sign off on ~25 capstone pitches in 12 minutes. Practice saying “cut one” quickly and kindly.</li>
 </ul>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
 </body>
 </html>

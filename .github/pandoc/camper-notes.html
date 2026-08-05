@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>$if(title)$$title$$else$$pagetitle$$endif$ — CompuCon Vibe Coding</title>
+$if(highlighting-css)$
+<style>
+$highlighting-css$
+</style>
+$endif$
+<link rel="stylesheet" href="$root$style.css" />
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="$root$index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="$root$middle-school.html">Middle School</a>
+      <a href="$root$high-school.html">High School</a>
+      <a href="$root$faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+$if(backhref)$
+  <a href="$root$$backhref$" class="crumb">$backlabel$</a>
+$else$
+  <a href="$root$index.html" class="crumb">Home</a>
+$endif$
+
+$body$
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
+</body>
+</html>

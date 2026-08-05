@@ -1,243 +1,101 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>ms-camper-notes</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Session 4 — Make It Yours — CompuCon Vibe Coding</title>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+</style>
+<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
+
+<nav>
+  <div class="nav-in">
+    <a href="../index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="../middle-school.html">Middle School</a>
+      <a href="../high-school.html">High School</a>
+      <a href="../faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+  <a href="../middle-school.html" class="crumb">Middle School</a>
+
 <h1 id="session-4-make-it-yours">Session 4 — Make It Yours</h1>
-<h3 id="vibe-coding-middle-school-keep-this-with-you">Vibe Coding ·
-Middle School · Keep this with you</h3>
+<h3 id="vibe-coding-middle-school-keep-this-with-you">Vibe Coding · Middle School · Keep this with you</h3>
 <hr />
 <h2 id="what-youre-doing-today">What you’re doing today</h2>
 <p><strong>Your project. Your idea. Start to finish, today.</strong></p>
 <p>Then you demo it to everyone.</p>
-<p>This is the only session where you pick what to build with no
-restrictions from us — so pick something you actually want to exist.</p>
+<p>This is the only session where you pick what to build with no restrictions from us — so pick something you actually want to exist.</p>
 <hr />
 <h2 id="todays-plan">Today’s plan</h2>
 <table>
@@ -271,18 +129,14 @@ restrictions from us — so pick something you actually want to exist.</p>
 </tbody>
 </table>
 <hr />
-<h2 id="the-most-important-thing-on-this-page">The most important thing
-on this page</h2>
+<h2 id="the-most-important-thing-on-this-page">The most important thing on this page</h2>
 <p>You have about <strong>38 minutes</strong> to build.</p>
-<p>That is not much time. It’s enough to build something genuinely cool
-— as long as you pick something small.</p>
+<p>That is not much time. It’s enough to build something genuinely cool — as long as you pick something small.</p>
 <blockquote>
-<h2 id="a-small-thing-that-works-beats-a-big-thing-that-doesnt.">A small
-thing that works beats a big thing that doesn’t.</h2>
+<h2 id="a-small-thing-that-works-beats-a-big-thing-that-doesnt.">A small thing that works beats a big thing that doesn’t.</h2>
 <p>Every time. Forever. In every job you will ever have.</p>
 </blockquote>
-<p><strong>Two must-haves. That’s the limit.</strong> Not three.
-Two.</p>
+<p><strong>Two must-haves. That’s the limit.</strong> Not three. Two.</p>
 <hr />
 <h2 id="your-pitch">Your pitch</h2>
 <p>Fill this in, then pitch it to a partner:</p>
@@ -298,18 +152,11 @@ I&#39;ll know it works when:
   If I ____________, it should ____________</code></pre>
 <p>Your partner asks you one question:</p>
 <blockquote>
-<p><strong>“Could you cut one of the two and still have something
-cool?”</strong></p>
+<p><strong>“Could you cut one of the two and still have something cool?”</strong></p>
 </blockquote>
-<p>Then an instructor approves it. We might make you cut something.
-That’s not us being mean — it’s the single most useful thing we can do
-for you right now.</p>
-<h3 id="ideas-that-are-the-right-size">Ideas that are the right
-size</h3>
-<p>Mad Libs · dice roller · Magic 8-Ball · coin flip counter ·
-compliment generator · random team picker · color picker · countdown
-timer · rock paper scissors · unit converter · quiz with 5 questions ·
-simple to-do list</p>
+<p>Then an instructor approves it. We might make you cut something. That’s not us being mean — it’s the single most useful thing we can do for you right now.</p>
+<h3 id="ideas-that-are-the-right-size">Ideas that are the right size</h3>
+<p>Mad Libs · dice roller · Magic 8-Ball · coin flip counter · compliment generator · random team picker · color picker · countdown timer · rock paper scissors · unit converter · quiz with 5 questions · simple to-do list</p>
 <h3 id="ideas-well-ask-you-to-shrink">Ideas we’ll ask you to shrink</h3>
 <table>
 <thead>
@@ -343,26 +190,19 @@ simple to-do list</p>
 </table>
 <h3 id="totally-allowed">Totally allowed</h3>
 <blockquote>
-<p><strong>“The app I made in Session 1, rebuilt better, with the stuff
-I wanted but didn’t have time for.”</strong></p>
+<p><strong>“The app I made in Session 1, rebuilt better, with the stuff I wanted but didn’t have time for.”</strong></p>
 </blockquote>
-<p>That’s a great capstone. Don’t feel like you need a brand new
-idea.</p>
+<p>That’s a great capstone. Don’t feel like you need a brand new idea.</p>
 <hr />
 <h2 id="getting-set-up">Getting set up</h2>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mkdir capstone</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
-<p>(<code>cc</code> instead of <code>cc-ds</code> if you have your own
-Claude Pro account. One command per line, no
-<code>&amp;&amp;</code>.)</p>
-<h3 id="spend-the-first-5-minutes-not-coding">Spend the first 5 minutes
-NOT coding</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>mkdir capstone</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="fu">cd</span> capstone</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>cc-ds</span></code></pre></div>
+<p>(<code>cc</code> instead of <code>cc-ds</code> if you have your own Claude Pro account. One command per line, no <code>&amp;&amp;</code>.)</p>
+<h3 id="spend-the-first-5-minutes-not-coding">Spend the first 5 minutes NOT coding</h3>
 <ol type="1">
-<li>Write your first prompt <strong>on paper</strong> — the whole app,
-answering the four questions</li>
+<li>Write your first prompt <strong>on paper</strong> — the whole app, answering the four questions</li>
 <li>Get a partner or instructor to check it</li>
 <li><em>Then</em> type it in</li>
 </ol>
@@ -394,28 +234,20 @@ answering the four questions</li>
 <h2 id="build-run-check-copy">build → run → check → copy</h2>
 </blockquote>
 <p><strong>Run it:</strong></p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>python app<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>python app.<span class="fu">py</span></span></code></pre></div>
 <p><strong>Copy it every time it works:</strong></p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>working</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse capstone capstone-working</span></code></pre></div>
 <p><strong>Go back if you break it:</strong></p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse capstone</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone<span class="op">-</span>working capstone</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu">Remove-Item</span> -Recurse capstone</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse capstone-working capstone</span></code></pre></div>
 <h3 id="watch-the-clock">Watch the clock</h3>
 <ul>
-<li><strong>Halfway (about 18 min in):</strong> you should have
-<em>something running</em>. Not finished — running. If you don’t, get an
-instructor right now.</li>
-<li><strong>12 minutes left:</strong> last new thing starts now or not
-at all</li>
-<li><strong>6 minutes left:</strong> stop adding. Make what you have
-work properly.</li>
-<li><strong>3 minutes left:</strong> copy your working folder, whatever
-state it’s in</li>
+<li><strong>Halfway (about 18 min in):</strong> you should have <em>something running</em>. Not finished — running. If you don’t, get an instructor right now.</li>
+<li><strong>12 minutes left:</strong> last new thing starts now or not at all</li>
+<li><strong>6 minutes left:</strong> stop adding. Make what you have work properly.</li>
+<li><strong>3 minutes left:</strong> copy your working folder, whatever state it’s in</li>
 </ul>
 <h3 id="if-you-get-stuck">If you get stuck</h3>
 <ol type="1">
@@ -426,75 +258,61 @@ state it’s in</li>
 </ol>
 <hr />
 <h2 id="polish-and-demo-prep">Polish and demo prep</h2>
-<h3 id="polish-5-min-looks-only-no-new-features">Polish (5 min) — looks
-only, no new features</h3>
-<p>Window title · colors · fonts · a nicer message when something goes
-wrong</p>
+<h3 id="polish-5-min-looks-only-no-new-features">Polish (5 min) — looks only, no new features</h3>
+<p>Window title · colors · fonts · a nicer message when something goes wrong</p>
 <h3 id="demo-prep-5-min">Demo prep (5 min)</h3>
 <p>You get <strong>45 seconds</strong>. Plan three things:</p>
 <pre><code>1. What it is, in one sentence.
 2. Show it working.
 3. One thing that broke and how you fixed it.</code></pre>
 <p><strong>Practice the exact clicks. Twice.</strong></p>
-<p>The most common demo disaster is clicking around live, hitting a bug
-you’ve never seen before, and freezing up. Rehearsing fixes it.</p>
-<p>If it crashes in front of everyone: say what it’s supposed to do and
-keep going. It happens to everybody.</p>
+<p>The most common demo disaster is clicking around live, hitting a bug you’ve never seen before, and freezing up. Rehearsing fixes it.</p>
+<p>If it crashes in front of everyone: say what it’s supposed to do and keep going. It happens to everybody.</p>
 <hr />
 <h2 id="the-showcase">The showcase</h2>
-<p>45 seconds each. Everybody watches. Everybody claps for
-everybody.</p>
-<p><strong>Number 3 in your demo is required</strong> — the thing that
-broke. If you skip it we’ll ask.</p>
+<p>45 seconds each. Everybody watches. Everybody claps for everybody.</p>
+<p><strong>Number 3 in your demo is required</strong> — the thing that broke. If you skip it we’ll ask.</p>
 <blockquote>
-<p>Nobody in this room got it right the first time. Not one person.
-Saying that out loud is the whole point.</p>
+<p>Nobody in this room got it right the first time. Not one person. Saying that out loud is the whole point.</p>
 </blockquote>
 <hr />
-<h2 id="what-you-actually-learned-this-week">What you actually learned
-this week</h2>
+<h2 id="what-you-actually-learned-this-week">What you actually learned this week</h2>
 <p>Not just “how to use an AI.” You learned:</p>
 <ul>
-<li>How to <strong>describe</strong> something you want clearly enough
-that it can be built</li>
-<li>How to tell whether something is <strong>right</strong>, not just
-whether it ran</li>
+<li>How to <strong>describe</strong> something you want clearly enough that it can be built</li>
+<li>How to tell whether something is <strong>right</strong>, not just whether it ran</li>
 <li>How to say <strong>exactly</strong> what went wrong</li>
-<li>How to <strong>save your work</strong> so a mistake is never
-fatal</li>
-<li>How to <strong>cut an idea down</strong> to something you can
-actually finish</li>
+<li>How to <strong>save your work</strong> so a mistake is never fatal</li>
+<li>How to <strong>cut an idea down</strong> to something you can actually finish</li>
 </ul>
 <blockquote>
-<p>Almost none of that is about Python. All of it will still be true in
-twenty years.</p>
+<p>Almost none of that is about Python. All of it will still be true in twenty years.</p>
 </blockquote>
 <hr />
 <h2 id="honestly-though">Honestly, though</h2>
 <p>The AI wrote the code.</p>
-<p>What you did was decide what to build, find what was wrong, and fix
-it. That’s real — it’s most of what the job actually is.</p>
-<p>But you don’t know how the code works yet, and that’s worth knowing
-about yourself.</p>
-<p><strong>If you want to get properly good at this,</strong> the next
-step is opening your own code and asking:</p>
+<p>What you did was decide what to build, find what was wrong, and fix it. That’s real — it’s most of what the job actually is.</p>
+<p>But you don’t know how the code works yet, and that’s worth knowing about yourself.</p>
+<p><strong>If you want to get properly good at this,</strong> the next step is opening your own code and asking:</p>
 <pre><code>Explain what this part does, like I&#39;m 12.</code></pre>
-<p>Do that a few times and you’ll start actually reading code. The
-people who can do both — steer the AI <em>and</em> read what it wrote —
-are going to be unbelievably good at this.</p>
+<p>Do that a few times and you’ll start actually reading code. The people who can do both — steer the AI <em>and</em> read what it wrote — are going to be unbelievably good at this.</p>
 <hr />
 <h2 id="take-your-stuff-home">Take your stuff home</h2>
-<p><strong>Do this before you leave.</strong> Ask an instructor to help
-you email your project to yourself or put it on a USB stick.</p>
-<p>Claude Code is free to install at home, and there are free models you
-can use with it.</p>
+<p><strong>Do this before you leave.</strong> Ask an instructor to help you email your project to yourself or put it on a USB stick.</p>
+<p>Claude Code is free to install at home, and there are free models you can use with it.</p>
 <h3 id="what-to-build-next">What to build next</h3>
-<p>Best idea we’ve got: <strong>ask someone in your family what would
-make something easier for them, and build that.</strong> Real people
-find real bugs, and it’s a lot more fun than building for yourself.</p>
+<p>Best idea we’ve got: <strong>ask someone in your family what would make something easier for them, and build that.</strong> Real people find real bugs, and it’s a lot more fun than building for yourself.</p>
 <blockquote>
-<p>You built three things that didn’t exist before you got here. Go
-build a fourth.</p>
+<p>You built three things that didn’t exist before you got here. Go build a fourth.</p>
 </blockquote>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
 </body>
 </html>

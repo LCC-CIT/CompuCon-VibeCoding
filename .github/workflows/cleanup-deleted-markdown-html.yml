@@ -32,6 +32,43 @@ jobs:
           mkdir -p docs
           touch docs/.nojekyll
 
+          # Wraps pandoc so generated pages get the site theme, nav, and footer.
+          #   $1 = source markdown   $2 = output html   $3 = path relative to curriculum/
+          convert_md() {
+            local md="$1" out="$2" rel="$3"
+
+            # Relative path back up to docs/ root, so style.css and nav links resolve
+            # from any depth (session-1/foo.html needs ../, top-level needs nothing).
+            local depth root=""
+            depth=$(awk -F/ '{print NF-1}' <<< "$rel")
+            for ((i=0; i<depth; i++)); do root="../$root"; done
+
+            # Page title = first H1 in the markdown, falling back to the filename.
+            local title
+            title=$(grep -m1 '^# ' "$md" | sed 's/^# *//') || true
+            [ -z "$title" ] && title=$(basename "${md%.md}")
+
+            # "Back" link points at the matching track page for camper notes.
+            local backhref="index.html" backlabel="Home"
+            case "$(basename "$md")" in
+              ms-*) backhref="middle-school.html"; backlabel="Middle School" ;;
+              hs-*) backhref="high-school.html";   backlabel="High School" ;;
+            esac
+
+            pandoc "$md" -f markdown -t html5 -s \
+              --template=.github/pandoc/camper-notes.html \
+              --highlight-style=breezedark \
+              --metadata title="$title" \
+              -V root="$root" \
+              -V backhref="$backhref" \
+              -V backlabel="$backlabel" \
+              -o "$out"
+
+            # Cross-links in the curriculum point at .md files. Those don't exist in
+            # docs/ — only the converted .html does — so rewrite them or they 404.
+            sed -i -E 's/(href="[^":]*)\.md(["#])/\1.html\2/g' "$out"
+          }
+
           # Step 1: Convert all existing .md files in curriculum/ to docs/
           count=0
           while IFS= read -r -d '' md; do
@@ -39,7 +76,7 @@ jobs:
             out="docs/${rel%.md}.html"
             mkdir -p "$(dirname "$out")"
             echo "Converting $md -> $out"
-            pandoc "$md" -f markdown -t html5 -s -o "$out"
+            convert_md "$md" "$out" "$rel"
             count=$((count+1))
           done < <(find curriculum -type f -name '*.md' -print0)
 

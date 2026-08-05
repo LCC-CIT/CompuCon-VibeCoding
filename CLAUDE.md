@@ -66,6 +66,17 @@ outside requests. Relative local files (`style.css`) are fine; external requests
 GitHub Action runs pandoc over `curriculum/**/*.md` on every push and rewrites these.
 **Editing them directly is pointless; your changes get overwritten.** Edit the markdown.
 
+Generated pages are wrapped in `.github/pandoc/camper-notes.html`, so they get the same
+nav, footer, and `style.css` as the hand-authored pages. The workflow derives three
+things per file: the page title (first `# ` heading), the relative path back to `docs/`
+(so `style.css` resolves at any depth), and the "back" link — `ms-` files point to
+Middle School, `hs-` files to High School, everything else to Home. It also rewrites
+`.md` cross-links to `.html`, since the markdown links would 404 on the published site.
+
+**Both workflows contain an identical copy of that `convert_md` function.** If you
+change one, change the other, or pages will flip appearance depending on which workflow
+ran last.
+
 *Hand-authored* — `index.html`, `middle-school.html`, `high-school.html`, `faq.html`,
 plus `style.css`. No markdown source. These are the public-facing pages.
 

@@ -43,6 +43,39 @@ jobs:
           mkdir -p docs
           touch docs/.nojekyll
 
+          # Keep this in sync with cleanup-deleted-markdown-html.yml — both workflows
+          # must produce identical output or pages will flip appearance between runs.
+          convert_md() {
+            local md="$1" out="$2" rel="$3"
+
+            local depth root=""
+            depth=$(awk -F/ '{print NF-1}' <<< "$rel")
+            for ((i=0; i<depth; i++)); do root="../$root"; done
+
+            local title
+            title=$(grep -m1 '^# ' "$md" | sed 's/^# *//') || true
+            [ -z "$title" ] && title=$(basename "${md%.md}")
+
+            local backhref="index.html" backlabel="Home"
+            case "$(basename "$md")" in
+              ms-*) backhref="middle-school.html"; backlabel="Middle School" ;;
+              hs-*) backhref="high-school.html";   backlabel="High School" ;;
+            esac
+
+            pandoc "$md" -f markdown -t html5 -s \
+              --template=.github/pandoc/camper-notes.html \
+              --highlight-style=breezedark \
+              --metadata title="$title" \
+              -V root="$root" \
+              -V backhref="$backhref" \
+              -V backlabel="$backlabel" \
+              -o "$out"
+
+            # Cross-links in the curriculum point at .md files. Those don't exist in
+            # docs/ — only the converted .html does — so rewrite them or they 404.
+            sed -i -E 's/(href="[^":]*)\.md(["#])/\1.html\2/g' "$out"
+          }
+
           for md in ${{ steps.changed.outputs.all_changed_files }}; do
             if [ -f "$md" ]; then
               rel="${md#curriculum/}"          # session-1/lesson-plan.md
@@ -50,7 +83,7 @@ jobs:
               mkdir -p "$(dirname "$out")"
 
               echo "Converting $md -> $out"
-              pandoc "$md" -f markdown -t html5 -s -o "$out"
+              convert_md "$md" "$out" "$rel"
             fi
           done
 

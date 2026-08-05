@@ -1,518 +1,255 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>troubleshooting</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Troubleshooting — Instructor Reference — CompuCon Vibe Coding</title>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+</style>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1 id="troubleshooting-instructor-reference">Troubleshooting —
-Instructor Reference</h1>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="logo">compucon<span class="b">::</span>vibe<span class="cur">_</span></a>
+    <div class="nav-links">
+      <a href="middle-school.html">Middle School</a>
+      <a href="high-school.html">High School</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap prose">
+  <a href="index.html" class="crumb">Home</a>
+
+<h1 id="troubleshooting-instructor-reference">Troubleshooting — Instructor Reference</h1>
 <p>Skim before Session 1. Keep open during sessions.</p>
-<p><strong>Environment: Windows 11 laptops, PowerShell via Windows
-Terminal, <code>python</code> on PATH.</strong> All commands below
-assume that.</p>
+<p><strong>Environment: Windows 11 laptops, PowerShell via Windows Terminal, <code>python</code> on PATH.</strong> All commands below assume that.</p>
 <hr />
-<h2 id="before-students-arrive-every-session">Before Students Arrive
-(every session)</h2>
+<h2 id="before-students-arrive-every-session">Before Students Arrive (every session)</h2>
 <p>Run this on one lab machine:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python <span class="op">--</span>version                <span class="co"># should print 3.x</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>python <span class="op">-</span>c <span class="st">&quot;import tkinter&quot;</span>      <span class="co"># must produce no output</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds                           <span class="co"># should launch and accept a prompt</span></span></code></pre></div>
-<p>No git check needed — students don’t use git. Save points are folder
-copies; see “Save Point / Undo Problems” below.</p>
-<h3
-id="powershell-gotchas-worth-knowing-before-youre-in-front-of-25-kids">PowerShell
-gotchas worth knowing before you’re in front of 25 kids</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>python --version                <span class="co"># should print 3.x</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>python -c <span class="st">&quot;import tkinter&quot;</span>      <span class="co"># must produce no output</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>cc-ds                           <span class="co"># should launch and accept a prompt</span></span></code></pre></div>
+<p>No git check needed — students don’t use git. Save points are folder copies; see “Save Point / Undo Problems” below.</p>
+<h3 id="powershell-gotchas-worth-knowing-before-youre-in-front-of-25-kids">PowerShell gotchas worth knowing before you’re in front of 25 kids</h3>
 <ul>
-<li><strong><code>&amp;&amp;</code> does not work in PowerShell
-5.1.</strong> Lab machines may run 5.1 or 7, and there’s no reliable way
-to tell which from the outside — so write and teach every command
-one-per-line regardless of version. That syntax works on both.</li>
-<li><strong>Paths use backslashes</strong> —
-<code>$HOME\Documents</code>, not <code>~/Documents</code>.
-<code>/</code> often works anyway, but the AI may generate either; both
-are fine in Python.</li>
-<li><strong>Execution policy</strong> can block scripts. It won’t affect
-anything in this curriculum (we only run <code>python file.py</code>),
-but if you hit it: <code>Get-ExecutionPolicy</code> to check.</li>
-<li><strong><code>python</code> with no arguments</strong> on some
-Windows setups opens the Microsoft Store instead of Python. If that
-happens, Python isn’t properly installed on that image — swap the
-machine, don’t debug it during class.</li>
+<li><strong><code>&amp;&amp;</code> does not work in PowerShell 5.1.</strong> Lab machines may run 5.1 or 7, and there’s no reliable way to tell which from the outside — so write and teach every command one-per-line regardless of version. That syntax works on both.</li>
+<li><strong>Paths use backslashes</strong> — <code>$HOME\Documents</code>, not <code>~/Documents</code>. <code>/</code> often works anyway, but the AI may generate either; both are fine in Python.</li>
+<li><strong>Execution policy</strong> can block scripts. It won’t affect anything in this curriculum (we only run <code>python file.py</code>), but if you hit it: <code>Get-ExecutionPolicy</code> to check.</li>
+<li><strong><code>python</code> with no arguments</strong> on some Windows setups opens the Microsoft Store instead of Python. If that happens, Python isn’t properly installed on that image — swap the machine, don’t debug it during class.</li>
 </ul>
 <hr />
 <h2 id="claude-code-problems">Claude Code Problems</h2>
-<h3 id="cc-ds-doesnt-start-hangs"><code>cc-ds</code> doesn’t start /
-hangs</h3>
+<h3 id="cc-ds-doesnt-start-hangs"><code>cc-ds</code> doesn’t start / hangs</h3>
 <ol type="1">
-<li><code>Ctrl+C</code>, run <code>cc-ds</code> again — fixes most of
-them</li>
+<li><code>Ctrl+C</code>, run <code>cc-ds</code> again — fixes most of them</li>
 <li>Check the network — it needs to reach the model API</li>
-<li>Move to a spare machine rather than debugging in front of the
-class</li>
+<li>Move to a spare machine rather than debugging in front of the class</li>
 </ol>
-<h3 id="a-student-is-using-cc-and-something-differs">A student is using
-<code>cc</code> and something differs</h3>
-<p><code>cc</code> runs Claude Code on Anthropic’s models via the
-student’s own Claude Pro account; <code>cc-ds</code> runs it on
-DeepSeek. The tool, commands, and everything in this curriculum are
-identical. Differences you may see:</p>
+<h3 id="a-student-is-using-cc-and-something-differs">A student is using <code>cc</code> and something differs</h3>
+<p><code>cc</code> runs Claude Code on Anthropic’s models via the student’s own Claude Pro account; <code>cc-ds</code> runs it on DeepSeek. The tool, commands, and everything in this curriculum are identical. Differences you may see:</p>
 <ul>
-<li><strong>Slightly different code style or verbosity.</strong> Not a
-problem. Don’t chase it.</li>
-<li><strong><code>cc</code> hits a usage limit.</strong> Pro accounts
-have caps. Have them switch to <code>cc-ds</code> — the project folder
-is unchanged, so they just restart and keep going.</li>
-<li><strong>A student didn’t log in.</strong> <code>cc</code> will
-prompt for auth. If they don’t have an account, <code>cc-ds</code> is
-the answer.</li>
+<li><strong>Slightly different code style or verbosity.</strong> Not a problem. Don’t chase it.</li>
+<li><strong><code>cc</code> hits a usage limit.</strong> Pro accounts have caps. Have them switch to <code>cc-ds</code> — the project folder is unchanged, so they just restart and keep going.</li>
+<li><strong>A student didn’t log in.</strong> <code>cc</code> will prompt for auth. If they don’t have an account, <code>cc-ds</code> is the answer.</li>
 </ul>
-<p>Don’t let this become a topic. One mention in Session 1, then treat
-them as the same thing.</p>
-<h3 id="its-stuck-thinking-no-output-for-a-long-time">It’s stuck
-thinking / no output for a long time</h3>
-<p><code>Ctrl+C</code> and rerun. If it happens across the whole room at
-once, that’s the API or the network, not the students — go analog for a
-few minutes (spec sheets, prompt lab, partner pitches) and retry.</p>
-<h3 id="responses-got-worse-over-a-long-session">Responses got worse
-over a long session</h3>
-<p>Real, and worth naming as a lesson: the conversation is full of stale
-context.</p>
+<p>Don’t let this become a topic. One mention in Session 1, then treat them as the same thing.</p>
+<h3 id="its-stuck-thinking-no-output-for-a-long-time">It’s stuck thinking / no output for a long time</h3>
+<p><code>Ctrl+C</code> and rerun. If it happens across the whole room at once, that’s the API or the network, not the students — go analog for a few minutes (spec sheets, prompt lab, partner pitches) and retry.</p>
+<h3 id="responses-got-worse-over-a-long-session">Responses got worse over a long session</h3>
+<p>Real, and worth naming as a lesson: the conversation is full of stale context.</p>
 <pre><code>/clear</code></pre>
-<p>Code is untouched. If there’s a <code>CLAUDE.md</code>, the AI
-re-reads the project immediately.</p>
-<h3 id="its-editing-the-wrong-file-cant-find-the-file">It’s editing the
-wrong file / can’t find the file</h3>
+<p>Code is untouched. If there’s a <code>CLAUDE.md</code>, the AI re-reads the project immediately.</p>
+<h3 id="its-editing-the-wrong-file-cant-find-the-file">It’s editing the wrong file / can’t find the file</h3>
 <p>Almost always started in the wrong folder.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwd</span>     <span class="co"># where am I?</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>      <span class="co"># is my file here?</span></span></code></pre></div>
-<p><code>Ctrl+C</code>, <code>cd</code> to the right folder,
-<code>cc-ds</code> again.</p>
-<h3 id="it-keeps-fixing-and-making-it-worse">It keeps “fixing” and
-making it worse</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">pwd</span>     <span class="co"># where am I?</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="fu">ls</span>      <span class="co"># is my file here?</span></span></code></pre></div>
+<p><code>Ctrl+C</code>, <code>cd</code> to the right folder, <code>cc-ds</code> again.</p>
+<h3 id="it-keeps-fixing-and-making-it-worse">It keeps “fixing” and making it worse</h3>
 <p>The conversation has locked onto a wrong theory. Escalate:</p>
 <ol type="1">
-<li><code>/clear</code>, then describe the <em>problem</em> fresh — not
-the failed fixes</li>
+<li><code>/clear</code>, then describe the <em>problem</em> fresh — not the failed fixes</li>
 <li>Restore their last working folder copy</li>
 <li>Delete the broken file, ask for it again from scratch</li>
 </ol>
-<h3 id="it-wrote-something-in-a-language-were-not-using">It wrote
-something in a language we’re not using</h3>
-<p>Say the language and library in the prompt, or put it in
-<code>CLAUDE.md</code>:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rules</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Python 3 and tkinter only. No other libraries.</span></code></pre></div>
-<h3
-id="its-asking-permission-for-everything-and-the-student-is-confused">It’s
-asking permission for everything and the student is confused</h3>
-<p>Explain once to the room: it’s asking before it changes files or runs
-commands. Read what it wants to do, then approve. Don’t teach students
-to approve blindly — that’s the opposite of the whole curriculum.</p>
+<h3 id="it-wrote-something-in-a-language-were-not-using">It wrote something in a language we’re not using</h3>
+<p>Say the language and library in the prompt, or put it in <code>CLAUDE.md</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="fu">## Rules</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ss">- </span>Python 3 and tkinter only. No other libraries.</span></code></pre></div>
+<h3 id="its-asking-permission-for-everything-and-the-student-is-confused">It’s asking permission for everything and the student is confused</h3>
+<p>Explain once to the room: it’s asking before it changes files or runs commands. Read what it wants to do, then approve. Don’t teach students to approve blindly — that’s the opposite of the whole curriculum.</p>
 <hr />
 <h2 id="python-problems">Python Problems</h2>
-<h3
-id="modulenotfounderror-no-module-named-tkinter"><code>ModuleNotFoundError: No module named 'tkinter'</code></h3>
-<p>On Windows, tkinter ships with the standard python.org installer, so
-this means Python was installed without the “tcl/tk and IDLE” option
-ticked. <strong>Not a class-time fix</strong> — move the student to
-another machine and reimage later.</p>
-<h3 id="python-opens-the-microsoft-store"><code>python</code> opens the
-Microsoft Store</h3>
-<p>Windows’ app-execution alias is intercepting it and real Python isn’t
-on PATH. Swap machines. Don’t fix this during a session.</p>
-<h3 id="the-tkinter-window-doesnt-appear">The tkinter window doesn’t
-appear</h3>
+<h3 id="modulenotfounderror-no-module-named-tkinter"><code>ModuleNotFoundError: No module named 'tkinter'</code></h3>
+<p>On Windows, tkinter ships with the standard python.org installer, so this means Python was installed without the “tcl/tk and IDLE” option ticked. <strong>Not a class-time fix</strong> — move the student to another machine and reimage later.</p>
+<h3 id="python-opens-the-microsoft-store"><code>python</code> opens the Microsoft Store</h3>
+<p>Windows’ app-execution alias is intercepting it and real Python isn’t on PATH. Swap machines. Don’t fix this during a session.</p>
+<h3 id="the-tkinter-window-doesnt-appear">The tkinter window doesn’t appear</h3>
 <ul>
-<li><strong>Check the taskbar</strong> — it usually opened behind
-Windows Terminal. This is the answer most of the time.</li>
-<li>Missing <code>root.mainloop()</code> at the end. Tell the AI:
-<em>“The window doesn’t appear when I run it.”</em></li>
+<li><strong>Check the taskbar</strong> — it usually opened behind Windows Terminal. This is the answer most of the time.</li>
+<li>Missing <code>root.mainloop()</code> at the end. Tell the AI: <em>“The window doesn’t appear when I run it.”</em></li>
 </ul>
-<h3 id="the-window-opens-and-immediately-closes">The window opens and
-immediately closes</h3>
-<p>Same cause — missing <code>mainloop()</code>, or the script ends.
-Report it as a bug to the AI in the standard format.</p>
-<h3
-id="indentationerror-after-a-student-hand-edits"><code>IndentationError</code>
-after a student hand-edits</h3>
-<p>Mixed tabs and spaces. Easiest fix: <em>“There’s an indentation error
-on line 23, fix it.”</em></p>
+<h3 id="the-window-opens-and-immediately-closes">The window opens and immediately closes</h3>
+<p>Same cause — missing <code>mainloop()</code>, or the script ends. Report it as a bug to the AI in the standard format.</p>
+<h3 id="indentationerror-after-a-student-hand-edits"><code>IndentationError</code> after a student hand-edits</h3>
+<p>Mixed tabs and spaces. Easiest fix: <em>“There’s an indentation error on line 23, fix it.”</em></p>
 <hr />
 <h2 id="save-point-undo-problems">Save Point / Undo Problems</h2>
-<p>Students don’t use git. Save points are folder copies — see Session
-3. The reference commands:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse myproject myproject<span class="op">-</span>working    <span class="co"># SAVE</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse myproject                    <span class="co"># UNDO (two steps)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse myproject<span class="op">-</span>working myproject</span></code></pre></div>
+<p>Students don’t use git. Save points are folder copies — see Session 3. The reference commands:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse myproject myproject-working    <span class="co"># SAVE</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="fu">Remove-Item</span> -Recurse myproject                    <span class="co"># UNDO (two steps)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="fu">Copy-Item</span> -Recurse myproject-working myproject</span></code></pre></div>
 <h3 id="they-never-made-a-copy">They never made a copy</h3>
-<p>Nothing to restore to. Hard lesson, teaches itself — but soften it
-and help them rebuild. Then have them make a copy immediately, and check
-on them again in ten minutes.</p>
-<h3
-id="remove-item--recurse-asks-for-confirmation"><code>Remove-Item -Recurse</code>
-asks for confirmation</h3>
+<p>Nothing to restore to. Hard lesson, teaches itself — but soften it and help them rebuild. Then have them make a copy immediately, and check on them again in ten minutes.</p>
+<h3 id="remove-item--recurse-asks-for-confirmation"><code>Remove-Item -Recurse</code> asks for confirmation</h3>
 <p>On some setups it prompts per-item. Add <code>-Force</code>:</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse <span class="op">-</span>Force myproject</span></code></pre></div>
-<p>Only teach <code>-Force</code> when it comes up — it’s one more thing
-to explain, and it makes the delete irreversible.</p>
-<h3 id="cannot-remove-item-being-used-by-another-process">“Cannot remove
-item — being used by another process”</h3>
-<p>The app is still running, or Claude Code is open in that folder.
-Close the tkinter window, <code>Ctrl+C</code> out of <code>cc-ds</code>,
-then retry.</p>
-<p>This is the most common failure in the restore cycle. Check it
-first.</p>
-<h3 id="they-restored-but-its-still-broken">They restored but it’s still
-broken</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="fu">Remove-Item</span> -Recurse -Force myproject</span></code></pre></div>
+<p>Only teach <code>-Force</code> when it comes up — it’s one more thing to explain, and it makes the delete irreversible.</p>
+<h3 id="cannot-remove-item-being-used-by-another-process">“Cannot remove item — being used by another process”</h3>
+<p>The app is still running, or Claude Code is open in that folder. Close the tkinter window, <code>Ctrl+C</code> out of <code>cc-ds</code>, then retry.</p>
+<p>This is the most common failure in the restore cycle. Check it first.</p>
+<h3 id="they-restored-but-its-still-broken">They restored but it’s still broken</h3>
 <p>Usually one of:</p>
 <ul>
-<li><strong>They copied the broken version over the good one</strong> by
-reversing the argument order.
-<code>Copy-Item -Recurse SOURCE DESTINATION</code> — source first. If
-they’ve destroyed the good copy, check for an older one; students often
-have several.</li>
-<li><strong>The copy they restored was never actually working.</strong>
-They copied at a moment they assumed was good. Reinforce: run it,
-<em>then</em> copy.</li>
+<li><strong>They copied the broken version over the good one</strong> by reversing the argument order. <code>Copy-Item -Recurse SOURCE DESTINATION</code> — source first. If they’ve destroyed the good copy, check for an older one; students often have several.</li>
+<li><strong>The copy they restored was never actually working.</strong> They copied at a moment they assumed was good. Reinforce: run it, <em>then</em> copy.</li>
 </ul>
-<h3 id="copies-are-piling-up-and-they-cant-tell-them-apart">Copies are
-piling up and they can’t tell them apart</h3>
-<p>Expected by mid-session. Have them name copies meaningfully —
-<code>quiz-scoring-works</code>, not <code>quiz2</code>,
-<code>quiz3</code>, <code>quiz4</code>. Deleting old copies is fine once
-a newer one is confirmed working.</p>
-<h3
-id="a-student-is-copying-into-the-project-folder-instead-of-beside-it">A
-student is copying into the project folder instead of beside it</h3>
-<p>Produces <code>myproject\myproject-working\...</code>, which confuses
-both the student and the AI — Claude Code will read the nested copy as
-part of the project. Make sure they <code>cd $HOME\Documents</code>
-first, so copies sit <em>next to</em> the project, not inside it.</p>
-<p>Worth showing on the projector once. It’s the mistake that generates
-the weirdest downstream symptoms.</p>
+<h3 id="copies-are-piling-up-and-they-cant-tell-them-apart">Copies are piling up and they can’t tell them apart</h3>
+<p>Expected by mid-session. Have them name copies meaningfully — <code>quiz-scoring-works</code>, not <code>quiz2</code>, <code>quiz3</code>, <code>quiz4</code>. Deleting old copies is fine once a newer one is confirmed working.</p>
+<h3 id="a-student-is-copying-into-the-project-folder-instead-of-beside-it">A student is copying into the project folder instead of beside it</h3>
+<p>Produces <code>myproject\myproject-working\...</code>, which confuses both the student and the AI — Claude Code will read the nested copy as part of the project. Make sure they <code>cd $HOME\Documents</code> first, so copies sit <em>next to</em> the project, not inside it.</p>
+<p>Worth showing on the projector once. It’s the mistake that generates the weirdest downstream symptoms.</p>
 <hr />
 <h2 id="classroom-problems">Classroom Problems</h2>
 <h3 id="one-student-is-way-ahead">One student is way ahead</h3>
 <p>Never “add more features.” Instead:</p>
 <ul>
-<li>“Try to break it. Empty input, wrong type, click everything
-twice.”</li>
-<li>“Ask the AI to explain the part of the code you understand least,
-then explain it to me.”</li>
-<li>“Go help someone who’s stuck.” (Best option. Teaching is how they
-consolidate.)</li>
+<li>“Try to break it. Empty input, wrong type, click everything twice.”</li>
+<li>“Ask the AI to explain the part of the code you understand least, then explain it to me.”</li>
+<li>“Go help someone who’s stuck.” (Best option. Teaching is how they consolidate.)</li>
 <li>“Write a README so someone else could run it.”</li>
 </ul>
-<h3 id="a-student-wants-to-use-a-language-other-than-python">A student
-wants to use a language other than Python</h3>
-<p>Allowed — if they already know it. Say yes and set two
-conditions:</p>
+<h3 id="a-student-wants-to-use-a-language-other-than-python">A student wants to use a language other than Python</h3>
+<p>Allowed — if they already know it. Say yes and set two conditions:</p>
 <ol type="1">
-<li><strong>It has to run on this laptop with no installs.</strong> Web
-(HTML/CSS/JS in a browser) is the easy yes. Anything needing a
-toolchain, SDK, or account is a no today.</li>
-<li><strong>They’re on their own for language-specific bugs.</strong>
-You’re supporting 25 students in Python. Be upfront and friendly about
-it.</li>
+<li><strong>It has to run on this laptop with no installs.</strong> Web (HTML/CSS/JS in a browser) is the easy yes. Anything needing a toolchain, SDK, or account is a no today.</li>
+<li><strong>They’re on their own for language-specific bugs.</strong> You’re supporting 25 students in Python. Be upfront and friendly about it.</li>
 </ol>
-<p>Everything you’re teaching still applies unchanged — prompt sizing,
-the four checks, scope cutting, commits. Only the example code differs.
-A student building in JS is getting the same curriculum.</p>
-<p>Watch for the student who picks an unfamiliar language
-<em>because</em> it sounds impressive. Ask: “have you written this
-before?” If no, steer to Python for today.</p>
+<p>Everything you’re teaching still applies unchanged — prompt sizing, the four checks, scope cutting, commits. Only the example code differs. A student building in JS is getting the same curriculum.</p>
+<p>Watch for the student who picks an unfamiliar language <em>because</em> it sounds impressive. Ask: “have you written this before?” If no, steer to Python for today.</p>
 <h3 id="one-student-is-way-behind">One student is way behind</h3>
 <ul>
-<li>Cut scope immediately and visibly. A working small thing beats a
-broken big thing.</li>
+<li>Cut scope immediately and visibly. A working small thing beats a broken big thing.</li>
 <li>Pair them with someone who has a working app.</li>
-<li>Hand them a known-good prompt from the idea bank and let them start
-over. Restarting is cheap and they need a win.</li>
+<li>Hand them a known-good prompt from the idea bank and let them start over. Restarting is cheap and they need a win.</li>
 </ul>
-<h3 id="a-student-is-just-accepting-everything-without-reading">A
-student is just accepting everything without reading</h3>
-<p>The failure mode this whole curriculum exists to prevent. Interrupt
-with:</p>
+<h3 id="a-student-is-just-accepting-everything-without-reading">A student is just accepting everything without reading</h3>
+<p>The failure mode this whole curriculum exists to prevent. Interrupt with:</p>
 <blockquote>
 <p>“Show me what it just changed. What does this part do?”</p>
 </blockquote>
-<p>If they can’t answer, that’s the teaching moment. Rule 4 exists for
-exactly this: <em>you have to be able to explain what your app
-does.</em></p>
-<h3 id="a-student-is-frustrated-and-shutting-down">A student is
-frustrated and shutting down</h3>
+<p>If they can’t answer, that’s the teaching moment. Rule 4 exists for exactly this: <em>you have to be able to explain what your app does.</em></p>
+<h3 id="a-student-is-frustrated-and-shutting-down">A student is frustrated and shutting down</h3>
 <ul>
-<li>Get them to a working state first — restore a folder copy, or start
-fresh. Do not debug with them while they’re frustrated.</li>
+<li>Get them to a working state first — restore a folder copy, or start fresh. Do not debug with them while they’re frustrated.</li>
 <li>Take the smallest possible next step. Any win.</li>
-<li>Name it honestly: “This is what it’s actually like. Every
-professional has days like this.”</li>
+<li>Name it honestly: “This is what it’s actually like. Every professional has days like this.”</li>
 </ul>
-<h3 id="the-whole-room-is-stuck-on-the-same-thing">The whole room is
-stuck on the same thing</h3>
-<p>Stop everything and demo the fix on the projector. Ten minutes of
-your time beats twenty-five students burning ten minutes each.</p>
-<h3 id="students-racing-to-add-features-without-testing">Students racing
-to add features without testing</h3>
-<p>Halt the room. Pick a student’s app, put it on the projector, and
-break it in 30 seconds with empty input. This costs five minutes and
-resets the room’s behavior for the rest of the day.</p>
+<h3 id="the-whole-room-is-stuck-on-the-same-thing">The whole room is stuck on the same thing</h3>
+<p>Stop everything and demo the fix on the projector. Ten minutes of your time beats twenty-five students burning ten minutes each.</p>
+<h3 id="students-racing-to-add-features-without-testing">Students racing to add features without testing</h3>
+<p>Halt the room. Pick a student’s app, put it on the projector, and break it in 30 seconds with empty input. This costs five minutes and resets the room’s behavior for the rest of the day.</p>
 <hr />
-<h2 id="if-the-network-or-api-is-down">If The Network Or API Is
-Down</h2>
-<p>Have this ready. It’s a real risk and it will happen at least
-once.</p>
-<p><strong>Analog activities that still teach the actual
-skills:</strong></p>
+<h2 id="if-the-network-or-api-is-down">If The Network Or API Is Down</h2>
+<p>Have this ready. It’s a real risk and it will happen at least once.</p>
+<p><strong>Analog activities that still teach the actual skills:</strong></p>
 <ul>
-<li><strong>Prompt lab</strong> — the bad prompts from Session 2 (six
-for HS, three for MS). Works entirely on paper.</li>
-<li><strong>Spec sheets</strong> — write specs and tests for the next
-project.</li>
-<li><strong>Bug report drill</strong> — instructor describes a broken
-app verbally; students write a proper what-I-did / what-I-expected /
-what-happened report.</li>
-<li><strong>Break the plan</strong> — put an AI-generated project plan
-on the projector and have the room find three things wrong with it.</li>
-<li><strong>Read the code</strong> — put a real code sample up and find
-the bugs. The empty-list average and the case-sensitive quiz checker
-both work great.</li>
-<li><strong>Paper demos</strong> — sketch the app you’d build, pitch it
-to a partner, get scope-cut.</li>
+<li><strong>Prompt lab</strong> — the bad prompts from Session 2 (six for HS, three for MS). Works entirely on paper.</li>
+<li><strong>Spec sheets</strong> — write specs and tests for the next project.</li>
+<li><strong>Bug report drill</strong> — instructor describes a broken app verbally; students write a proper what-I-did / what-I-expected / what-happened report.</li>
+<li><strong>Break the plan</strong> — put an AI-generated project plan on the projector and have the room find three things wrong with it.</li>
+<li><strong>Read the code</strong> — put a real code sample up and find the bugs. The empty-list average and the case-sensitive quiz checker both work great.</li>
+<li><strong>Paper demos</strong> — sketch the app you’d build, pitch it to a partner, get scope-cut.</li>
 </ul>
-<p>None of this is filler. Verification and scoping are the parts
-students are worst at, and they don’t need a computer.</p>
+<p>None of this is filler. Verification and scoping are the parts students are worst at, and they don’t need a computer.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>CompuCon Summer Camp · <span class="hl">Vibe Coding Track</span></p>
+    <p style="margin-top:7px;opacity:.7"># ask small → run it → say exactly what went wrong → repeat</p>
+  </div>
+</footer>
+
 </body>
 </html>
