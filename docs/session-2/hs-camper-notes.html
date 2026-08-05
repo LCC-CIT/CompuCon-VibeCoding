@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hs-camper-notes</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="session-2-ask-better-check-harder">Session 2 — Ask Better, Check
+Harder</h1>
+<h3 id="vibe-coding-high-school-keep-this-with-you">Vibe Coding · High
+School · Keep this with you</h3>
+<hr />
+<h2 id="what-youre-doing-today">What you’re doing today</h2>
+<p>Session 1 gave you the loop. Today you get precise about it — and you
+pitch the project you’ll be graded on by your peers at the showcase.</p>
+<p>Three things:</p>
+<ol type="1">
+<li><strong>How much to specify</strong> — and when specifying more
+makes things worse</li>
+<li><strong>How to verify</strong> — a real method, not just “it
+ran”</li>
+<li><strong>Your capstone</strong> — pitched and started today</li>
+</ol>
+<p><strong>Important scheduling note:</strong> your capstone has to be
+<strong>finished by the end of Session 3</strong>. Session 4 is 60
+minutes and it’s entirely demos — there is no build time. Plan
+accordingly, which mostly means picking something smaller than you want
+to.</p>
+<hr />
+<h2 id="todays-plan">Today’s plan</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Block</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>Warm-up: four ways to prompt the same app</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td>How much to ask for at once</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td>Prompt lab — diagnosing and rewriting bad prompts</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td>How to check the AI’s work — the four checks</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td>Build a practice project, spec written first</td>
+</tr>
+<tr class="odd">
+<td><strong>7</strong></td>
+<td>Swap machines, break your partner’s app</td>
+</tr>
+<tr class="even">
+<td><strong>8</strong></td>
+<td><strong>Capstone pitch + scope check</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>9</strong></td>
+<td><strong>Capstone: plan and first build</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="starting-up">Starting up</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mkdir myproject</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> myproject</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<p><code>cc</code> if you have your own Claude Pro account. One command
+per line — 5.1 doesn’t support <code>&amp;&amp;</code>.</p>
+<p><strong>Run it:</strong> <code>python app.py</code></p>
+<hr />
+<h2 id="four-ways-to-ask-for-the-same-app">Four ways to ask for the same
+app</h2>
+<pre><code>A: make a study timer
+
+B: make a pomodoro timer in python
+
+C: Build a Pomodoro timer in Python with tkinter. 25-minute countdown,
+   big digits, Start/Pause/Reset buttons. Beep when it hits zero.
+   Save as pomodoro.py
+
+D: Build a Pomodoro timer in Python with tkinter using a class-based
+   architecture. Use threading.Timer for the countdown, not time.sleep.
+   Store state in an enum. Label in monospace at size 48 using grid
+   geometry, buttons in a frame below using pack. Beep with
+   winsound.Beep at 1000Hz. Type hints and docstrings on every method.</code></pre>
+<p><strong>C is right.</strong> But understand <em>why</em> D is wrong,
+because it’s the mistake people make once they get comfortable:</p>
+<p>Every implementation detail in D is a decision <strong>you now
+own</strong>. If <code>threading.Timer</code> is the wrong call for
+this, that’s on you, not the AI. You also spent five minutes writing a
+prompt to save two minutes of work.</p>
+<blockquote>
+<p><strong>Specify what you care about. Let the AI decide the
+rest.</strong></p>
+</blockquote>
+<p>D becomes correct when you have a real constraint — matching existing
+code, a required library, a rubric. Not before.</p>
+<hr />
+<h2 id="how-much-to-ask-for-at-once">How much to ask for at once</h2>
+<p><strong>Starting from nothing → describe the whole app.</strong> You
+want a coherent first version where the pieces fit together.</p>
+<p><strong>Changing working code → one thing at a time.</strong></p>
+<pre><code>5 changes → run → broken → which one? could be any. could be two
+                            interacting. you&#39;re debugging blind.
+
+1 change  → run → broken → it&#39;s that one. 30 seconds.</code></pre>
+<p>Not caution — <strong>speed</strong>. Every batch of untested changes
+is a debugging session you’re saving up for later, with interest.</p>
+<p><strong>Size test:</strong> can you describe what should be different
+in one sentence?</p>
+<table>
+<thead>
+<tr class="header">
+<th>Too big</th>
+<th>Right size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Add multiplayer”</td>
+<td>“Add a second score counter labeled Player 2”</td>
+</tr>
+<tr class="even">
+<td>“Make it look better”</td>
+<td>“Make the background dark gray, text white”</td>
+</tr>
+<tr class="odd">
+<td>“Add saving”</td>
+<td>“When I click Save, write the list to <code>tasks.txt</code>”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-legitimate-exception">The legitimate exception</h3>
+<p>Some changes genuinely come as a set. Adding a second player needs a
+score <em>and</em> a turn indicator <em>and</em> turn-switching. Fine —
+but name the pieces explicitly:</p>
+<blockquote>
+<p>Add two-player mode. That means: a second score counter, a label
+showing whose turn it is, and turns alternating after each roll. Those
+three things only.</p>
+</blockquote>
+<p>Naming them yourself gives you a checklist to verify against
+afterward.</p>
+<hr />
+<h2 id="the-four-checks">The four checks</h2>
+<h3 id="it-ran-its-right">It ran ≠ it’s right</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>What you did</th>
+<th>What it proves</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>It generated without an error</td>
+<td>Nothing</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>It ran without crashing</td>
+<td>The syntax is valid</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>You used it and it looked right</td>
+<td>Works for the happy path</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>You tried to break it and couldn’t</td>
+<td>Probably holds up</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>You read the code and it does what you asked</td>
+<td>You actually know</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Most people stop at level 1 and believe they’re at level 4. That gap
+is where every disaster lives.</p>
+</blockquote>
+<h3 id="the-checks-themselves">The checks themselves</h3>
+<p><strong>1. Does it do the thing?</strong> Not “an answer” — the
+<em>right</em> answer. Do the math yourself and compare.</p>
+<p><strong>2. Does it survive the wrong thing?</strong> Empty input.
+Wrong types. Negatives. Zero items. A thousand items. Double-clicks.
+This is where AI-written code fails most, because the AI optimizes for
+the case you described.</p>
+<p><strong>3. Did it change anything you didn’t ask for?</strong></p>
+<pre><code>What did you just change? List every change.</code></pre>
+<p>Then check that list against what you asked for. Real failure mode:
+you request a color change, it also rewrites your scoring logic.</p>
+<p><strong>4. Can you explain it?</strong></p>
+<pre><code>Explain what the function on line 40 does, like I&#39;m 12.</code></pre>
+<p>If you can’t say what a chunk of your own code does, you’re at level
+1 pretending to be level 4. This is also the fastest way to actually
+learn to code while building.</p>
+<h3 id="making-the-ai-check-itself">Making the AI check itself</h3>
+<pre><code>What could go wrong with this? What inputs would break it?
+I expected X but got Y. Why?
+Is there a simpler way to do this?</code></pre>
+<p><strong>The catch:</strong> the AI checking its own work is a hint,
+not a guarantee. It’s the same guesser that wrote the bug. Use it to
+surface candidates, never to prove absence.</p>
+<h3 id="worked-example">Worked example</h3>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> average(scores):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(scores) <span class="op">/</span> <span class="bu">len</span>(scores)</span></code></pre></div>
+<p>Check 1: passes. Check 2: <strong>empty list →
+<code>ZeroDivisionError</code>.</strong></p>
+<blockquote>
+<p>It didn’t make a mistake. It answered exactly what you asked.
+<em>You</em> left out the question.</p>
+</blockquote>
+<hr />
+<h2 id="practice-build-spec-first">Practice build: spec first</h2>
+<p>Before typing anything:</p>
+<pre><code>APP NAME:
+
+WHAT IT DOES (one sentence):
+
+MUST HAVE (3, no more):
+  1.
+  2.
+  3.
+
+WHAT IT LOOKS LIKE:
+
+HOW I&#39;LL KNOW IT WORKS (3 specific tests):
+  1. If I ______, it should ______
+  2. If I ______, it should ______
+  3. If I ______ (something wrong), it should ______</code></pre>
+<p><strong>You’re writing the tests before the code exists.</strong>
+Test 3 must be a wrong-input test.</p>
+<p>Keep this small — it’s practice, not the capstone.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />All 3 must-haves work</label></li>
+<li><label><input type="checkbox" />All 3 tests pass</label></li>
+<li><label><input type="checkbox" />Asked “what did you change?” and
+checked the answer</label></li>
+<li><label><input type="checkbox" />Asked the AI to explain one part,
+and understood it</label></li>
+<li><label><input type="checkbox" />Tried three wrong
+inputs</label></li>
+</ul>
+<p>Mark your tests honestly at the end. <strong>A failed test you can
+name beats a passed test you didn’t really check.</strong></p>
+<hr />
+<h2 id="swap-and-break">Swap and break</h2>
+<p>Switch machines. Break your partner’s app. No reading their code —
+use the app only.</p>
+<p>Empty everything · wrong types everywhere · 0, negatives, 999999,
+paragraphs · everything clicked twice and out of order · window shrunk
+to nothing.</p>
+<p>Write each finding as a proper bug report:</p>
+<blockquote>
+<p><strong>What I did · What I expected · What actually
+happened</strong></p>
+</blockquote>
+<p>Then swap back and fix the top one.</p>
+<p>Now notice something: <strong>paste that bug report straight into the
+AI as your prompt.</strong> It works. A well-written bug report and a
+well-written prompt are the same document, and that’s not a
+coincidence.</p>
+<blockquote>
+<p>Your partner finds in five minutes what you missed in forty — because
+you were trying to make it work and they were trying to make it fail.
+Both are necessary. Companies hire people whose entire job is the second
+one.</p>
+</blockquote>
+<hr />
+<h2 id="your-capstone">Your capstone</h2>
+<h3 id="the-pitch">The pitch</h3>
+<pre><code>I&#39;m building ______.
+
+You use it to ______.
+
+The three things it has to do:
+  1.
+  2.
+  3.
+
+I&#39;ll know it works when:
+  - If I ______, it ______
+  - If I ______ (wrong input), it ______</code></pre>
+<p>Your partner asks you two questions:</p>
+<ol type="1">
+<li><strong>“What happens if I do the wrong thing?”</strong></li>
+<li><strong>“Could you cut one of the three and still have something
+cool?”</strong></li>
+</ol>
+<p>Almost everyone should cut one. Then an instructor signs off.</p>
+<h3 id="scope-honestly">Scope, honestly</h3>
+<p>You have the rest of today plus Session 3. That’s it.</p>
+<table>
+<thead>
+<tr class="header">
+<th>If you pitched</th>
+<th>Build this instead</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Multiplayer online game</td>
+<td>Two players, same keyboard</td>
+</tr>
+<tr class="even">
+<td>Anything with user accounts</td>
+<td>One user, saves to a text file</td>
+</tr>
+<tr class="odd">
+<td>Website with a database</td>
+<td>One page, data in a JSON file</td>
+</tr>
+<tr class="even">
+<td>“A whole RPG”</td>
+<td>One battle, three enemies</td>
+</tr>
+<tr class="odd">
+<td>Machine learning anything</td>
+<td>Rules-based version of the same idea</td>
+</tr>
+<tr class="even">
+<td>A Discord/Instagram bot</td>
+<td>Same logic, local app, no API</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Cutting scope isn’t giving up. It’s the actual skill. A small thing
+that works beats a big thing that doesn’t — today, and in every job you
+will ever have.</p>
+</blockquote>
+<h3 id="setting-it-up">Setting it up</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mkdir capstone</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
+<p>Four steps, in order:</p>
+<p><strong>1. Ask for a plan, not code.</strong></p>
+<pre><code>I want to build [your app]. Don&#39;t write any code yet. Tell me what
+files you&#39;d create, what goes in each one, and what order you&#39;d
+build them in.</code></pre>
+<p><strong>2. Argue with the plan.</strong> Change at least two things.
+Combine files, drop a feature, reorder the build. Changing a plan is
+free. Changing code is not.</p>
+<p><strong>3. Save it</strong> as <code>PLAN.md</code> in your project
+folder.</p>
+<p><strong>4. Build component 1 only.</strong> Run it. Check it.</p>
+<h3 id="before-you-leave-make-a-save-point">Before you leave — make a
+save point</h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>working</span></code></pre></div>
+<p>That’s a complete copy of your folder, frozen at a moment it worked.
+You’ll learn the full system next session. For now: <strong>it works, so
+copy it.</strong></p>
+<hr />
+<h2 id="the-short-version">The short version</h2>
+<p><strong>How much to ask for:</strong> &gt; New app → the whole thing.
+Existing app → one change at a time. &gt; If you can’t say what should
+be different in one sentence, it’s too big.</p>
+<p><strong>How to check:</strong> &gt; 1. Does it do the thing? &gt; 2.
+Does it survive the wrong thing? &gt; 3. Did it change something I
+didn’t ask for? &gt; 4. Can I explain it?</p>
+<hr />
+<h2 id="next-time">Next time</h2>
+<p>Your project gets too big for one file, and you finish your capstone.
+<strong>Session 4 is demos only.</strong></p>
+</body>
+</html>
