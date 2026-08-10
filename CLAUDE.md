@@ -5,8 +5,9 @@ high school run as **separate sessions**, with the **same teaching spine** — b
 schedules are genuinely different, not just a pacing dial. See the schedule below.
 
 **This repo contains teaching materials, not software.** There is no app to build, no
-tests to run, no dependencies. Every file is Markdown meant to be read by an instructor
-in front of a classroom or handed to a student.
+tests to run, no dependencies. The curriculum is Markdown, meant to be read by an
+instructor in front of a classroom or handed to a student. `docs/` additionally holds a
+small published website — see below.
 
 **Current state: rebuilt against the real schedule, git removed throughout.** All four
 session files carry separate MS and HS timing tables. Nothing has been taught yet — see
@@ -39,6 +40,11 @@ curriculum/
   session-4/
   project-ideas.md             Idea bank by difficulty
   troubleshooting.md           Instructor reference for when things break
+.github/
+  pandoc/camper-notes.html     Template wrapping every generated page in the site theme
+  workflows/
+    markdown-to-html.yml       Converts changed curriculum markdown on push
+    cleanup-deleted-markdown-html.yml   Full re-sync + deletes orphaned HTML
 ```
 
 Every session folder has exactly three files: one lesson plan, two camper handouts.
@@ -89,6 +95,13 @@ The four hand-authored pages share `style.css` rather than each inlining the the
 colour or spacing change happens in one place. `index.html` keeps its terminal animation
 as an inline `<script>`.
 
+`style.css` is responsive and covers both the landing pages and the pandoc output
+(`.prose` rules). Breakpoints: 900 / 860 / 700 / 640 / 600 / 520 / 480 / 420 / 360.
+**Don't hide the nav on small screens** — it was `display:none` below 640px once, which
+left `index.html` with no navigation at all, since that page has no in-body links. It
+stacks now instead. There's also a print block that flips the whole palette to
+black-on-white, because camper notes get printed as handouts.
+
 These pages quote figures from the curriculum (session lengths, project examples, the
 "genius intern" line). **If the schedule changes, update them too** — they're outside
 every internal cross-check, so nothing else will catch it.
@@ -114,7 +127,7 @@ differently:**
 | **High school** | 120 min | 180 min | 180 min | 60 min | 540 min (9h) |
 
 All of these numbers are **actual teaching time** — no arrival, attendance, or buffer
-padding is baked in already. Every day file carries **two timing tables**, one per age
+padding is baked in already. Every session file carries **two timing tables**, one per age
 group, each summing exactly to its session length. Verify both after any edit.
 
 Three structural facts the curriculum is built around. Don't undo them by accident:
@@ -205,9 +218,9 @@ modifies:
 
 Not every block needs one. Only add where the two genuinely diverge.
 
-**Session structure.** Each day file: title, one-line framing, timing table(s), then one
+**Session structure.** Each session file: title, one-line framing, timing table(s), then one
 `## H:MM — Block Name (N min)` section per row. Instructor prep checklist at the end.
-Since MS and HS no longer share session lengths, a day file needs either two timing
+Since MS and HS no longer share session lengths, a session file needs either two timing
 tables and two block sequences, or a clear split into an MS version and an HS version —
 pick whichever reads cleaner per day, but don't fudge one table to loosely fit both.
 
@@ -222,12 +235,16 @@ use case.
 
 - **Read `PREFLIGHT.md` first.** It records what's still unverified and what's missing
   on purpose. Several apparent gaps are deliberate — don't "fix" them.
-- **Check timing tables after any edit to a day file** — for both MS and HS, since they
+- **Check timing tables after any edit to a session file** — for both MS and HS, since they
   no longer sum to the same total. This is the easiest thing to silently break.
 - **Grep for `git` before treating a file as finished.** It should only appear inside an
   explanation of *why* it was removed, never as an instruction to students.
 - **Check cross-file links.** README links into `curriculum/`; files inside
-  `curriculum/` link to each other with bare filenames.
-- **Don't add a build step, package.json, or CI.** It's Markdown.
+  `curriculum/` link to each other with bare `.md` filenames. That's correct — the
+  workflow rewrites them to `.html` when it publishes, so don't "fix" them to `.html`
+  in the markdown or they'll break for anyone reading the repo directly.
+- **Don't add a package manager, bundler, or test framework.** The curriculum is
+  Markdown and the site is hand-written HTML + one CSS file. The only automation is the
+  two pandoc workflows described above — don't add a third pipeline.
 - The author is a professor running this camp. Treat pedagogical judgment as theirs —
   offer alternatives rather than rewriting the teaching approach unprompted.
