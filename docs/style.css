@@ -210,6 +210,7 @@
     transition:all .19s;cursor:default;
   }
   .chip:hover{border-color:var(--cyan);color:var(--cyan)}
+  .chips a.chip{cursor:pointer;text-decoration:none}
 
   /* ---------- sessions ---------- */
   .tl-wrap{margin-top:34px;display:grid;gap:13px}
