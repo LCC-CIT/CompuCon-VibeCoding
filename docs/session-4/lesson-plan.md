@@ -78,7 +78,7 @@ Every student gets a ~15-second sign-off. You are looking for one thing:
 > sessions?**
 
 Default to **yes** on anything from the Starter tier of
-[`project-ideas.md`](../project-ideas.md), and **cut hard** on anything else.
+[`project-ideas.md`](../project-ideas.html), and **cut hard** on anything else.
 
 | They pitched | Cut it to |
 |---|---|

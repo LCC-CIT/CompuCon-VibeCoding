@@ -43,36 +43,38 @@ Sessions 1–2 share a block sequence across age groups with different durations
 3–4 split into separate MS and HS sections in the same file, because the content
 genuinely differs.
 
-Each file in `curriculum/` is a full instructor script:
-
-Each session has its own folder containing an instructor lesson plan and a self-contained
-handout for each age group:
+Each session has its own folder in `docs/` containing an instructor lesson plan and a
+self-contained handout for each age group:
 
 | Session | Lesson plan | Camper notes |
 |---|---|---|
-| **1** | [plan](curriculum/session-1/lesson-plan.md) | [MS](curriculum/session-1/ms-camper-notes.md) · [HS](curriculum/session-1/hs-camper-notes.md) |
-| **2** | [plan](curriculum/session-2/lesson-plan.md) | [MS](curriculum/session-2/ms-camper-notes.md) · [HS](curriculum/session-2/hs-camper-notes.md) |
-| **3** | [plan](curriculum/session-3/lesson-plan.md) | [MS](curriculum/session-3/ms-camper-notes.md) · [HS](curriculum/session-3/hs-camper-notes.md) |
-| **4** | [plan](curriculum/session-4/lesson-plan.md) | [MS](curriculum/session-4/ms-camper-notes.md) · [HS](curriculum/session-4/hs-camper-notes.md) |
+| **1** | [plan](docs/session-1/lesson-plan.md) | [MS](docs/session-1/ms-camper-notes.md) · [HS](docs/session-1/hs-camper-notes.md) |
+| **2** | [plan](docs/session-2/lesson-plan.md) | [MS](docs/session-2/ms-camper-notes.md) · [HS](docs/session-2/hs-camper-notes.md) |
+| **3** | [plan](docs/session-3/lesson-plan.md) | [MS](docs/session-3/ms-camper-notes.md) · [HS](docs/session-3/hs-camper-notes.md) |
+| **4** | [plan](docs/session-4/lesson-plan.md) | [MS](docs/session-4/ms-camper-notes.md) · [HS](docs/session-4/hs-camper-notes.md) |
 
 Shared reference material:
 
-- [`project-ideas.md`](curriculum/project-ideas.md) — idea bank, sorted by difficulty
-- [`troubleshooting.md`](curriculum/troubleshooting.md) — instructor-facing "when it breaks"
+- [`project-ideas.md`](docs/project-ideas.md) — idea bank, sorted by difficulty
+- [`troubleshooting.md`](docs/troubleshooting.md) — instructor-facing "when it breaks"
 
 ## Published site
 
-GitHub Pages serves from `docs/`. Hand-authored pages:
+GitHub Pages serves from `docs/` and **renders the curriculum markdown into the site** —
+the session lesson plans and camper notes, `project-ideas.md`, and `troubleshooting.md`
+are the published pages. There's no separate generation step to keep in sync; edit the
+markdown and the page updates on the next Pages build.
+
+Hand-authored pages (no markdown source — edit these directly):
 
 - [`index.html`](docs/index.html) — landing page
 - [`middle-school.html`](docs/middle-school.html) — MS session index, links the `ms-` notes
 - [`high-school.html`](docs/high-school.html) — HS session index, links the `hs-` notes
 - [`faq.html`](docs/faq.html) — questions
 
-Everything else in `docs/` is generated from `curriculum/` by a GitHub Action and should
-not be edited directly. **Adding a hand-authored page means adding it to the
-`HANDWRITTEN` list in `.github/workflows/cleanup-deleted-markdown-html.yml`**, or the
-cleanup step will delete it.
+Those four plus `style.css` are the only hand-authored files in `docs/`. Links *between*
+curriculum files use `.html` (e.g. `project-ideas.html`), because that's the URL Pages
+serves — a `.md` link would 404 on the live site.
 
 **Camper notes are self-contained** — each one carries the commands, prompts, and
 reminders for that session, so campers never juggle two documents. Print one per camper
@@ -125,14 +127,14 @@ pieces. Worth surfacing in Session 2 (HS only — MS skips it for time).
 Each student works in their own folder:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir my-project
 cd my-project
 cc-ds
 ```
 
-Working in a project folder, not Documents itself, matters — that folder is the AI's
-whole world, and a focused folder means focused attention.
+Working in a project folder, not the Projects folder itself, matters — that folder is
+the AI's whole world, and a focused folder means focused attention.
 
 > **PowerShell note for instructors:** lab machines may run PowerShell 5.1 or 7, and
 > 5.1 does **not** support `&&` for chaining commands. Since there's no reliable way to
@@ -152,7 +154,7 @@ changes.
 
 **No git.** Students don't use version control. "Save points" means copying the project
 folder when it works and copying it back to undo — taught in
-[Session 3](curriculum/session-3/lesson-plan.md) for both age groups.
+[Session 3](docs/session-3/lesson-plan.md) for both age groups.
 
 ---
 

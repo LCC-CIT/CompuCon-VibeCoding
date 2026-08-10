@@ -321,8 +321,9 @@
 }
 
 /* ==========================================================================
-   PROSE — pandoc-generated pages (camper notes, lesson plans, references)
-   Pandoc emits plain semantic HTML, so everything here targets bare tags.
+   PROSE — curriculum markdown pages (camper notes, lesson plans, references)
+   GitHub Pages renders the markdown to semantic HTML, so everything here targets
+   bare tags.
    ========================================================================== */
 .prose{padding:clamp(34px,5vw,56px) 0 clamp(48px,7vw,88px);max-width:820px}
 .prose > .crumb{margin-bottom:26px}
