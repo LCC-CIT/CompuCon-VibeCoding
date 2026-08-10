@@ -1,65 +1,26 @@
-# Session 4 — Make It Yours / Demo Day
+# Session 4 — Demo Day
 
-**The two age groups are doing completely different things today.**
+**High school only.** Middle school is a single 85-minute session — Session 1 — and ends
+there.
 
-- **MS (85 min): *Make It Yours.*** A capstone built from scratch and demoed, all in one
-  session. This is MS's first and only self-directed project.
-- **HS (60 min): *Demo Day.*** No build time at all. The capstone was finished in
-  Session 3. Today is demos, reflection, and where-to-next.
-
-Read your age group's section.
+Sixty minutes, no build time at all. The capstone was finished in Session 3. Today is
+demos, reflection, and where-to-next.
 
 ---
 
 ## Contents
 
-- [Timing](#timing)
-  - [Middle school — 85 min](#middle-school-85-min)
-  - [High school — 60 min](#high-school-60-min)
-- [MIDDLE SCHOOL — Make It Yours (85 min)](#middle-school-make-it-yours-85-min)
-- [0:00 — Pitch + Scope Check (12 min)](#000-pitch-scope-check-12-min)
-  - [Pitch to a partner (5 min)](#pitch-to-a-partner-5-min)
-  - [Instructor scope check (7 min)](#instructor-scope-check-7-min)
-- [0:12 — Build Block (38 min)](#012-build-block-38-min)
-  - [First 5 minutes, no code](#first-5-minutes-no-code)
-  - [Then: build, run, check, copy](#then-build-run-check-copy)
-  - [Timed callouts](#timed-callouts)
-  - [The halftime rule](#the-halftime-rule)
-  - [Instructor circulation, in priority order](#instructor-circulation-in-priority-order)
-- [0:50 — Polish + Demo Prep (10 min)](#050-polish-demo-prep-10-min)
-  - [Five minutes of polish](#five-minutes-of-polish)
-  - [Five minutes of demo prep](#five-minutes-of-demo-prep)
-- [1:00 — Showcase (20 min)](#100-showcase-20-min)
-- [1:20 — Where This Goes Next (5 min)](#120-where-this-goes-next-5-min)
-  - [What they actually learned](#what-they-actually-learned)
-  - [The honest part](#the-honest-part)
-  - [Last thing](#last-thing)
-- [HIGH SCHOOL — Demo Day (60 min)](#high-school-demo-day-60-min)
+- [Timing — 60 min](#timing-60-min)
 - [0:00 — Setup + Last Rehearsal (10 min)](#000-setup-last-rehearsal-10-min)
 - [0:10 — Showcase (30 min)](#010-showcase-30-min)
 - [0:40 — What You Actually Learned (12 min)](#040-what-you-actually-learned-12-min)
-  - [The honest part](#the-honest-part-1)
+  - [The honest part](#the-honest-part)
   - [One round of reflection (5 min)](#one-round-of-reflection-5-min)
 - [0:52 — Where This Goes Next (8 min)](#052-where-this-goes-next-8-min)
-  - [Last thing](#last-thing-1)
+  - [Last thing](#last-thing)
 - [Instructor Prep Checklist](#instructor-prep-checklist)
 
-## Timing
-
-### Middle school — 85 min
-
-| Time | Block | Mode |
-|---|---|---|
-| 0:00–0:12 | Pitch + scope check | Pairs → instructor |
-| 0:12–0:50 | Build block | Independent |
-| 0:50–1:00 | Polish + demo prep | Independent |
-| 1:00–1:20 | Showcase | Everyone |
-| 1:20–1:25 | Where this goes next | Wrap |
-
-> **No break scheduled.** If your group needs one, take 5 at 0:50 and cut the build to
-> 33 minutes.
-
-### High school — 60 min
+## Timing — 60 min
 
 | Time | Block | Mode |
 |---|---|---|
@@ -69,200 +30,6 @@ Read your age group's section.
 | 0:52–1:00 | Where this goes next | Wrap |
 
 ---
-
-## MIDDLE SCHOOL — Make It Yours (85 min)
-
-38 minutes of build time. That is not much, and the scope check at the start is what
-makes it work. Be ruthless there and the session lands; be generous and half the room
-demos something broken.
-
----
-
-## 0:00 — Pitch + Scope Check (12 min)
-
-### Pitch to a partner (5 min)
-
-Each camper gets ~2 minutes to pitch:
-
-```
-I'm building ______.
-
-You use it to ______.
-
-The two things it has to do:
-  1.
-  2.
-
-I'll know it works when:
-  - If I ______, it ______
-```
-
-**Two must-haves, not three.** MS has 38 minutes of build time.
-
-Partner asks one question:
-
-> **"Could you cut one of the two and still have something cool?"**
-
-### Instructor scope check (7 min)
-
-Every camper gets a ~15-second sign-off. You are looking for one thing:
-
-> **Can this be built in 38 minutes by someone who has been doing this for three
-> sessions?**
-
-Default to **yes** on anything from the Starter tier of
-[`project-ideas.md`](../project-ideas.html), and **cut hard** on anything else.
-
-| They pitched | Cut it to |
-|---|---|
-| A whole game with levels | One screen, one goal, one way to win |
-| Something that saves data | Skip saving. Make it work first. |
-| Multiplayer anything | Two players, same keyboard, taking turns |
-| "Like Minecraft but…" | Pick the one thing about it they like. Build that. |
-| An app with menus and screens | One screen. |
-
-Say the reasoning out loud:
-
-> "Cutting is the actual skill. A small thing that works beats a big thing that doesn't
-> — today, and forever, in every job you will ever have."
-
-**A completely fine MS capstone:** "the app I built in Session 1, rebuilt better, with
-the two features I wanted but didn't have time for." Pre-approve this for anyone
-struggling to choose. Ownership matters more than novelty.
-
----
-
-## 0:12 — Build Block (38 min)
-
-### First 5 minutes, no code
-
-```powershell
-cd $HOME\Documents\Projects
-cd <Name>
-mkdir capstone
-cd capstone
-claude
-```
-
-`<Name>` is the camper's name folder from Session 1. Campers who missed Session 1
-don't have one yet — make it for them with `mkdir <Name>`.
-
-1. Write the first prompt on paper — the whole app, answering the four questions
-2. Get it checked by the instructor or a partner
-3. *Then* type it in
-
-The paper step feels slow and saves ten minutes of thrash.
-
-### Then: build, run, check, copy
-
-Post it. Say it every ten minutes.
-
-```powershell
-cd $HOME\Documents\Projects
-cd <Name>
-Copy-Item -Recurse capstone capstone-working
-```
-
-### Timed callouts
-
-- **At 0:30 (18 min in):** "You should have something running by now. Not finished —
-  running. If you don't, come see me."
-- **12 min left:** "Last new thing starts now or not at all."
-- **6 min left:** "No new features. Make what you have work properly."
-- **3 min left:** "Copy your working folder. Right now, whatever state it's in."
-
-Walk the room enforcing the last one.
-
-### The halftime rule
-
-Not having a running app at the 18-minute mark is the single best early warning signal
-you have. Catch those campers there, not at 0:50.
-
-### Instructor circulation, in priority order
-
-1. **Anyone with nothing running.** Get them to a working something, however small.
-2. **Anyone who hasn't copied their folder in 15 minutes.**
-3. **Anyone quietly stuck.** The frustrated ones raise their hands; the quiet ones don't.
-4. **Anyone cruising.** "Try to break it. What happens if you leave it empty?"
-
----
-
-## 0:50 — Polish + Demo Prep (10 min)
-
-### Five minutes of polish
-
-Cosmetics only. Window title, colors, a friendlier message. **No new logic.**
-
-### Five minutes of demo prep
-
-Plan 45 seconds:
-
-```
-1. What it is, in one sentence.
-2. Show it working. (Practice the exact clicks. Twice.)
-3. One thing that broke and how you fixed it.
-```
-
-**Practice the clicks.** The most common demo failure is a camper clicking around live,
-hitting a bug they've never hit before, and freezing.
-
----
-
-## 1:00 — Showcase (20 min)
-
-45 seconds each, hard limit, visible timer.
-
-**Rules for the room:**
-
-- Everyone watches
-- Applause for every single demo, no exceptions
-- One compliment per demo from the audience
-
-**Instructor:** for each demo, name one specific thing that camper did well. Not "great
-job" — "you caught that the score could go negative," "you tested that before you showed
-it." Specific praise for the *process*, not the output. It teaches everyone watching what
-to value.
-
-Item 3 is required. If a camper skips it, ask: *"What broke?"* Never let a demo look
-effortless — that's how you get a room full of kids who think they're the only one who
-struggled.
-
-> If the group is large or shy, run a **gallery walk** for the first 10 minutes —
-> everyone leaves their app running and circulates — then have 6–8 volunteers present to
-> the whole room.
-
----
-
-## 1:20 — Where This Goes Next (5 min)
-
-### What they actually learned
-
-Say these out loud. They'll undersell it to themselves otherwise.
-
-- How to describe something you want precisely enough that it can be built
-- How to tell whether something is right, not just whether it ran
-- How to say exactly what went wrong
-- How to save your work so a mistake is never fatal
-- How to cut an idea down to something you can actually finish
-
-> "Almost none of that is about Python. All of it will still be true in twenty years."
-
-### The honest part
-
-> "The AI wrote the code. That's real work you did — you decided what to build, you found
-> what was wrong, you fixed it. And if you want to get properly good at this, the next
-> step is reading the code and figuring out what each part does."
-
-### Last thing
-
-> "You built three things that didn't exist before you got here. Go build a fourth."
-
-Make sure everyone copies their project into their Google Drive folder — link in the
-camper notes.
-
----
-
-## HIGH SCHOOL — Demo Day (60 min)
 
 **No build time.** The capstone was finished in Session 3. Anyone who shows up expecting
 to code today was told twice last session that this wasn't happening — hold the line, or
@@ -411,21 +178,10 @@ next time you run this track — write down what you hear.
 
 ## Instructor Prep Checklist
 
-**Both groups:**
-
-- [ ] **Print camper notes** for the right age group, one per camper. Session 4's notes
-      end with take-home guidance, so campers should leave with them.
+- [ ] **Print camper notes**, one per camper. Session 4's notes end with take-home
+      guidance, so campers should leave with them.
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine
-
-**MS:**
-
-- [ ] Scope-cut table printed for the pitch block
-- [ ] Pre-approve "rebuild my Session 1 app, better" for anyone who can't choose
-- [ ] Visible countdown timer for the showcase
-- [ ] Confirm every camper has a folder with their name in the right Google Drive folder
-
-**HS:**
-
+- [ ] Confirm every camper has a folder with their name in the HS Google Drive folder
 - [ ] Visible countdown timer — 60 minutes with ~20 demos has no slack
 - [ ] Know every camper's project going in, so you can name something specific per demo
 - [ ] Be ready to restore `capstone-demo` copies in the setup block

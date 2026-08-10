@@ -1,25 +1,26 @@
 # CompuCon Vibe Coding Track
 
-Four sessions. Campers build real, working apps by describing what they want to
-an AI coding assistant, then testing, checking, and refining until it's right.
+Campers build real, working apps by describing what they want to an AI coding assistant,
+then testing, checking, and refining until it's right.
 
 **Session 1 is standalone.** A camper who shows up for one session leaves with a
-finished app they built and can demo. Later sessions go deeper for campers who stay.
+finished app they built and can demo.
 
-**Session lengths differ by age group, and so does the content:**
+**Middle school runs one session. High school runs four.**
 
 | | Session 1 | Session 2 | Session 3 | Session 4 | Total |
 |---|---|---|---|---|---|
-| **Middle school** | 85 min | 85 min | 85 min | 85 min | 5h40m |
+| **Middle school** | 85 min | — | — | — | 1h25m |
 | **High school** | 120 min | 180 min | 180 min | 60 min | 9h |
 
 Two things follow from this and are baked into the curriculum:
 
+- **MS is Session 1 and nothing else.** Sessions 2–4 are high school only — their lesson
+  plans carry a single HS timing table, and there is no `ms-camper-notes.md` outside
+  `session-1/`. Session 1 has to deliver a complete experience on its own, because for
+  middle school it *is* the experience.
 - **HS Session 4 is demos only.** No build time. The HS capstone is pitched at the end
   of Session 2 and finished during Session 3.
-- **MS drops multi-file projects entirely.** With 340 minutes total against HS's 540,
-  MS Session 3 is "make one app solid" rather than "build something bigger." MS pitches
-  its capstone in Session 4 and builds it that same session.
 
 ---
 
@@ -45,26 +46,25 @@ knowing what to ask for, how much to ask for at once, and how to tell whether yo
 
 ## Session Map
 
-| Session | Middle school (85 each) | High school |
+| Session | Middle school | High school |
 |---|---|---|
-| **1** | *Make Something Work* — first app, the build→run→fix loop | Same, 120 min |
-| **2** | *Ask Better, Check Harder* — prompting + verification | Same + capstone pitch and kickoff, 180 min |
-| **3** | *Make It Solid* — save points, debugging, hardening one app | *Build Something Bigger* — multi-file, capstone finished, 180 min |
-| **4** | *Make It Yours* — capstone built and demoed | *Demo Day* — demos and wrap-up only, 60 min |
+| **1** | *Make Something Work* — first app, the build→run→fix loop, 85 min | Same, 120 min |
+| **2** | — track ends after Session 1 | *Ask Better, Check Harder* — prompting, verification, capstone pitch and kickoff, 180 min |
+| **3** | — | *Build Something Bigger* — multi-file, capstone finished, 180 min |
+| **4** | — | *Demo Day* — demos and wrap-up only, 60 min |
 
-Sessions 1–2 share a block sequence across age groups with different durations. Sessions
-3–4 split into separate MS and HS sections in the same file, because the content
-genuinely differs.
+Session 1 carries both age groups in one block sequence with two timing tables. Sessions
+2–4 are high school only and carry a single table each.
 
 Each session has its own folder in `docs/` containing an instructor lesson plan and a
-self-contained handout for each age group:
+self-contained handout per age group taught:
 
 | Session | Lesson plan | Camper notes |
 |---|---|---|
 | **1** | [plan](docs/session-1/lesson-plan.md) | [MS](docs/session-1/ms-camper-notes.md) · [HS](docs/session-1/hs-camper-notes.md) |
-| **2** | [plan](docs/session-2/lesson-plan.md) | [MS](docs/session-2/ms-camper-notes.md) · [HS](docs/session-2/hs-camper-notes.md) |
-| **3** | [plan](docs/session-3/lesson-plan.md) | [MS](docs/session-3/ms-camper-notes.md) · [HS](docs/session-3/hs-camper-notes.md) |
-| **4** | [plan](docs/session-4/lesson-plan.md) | [MS](docs/session-4/ms-camper-notes.md) · [HS](docs/session-4/hs-camper-notes.md) |
+| **2** | [plan](docs/session-2/lesson-plan.md) | [HS](docs/session-2/hs-camper-notes.md) |
+| **3** | [plan](docs/session-3/lesson-plan.md) | [HS](docs/session-3/hs-camper-notes.md) |
+| **4** | [plan](docs/session-4/lesson-plan.md) | [HS](docs/session-4/hs-camper-notes.md) |
 
 Shared reference material:
 
@@ -81,7 +81,7 @@ markdown and the page updates on the next Pages build.
 Hand-authored pages (no markdown source — edit these directly):
 
 - [`index.html`](docs/index.html) — landing page
-- [`middle-school.html`](docs/middle-school.html) — MS session index, links the `ms-` notes
+- [`middle-school.html`](docs/middle-school.html) — MS page, links the one `ms-` handout
 - [`high-school.html`](docs/high-school.html) — HS session index, links the `hs-` notes
 - [`teacher.html`](docs/teacher.html) — instructor hub, links the lesson plans and checklist
 - [`faq.html`](docs/faq.html) — questions
@@ -121,8 +121,8 @@ By the end, campers can:
 5. **Steer** an AI through a project that doesn't fit in a single file
 6. **Name** what the AI is good at and where it needs a human
 
-Goal 3 is the one that matters most and gets shortchanged most often. We hit it on
-every single day.
+Goal 3 is the one that matters most and gets shortchanged most often. We hit it in
+every single session.
 
 ---
 
@@ -140,7 +140,7 @@ This launches Claude Code. Campers never touch an API key.
 **Instructors should know:** Claude Code is Anthropic's terminal coding agent. It can
 read and write files in the current folder, run commands, and hold a conversation about
 a codebase. The tool and the model behind it are separable pieces — worth surfacing in
-Session 2 (HS only — MS skips it for time).
+Session 2, which is high school only.
 
 Each camper works in their own folder:
 
@@ -176,16 +176,17 @@ changes.
 
 **No git.** Campers don't use version control. "Save points" means copying the project
 folder when it works and copying it back to undo — taught in
-[Session 3](docs/session-3/lesson-plan.md) for both age groups.
+[Session 3](docs/session-3/lesson-plan.md), which is high school only.
 
 ---
 
 ## Middle School vs. High School
 
-Same teaching philosophy, different structure. MS has 5h40m against HS's 9h, so this is
-not a pacing dial — MS has real cuts (multi-file projects are gone entirely). Every
-session file carries separate MS and HS timing tables, plus **`MS/HS`** callout boxes
-wherever the content diverges within a shared block. The general pattern:
+Same teaching philosophy, different structure. MS gets 85 minutes against HS's 9 hours,
+so this is not a pacing dial — MS is Session 1 and stops there. Session 1 carries both
+age groups, with separate MS and HS timing tables and **`MS/HS`** callout boxes wherever
+the content diverges within a shared block. Within that one shared session, the general
+pattern:
 
 | | Middle School | High School |
 |---|---|---|
@@ -196,9 +197,9 @@ wherever the content diverges within a shared block. The general pattern:
 | **Reading code** | Optional, encouraged for the curious | Expected by Session 3 |
 | **Group work** | Pairs throughout | Solo with pair-debugging |
 
-The demo apps and general arc are shared. Adjust ambition and scope, not the underlying
-teaching content — but note MS's total time (5h40m) is well under half of HS's (9h), so
-"adjust ambition" now means real cuts for MS, not just smaller steps.
+The demo apps and the Session 1 arc are shared. Adjust ambition and scope, not the
+underlying teaching content — but note that middle school has 85 minutes total, so
+"adjust ambition" means real cuts, not just smaller steps.
 
 ---
 

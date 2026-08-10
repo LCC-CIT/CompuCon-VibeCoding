@@ -5,16 +5,15 @@ of the track.
 
 **Which tier, by age group and session:**
 
-| | MS (85 min sessions) | HS (120/180/180/60) |
+| | MS (one 85 min session) | HS (120/180/180/60) |
 |---|---|---|
 | **Session 1** build #2 | Starter — but most MS campers customize Mad Libs instead | Starter or Solid |
-| **Session 2** spec-first build | Starter | Solid |
-| **Session 3** | *No new project* — MS hardens an existing app | Capstone continues (Solid or Stretch) |
-| **Session 4** | Capstone — **Starter**, two must-haves max | *No build time* — demos only |
+| **Session 2** spec-first build | — MS track has ended | Solid |
+| **Session 3** | — | Capstone continues (Solid or Stretch) |
+| **Session 4** | — | *No build time* — demos only |
 
-**Starter is a hard ceiling for middle school.** MS has 340 minutes total against HS's
-540, and the longest MS build block in the track is 38 minutes. A Solid-tier project
-will not finish.
+**Starter is a hard ceiling for middle school.** MS is a single 85-minute session with
+one ~22-minute build block in it. Anything above Starter will not finish.
 
 **All of these assume Python + tkinter.** That's deliberate — one language, one GUI
 library, no install friction on the Windows lab image, instant visual payoff.
@@ -77,7 +76,8 @@ idea; the stack is a detail. See the "different language" entry in
 
 ## Starter — build in 10–20 minutes
 
-**Everything middle school builds comes from this tier**, plus HS's Session 1 build.
+**Everything middle school builds comes from this tier** — it's their only session — plus
+HS's Session 1 build.
 
 | App | What it does | Why it works |
 |---|---|---|
@@ -97,7 +97,7 @@ idea; the stack is a detail. See the "different language" entry in
 ## Solid — build in 30–60 minutes
 
 **High school only.** HS Session 2's spec-first build, and the smaller end of HS
-capstones. Too big for any MS block.
+capstones. Too big for middle school's single session.
 
 | App | What it does | The interesting part |
 |---|---|---|
@@ -418,9 +418,9 @@ A camper building their own idea badly is learning more than a camper building y
 idea well. Protect that — just protect them from reaching the showcase with nothing to
 demo.
 
-**Be strictest in MS Session 4.** It's the only MS session with a self-chosen project,
-and there are 38 minutes to build it. "Rebuild my Session 1 app, better" is a completely
-legitimate answer for anyone who can't settle on something.
+**Be strictest with middle school.** Their whole track is one session, and Build #2 is
+~22 minutes of it. "Change Mad Libs into something else" is a completely legitimate
+answer for anyone who can't settle on something.
 
 ------
 

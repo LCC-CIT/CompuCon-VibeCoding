@@ -1,6 +1,11 @@
 # Session 1 — Make Something Work
 
-**This is a standalone session for both age groups.** A camper who attends only this session leaves with a working app they built, understands the loop that produced it, and could do it again. Nothing in this session assumes a Session 2.
+**This session stands alone.** A camper who attends only this session leaves with a
+working app they built, understands the loop that produced it, and could do it again.
+Nothing here assumes a Session 2.
+
+**For middle school this is the entire track** — one 85-minute session, and it ends here.
+High school continues into Sessions 2–4.
 
 ---
 
@@ -439,12 +444,14 @@ Three things they leave with:
 
 **MS/HS**
 > **MS:** Trim the honest note to its first two sentences. Then: "You made a thing that
-> works. Show somebody."
+> works. Show somebody." This is the last thing middle school hears all camp — land it,
+> and make sure every app is copied to Drive before anyone leaves.
 > **HS:** Full version, plus: "The people who can do both — steer the AI *and* read the
 > code — are going to be unbelievably good at this."
 
-If they're coming back for Session 2, tell them the teaser: **"Next time we find out how
-to tell when the AI is lying to you."**
+**HS only** — they're back for Session 2, so give them the teaser: **"Next time we find
+out how to tell when the AI is lying to you."** Middle school finishes here; don't tease
+a session they won't attend.
 
 ---
 

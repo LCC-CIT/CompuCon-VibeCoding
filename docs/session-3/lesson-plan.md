@@ -1,45 +1,17 @@
-# Session 3 — Make It Solid / Build Something Bigger
+# Session 3 — Build Something Bigger
 
-**This session is genuinely different for the two age groups.** Not paced differently —
-different content.
+**High school only.** Middle school is a single 85-minute session — Session 1 — and ends
+there.
 
-- **MS (85 min): *Make It Solid.*** Save points, debugging, and hardening a single-file
-  app. Multi-file projects are **cut entirely** for middle school — there isn't time to
-  teach planning, splitting, and building in 85 minutes without doing all three badly.
-- **HS (180 min): *Build Something Bigger.*** Multi-file projects and planning, applied
-  directly to the capstone they pitched in Session 2. **The capstone must be finished by
-  the end of this session** — Session 4 is 60 minutes of demos only.
-
-Read your age group's section. They share the save-points block and the debugging
-method; everything else differs.
+Multi-file projects and planning, applied directly to the capstone they pitched in
+Session 2. **The capstone must be finished by the end of this session** — Session 4 is
+60 minutes of demos only.
 
 ---
 
 ## Contents
 
-- [Timing](#timing)
-  - [Middle school — 85 min](#middle-school-85-min)
-  - [High school — 180 min](#high-school-180-min)
-- [MIDDLE SCHOOL — Make It Solid (85 min)](#middle-school-make-it-solid-85-min)
-- [0:00 — Save Points: Copy The Folder (12 min)](#000-save-points-copy-the-folder-12-min)
-  - [The problem](#the-problem)
-  - [The whole system](#the-whole-system)
-  - [Practice right now, everyone](#practice-right-now-everyone)
-  - [The rule](#the-rule)
-- [0:12 — When The AI Makes It Worse (13 min)](#012-when-the-ai-makes-it-worse-13-min)
-  - [The three escape hatches](#the-three-escape-hatches)
-  - [The 10-minute rule](#the-10-minute-rule)
-- [0:25 — The Debugging Method (15 min)](#025-the-debugging-method-15-min)
-  - [1. What exactly happens?](#1-what-exactly-happens)
-  - [2. When did it last work?](#2-when-did-it-last-work)
-  - [3. Ask precisely](#3-ask-precisely)
-  - [4. Verify the fix — and check the old thing still works](#4-verify-the-fix-and-check-the-old-thing-still-works)
-- [0:40 — Build: Make Your App Good (30 min)](#040-build-make-your-app-good-30-min)
-  - [Job 1: Make it unbreakable (15 min)](#job-1-make-it-unbreakable-15-min)
-  - [Job 2: Make it look good (10 min)](#job-2-make-it-look-good-10-min)
-  - [Job 3: Understand one piece of it (5 min)](#job-3-understand-one-piece-of-it-5-min)
-- [1:10 — Show One Thing You Fixed (15 min)](#110-show-one-thing-you-fixed-15-min)
-- [HIGH SCHOOL — Build Something Bigger (180 min)](#high-school-build-something-bigger-180-min)
+- [Timing — 180 min](#timing-180-min)
 - [0:00 — Why One File Stops Working (12 min)](#000-why-one-file-stops-working-12-min)
   - [The two real problems](#the-two-real-problems)
   - [The fix](#the-fix)
@@ -58,8 +30,8 @@ method; everything else differs.
 - [1:00 — Save Points: Copy The Folder (15 min)](#100-save-points-copy-the-folder-15-min)
   - [The system](#the-system)
   - [Practice (5 min)](#practice-5-min)
-  - [The rule](#the-rule-1)
-  - [Using copies to verify (HS-only addition)](#using-copies-to-verify-hs-only-addition)
+  - [The rule](#the-rule)
+  - [Using copies to verify](#using-copies-to-verify)
 - [1:15 — Capstone Build (75 min)](#115-capstone-build-75-min)
   - [Requirements](#requirements)
   - [The rhythm, on the board](#the-rhythm-on-the-board)
@@ -75,22 +47,7 @@ method; everything else differs.
   - [Today's three moves (2 min)](#todays-three-moves-2-min)
 - [Instructor Prep Checklist](#instructor-prep-checklist)
 
-## Timing
-
-### Middle school — 85 min
-
-| Time | Block | Mode |
-|---|---|---|
-| 0:00–0:12 | Save points: copy the folder | Demo + hands-on |
-| 0:12–0:25 | When the AI makes it worse | Talk + demo |
-| 0:25–0:40 | The debugging method | Whole group |
-| 0:40–1:10 | Build: make your app good | Independent |
-| 1:10–1:25 | Show one thing you fixed | Campers demo |
-
-> **No break scheduled.** If your group needs one, take 5 at 0:40 and cut the build to
-> 25 minutes.
-
-### High school — 180 min
+## Timing — 180 min
 
 | Time | Block | Mode |
 |---|---|---|
@@ -104,215 +61,6 @@ method; everything else differs.
 | 2:48–3:00 | Demo prep + wrap | |
 
 ---
-
-## MIDDLE SCHOOL — Make It Solid (85 min)
-
-Campers bring the app they built in Session 2 (or Session 1 — either is fine). Today
-isn't about building something new. It's about making one thing genuinely good.
-
-> "Today we're not making your app bigger. We're making it *tougher*. By the end it
-> should be very hard to break, and you should know how to get it back when you do."
-
----
-
-## 0:00 — Save Points: Copy The Folder (12 min)
-
-Frame this as save points in a game.
-
-### The problem
-
-You've been building for 30 minutes. It works. You ask for one more feature. It's now
-broken in a way you can't undo, and the AI's attempts to fix it are making it worse.
-
-Without a save point, you're rebuilding from scratch.
-
-### The whole system
-
-Two commands. That's it.
-
-```powershell
-cd $HOME\Documents\Projects
-cd <Name>
-Copy-Item -Recurse madlibs madlibs-working
-```
-
-That's your save point — a complete copy of the folder, frozen at a moment it worked.
-
-To go back:
-
-```powershell
-cd $HOME\Documents\Projects
-cd <Name>
-Remove-Item -Recurse madlibs
-Copy-Item -Recurse madlibs-working madlibs
-```
-
-> You can also do this entirely in File Explorer: right-click the folder → Copy →
-> Paste → rename it. Show both. Some campers will find the visual version much easier,
-> and it is exactly as valid.
-
-### Practice right now, everyone
-
-1. Make a save-point copy of your project folder
-2. Ask the AI to break something on purpose:
-   > Delete the part that shows the story and replace it with something wrong.
-3. Run it. Confirm it's broken.
-4. Restore from your copy
-5. Run it. It's back.
-
-The relief in the room when step 5 works is the lesson.
-
-### The rule
-
-> **Copy it every time it works. Not when you finish — every time it works.**
-
-Name your copies so you can tell them apart: `madlibs-working`, `madlibs-colors-good`,
-`madlibs-before-sounds`.
-
----
-
-## 0:12 — When The AI Makes It Worse (13 min)
-
-A specific, recognizable situation: you report a bug, the AI fixes it, something else
-breaks. You report that, it fixes that, the first thing breaks again. Round and round.
-
-This happens to professionals. It is not a sign that you're bad at this.
-
-### The three escape hatches
-
-**1. `/clear` and start the conversation over.**
-
-```
-/clear
-```
-
-This resets the *conversation*, not your files. Your code is untouched.
-
-Why it works: the AI has been building up a theory about your bug, and the theory is
-wrong. Every new message you send gets interpreted through that wrong theory. Clearing
-it out and describing the problem fresh often fixes it immediately.
-
-> "It's like a friend who's decided what your problem is and won't stop giving you
-> advice for the wrong problem. Sometimes you just have to start the conversation over."
-
-**2. Go back to your save point.** You have a copy that works. Use it. Then take a
-smaller step.
-
-**3. Delete the file and ask for it again.** With a better description this time. One
-file is cheap to regenerate.
-
-### The 10-minute rule
-
-> **Stuck on the same problem for 10 minutes? Stop. Restore your save point and try a
-> different way — or ask a human.**
-
-Sunk cost is a real trap and this is the age to learn it.
-
----
-
-## 0:25 — The Debugging Method (15 min)
-
-Whole group. Ask for volunteers who are stuck right now, put their screen up. Two bugs,
-walked slowly.
-
-For each one, walk the same four steps out loud:
-
-### 1. What exactly happens?
-
-Not "it's broken." What did you click, what did you expect, what did you get?
-
-Most middle-school bugs get solved at this step. Being forced to describe it precisely
-is often the entire fix.
-
-### 2. When did it last work?
-
-What changed since then? If it's more than one change, that's your answer — you broke the
-one-change-at-a-time rule and now you're paying for it.
-
-### 3. Ask precisely
-
-> When I click Make Story with all the boxes empty, the window freezes and I have to
-> close it. Here's what the terminal says: [paste the whole thing].
-
-### 4. Verify the fix — and check the old thing still works
-
-Run it. Then run the thing that *used* to work and make sure it still does.
-
-This step is the one everybody skips. Fixing a bug by breaking something else is the
-oldest move in the book.
-
----
-
-## 0:40 — Build: Make Your App Good (30 min)
-
-Not "add features." Three jobs, in this order:
-
-### Job 1: Make it unbreakable (15 min)
-
-Try every one of these on your own app. Fix what breaks. **Copy the folder after each
-fix that works.**
-
-- Leave every box empty and click the button
-- Type a number where a word goes, and a word where a number goes
-- Type something 200 characters long
-- Click every button twice, fast
-- Click buttons in the wrong order
-- Resize the window as small as it goes
-
-Checklist on the board — campers tick off what they've tested.
-
-### Job 2: Make it look good (10 min)
-
-Colors, fonts, spacing, window title, a friendlier message when something goes wrong.
-One change at a time, run after each.
-
-### Job 3: Understand one piece of it (5 min)
-
-Pick the part of your code you understand least. Ask:
-
-```
-Explain what this part does, like I'm 12.
-```
-
-Be ready to tell the room what you learned.
-
-**Instructor circulation:**
-
-| What you see | What to say |
-|---|---|
-| Hasn't made a copy in 15 min | "Copy your folder. Right now." |
-| Adding features instead of hardening | "Not bigger. Tougher. What breaks it?" |
-| Tangled and frustrated | "When did it last work? Restore your copy." |
-| Cruising | "Ask the AI what inputs would break it. Then try those." |
-
----
-
-## 1:10 — Show One Thing You Fixed (15 min)
-
-Not a full demo. Each camper shows **one bug they found and fixed**, in about 30
-seconds:
-
-1. Here's what broke it
-2. Here's what it does now
-
-Go quickly. Aim to get through everyone.
-
-> "Every single person in this room found something wrong with their own app today. Not
-> because you're bad at this — because *everybody's* first version has these. The
-> difference between people who ship good software and people who don't is entirely
-> whether they went looking."
-
-**Wrap (last 2 min).** Next session: you pick something to build from scratch, and you
-demo it at the end.
-
-Two questions to think about before then:
-
-1. What would you actually use?
-2. What's the smallest version of that which is still cool?
-
----
-
-## HIGH SCHOOL — Build Something Bigger (180 min)
 
 Campers continue the capstone they pitched and planned in Session 2. **It has to be
 finished by the end of today.** Session 4 is 60 minutes and is demos only — say this at
@@ -509,7 +257,8 @@ that every time, you've given up your best verification tool for free.
 
 ## 1:00 — Save Points: Copy The Folder (15 min)
 
-Same content as the MS block above — teach it the same way, faster.
+This is the one piece of housekeeping that pays for itself inside the same session. Move
+briskly — it's fifteen minutes and they need every one of the seventy-five that follow.
 
 ### The system
 
@@ -537,7 +286,7 @@ Everyone: make a copy, ask the AI to break something, restore it, confirm it's b
 > **Copy every time it works.** Name copies meaningfully — `capstone-scoring-works`,
 > not `capstone2`.
 
-### Using copies to verify (HS-only addition)
+### Using copies to verify
 
 This is Session 2's check #3 — *"did it change anything I didn't ask for?"* — made
 concrete.
@@ -685,24 +434,13 @@ Have a fallback ready: if it crashes on stage, say what it does and keep going.
 
 ## Instructor Prep Checklist
 
-**Both groups:**
-
-- [ ] **Print camper notes** for the right age group, one per camper
-
+- [ ] **Print camper notes**, one per camper
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine
 - [ ] Practice the `Copy-Item -Recurse` / `Remove-Item -Recurse` restore cycle yourself
       first — you'll be walking campers through it under time pressure
 - [ ] Know the File Explorer version too (right-click → Copy → Paste → rename); some
       campers will need the visual route
 - [ ] Recruit two volunteers with real bugs before the debugging block starts
-
-**MS only:**
-
-- [ ] Have the "make it unbreakable" checklist on the board before they arrive
-- [ ] A Session 2 app of your own to demo the break-and-restore cycle on
-
-**HS only:**
-
 - [ ] A grown 200+ line single-file app for the opening demo
 - [ ] `CLAUDE.md` and `PLAN.md` templates ready to project
 - [ ] Sample multi-file project to show the file split

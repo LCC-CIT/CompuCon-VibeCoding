@@ -171,8 +171,8 @@ Mixed tabs and spaces. Easiest fix: *"There's an indentation error on line 23, f
 
 ## Save Point / Undo Problems
 
-Campers don't use git. Save points are folder copies — see Session 3. The reference
-commands:
+Campers don't use git. Save points are folder copies — taught in Session 3, which is high
+school only. The reference commands:
 
 ```powershell
 cd $HOME\Documents\Projects
@@ -308,8 +308,8 @@ Have this ready. It's a real risk and it will happen at least once.
 
 **Analog activities that still teach the actual skills:**
 
-- **Prompt lab** — the bad prompts from Session 2 (six for HS, three for MS). Works
-  entirely on paper.
+- **Prompt lab** — the six bad prompts from Session 2 (high school). For middle school,
+  use the first three. Works entirely on paper.
 - **Spec sheets** — write specs and tests for the next project.
 - **Bug report drill** — instructor describes a broken app verbally; campers write a
   proper what-I-did / what-I-expected / what-happened report.

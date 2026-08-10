@@ -2,7 +2,9 @@
 
 Curriculum for a "vibe coding" track at CompuCon, a summer tech camp. Middle school and
 high school run as **separate sessions**, with the **same teaching spine** — but their
-schedules are genuinely different, not just a pacing dial. See the schedule below.
+schedules are genuinely different, not just a pacing dial. **Middle school is one
+85-minute session; high school is four sessions totalling nine hours.** See the schedule
+below.
 
 **This repo contains teaching materials, not software.** There is no app to build, no
 tests to run, no dependencies. The curriculum is Markdown, meant to be read by an
@@ -10,8 +12,9 @@ instructor in front of a classroom or handed to a camper. `docs/` *is* the publi
 site — GitHub Pages renders the markdown there directly, so there is no separate HTML
 to maintain.
 
-**Current state: rebuilt against the real schedule, git removed throughout.** All four
-session files carry separate MS and HS timing tables. Nothing has been taught yet — see
+**Current state: rebuilt against the real schedule, git removed throughout, middle school
+cut to a single session.** Session 1 carries separate MS and HS timing tables; Sessions
+2–4 are high school only and carry one each. Nothing has been taught yet — see
 `preflight.md` for what's still unverified.
 
 ---
@@ -22,7 +25,7 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 README.md                      Track overview — start here
 docs/                          THE SITE — GitHub Pages serves from here
   index.html                   Landing page          ┐
-  middle-school.html           MS session index      │ hand-authored — no
+  middle-school.html           MS page               │ hand-authored — no
   high-school.html             HS session index      │ markdown source,
   teacher.html                 Instructor hub         │ edit these directly
   faq.html                     Questions             │
@@ -32,19 +35,21 @@ docs/                          THE SITE — GitHub Pages serves from here
     lesson-plan.md             Instructor script — both age groups
     ms-camper-notes.md         Camper handout, middle school
     hs-camper-notes.md         Camper handout, high school
-  session-2/                   (same three files)
-  session-3/
-  session-4/
+  session-2/                   HS only — lesson-plan.md + hs-camper-notes.md
+  session-3/                   HS only
+  session-4/                   HS only
   project-ideas.md             Idea bank by difficulty
   troubleshooting.md           Instructor reference for when things break
   preflight.md                 Untested assumptions, known gaps, pre-teaching checklist
 ```
 
-Every session folder has exactly three files: one lesson plan, two camper handouts.
+Session 1 has three files: one lesson plan, two camper handouts. Sessions 2–4 have two:
+a lesson plan and the HS handout. **There is no `ms-camper-notes.md` outside
+`session-1/`** — don't re-create one.
 
-Sessions 1–2 lesson plans use one block sequence with dual durations. Sessions 3–4 are
-split into separate `## MIDDLE SCHOOL` and `## HIGH SCHOOL` sections because the content
-genuinely differs.
+Session 1's lesson plan uses one block sequence with dual MS/HS durations. Sessions 2–4
+are single-audience and use plain durations. The `## MIDDLE SCHOOL` / `## HIGH SCHOOL`
+section split is gone — nothing needs it anymore.
 
 **Terminology:** "Session N" everywhere — folders, filenames, and prose. The camp calls
 them sessions, and MS/HS sessions aren't the same length, so "day" is misleading. There
@@ -109,35 +114,37 @@ schoolers are the youngest readers. Keep sentences short and gloss any jargon
 
 ## Hard constraints — do not change without asking
 
-**Session 1 must stand alone**, for both age groups. Campers can attend one session
-only. Session 1 has to deliver a complete experience ending in a working app they built.
-Never add a Session 1 dependency on later material.
+**Session 1 must stand alone**, for both age groups. HS campers can attend one session
+only, and for MS campers Session 1 *is* the track. It has to deliver a complete
+experience ending in a working app they built. Never add a Session 1 dependency on later
+material, and never tease Session 2 to the MS room.
 
 **The real schedule — MS and HS are structurally different, not just paced
 differently:**
 
 | | Session 1 | Session 2 | Session 3 | Session 4 | Total |
 |---|---|---|---|---|---|
-| **Middle school** | 85 min | 85 min | 85 min | 85 min | 340 min (5h40m) |
+| **Middle school** | 85 min | — | — | — | 85 min (1h25m) |
 | **High school** | 120 min | 180 min | 180 min | 60 min | 540 min (9h) |
 
 All of these numbers are **actual teaching time** — no arrival, attendance, or buffer
-padding is baked in already. Every session file carries **two timing tables**, one per age
-group, each summing exactly to its session length. Verify both after any edit.
+padding is baked in already. Session 1 carries **two timing tables**, one per age group;
+Sessions 2–4 carry one. Each must sum exactly to its session length. Verify after any
+edit.
 
 Three structural facts the curriculum is built around. Don't undo them by accident:
 
-- **MS total (340 min) is well under half of HS total (540 min).** MS is not "the same
-  content, paced down." It has real cuts — most significantly, **MS does not do
-  multi-file projects at all.** MS Session 3 is *Make It Solid* (save points, debugging,
-  hardening one app). Treat `project-ideas.md`'s Starter tier as a hard ceiling for MS.
+- **MS is Session 1 and nothing else** — 85 minutes against HS's 540. It is not "the same
+  content, paced down"; everything past the first session is simply not taught to them.
+  **MS does no multi-file work, no capstone, and no save-point block.** Treat
+  `project-ideas.md`'s Starter tier as a hard ceiling for MS.
+- **Sessions 2–4 are high school only.** No MS timing table, no `MS/HS` callouts, no
+  `ms-camper-notes.md` in those folders. If you find yourself adding MS material to one
+  of them, stop — it belongs in Session 1 or nowhere.
 - **HS Session 4 is 60 minutes and contains no build time.** It is demos and wrap-up
   only. The HS capstone is pitched at the end of Session 2 and must be *finished* during
   Session 3. Don't add build activities to HS Session 4 — the 10-minute setup block
   exists only so a camper can restore a working copy, not to code.
-- **MS pitches and builds its capstone entirely within Session 4** (85 min, ~38 of which
-  is build time). That's why the MS scope check is aggressive and why two must-haves is
-  the cap.
 
 **Python + tkinter is the default stack.** Chosen for zero install friction on the
 Windows lab image and a visible window inside 60 seconds. Campers who already know
@@ -155,9 +162,10 @@ Copy-Item -Recurse myproject-working myproject    # undo, step 2
 ```
 
 `<Name>` is the camper's name folder — every project lives at
-`Projects\<Name>\<project>`, matching their Google Drive folder. Taught in Session 3
-for both age groups. Same concept as a commit, no new tool. Always offer the File
-Explorer equivalent alongside the commands — some campers need the visual route.
+`Projects\<Name>\<project>`, matching their Google Drive folder. Taught in Session 3,
+which is high school only; MS never covers save points. Same concept as a commit, no new
+tool. Always offer the File Explorer equivalent alongside the commands — some campers
+need the visual route.
 **Grep for `git` before calling any file finished.**
 
 **Windows 11, PowerShell 5.1 or 7 — lab machines may run either.** Write every command
@@ -169,8 +177,8 @@ so it works on both:
 - `python` is the command, not `python3`
 - No `sudo`, `apt`, or Unix-only tools
 
-**Verification is the spine of the track.** "It ran ≠ it's right" recurs every day and
-escalates. Any new material should reinforce it, not dilute it. If a block has to be cut
+**Verification is the spine of the track.** "It ran ≠ it's right" recurs in every session
+and escalates. Any new material should reinforce it, not dilute it. If a block has to be cut
 for time, cut something else.
 
 **Roughly 20% instructor talking, 80% campers building.** Check any addition against
@@ -215,13 +223,16 @@ modifies:
 > **HS:** What changes for high school.
 ```
 
-Not every block needs one. Only add where the two genuinely diverge.
+**Session 1 only** — it's the only file with two audiences. Not every block there needs
+one; only add where the two genuinely diverge. Sessions 2–4 have no MS reader, so a
+callout in those files is a bug.
 
-**Session structure.** Each session file: title, one-line framing, timing table(s), then one
-`## H:MM — Block Name (N min)` section per row. Instructor prep checklist at the end.
-Since MS and HS no longer share session lengths, a session file needs either two timing
-tables and two block sequences, or a clear split into an MS version and an HS version —
-pick whichever reads cleaner per day, but don't fudge one table to loosely fit both.
+**Session structure.** Each session file: title, one-line framing, timing table(s), then
+one `## Block Name (N min)` section per row — Session 1 uses `(MS n min / HS n min)`,
+Sessions 2–4 a plain `(n min)`. Sessions 3–4 prefix each block with its clock position,
+`## H:MM — Block Name (N min)`. Instructor prep checklist at the end. Session 1 carries
+two timing tables and one block sequence with dual durations; don't fudge one table to
+loosely fit both audiences.
 
 **Line width** wraps around 90 characters.
 
@@ -234,8 +245,8 @@ use case.
 
 - **Read `preflight.md` first.** It records what's still unverified and what's missing
   on purpose. Several apparent gaps are deliberate — don't "fix" them.
-- **Check timing tables after any edit to a session file** — for both MS and HS, since they
-  no longer sum to the same total. This is the easiest thing to silently break.
+- **Check timing tables after any edit to a session file** — both tables in Session 1,
+  the single table in Sessions 2–4. This is the easiest thing to silently break.
 - **Grep for `git` before treating a file as finished.** It should only appear inside an
   explanation of *why* it was removed, never as an instruction to campers.
 - **Check cross-file links.** README links into `docs/` with `.md` filenames (it's read

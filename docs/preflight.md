@@ -1,10 +1,13 @@
 # Preflight — Before You Teach This
 
-Project status, not conventions. Constraints live in [`CLAUDE.md`](../CLAUDE.md).
+Project status, not conventions. Constraints live in `CLAUDE.md`, in the repo root.
 
-**Nothing here has been taught or tested on real hardware.** All eight timing tables sum
+**Nothing here has been taught or tested on real hardware.** All five timing tables sum
 correctly on paper, but no block has been run with real campers — expect the first
 delivery to run long. Delete this file once the track has run once.
+
+**Middle school is one session.** Session 1, 85 minutes, and it ends there. High school
+runs all four. Sessions 2–4 are high school only.
 
 ---
 
@@ -29,15 +32,17 @@ Each item names what breaks if you skip it.
 
 2. **Confirm the Google Drive take-home link works on a lab machine.** Open the MS link
    (middle school) and the HS link (high school), and confirm every camper has a folder
-   with their name in the right one. Campers copy their code to Drive at the end of every
-   session — if the link is wrong or a folder is missing, that camper leaves with nothing.
+   with their name in the right one. Campers copy their code to Drive before they leave —
+   if the link is wrong or a folder is missing, that camper leaves with nothing. **This
+   matters most for middle school**, who get exactly one chance at it.
    Local name folders should match the Drive folders: `Projects\<Name>\<project>`, first
    name, one word.
    - MS: <https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link>
    - HS: <https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link>
 
 3. **Read MS Session 1 aloud with a timer.** 85 minutes is the tightest budget in the
-   track, and it's the one session that must land perfectly, since it stands alone.
+   track, and it is the entire middle school experience — there is no second session to
+   recover in. It has to land the first time.
 
 4. **Dry-run the Session 1 opening demo.** The 6-minute live build of `dice.py` is the
    hook for the whole track, and there's no script for it — you're improvising in front
@@ -47,8 +52,8 @@ Each item names what breaks if you skip it.
    that's 20 campers with zero slack. Above ~20, cut to 60 seconds or run part of it as
    a gallery walk — decide before the day, not during it.
 
-6. **Decide the MS break policy.** All four MS sessions are 85 minutes straight. Each
-   file notes where to take five minutes and what to cut for it; the call is yours.
+6. **Decide the MS break policy.** The MS session runs 85 minutes straight. Session 1
+   notes where to take five minutes and what to cut for it; the call is yours.
 
 7. **Check the live site.** Settings → Pages → Deploy from a branch, `main`, folder
    `/docs`. GitHub Pages renders the markdown there, so the curriculum `.md` files
@@ -56,13 +61,20 @@ Each item names what breaks if you skip it.
    notes → back. **Open it on a phone too** — campers will. Check the nav stacks and
    that the wide tables in `project-ideas.html` are usable.
 
-8. **Print one camper notes page from the browser and look at it.** The print stylesheet
+8. **Scan the QR code with a phone.** The code on `about.html` is an image — nothing in
+   the repo checks that it encodes the right address. Scan it from the screen, and from
+   a printout if you're handing one out, and confirm it lands on the live site. Also
+   confirm the URL printed under it still matches where Pages actually serves from.
+   *If the code is wrong, every camper who scans it instead of typing lands nowhere.*
+
+9. **Print one camper notes page from the browser and look at it.** The print stylesheet
    flips the dark theme to black-on-white and hides the nav, but it has never met a real
    printer. If it comes out dark, print from the markdown instead.
 
-9. **Print the rest.** Camper notes: one per camper per session, correct age group —
-   they're written to be kept and referred back to, not skimmed once. Plus the Session 2
-   bad-prompts handout, which lives inline in the lesson plan.
+10. **Print the rest.** Camper notes, correct age group — one handout per middle school
+   camper, one per session for high school. They're written to be kept and referred back
+   to, not skimmed once. Plus the Session 2 bad-prompts handout, which lives inline in
+   the lesson plan.
 
 ---
 
@@ -70,7 +82,7 @@ Each item names what breaks if you skip it.
 
 **The tone of the "the AI wrote the code" talks** at the end of Sessions 1 and 4. The
 most opinionated thing in the curriculum. MS gets two sentences, HS the full paragraph.
-Soften, sharpen, or keep.
+Soften, sharpen, or keep. For middle school it's the last thing they hear all camp.
 
 ---
 
@@ -85,9 +97,10 @@ So nobody "fixes" these by accident.
 - **No registration or contact link on the site.** Enrolment is handled elsewhere.
 - **Session 2's bad-prompts list is instructor-side only.** The spec sheet from that
   session *is* reproduced in the camper notes, so campers have that one.
-- **Lesson plans are published but unlinked.** Each `docs/session-N/lesson-plan.md`
-  renders to a `/session-N/lesson-plan.html` page; nothing on the site links to it.
-  Fine if the plans aren't secret — worth knowing if they are.
+- **Lesson plans are public.** Each `docs/session-N/lesson-plan.md` renders to a
+  `/session-N/lesson-plan.html` page, and `teacher.html` links all four. Anyone who
+  finds the site can read them. Fine if the plans aren't secret — worth knowing if
+  they are.
 - **Curriculum pages don't inherit the site chrome.** GitHub Pages themes the rendered
   markdown with its default layout — no hand-authored nav or footer, no `style.css`.
   The pandoc template that used to wrap those pages in the site theme is gone. Known

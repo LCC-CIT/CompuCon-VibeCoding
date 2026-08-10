@@ -237,6 +237,12 @@
   .split b{font-family:var(--mono);font-size:.75rem;padding:1px 7px;border-radius:5px;margin-right:8px}
   .b-ms{background:rgba(79,214,196,.13);color:var(--cyan)}
   .b-hs{background:rgba(177,138,255,.13);color:var(--violet)}
+  /* standalone group badge — pairs with .b-ms / .b-hs outside a .split */
+  .grp{
+    font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.04em;
+    padding:2px 8px;border-radius:5px;margin-left:9px;vertical-align:middle;
+    white-space:nowrap;
+  }
 
   /* ---------- faq ---------- */
   .faq{margin-top:30px;display:grid;gap:11px}

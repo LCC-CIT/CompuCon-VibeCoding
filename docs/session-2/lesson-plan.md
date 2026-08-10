@@ -1,11 +1,13 @@
 # Session 2 — Ask Better, Check Harder
 
+**High school only.** Middle school is a single 85-minute session — Session 1 — and ends
+there.
+
 Session 1 taught the loop. Session 2 makes them good at it: how much to specify, how to
 say it, and how to actually verify what came back.
 
-**HS also pitches and starts the capstone in this session.** HS's capstone build lives in
-Sessions 2–3, because HS Session 4 is only 60 minutes and is demo-and-wrap-up only. MS
-does not pitch a capstone until Session 4.
+**Campers also pitch and start the capstone in this session.** The capstone build lives
+in Sessions 2–3, because Session 4 is only 60 minutes and is demo-and-wrap-up only.
 
 **If new campers joined today:** run the 6-minute dice roller demo from Session 1 and
 give them the four-question prompt template. They'll keep up.
@@ -14,55 +16,34 @@ give them the four-question prompt template. They'll keep up.
 
 ## Contents
 
-- [Timing](#timing)
-  - [Middle school — 85 min](#middle-school-85-min)
-  - [High school — 180 min](#high-school-180-min)
-- [Warm-Up: Same Prompt, Four Ways (MS 6 min / HS 10 min)](#warm-up-same-prompt-four-ways-ms-6-min-hs-10-min)
-- [How Much To Ask For At Once (MS 12 min / HS 20 min)](#how-much-to-ask-for-at-once-ms-12-min-hs-20-min)
+- [Timing — 180 min](#timing-180-min)
+- [Warm-Up: Same Prompt, Four Ways (10 min)](#warm-up-same-prompt-four-ways-10-min)
+- [How Much To Ask For At Once (20 min)](#how-much-to-ask-for-at-once-20-min)
   - [The two modes](#the-two-modes)
   - [Why one at a time (the real reason)](#why-one-at-a-time-the-real-reason)
   - [The size test](#the-size-test)
   - [The exception worth naming](#the-exception-worth-naming)
-- [Prompt Lab (MS 15 min / HS 25 min)](#prompt-lab-ms-15-min-hs-25-min)
-- [Break — HS only (10 min)](#break-hs-only-10-min)
-- [How To Check The AI's Work (MS 15 min / HS 25 min)](#how-to-check-the-ais-work-ms-15-min-hs-25-min)
+- [Prompt Lab (25 min)](#prompt-lab-25-min)
+- [Break (10 min)](#break-10-min)
+- [How To Check The AI's Work (25 min)](#how-to-check-the-ais-work-25-min)
   - [It ran ≠ it's right](#it-ran-its-right)
   - [The four checks (put these on the wall — they stay up through Session 4)](#the-four-checks-put-these-on-the-wall-they-stay-up-through-session-4)
   - [Making the AI check itself](#making-the-ai-check-itself)
   - [The 60-second demo](#the-60-second-demo)
-- [Build: Spec First (MS 24 min / HS 35 min)](#build-spec-first-ms-24-min-hs-35-min)
-  - [Spec sheet (MS 6 min / HS 10 min, on paper)](#spec-sheet-ms-6-min-hs-10-min-on-paper)
-  - [Build (MS 15 min / HS 20 min)](#build-ms-15-min-hs-20-min)
-  - [Land it (MS 3 min / HS 5 min)](#land-it-ms-3-min-hs-5-min)
-- [Swap And Break (MS 13 min / HS 15 min)](#swap-and-break-ms-13-min-hs-15-min)
-- [Capstone Pitch + Scope Check — HS only (20 min)](#capstone-pitch-scope-check-hs-only-20-min)
+- [Build: Spec First (35 min)](#build-spec-first-35-min)
+  - [Spec sheet (10 min, on paper)](#spec-sheet-10-min-on-paper)
+  - [Build (20 min)](#build-20-min)
+  - [Land it (5 min)](#land-it-5-min)
+- [Swap And Break (15 min)](#swap-and-break-15-min)
+- [Capstone Pitch + Scope Check (20 min)](#capstone-pitch-scope-check-20-min)
   - [Pitch to a partner (8 min)](#pitch-to-a-partner-8-min)
   - [Instructor scope check (12 min)](#instructor-scope-check-12-min)
-- [Capstone: Plan And First Build — HS only (20 min)](#capstone-plan-and-first-build-hs-only-20-min)
+- [Capstone: Plan And First Build (20 min)](#capstone-plan-and-first-build-20-min)
   - [End of session](#end-of-session)
-- [Wrap (built into the last block for both groups)](#wrap-built-into-the-last-block-for-both-groups)
+- [Wrap (built into the last block)](#wrap-built-into-the-last-block)
 - [Instructor Prep Checklist](#instructor-prep-checklist)
 
-## Timing
-
-The first five blocks are shared. HS then adds a break, a longer build, and the capstone
-pitch and kickoff.
-
-### Middle school — 85 min
-
-| Time | Block | Mode |
-|---|---|---|
-| 0:00–0:06 | Warm-up: same prompt, four ways | Whole group |
-| 0:06–0:18 | How much to ask for at once | Talk + demo |
-| 0:18–0:33 | Prompt lab: rewrite bad prompts | Pairs |
-| 0:33–0:48 | How to check the AI's work | Talk + demo |
-| 0:48–1:12 | Build: spec-first project | Independent |
-| 1:12–1:25 | Swap and break | Pairs |
-
-> **No break scheduled.** If your group needs one, take 5 at 0:48 and cut the build to
-> 19 minutes.
-
-### High school — 180 min
+## Timing — 180 min
 
 | Time | Block | Mode |
 |---|---|---|
@@ -78,7 +59,7 @@ pitch and kickoff.
 
 ---
 
-## Warm-Up: Same Prompt, Four Ways (MS 6 min / HS 10 min)
+## Warm-Up: Same Prompt, Four Ways (10 min)
 
 On the projector, four prompts for the same app. Ask which one they'd write, then ask
 which one they'd *want to have written*.
@@ -113,14 +94,12 @@ Most will pick C, which is right. Then push:
 
 That's the whole lesson. The trick is knowing what you care about.
 
-**MS/HS**
-> **MS:** Use A vs. C only. D is noise for them and costs 4 minutes you don't have.
-> **HS:** All four. Then ask when D would actually be right. (Answer: when you have a
-> real constraint — matching existing code, a library requirement, a teacher's rubric.)
+Then ask when D would actually be right. (Answer: when you have a real constraint —
+matching existing code, a library requirement, a teacher's rubric.)
 
 ---
 
-## How Much To Ask For At Once (MS 12 min / HS 20 min)
+## How Much To Ask For At Once (20 min)
 
 ### The two modes
 
@@ -178,16 +157,13 @@ explicitly, and expect to spend more time checking:
 
 Naming the pieces yourself gives you a checklist to verify against.
 
-**MS/HS**
-> **MS:** The one-sentence size test is the whole takeaway. Practice it out loud — you
-> say a change, they call out "too big" or "just right." Skip the exception.
-> **HS:** Full version, plus the live demo: open a working app, ask for six things at
-> once, run it. Even if it works, ask "which part would you check first? How long would
-> checking all six take?" Then do one of the six properly in 90 seconds.
+**Live demo.** Open a working app, ask for six things at once, run it. Even if it works,
+ask "which part would you check first? How long would checking all six take?" Then do one
+of the six properly in 90 seconds.
 
 ---
 
-## Prompt Lab (MS 15 min / HS 25 min)
+## Prompt Lab (25 min)
 
 Pairs. Bad prompts on a handout. For each: **say what's missing, then rewrite it.**
 
@@ -225,21 +201,15 @@ reasonably guess wrong.
 
 > "If your partner can find two ways to read your prompt, so can the AI."
 
-**MS/HS**
-> **MS:** Prompts 1, 3, and 5 only. Do #1 together on the projector as a worked example
-> before they try the other two in pairs.
-> **HS:** All six, plus the trade-and-critique step.
+---
+
+## Break (10 min)
+
+Ten minutes. Take it here — the next block is the densest in the session.
 
 ---
 
-## Break — HS only (10 min)
-
-MS runs straight through. See the note under the MS timing table if your group needs a
-pause.
-
----
-
-## How To Check The AI's Work (MS 15 min / HS 25 min)
+## How To Check The AI's Work (25 min)
 
 The heart of the whole track. Session 1 planted the idea; today it becomes a method.
 
@@ -317,23 +287,19 @@ had nothing to say about the case you didn't.
 > "It didn't make a mistake. It answered exactly what you asked. *You* left out the
 > question."
 
-**MS/HS**
-> **MS:** Checks 1 and 2 only, hands-on. Frame check 2 as "be a jerk to your app." Of
-> the self-checking prompts, teach only "explain this like I'm 12." Skip the levels
-> table — demo the empty-list bug instead, it lands better than the taxonomy.
-> **HS:** All four checks and the levels table. Emphasize check 3 — unrequested changes
-> are the failure mode that bites hardest on real projects.
+**Emphasize check 3** — unrequested changes are the failure mode that bites hardest on
+real projects.
 
 ---
 
-## Build: Spec First (MS 24 min / HS 35 min)
+## Build: Spec First (35 min)
 
 This build has a rule: **write the spec before the prompt.**
 
-For HS this is a practice project, not the capstone — the capstone gets pitched later in
-this session. Keep it small on purpose.
+This is a practice project, not the capstone — the capstone gets pitched later in this
+session. Keep it small on purpose.
 
-### Spec sheet (MS 6 min / HS 10 min, on paper)
+### Spec sheet (10 min, on paper)
 
 Every camper fills this out before touching a keyboard:
 
@@ -361,7 +327,7 @@ The last section is the new thing. **They write their tests before the code exis
 Instructor signs off on the spec before they start. Reject anything with more than 3
 must-haves or a vague test.
 
-### Build (MS 15 min / HS 20 min)
+### Build (20 min)
 
 Work from the spec. First prompt is the whole app (Mode 1). Every change after is one
 thing (Mode 2).
@@ -372,22 +338,17 @@ Board checklist:
 - [ ] All of my tests pass
 - [ ] I asked the AI "what did you change?" at least once and checked the answer
 - [ ] I tried three wrong inputs
+- [ ] I asked the AI to explain one part of the code and I understood it
 
-### Land it (MS 3 min / HS 5 min)
+### Land it (5 min)
 
 Run all three of your own tests one last time and mark pass/fail on the spec sheet
 honestly. **A failed test you can name is a better outcome than a passed test you didn't
 really check.** Say this out loud — it sets the culture for the rest of the track.
 
-**MS/HS**
-> **MS:** 2 must-haves and 2 tests, not 3. Pairs — one drives, one runs the tests, swap
-> halfway. The tester role makes verification a job, not an afterthought.
-> **HS:** 3 must-haves. Add a checkbox: "I asked the AI to explain one part of the code
-> and I understood it."
-
 ---
 
-## Swap And Break (MS 13 min / HS 15 min)
+## Swap And Break (15 min)
 
 Pairs swap machines. Your job: **break your partner's app.**
 
@@ -411,20 +372,15 @@ Swap back. Fix the top bug your partner found.
 > make it fail. Both are necessary. Professionals hire people whose whole job is the
 > second one."
 
-**MS/HS**
-> **MS:** Frame as a competition — most bugs found wins. 6 min breaking, 5 min fixing,
-> 2 min whole-group callout of the funniest bug found.
-> **HS:** 7 min breaking, 8 min fixing. Require the bug report in writing, formatted
-> properly. Then have them paste that report straight to the AI — a well-written bug
-> report is a well-written prompt, and that's not a coincidence.
+Seven minutes breaking, eight minutes fixing. Require the bug report in writing,
+formatted properly. Then have them paste that report straight to the AI — a well-written
+bug report is a well-written prompt, and that's not a coincidence.
 
 ---
 
-## Capstone Pitch + Scope Check — HS only (20 min)
+## Capstone Pitch + Scope Check (20 min)
 
-**MS does not do this today.** MS pitches in Session 4. Skip to the wrap.
-
-HS's capstone build has to fit in the rest of this session plus Session 3, because
+The capstone build has to fit in the rest of this session plus Session 3, because
 Session 4 is 60 minutes of demo and wrap-up with no build time. Campers need to know
 that now.
 
@@ -482,7 +438,7 @@ Say the reasoning out loud, because it's the real lesson:
 
 ---
 
-## Capstone: Plan And First Build — HS only (20 min)
+## Capstone: Plan And First Build (20 min)
 
 Set up the project properly. This 20 minutes is what makes Session 3 productive.
 
@@ -528,7 +484,7 @@ copy it.**
 
 ---
 
-## Wrap (built into the last block for both groups)
+## Wrap (built into the last block)
 
 Two things on the board:
 
@@ -544,26 +500,23 @@ Two things on the board:
 
 Teaser for Session 3:
 
-**MS:** "Next time: how to save your work so you can never lose it, and how to fix
-things when the AI makes them worse."
-
-**HS:** "Next time: your project gets too big for one file, and you finish your
-capstone. Session 4 is demos only."
+> "Next time: your project gets too big for one file, and you finish your capstone.
+> Session 4 is demos only."
 
 ---
 
 ## Instructor Prep Checklist
 
-- [ ] **Print camper notes** for the right age group, one per camper
-- [ ] Print the bad-prompts handout (one per pair) — 3 prompts for MS, 6 for HS
+- [ ] **Print camper notes**, one per camper
+- [ ] Print the bad-prompts handout (one per pair) — all six prompts
 - [ ] Print spec sheets (one per camper, plus spares)
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine
-- [ ] Have a Session 1 app on hand for the six-changes-at-once demo (HS)
+- [ ] Have a Session 1 app on hand for the six-changes-at-once demo
 - [ ] Have the empty-list average bug ready to demo live
 - [ ] Post the four checks on the wall — they stay up through Session 4
-- [ ] **HS only:** print the scope-cut table for the pitch block
-- [ ] **HS only:** be ready to sign off on ~25 capstone pitches in 12 minutes. Practice
-      saying "cut one" quickly and kindly.
+- [ ] Print the scope-cut table for the pitch block
+- [ ] Be ready to sign off on ~25 capstone pitches in 12 minutes. Practice saying "cut
+      one" quickly and kindly.
 
 ------
 
