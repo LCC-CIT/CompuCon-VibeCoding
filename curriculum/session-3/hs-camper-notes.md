@@ -35,7 +35,7 @@ Plan around that. If you're behind at the halfway mark, cut a feature — don't 
 ## Starting up
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 cd capstone
 cc-ds
 ```
@@ -197,14 +197,14 @@ that is throwing away your best verification tool.
 **SAVE** — every time it works:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-working
 ```
 
 **RESTORE:**
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-working capstone
 ```
@@ -219,9 +219,9 @@ folder. Close the window, `Ctrl+C`, retry.
 **Argument order** is `Copy-Item -Recurse SOURCE DESTINATION`. Reversing it copies the
 broken version over your good one.
 
-**Don't copy into the project folder.** `cd $HOME\Documents` first, so copies sit *beside*
-your project, not inside it. A copy inside the folder gets read by the AI as part of your
-project and causes genuinely bizarre problems.
+**Don't copy into the project folder.** `cd $HOME\Documents\Projects` first, so copies
+sit *beside* your project, not inside it. A copy inside the folder gets read by the AI as
+part of your project and causes genuinely bizarre problems.
 
 ### Copies as a verification tool
 
@@ -312,7 +312,7 @@ show.
 ### Make the demo copy
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-demo
 ```
 

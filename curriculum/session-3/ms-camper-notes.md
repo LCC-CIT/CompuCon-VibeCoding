@@ -38,7 +38,7 @@ Bring the app you built last session.
 Open **PowerShell**. Go to the project you built last session:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 cd madlibs
 cc-ds
 ```
@@ -69,7 +69,7 @@ Without a save point, you start over from nothing.
 **To SAVE** (do this every time your app works):
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse madlibs madlibs-working
 ```
 
@@ -78,7 +78,7 @@ That makes a complete copy of your folder, frozen at a moment when it worked.
 **To GO BACK:**
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse madlibs
 Copy-Item -Recurse madlibs-working madlibs
 ```

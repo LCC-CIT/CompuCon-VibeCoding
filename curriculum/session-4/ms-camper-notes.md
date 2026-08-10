@@ -93,7 +93,7 @@ That's a great capstone. Don't feel like you need a brand new idea.
 ## Getting set up
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
 cc-ds
@@ -134,14 +134,14 @@ python app.py
 **Copy it every time it works:**
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-working
 ```
 
 **Go back if you break it:**
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-working capstone
 ```

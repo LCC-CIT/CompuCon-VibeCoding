@@ -32,7 +32,7 @@ working copy.
 Get your app running:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 cd capstone
 python main.py
 ```
@@ -42,7 +42,7 @@ python main.py
 Restore the demo copy you made at the end of last session:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-demo capstone
 ```
@@ -173,12 +173,12 @@ satisfying than building for yourself.
 ## The commands, one last time
 
 ```powershell
-cd $HOME\Documents          # go to Documents
-mkdir myproject             # make a project folder
-cd myproject                # go into it
-cc-ds                       # start Claude Code  (or: cc)
+cd $HOME\Documents\Projects   # go to your Projects folder
+mkdir myproject               # make a project folder
+cd myproject                  # go into it
+cc-ds                         # start Claude Code  (or: cc)
 
-python app.py               # run your app
+python app.py                 # run your app
 
 Copy-Item -Recurse myproject myproject-working    # save point
 ```

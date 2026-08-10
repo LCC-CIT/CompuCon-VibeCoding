@@ -43,7 +43,7 @@ independent build time and on the concepts blocks.
 **Do not explain anything first.** Open a terminal on the projector and build something.
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir demo
 cd demo
 cc-ds
@@ -137,7 +137,7 @@ Lockstep. Everyone builds the same thing so nobody is lost and everyone succeeds
 ### Setup (5 min)
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir madlibs
 cd madlibs
 cc-ds
@@ -417,6 +417,8 @@ to tell when the AI is lying to you."**
 - [ ] **Print camper notes** — `ms-camper-notes.md` or `hs-camper-notes.md`, one per
       camper. Hand out at the start; they're written to be followed along with.
 - [ ] Test `cc-ds` on a lab machine the morning of
+- [ ] Confirm the `Documents\Projects` folder exists on every lab machine — create it
+      if it's missing
 - [ ] Confirm tkinter is available: `python -c "import tkinter"` (no output = good)
 - [ ] Know that students with Claude Pro can use `cc` — mention it once at the start
 - [ ] Have `dice.py` demo working before students arrive

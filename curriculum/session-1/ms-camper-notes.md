@@ -36,13 +36,14 @@ it's good.
 Open **PowerShell**. Type these lines **one at a time**, pressing Enter after each:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir madlibs
 cd madlibs
 cc-ds
 ```
 
-That last one, `cc-ds`, starts the AI.
+The first three lines get you into today's project folder. `Projects` is where
+all your projects live. That last one, `cc-ds`, starts the AI.
 
 > **Got your own Claude Pro account?** Type `cc` instead of `cc-ds`. Everything else is
 > exactly the same.

@@ -456,7 +456,7 @@ Say the reasoning out loud, because it's the real lesson:
 Set up the project properly. This 20 minutes is what makes Session 3 productive.
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
 cc-ds
@@ -483,7 +483,7 @@ disk and one working piece before students leave.
 Everyone makes a save-point copy of their project folder before they leave:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-working
 ```
 
@@ -521,6 +521,7 @@ capstone. Session 4 is demos only."
 - [ ] **Print camper notes** for the right age group, one per camper
 - [ ] Print the bad-prompts handout (one per pair) — 3 prompts for MS, 6 for HS
 - [ ] Print spec sheets (one per student, plus spares)
+- [ ] Confirm the `Documents\Projects` folder exists on every lab machine
 - [ ] Have a Session 1 app on hand for the six-changes-at-once demo (HS)
 - [ ] Have the empty-list average bug ready to demo live
 - [ ] Post the four checks on the wall — they stay up through Session 4

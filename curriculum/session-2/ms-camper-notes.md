@@ -34,7 +34,7 @@ whether it's *right*.
 ## Starting up
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir myproject
 cd myproject
 cc-ds

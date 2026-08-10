@@ -40,7 +40,7 @@ accordingly, which mostly means picking something smaller than you want to.
 ## Starting up
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir myproject
 cd myproject
 cc-ds
@@ -294,7 +294,7 @@ You have the rest of today plus Session 3. That's it.
 ### Setting it up
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
 cc-ds
@@ -320,7 +320,7 @@ reorder the build. Changing a plan is free. Changing code is not.
 ### Before you leave — make a save point
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-working
 ```
 

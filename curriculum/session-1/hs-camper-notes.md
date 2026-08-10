@@ -39,7 +39,7 @@ comes after this one.
 Open **PowerShell** (through Windows Terminal). One command per line:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir madlibs
 cd madlibs
 cc-ds
@@ -71,7 +71,7 @@ way.
 
 `cc-ds` starts an AI that can **read and write files in the folder you started it in**,
 and run commands. That folder is its entire world — which is why you always start it
-inside your project folder, not in Documents.
+inside your project folder, not in the Projects folder.
 
 ### Two things worth understanding
 

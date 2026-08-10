@@ -71,7 +71,7 @@ Without a save point, you're rebuilding from scratch.
 Two commands. That's it.
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse madlibs madlibs-working
 ```
 
@@ -80,7 +80,7 @@ That's your save point — a complete copy of the folder, frozen at a moment it 
 To go back:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse madlibs
 Copy-Item -Recurse madlibs-working madlibs
 ```
@@ -452,14 +452,14 @@ Same content as the MS block above — teach it the same way, faster.
 ### The system
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-working
 ```
 
 To restore:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-working capstone
 ```
@@ -590,7 +590,7 @@ runs at the end of today is what gets demoed.
 Everyone, right now:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-demo
 ```
 
@@ -624,6 +624,7 @@ Have a fallback ready: if it crashes on stage, say what it does and keep going.
 
 - [ ] **Print camper notes** for the right age group, one per camper
 
+- [ ] Confirm the `Documents\Projects` folder exists on every lab machine
 - [ ] Practice the `Copy-Item -Recurse` / `Remove-Item -Recurse` restore cycle yourself
       first — you'll be walking students through it under time pressure
 - [ ] Know the File Explorer version too (right-click → Copy → Paste → rename); some

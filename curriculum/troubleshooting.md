@@ -25,8 +25,8 @@ No git check needed — students don't use git. Save points are folder copies; s
 - **`&&` does not work in PowerShell 5.1.** Lab machines may run 5.1 or 7, and there's
   no reliable way to tell which from the outside — so write and teach every command
   one-per-line regardless of version. That syntax works on both.
-- **Paths use backslashes** — `$HOME\Documents`, not `~/Documents`. `/` often works
-  anyway, but the AI may generate either; both are fine in Python.
+- **Paths use backslashes** — `$HOME\Documents\Projects`, not `~/Documents/Projects`.
+  `/` often works anyway, but the AI may generate either; both are fine in Python.
 - **Execution policy** can block scripts. It won't affect anything in this curriculum
   (we only run `python file.py`), but if you hit it: `Get-ExecutionPolicy` to check.
 - **`python` with no arguments** on some Windows setups opens the Microsoft Store instead
@@ -79,8 +79,8 @@ Code is untouched. If there's a `CLAUDE.md`, the AI re-reads the project immedia
 Almost always started in the wrong folder.
 
 ```powershell
-pwd     # where am I?
-ls      # is my file here?
+Get-Location    # where am I?
+Get-ChildItem   # is my file here?
 ```
 
 `Ctrl+C`, `cd` to the right folder, `cc-ds` again.
@@ -147,7 +147,7 @@ Students don't use git. Save points are folder copies — see Session 3. The ref
 commands:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse myproject myproject-working    # SAVE
 
 Remove-Item -Recurse myproject                    # UNDO (two steps)
@@ -197,7 +197,7 @@ working.
 
 Produces `myproject\myproject-working\...`, which confuses both the student and the AI —
 Claude Code will read the nested copy as part of the project. Make sure they `cd
-$HOME\Documents` first, so copies sit *next to* the project, not inside it.
+$HOME\Documents\Projects` first, so copies sit *next to* the project, not inside it.
 
 Worth showing on the projector once. It's the mistake that generates the weirdest
 downstream symptoms.

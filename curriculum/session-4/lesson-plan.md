@@ -104,7 +104,7 @@ struggling to choose. Ownership matters more than novelty.
 ### First 5 minutes, no code
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
 cc-ds
@@ -121,7 +121,7 @@ The paper step feels slow and saves ten minutes of thrash.
 Post it. Say it every ten minutes.
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse capstone capstone-working
 ```
 
@@ -239,7 +239,7 @@ can restore their `capstone-demo` copy. That's recovery, not building.
 Everyone gets their app running and rehearses the demo path twice.
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 cd capstone
 python main.py
 ```
@@ -247,7 +247,7 @@ python main.py
 **If it doesn't run:** restore the demo copy made at the end of Session 3.
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-demo capstone
 ```
@@ -375,6 +375,7 @@ next time you run this track — write down what you hear.
 
 - [ ] **Print camper notes** for the right age group, one per camper. Session 4's notes
       end with take-home guidance, so campers should leave with them.
+- [ ] Confirm the `Documents\Projects` folder exists on every lab machine
 
 **MS:**
 
