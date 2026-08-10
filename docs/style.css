@@ -76,6 +76,8 @@
   .nav-links{margin-left:auto;display:flex;gap:26px;align-items:center}
   .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .18s}
   .nav-links a:hover{color:var(--cyan)}
+  .nav-links .gh-link{display:inline-flex;align-items:center}
+  .nav-links .gh-link svg{display:block}
   /* Phones: stack the nav instead of hiding it. Hiding it left index.html with no
      navigation at all, since that page has no in-body links. */
   @media(max-width:640px){
