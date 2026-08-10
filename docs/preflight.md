@@ -1,6 +1,6 @@
 # Preflight — Before You Teach This
 
-Project status, not conventions. Constraints live in [`CLAUDE.md`](CLAUDE.md).
+Project status, not conventions. Constraints live in [`CLAUDE.md`](../CLAUDE.md).
 
 **Nothing here has been taught or tested on real hardware.** All eight timing tables sum
 correctly on paper, but no block has been run with real campers — expect the first

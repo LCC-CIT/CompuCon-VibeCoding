@@ -12,7 +12,7 @@ to maintain.
 
 **Current state: rebuilt against the real schedule, git removed throughout.** All four
 session files carry separate MS and HS timing tables. Nothing has been taught yet — see
-`PREFLIGHT.md` for what's still unverified.
+`preflight.md` for what's still unverified.
 
 ---
 
@@ -20,12 +20,12 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 
 ```
 README.md                      Track overview — start here
-PREFLIGHT.md                   Untested assumptions, known gaps, pre-teaching checklist
 docs/                          THE SITE — GitHub Pages serves from here
   index.html                   Landing page          ┐
   middle-school.html           MS session index      │ hand-authored — no
   high-school.html             HS session index      │ markdown source,
   faq.html                     Questions             │ edit these directly
+  teacher.html                 Instructor hub         │
   style.css                    Shared theme          ┘
   session-1/
     lesson-plan.md             Instructor script — both age groups
@@ -36,6 +36,7 @@ docs/                          THE SITE — GitHub Pages serves from here
   session-4/
   project-ideas.md             Idea bank by difficulty
   troubleshooting.md           Instructor reference for when things break
+  preflight.md                 Untested assumptions, known gaps, pre-teaching checklist
 ```
 
 Every session folder has exactly three files: one lesson plan, two camper handouts.
@@ -78,11 +79,12 @@ Three consequences follow from this:
   markdown→HTML pipeline.
 - **Rendered curriculum pages don't inherit the site chrome.** GitHub Pages themes the
   rendered markdown with its default layout — no hand-authored nav or footer, no
-  `style.css`. The four hand-authored pages keep the full theme; the curriculum pages
-  don't. Known and accepted for now — see `PREFLIGHT.md`.
+  `style.css`. The five hand-authored pages keep the full theme; the curriculum pages
+  don't. Known and accepted for now — see `preflight.md`.
 
 **Hand-authored pages** — `index.html`, `middle-school.html`, `high-school.html`,
-`faq.html`, plus `style.css`. No markdown source; edit them directly. They share
+`faq.html`, `teacher.html`, plus `style.css`. No markdown source; edit them directly.
+They share
 `style.css` rather than each inlining the theme, so a colour or spacing change happens
 in one place. `index.html` keeps its terminal animation as an inline `<script>`.
 
@@ -225,7 +227,7 @@ use case.
 
 ## Editing this repo
 
-- **Read `PREFLIGHT.md` first.** It records what's still unverified and what's missing
+- **Read `preflight.md` first.** It records what's still unverified and what's missing
   on purpose. Several apparent gaps are deliberate — don't "fix" them.
 - **Check timing tables after any edit to a session file** — for both MS and HS, since they
   no longer sum to the same total. This is the easiest thing to silently break.

@@ -71,8 +71,9 @@ Hand-authored pages (no markdown source — edit these directly):
 - [`middle-school.html`](docs/middle-school.html) — MS session index, links the `ms-` notes
 - [`high-school.html`](docs/high-school.html) — HS session index, links the `hs-` notes
 - [`faq.html`](docs/faq.html) — questions
+- [`teacher.html`](docs/teacher.html) — instructor hub, links the lesson plans and checklist
 
-Those four plus `style.css` are the only hand-authored files in `docs/`. Links *between*
+Those five plus `style.css` are the only hand-authored files in `docs/`. Links *between*
 curriculum files use `.html` (e.g. `project-ideas.html`), because that's the URL Pages
 serves — a `.md` link would 404 on the live site.
 
@@ -80,7 +81,7 @@ serves — a `.md` link would 404 on the live site.
 reminders for that session, so campers never juggle two documents. Print one per camper
 per session.
 
-Plus [`PREFLIGHT.md`](PREFLIGHT.md) — what's untested, what's deliberately missing, and
+Plus [`preflight.md`](docs/preflight.md) — what's untested, what's deliberately missing, and
 what to do before Session 1.
 
 ---
