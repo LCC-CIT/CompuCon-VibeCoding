@@ -7,7 +7,7 @@ of the track.
 
 | | MS (85 min sessions) | HS (120/180/180/60) |
 |---|---|---|
-| **Session 1** build #2 | Starter — but most MS students customize Mad Libs instead | Starter or Solid |
+| **Session 1** build #2 | Starter — but most MS campers customize Mad Libs instead | Starter or Solid |
 | **Session 2** spec-first build | Starter | Solid |
 | **Session 3** | *No new project* — MS hardens an existing app | Capstone continues (Solid or Stretch) |
 | **Session 4** | Capstone — **Starter**, two must-haves max | *No build time* — demos only |
@@ -19,7 +19,7 @@ will not finish.
 **All of these assume Python + tkinter.** That's deliberate — one language, one GUI
 library, no install friction on the Windows lab image, instant visual payoff.
 
-**Students who already know another stack may use it.** Every idea below works in
+**Campers who already know another stack may use it.** Every idea below works in
 HTML/CSS/JS in a browser too, and most work as a plain terminal program. The idea is the
 idea; the stack is a detail. See the "different language" entry in
 [`troubleshooting.md`](troubleshooting.html) for the two conditions.
@@ -101,7 +101,7 @@ Reach for these when you want to teach a particular thing.
 | **Splitting into files** (HS only) | Choose-Your-Own-Story Engine, Quiz Game |
 | **Saving data** | Todo List, Habit Tracker, Budget Tracker |
 | **The AI's code runs but is wrong** | Grade Calculator (empty list), Wordle (duplicate letters) |
-| **Scope cutting** | Anything a student describes as "like [big famous app]" |
+| **Scope cutting** | Anything a camper describes as "like [big famous app]" |
 | **They'll actually use it** | Random Team Picker, Todo List, Class Schedule Builder |
 
 ---
@@ -129,7 +129,7 @@ Not because they're bad — because they burn the session on setup instead of th
 
 ---
 
-## Instructor Note: Letting Students Bring Their Own
+## Instructor Note: Letting Campers Bring Their Own
 
 Always allow it. Sign it off against three questions:
 
@@ -139,7 +139,7 @@ Always allow it. Sign it off against three questions:
    or redirect.
 3. **What's the smallest version that's still the same idea?** Build that one.
 
-A student building their own idea badly is learning more than a student building your
+A camper building their own idea badly is learning more than a camper building your
 idea well. Protect that — just protect them from reaching the showcase with nothing to
 demo.
 

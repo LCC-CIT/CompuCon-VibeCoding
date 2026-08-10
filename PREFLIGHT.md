@@ -3,7 +3,7 @@
 Project status, not conventions. Constraints live in [`CLAUDE.md`](CLAUDE.md).
 
 **Nothing here has been taught or tested on real hardware.** All eight timing tables sum
-correctly on paper, but no block has been run with real students — expect the first
+correctly on paper, but no block has been run with real campers — expect the first
 delivery to run long. Delete this file once the track has run once.
 
 ---
@@ -28,7 +28,7 @@ Each item names what breaks if you skip it.
    of the room. There is deliberately no pre-written demo file.
 
 4. **Confirm class size.** HS Session 4 has 30 minutes of demo time; at 90 seconds each
-   that's 20 students with zero slack. Above ~20, cut to 60 seconds or run part of it as
+   that's 20 campers with zero slack. Above ~20, cut to 60 seconds or run part of it as
    a gallery walk — decide before the day, not during it.
 
 5. **Decide the MS break policy.** All four MS sessions are 85 minutes straight. Each

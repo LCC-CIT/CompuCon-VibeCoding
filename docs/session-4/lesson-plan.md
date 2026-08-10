@@ -49,7 +49,7 @@ demos something broken.
 
 ### Pitch to a partner (5 min)
 
-Each student gets ~2 minutes to pitch:
+Each camper gets ~2 minutes to pitch:
 
 ```
 I'm building ______.
@@ -72,7 +72,7 @@ Partner asks one question:
 
 ### Instructor scope check (7 min)
 
-Every student gets a ~15-second sign-off. You are looking for one thing:
+Every camper gets a ~15-second sign-off. You are looking for one thing:
 
 > **Can this be built in 38 minutes by someone who has been doing this for three
 > sessions?**
@@ -138,7 +138,7 @@ Walk the room enforcing the last one.
 ### The halftime rule
 
 Not having a running app at the 18-minute mark is the single best early warning signal
-you have. Catch those students there, not at 0:50.
+you have. Catch those campers there, not at 0:50.
 
 ### Instructor circulation, in priority order
 
@@ -165,7 +165,7 @@ Plan 45 seconds:
 3. One thing that broke and how you fixed it.
 ```
 
-**Practice the clicks.** The most common demo failure is a student clicking around live,
+**Practice the clicks.** The most common demo failure is a camper clicking around live,
 hitting a bug they've never hit before, and freezing.
 
 ---
@@ -180,12 +180,12 @@ hitting a bug they've never hit before, and freezing.
 - Applause for every single demo, no exceptions
 - One compliment per demo from the audience
 
-**Instructor:** for each demo, name one specific thing that student did well. Not "great
+**Instructor:** for each demo, name one specific thing that camper did well. Not "great
 job" — "you caught that the score could go negative," "you tested that before you showed
 it." Specific praise for the *process*, not the output. It teaches everyone watching what
 to value.
 
-Item 3 is required. If a student skips it, ask: *"What broke?"* Never let a demo look
+Item 3 is required. If a camper skips it, ask: *"What broke?"* Never let a demo look
 effortless — that's how you get a room full of kids who think they're the only one who
 struggled.
 
@@ -229,7 +229,7 @@ Make sure everyone gets their project off the machine — USB, email, or shared 
 to code today was told twice last session that this wasn't happening — hold the line, or
 demos run over and the wrap-up gets cut, which is the part that actually sticks.
 
-The one exception: the 10-minute setup block exists so a student whose app won't launch
+The one exception: the 10-minute setup block exists so a camper whose app won't launch
 can restore their `capstone-demo` copy. That's recovery, not building.
 
 ---
@@ -255,7 +255,7 @@ Copy-Item -Recurse capstone-demo capstone
 This is the payoff for the save-point discipline. Point it out when it saves someone —
 it will save someone.
 
-Instructor: circulate and find the students whose app *doesn't* run. Those are the only
+Instructor: circulate and find the campers whose app *doesn't* run. Those are the only
 people who need you in this block. Get them to a working version even if it's an older
 one with fewer features.
 
@@ -268,7 +268,7 @@ Rehearsal, twice through:
 
 ## 0:10 — Showcase (30 min)
 
-90 seconds each, hard limit, visible timer. With ~20 students that's tight — keep it
+90 seconds each, hard limit, visible timer. With ~20 campers that's tight — keep it
 moving and don't let questions expand.
 
 **Format — five things:**
@@ -281,11 +281,11 @@ moving and don't let questions expand.
 5. What you'd add next.
 ```
 
-Items 3 and 4 are **required**. If a student skips them, ask: *"What broke?"* and
+Items 3 and 4 are **required**. If a camper skips them, ask: *"What broke?"* and
 *"What did the AI get wrong?"* Never let a demo look effortless.
 
 Item 4 is the one that matters most. It's the entire track compressed into one sentence
-per student, and hearing twenty of them back to back makes the point better than any
+per camper, and hearing twenty of them back to back makes the point better than any
 lecture could.
 
 **Rules for the room:**
@@ -295,7 +295,7 @@ lecture could.
 - One question or compliment per demo — encourage technical ones: *"why did you split it
   that way?"*, *"what happens if I put a negative number in?"*
 
-**Instructor:** for each demo, name one specific thing that student did well. Process,
+**Instructor:** for each demo, name one specific thing that camper did well. Process,
 not output — "you split that into three files and it made your bug obvious," "you caught
 that before it bit you." You know each project from Session 3; use that.
 
@@ -387,7 +387,7 @@ next time you run this track — write down what you hear.
 **HS:**
 
 - [ ] Visible countdown timer — 60 minutes with ~20 demos has no slack
-- [ ] Know every student's project going in, so you can name something specific per demo
+- [ ] Know every camper's project going in, so you can name something specific per demo
 - [ ] Be ready to restore `capstone-demo` copies in the setup block
 - [ ] Decide your cut order in advance if demos run long (item 5, then item 1 — never 3
       or 4)

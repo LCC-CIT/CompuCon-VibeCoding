@@ -6,7 +6,7 @@ schedules are genuinely different, not just a pacing dial. See the schedule belo
 
 **This repo contains teaching materials, not software.** There is no app to build, no
 tests to run, no dependencies. The curriculum is Markdown, meant to be read by an
-instructor in front of a classroom or handed to a student. `docs/` *is* the published
+instructor in front of a classroom or handed to a camper. `docs/` *is* the published
 site — GitHub Pages renders the markdown there directly, so there is no separate HTML
 to maintain.
 
@@ -29,8 +29,8 @@ docs/                          THE SITE — GitHub Pages serves from here
   style.css                    Shared theme          ┘
   session-1/
     lesson-plan.md             Instructor script — both age groups
-    ms-camper-notes.md         Student handout, middle school
-    hs-camper-notes.md         Student handout, high school
+    ms-camper-notes.md         Camper handout, middle school
+    hs-camper-notes.md         Camper handout, high school
   session-2/                   (same three files)
   session-3/
   session-4/
@@ -105,7 +105,7 @@ schoolers are the youngest readers. Keep sentences short and gloss any jargon
 
 ## Hard constraints — do not change without asking
 
-**Session 1 must stand alone**, for both age groups. Students can attend one session
+**Session 1 must stand alone**, for both age groups. Campers can attend one session
 only. Session 1 has to deliver a complete experience ending in a working app they built.
 Never add a Session 1 dependency on later material.
 
@@ -130,17 +130,17 @@ Three structural facts the curriculum is built around. Don't undo them by accide
 - **HS Session 4 is 60 minutes and contains no build time.** It is demos and wrap-up
   only. The HS capstone is pitched at the end of Session 2 and must be *finished* during
   Session 3. Don't add build activities to HS Session 4 — the 10-minute setup block
-  exists only so a student can restore a working copy, not to code.
+  exists only so a camper can restore a working copy, not to code.
 - **MS pitches and builds its capstone entirely within Session 4** (85 min, ~38 of which
   is build time). That's why the MS scope check is aggressive and why two must-haves is
   the cap.
 
 **Python + tkinter is the default stack.** Chosen for zero install friction on the
-Windows lab image and a visible window inside 60 seconds. Students who already know
+Windows lab image and a visible window inside 60 seconds. Campers who already know
 another stack may use it, but all examples stay Python + tkinter. Do not add examples
 requiring pip installs, API keys, accounts, or network access.
 
-**No git.** Students do not use version control. "Save points" are manual folder copies:
+**No git.** Campers do not use version control. "Save points" are manual folder copies:
 
 ```powershell
 cd $HOME\Documents\Projects
@@ -150,7 +150,7 @@ Copy-Item -Recurse myproject-working myproject    # undo, step 2
 ```
 
 Taught in Session 3 for both age groups. Same concept as a commit, no new tool. Always
-offer the File Explorer equivalent alongside the commands — some students need the
+offer the File Explorer equivalent alongside the commands — some campers need the
 visual route. **Grep for `git` before calling any file finished.**
 
 **Windows 11, PowerShell 5.1 or 7 — lab machines may run either.** Write every command
@@ -166,15 +166,15 @@ so it works on both:
 escalates. Any new material should reinforce it, not dilute it. If a block has to be cut
 for time, cut something else.
 
-**Roughly 20% instructor talking, 80% students building.** Check any addition against
+**Roughly 20% instructor talking, 80% campers building.** Check any addition against
 this. The most common failure mode when expanding a curriculum is adding lecture.
 
 ---
 
-## The tooling students use
+## The tooling campers use
 
 - **`cc-ds`** — Claude Code on DeepSeek models, preconfigured on lab laptops. The default.
-- **`cc`** — Claude Code on Anthropic models, for students with their own Claude Pro
+- **`cc`** — Claude Code on Anthropic models, for campers with their own Claude Pro
   account. Functionally identical for this curriculum.
 
 Mentioned once in Session 1, then treated as the same thing. Don't add material that
@@ -229,7 +229,7 @@ use case.
 - **Check timing tables after any edit to a session file** — for both MS and HS, since they
   no longer sum to the same total. This is the easiest thing to silently break.
 - **Grep for `git` before treating a file as finished.** It should only appear inside an
-  explanation of *why* it was removed, never as an instruction to students.
+  explanation of *why* it was removed, never as an instruction to campers.
 - **Check cross-file links.** README links into `docs/` with `.md` filenames (it's read
   on GitHub, not the site). Links *between* curriculum files are `.html` — that's the
   URL GitHub Pages serves, and nothing rewrites it, so a `.md` link would 404 on the

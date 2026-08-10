@@ -25,7 +25,7 @@ method; everything else differs.
 | 0:12–0:25 | When the AI makes it worse | Talk + demo |
 | 0:25–0:40 | The debugging method | Whole group |
 | 0:40–1:10 | Build: make your app good | Independent |
-| 1:10–1:25 | Show one thing you fixed | Students demo |
+| 1:10–1:25 | Show one thing you fixed | Campers demo |
 
 > **No break scheduled.** If your group needs one, take 5 at 0:40 and cut the build to
 > 25 minutes.
@@ -47,7 +47,7 @@ method; everything else differs.
 
 # MIDDLE SCHOOL — Make It Solid (85 min)
 
-Students bring the app they built in Session 2 (or Session 1 — either is fine). Today
+Campers bring the app they built in Session 2 (or Session 1 — either is fine). Today
 isn't about building something new. It's about making one thing genuinely good.
 
 > "Today we're not making your app bigger. We're making it *tougher*. By the end it
@@ -86,7 +86,7 @@ Copy-Item -Recurse madlibs-working madlibs
 ```
 
 > You can also do this entirely in File Explorer: right-click the folder → Copy →
-> Paste → rename it. Show both. Some students will find the visual version much easier,
+> Paste → rename it. Show both. Some campers will find the visual version much easier,
 > and it is exactly as valid.
 
 ### Practice right now, everyone
@@ -197,7 +197,7 @@ fix that works.**
 - Click buttons in the wrong order
 - Resize the window as small as it goes
 
-Checklist on the board — students tick off what they've tested.
+Checklist on the board — campers tick off what they've tested.
 
 ### Job 2: Make it look good (10 min)
 
@@ -227,7 +227,7 @@ Be ready to tell the room what you learned.
 
 ## 1:10 — Show One Thing You Fixed (15 min)
 
-Not a full demo. Each student shows **one bug they found and fixed**, in about 30
+Not a full demo. Each camper shows **one bug they found and fixed**, in about 30
 seconds:
 
 1. Here's what broke it
@@ -252,7 +252,7 @@ Two questions to think about before then:
 
 # HIGH SCHOOL — Build Something Bigger (180 min)
 
-Students continue the capstone they pitched and planned in Session 2. **It has to be
+Campers continue the capstone they pitched and planned in Session 2. **It has to be
 finished by the end of today.** Session 4 is 60 minutes and is demos only — say this at
 the start and again at the halfway mark.
 
@@ -305,7 +305,7 @@ Now "change the scoring" means the AI reads `scoring.py`. Faster, more accurate,
 
 ## 0:12 — Plan Before You Build (20 min)
 
-Students already have a `PLAN.md` from Session 2. Today they pressure-test it against
+Campers already have a `PLAN.md` from Session 2. Today they pressure-test it against
 what they now know about file splitting.
 
 ### Ask for a plan, not code
@@ -349,7 +349,7 @@ Run it. Check it. Then step 2. This is Session 2's one-at-a-time rule scaled up 
 `PLAN.md` is what you check finished work against — you have a written list of what each
 file is supposed to do, so "did it do what I asked" has an actual answer.
 
-### Students revise their own plan (8 min)
+### Campers revise their own plan (8 min)
 
 Everyone opens their `PLAN.md` and asks:
 
@@ -421,7 +421,7 @@ Now you never re-explain your project. Every new session already knows.
 > "This is the difference between an intern you brief every morning and one who read the
 > handbook."
 
-**Every student writes one for their capstone before the build block.** Two minutes, and
+**Every camper writes one for their capstone before the build block.** Two minutes, and
 the payoff is immediate.
 
 ### Ask before you commit
@@ -540,7 +540,7 @@ broken app next session.
 Anyone stuck on the same problem for 20 minutes: **restore the last working copy and
 approach it differently.**
 
-### For students who finish early
+### For campers who finish early
 
 - Try to break it, then fix what breaks
 - Ask: *"What's confusing about this app for someone who's never seen it?"* Fix that
@@ -606,7 +606,7 @@ That's the version being demoed. If they tinker at home and break it, this one s
 5. What you'd add next.
 ```
 
-**Practice the clicks.** The most common demo failure is a student clicking around live,
+**Practice the clicks.** The most common demo failure is a camper clicking around live,
 hitting a bug they've never hit before, and losing their nerve. Rehearsing the path twice
 fixes it.
 
@@ -626,9 +626,9 @@ Have a fallback ready: if it crashes on stage, say what it does and keep going.
 
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine
 - [ ] Practice the `Copy-Item -Recurse` / `Remove-Item -Recurse` restore cycle yourself
-      first — you'll be walking students through it under time pressure
+      first — you'll be walking campers through it under time pressure
 - [ ] Know the File Explorer version too (right-click → Copy → Paste → rename); some
-      students will need the visual route
+      campers will need the visual route
 - [ ] Recruit two volunteers with real bugs before the debugging block starts
 
 **MS only:**
@@ -641,5 +641,5 @@ Have a fallback ready: if it crashes on stage, say what it does and keep going.
 - [ ] A grown 200+ line single-file app for the opening demo
 - [ ] `CLAUDE.md` and `PLAN.md` templates ready to project
 - [ ] Sample multi-file project to show the file split
-- [ ] **Know which students are behind before the build block starts.** They need scope
+- [ ] **Know which campers are behind before the build block starts.** They need scope
       cut today — there is no build time in Session 4.

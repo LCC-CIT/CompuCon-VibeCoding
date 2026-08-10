@@ -1,6 +1,6 @@
 # Session 1 — Make Something Work
 
-**This is a standalone session for both age groups.** A student who attends only this session leaves with a working app they built, understands the loop that produced it, and could do it again. Nothing in this session assumes a Session 2.
+**This is a standalone session for both age groups.** A camper who attends only this session leaves with a working app they built, understands the loop that produced it, and could do it again. Nothing in this session assumes a Session 2.
 
 ---
 
@@ -19,7 +19,7 @@ independent build time and on the concepts blocks.
 | 0:40–0:48 | The three moves: Ask, Run, Fix | Short talk + demo |
 | 0:48–1:10 | Build #2: make it yours | Independent |
 | 1:10–1:18 | The AI was wrong + break your app | Whole group |
-| 1:18–1:25 | Showcase + take it home | Students demo |
+| 1:18–1:25 | Showcase + take it home | Campers demo |
 
 > **No break is scheduled.** 85 minutes is the whole session. If your group needs one,
 > take 5 at the 0:48 mark and cut Build #2 to 17 minutes — don't cut the 1:10 block.
@@ -34,7 +34,7 @@ independent build time and on the concepts blocks.
 | 0:50–1:05 | The three moves: Ask, Run, Fix | Short talk + demo |
 | 1:05–1:40 | Build #2: pick your own app | Independent |
 | 1:40–1:52 | The AI was wrong + break your app | Whole group |
-| 1:52–2:00 | Showcase + take it home | Students demo |
+| 1:52–2:00 | Showcase + take it home | Campers demo |
 
 ---
 
@@ -119,7 +119,7 @@ Point at the terminal:
   project folder.
 - `Ctrl+C` gets you out. `cc-ds` (or `cc`) gets you back in.
 
-> Say `cc-ds` for the rest of the session. Students on `cc` will follow along fine —
+> Say `cc-ds` for the rest of the session. Campers on `cc` will follow along fine —
 > don't say both every time.
 
 **MS/HS**
@@ -147,7 +147,7 @@ Walk the room. This is where setup problems surface — catch them now.
 
 ### Prompt 1 (MS 10 min / HS 10 min)
 
-Put this on the projector. Students type it themselves (typing it makes them read it):
+Put this on the projector. Campers type it themselves (typing it makes them read it):
 
 ```
 Build a Mad Libs generator in Python with a tkinter window.
@@ -264,12 +264,12 @@ It's a real professional skill and they're learning it today.
 
 This is where the two age groups genuinely diverge in ambition.
 
-**MS: make it yours.** Students keep working on `story.py` and customize it heavily —
+**MS: make it yours.** Campers keep working on `story.py` and customize it heavily —
 their own story templates, inside jokes, colors, extra buttons, a random-story mode.
 Anyone who finishes early and wants a fresh app may start one from
 [`project-ideas.md`](../project-ideas.html), Starter tier only.
 
-**HS: pick your own app.** Students choose from [`project-ideas.md`](../project-ideas.html)
+**HS: pick your own app.** Campers choose from [`project-ideas.md`](../project-ideas.html)
 or bring their own. Instructor approves the idea before they start — sanity check on
 scope. Starter or Solid tier.
 
@@ -293,12 +293,12 @@ Independent work. Instructor circulates.
 
 **Instructor moves while circulating:**
 
-- Student stuck on the same bug for 8+ minutes → tell them to describe the bug out
+- Camper stuck on the same bug for 8+ minutes → tell them to describe the bug out
   loud to you first. They'll often fix it mid-sentence.
-- Student asking for huge changes → "What's the smallest version of that? Ask for that."
-- Student who finishes fast → "Now try to break it. Type nothing in the boxes. Type a
+- Camper asking for huge changes → "What's the smallest version of that? Ask for that."
+- Camper who finishes fast → "Now try to break it. Type nothing in the boxes. Type a
   number where a word goes. Click the button 20 times."
-- Student whose app got tangled → `Ctrl+C`, delete the file, start fresh with a better
+- Camper whose app got tangled → `Ctrl+C`, delete the file, start fresh with a better
   first prompt. Restarting is cheap and this is a valuable lesson.
 
 ### Land it (MS 4 min / HS 5 min)
@@ -339,7 +339,7 @@ Let them find it. Seed hints only if they stall:
 - What if I type " Paris" with a space? *(marked wrong)*
 - What does the percentage print if I get 1 out of 3? *(`33.33333333333333%`)*
 
-None of this crashes. It runs perfectly. It's just wrong, and it will hand a student a
+None of this crashes. It runs perfectly. It's just wrong, and it will hand a camper a
 score they didn't earn.
 
 Then land the point:
@@ -372,7 +372,7 @@ Found something? Fix it. That's the last change of the day.
 ### Showcase (MS 5 min / HS 5 min)
 
 There is not time for everyone to present. Run a **gallery walk**: everyone leaves their
-app running, students circulate for 3 minutes, then 3–4 volunteers show theirs to the
+app running, campers circulate for 3 minutes, then 3–4 volunteers show theirs to the
 whole room for 45 seconds each.
 
 Volunteers cover two things:
@@ -420,8 +420,8 @@ to tell when the AI is lying to you."**
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine — create it
       if it's missing
 - [ ] Confirm tkinter is available: `python -c "import tkinter"` (no output = good)
-- [ ] Know that students with Claude Pro can use `cc` — mention it once at the start
-- [ ] Have `dice.py` demo working before students arrive
+- [ ] Know that campers with Claude Pro can use `cc` — mention it once at the start
+- [ ] Have `dice.py` demo working before campers arrive
 - [ ] Project the idea board and the prompt template
 - [ ] Index cards for the take-home loop
 - [ ] Know how to `Ctrl+C` out of a hung session and restart — you'll do it a dozen times

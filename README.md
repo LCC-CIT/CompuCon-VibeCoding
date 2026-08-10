@@ -1,10 +1,10 @@
 # CompuCon Vibe Coding Track
 
-Four sessions. Students build real, working apps by describing what they want to
+Four sessions. Campers build real, working apps by describing what they want to
 an AI coding assistant, then testing, checking, and refining until it's right.
 
-**Session 1 is standalone.** A student who shows up for one session leaves with a
-finished app they built and can demo. Later sessions go deeper for students who stay.
+**Session 1 is standalone.** A camper who shows up for one session leaves with a
+finished app they built and can demo. Later sessions go deeper for campers who stay.
 
 **Session lengths differ by age group, and so does the content:**
 
@@ -87,7 +87,7 @@ what to do before Session 1.
 
 ## Learning Goals Across the Track
 
-By the end, students can:
+By the end, campers can:
 
 1. **Describe** an app clearly enough that an AI can build it
 2. **Run** what came back and read what happened
@@ -103,18 +103,18 @@ every single day.
 
 ## The Setup
 
-**Windows 11 lab laptops, pre-configured.** Students open **PowerShell** (via Windows
+**Windows 11 lab laptops, pre-configured.** Campers open **PowerShell** (via Windows
 Terminal) and type:
 
 ```powershell
 cc-ds
 ```
 
-This launches Claude Code wired to a DeepSeek model. Students never touch an API key.
+This launches Claude Code wired to a DeepSeek model. Campers never touch an API key.
 
-**Students with their own Claude Pro account** can type `cc` instead, which runs Claude
+**Campers with their own Claude Pro account** can type `cc` instead, which runs Claude
 Code on Anthropic's models. Both work identically for everything in this curriculum —
-students should use whichever they have. Mention both in Session 1 and then stop
+campers should use whichever they have. Mention both in Session 1 and then stop
 distinguishing.
 
 **Instructors should know:** Claude Code is Anthropic's terminal coding agent. It can
@@ -124,7 +124,7 @@ a codebase. On lab machines we run it against DeepSeek's models rather than Anth
 running different models *is* the lesson: the interface and the model are separable
 pieces. Worth surfacing in Session 2 (HS only — MS skips it for time).
 
-Each student works in their own folder:
+Each camper works in their own folder:
 
 ```powershell
 cd $HOME\Documents\Projects
@@ -147,12 +147,12 @@ the AI's whole world, and a focused folder means focused attention.
 Python + tkinter is the default and what every example uses. It's chosen deliberately:
 zero install friction on the lab image, and a visible window in the first 60 seconds.
 
-**Students who already know another stack may use it.** Web (HTML/CSS/JS) is the most
+**Campers who already know another stack may use it.** Web (HTML/CSS/JS) is the most
 likely alternative and works fine. The curriculum's actual content — prompt sizing,
 verification, scope cutting, save points — is stack-independent. Only the example code
 changes.
 
-**No git.** Students don't use version control. "Save points" means copying the project
+**No git.** Campers don't use version control. "Save points" means copying the project
 folder when it works and copying it back to undo — taught in
 [Session 3](docs/session-3/lesson-plan.md) for both age groups.
 
@@ -182,12 +182,12 @@ teaching content — but note MS's total time (5h40m) is well under half of HS's
 
 ## What We Are Not Teaching
 
-Worth being explicit with students, especially the older ones:
+Worth being explicit with campers, especially the older ones:
 
 - **We're not teaching them to skip learning to code.** We're teaching a skill that
-  works *alongside* it. The students who can read code will steer better, and we say so.
+  works *alongside* it. The campers who can read code will steer better, and we say so.
 - **We're not claiming the AI is right.** Every session includes at least one moment
-  where the AI produces something wrong or weird and students have to catch it. This is
+  where the AI produces something wrong or weird and campers have to catch it. This is
   a feature of the curriculum, not an accident.
 - **We're not doing a lecture course.** Target ratio is roughly 20% talking, 80% building.
 

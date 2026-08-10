@@ -7,7 +7,7 @@ say it, and how to actually verify what came back.
 Sessions 2–3, because HS Session 4 is only 60 minutes and is demo-and-wrap-up only. MS
 does not pitch a capstone until Session 4.
 
-**If new students joined today:** run the 6-minute dice roller demo from Session 1 and
+**If new campers joined today:** run the 6-minute dice roller demo from Session 1 and
 give them the four-question prompt template. They'll keep up.
 
 ---
@@ -304,7 +304,7 @@ this session. Keep it small on purpose.
 
 ### Spec sheet (MS 6 min / HS 10 min, on paper)
 
-Every student fills this out before touching a keyboard:
+Every camper fills this out before touching a keyboard:
 
 ```
 APP NAME:
@@ -394,7 +394,7 @@ Swap back. Fix the top bug your partner found.
 **MS does not do this today.** MS pitches in Session 4. Skip to the wrap.
 
 HS's capstone build has to fit in the rest of this session plus Session 3, because
-Session 4 is 60 minutes of demo and wrap-up with no build time. Students need to know
+Session 4 is 60 minutes of demo and wrap-up with no build time. Campers need to know
 that now.
 
 > "Your Session 4 is one hour, and it's all demos. That means your project has to be
@@ -403,7 +403,7 @@ that now.
 
 ### Pitch to a partner (8 min)
 
-Each student gets 3 minutes to pitch, using this:
+Each camper gets 3 minutes to pitch, using this:
 
 ```
 I'm building ______.
@@ -429,7 +429,7 @@ Question 2 is the important one. Almost everyone should cut one.
 
 ### Instructor scope check (12 min)
 
-Every student gets a ~30-second sign-off. You are looking for one thing:
+Every camper gets a ~30-second sign-off. You are looking for one thing:
 
 > **Can this be built in the time left in this session plus one more session?**
 
@@ -476,7 +476,7 @@ Four things, in order:
 4. **Build component 1 only.** Run it. Check it.
 
 Full multi-file technique comes in Session 3 — this block is about getting a plan on
-disk and one working piece before students leave.
+disk and one working piece before campers leave.
 
 ### End of session
 
@@ -520,7 +520,7 @@ capstone. Session 4 is demos only."
 
 - [ ] **Print camper notes** for the right age group, one per camper
 - [ ] Print the bad-prompts handout (one per pair) — 3 prompts for MS, 6 for HS
-- [ ] Print spec sheets (one per student, plus spares)
+- [ ] Print spec sheets (one per camper, plus spares)
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine
 - [ ] Have a Session 1 app on hand for the six-changes-at-once demo (HS)
 - [ ] Have the empty-list average bug ready to demo live
