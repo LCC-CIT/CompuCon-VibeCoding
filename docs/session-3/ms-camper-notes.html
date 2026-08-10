@@ -145,7 +145,7 @@ it</li>
 <p>Open <strong>PowerShell</strong>. Go to the project you built last
 session:</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> madlibs</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
 <p>(Use your own folder name. <code>cc</code> instead of
@@ -166,13 +166,13 @@ fix it. It gets worse.</p>
 folder</h3>
 <p><strong>To SAVE</strong> (do this every time your app works):</p>
 <div class="sourceCode" id="cb3"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse madlibs madlibs<span class="op">-</span>working</span></code></pre></div>
 <p>That makes a complete copy of your folder, frozen at a moment when it
 worked.</p>
 <p><strong>To GO BACK:</strong></p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse madlibs</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse madlibs<span class="op">-</span>working madlibs</span></code></pre></div>
 <p>Line 2 throws away the broken version. Line 3 brings back the good

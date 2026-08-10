@@ -116,9 +116,9 @@ gotchas worth knowing before you’re in front of 25 kids</h3>
 to tell which from the outside — so write and teach every command
 one-per-line regardless of version. That syntax works on both.</li>
 <li><strong>Paths use backslashes</strong> —
-<code>$HOME\Documents</code>, not <code>~/Documents</code>.
-<code>/</code> often works anyway, but the AI may generate either; both
-are fine in Python.</li>
+<code>$HOME\Documents\Projects</code>, not
+<code>~/Documents/Projects</code>. <code>/</code> often works anyway,
+but the AI may generate either; both are fine in Python.</li>
 <li><strong>Execution policy</strong> can block scripts. It won’t affect
 anything in this curriculum (we only run <code>python file.py</code>),
 but if you hit it: <code>Get-ExecutionPolicy</code> to check.</li>
@@ -172,8 +172,8 @@ re-reads the project immediately.</p>
 wrong file / can’t find the file</h3>
 <p>Almost always started in the wrong folder.</p>
 <div class="sourceCode" id="cb3"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwd</span>     <span class="co"># where am I?</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>      <span class="co"># is my file here?</span></span></code></pre></div>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Location</span>    <span class="co"># where am I?</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span>   <span class="co"># is my file here?</span></span></code></pre></div>
 <p><code>Ctrl+C</code>, <code>cd</code> to the right folder,
 <code>cc-ds</code> again.</p>
 <h3 id="it-keeps-fixing-and-making-it-worse">It keeps “fixing” and
@@ -232,7 +232,7 @@ on line 23, fix it.”</em></p>
 <p>Students don’t use git. Save points are folder copies — see Session
 3. The reference commands:</p>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse myproject myproject<span class="op">-</span>working    <span class="co"># SAVE</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse myproject                    <span class="co"># UNDO (two steps)</span></span>
@@ -280,8 +280,9 @@ id="a-student-is-copying-into-the-project-folder-instead-of-beside-it">A
 student is copying into the project folder instead of beside it</h3>
 <p>Produces <code>myproject\myproject-working\...</code>, which confuses
 both the student and the AI — Claude Code will read the nested copy as
-part of the project. Make sure they <code>cd $HOME\Documents</code>
-first, so copies sit <em>next to</em> the project, not inside it.</p>
+part of the project. Make sure they
+<code>cd $HOME\Documents\Projects</code> first, so copies sit <em>next
+to</em> the project, not inside it.</p>
 <p>Worth showing on the projector once. It’s the mistake that generates
 the weirdest downstream symptoms.</p>
 <hr />

@@ -153,7 +153,7 @@ time. Whatever runs when you leave today is what you demo.</p>
 <hr />
 <h2 id="starting-up">Starting up</h2>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
 <p><code>cc</code> if you’re on your own Claude Pro account. <strong>Run
@@ -280,11 +280,11 @@ tool.</p>
 <h2 id="save-points">Save points</h2>
 <p><strong>SAVE</strong> — every time it works:</p>
 <div class="sourceCode" id="cb10"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>working</span></code></pre></div>
 <p><strong>RESTORE:</strong></p>
 <div class="sourceCode" id="cb11"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse capstone</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone<span class="op">-</span>working capstone</span></code></pre></div>
 <p>Name copies meaningfully — <code>capstone-scoring-works</code>, not
@@ -297,9 +297,10 @@ running or the AI is open in that folder. Close the window,
 <code>Copy-Item -Recurse SOURCE DESTINATION</code>. Reversing it copies
 the broken version over your good one.</p>
 <p><strong>Don’t copy into the project folder.</strong>
-<code>cd $HOME\Documents</code> first, so copies sit <em>beside</em>
-your project, not inside it. A copy inside the folder gets read by the
-AI as part of your project and causes genuinely bizarre problems.</p>
+<code>cd $HOME\Documents\Projects</code> first, so copies sit
+<em>beside</em> your project, not inside it. A copy inside the folder
+gets read by the AI as part of your project and causes genuinely bizarre
+problems.</p>
 <h3 id="copies-as-a-verification-tool">Copies as a verification
 tool</h3>
 <p>This is check #3 from last session — <em>“did it change anything I
@@ -387,7 +388,7 @@ advantage of having split things up.</li>
 Whatever runs now is what you show.</p>
 <h3 id="make-the-demo-copy">Make the demo copy</h3>
 <div class="sourceCode" id="cb13"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>demo</span></code></pre></div>
 <p>If you tinker at home and break something, this one survives.</p>
 <h3 id="plan-your-90-seconds">Plan your 90 seconds</h3>

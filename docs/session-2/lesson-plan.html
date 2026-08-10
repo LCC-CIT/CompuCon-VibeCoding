@@ -663,7 +663,7 @@ First Build — HS only (20 min)</h2>
 <p>Set up the project properly. This 20 minutes is what makes Session 3
 productive.</p>
 <div class="sourceCode" id="cb8"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mkdir capstone</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> capstone</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cc<span class="op">-</span>ds</span></code></pre></div>
@@ -687,7 +687,7 @@ getting a plan on disk and one working piece before students leave.</p>
 <p>Everyone makes a save-point copy of their project folder before they
 leave:</p>
 <div class="sourceCode" id="cb10"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents</span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Documents\Projects</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copy-Item</span> <span class="op">-</span>Recurse capstone capstone<span class="op">-</span>working</span></code></pre></div>
 <p>That’s the whole backup system, taught properly in Session 3. For
 now: <strong>it works, so copy it.</strong></p>
@@ -715,6 +715,9 @@ for the right age group, one per camper</label></li>
 per pair) — 3 prompts for MS, 6 for HS</label></li>
 <li><label><input type="checkbox" />Print spec sheets (one per student,
 plus spares)</label></li>
+<li><label><input type="checkbox" />Confirm the
+<code>Documents\Projects</code> folder exists on every lab
+machine</label></li>
 <li><label><input type="checkbox" />Have a Session 1 app on hand for the
 six-changes-at-once demo (HS)</label></li>
 <li><label><input type="checkbox" />Have the empty-list average bug
