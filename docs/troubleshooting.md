@@ -321,3 +321,7 @@ Have this ready. It's a real risk and it will happen at least once.
 
 None of this is filler. Verification and scoping are the parts campers are worst at, and
 they don't need a computer.
+
+------
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).

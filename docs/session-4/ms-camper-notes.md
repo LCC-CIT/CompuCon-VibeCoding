@@ -279,3 +279,7 @@ them, and build that.** Real people find real bugs, and it's a lot more fun than
 for yourself.
 
 > You built three things that didn't exist before you got here. Go build a fourth.
+
+------
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).

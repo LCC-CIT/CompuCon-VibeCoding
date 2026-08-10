@@ -433,3 +433,7 @@ next time you run this track — write down what you hear.
       or 4)
 - [ ] Write down the reflection answers; they're your notes for next year
 - [ ] Certificates or something to hand out, if CompuCon does that
+
+------
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).

@@ -708,3 +708,7 @@ Have a fallback ready: if it crashes on stage, say what it does and keep going.
 - [ ] Sample multi-file project to show the file split
 - [ ] **Know which campers are behind before the build block starts.** They need scope
       cut today — there is no build time in Session 4.
+
+------
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).

@@ -564,3 +564,7 @@ capstone. Session 4 is demos only."
 - [ ] **HS only:** print the scope-cut table for the pitch block
 - [ ] **HS only:** be ready to sign off on ~25 capstone pitches in 12 minutes. Practice
       saying "cut one" quickly and kindly.
+
+------
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).

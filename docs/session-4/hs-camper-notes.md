@@ -231,3 +231,7 @@ Copy-Item -Recurse myproject myproject-working    # save point
 
 > "You built something this week that didn't exist before you sat down. Whatever you do
 > next — that's what it feels like. Go do it again."
+
+------
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
