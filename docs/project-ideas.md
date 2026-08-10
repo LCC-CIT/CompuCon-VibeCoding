@@ -100,154 +100,220 @@ tables above link here.
 
 #### Mad Libs
 
-Fill in a few words, get a silly story back. The classic first build — quick to finish,
-easy to make funnier.
+The app shows a fill-in-the-blank story. Each blank is labeled with a word type — noun,
+verb, adjective — and the user types a word into each one. A button fills every word into
+the story and shows the finished result. The story and its blanks are stored in the code,
+so changing them changes the game.
 
 #### Dice Roller
 
-A big button. Click it, get a number. Add sounds, colors, or a list of your last rolls.
+The window shows one big button and a number. Each click rolls a 20-sided die and
+displays a random result from 1 to 20. A list of recent rolls can appear beneath the
+button.
 
 #### Magic 8-Ball
 
-Type a question, get a mysterious answer. Writing your own answers is the fun part.
+The user types a question into a box and clicks the button. The app answers with a random
+message from a list — "Yes", "No", "Ask again later". The list of answers is stored in
+the code, so the user can add their own.
 
 #### Coin Flip Streak
 
-Flip a coin and count heads versus tails. Simple, but the counting gets interesting.
+Each click flips a coin and shows heads or tails. The window keeps a running count of
+heads and tails, and shows how many of the same side have landed in a row.
 
 #### Compliment Generator
 
-A button that says something nice. Personalizing the compliments is where it gets good.
+The window shows a button. Each click displays a random compliment from a list of
+messages stored in the code. The user can add new messages to the list.
 
 #### Random Team Picker
 
-Type in names, get shuffled groups back. Actually useful — campers will use it to split
-into teams.
+The user types a list of names, one per line. A button splits the names into randomly
+chosen groups of a set size and displays the teams. Clicking again shuffles the names
+into new groups.
 
 #### Color Picker
 
-Sliders that change the window's color as you move them. Instant visual payoff.
+The window shows three sliders — one each for red, green, and blue. Moving a slider
+changes the background to the color the three values describe. The current numbers are
+shown on the window.
 
 #### Countdown Timer
 
-Set minutes, watch it count down, get beeped at zero. Timing is harder than it looks.
+The user sets a number of minutes and presses Start. The window counts down, showing the
+time remaining, and makes a sound when it reaches zero. Pause and Reset buttons stop or
+restart the countdown.
 
 #### Rock Paper Scissors
 
-Play the computer and keep score. The scorekeeping is the real lesson.
+The user picks rock, paper, or scissors. The app picks one at random, compares the two,
+and says who won. A scoreboard on the window tracks wins, losses, and ties.
 
 #### Unit Converter
 
-Miles to kilometers, Fahrenheit to Celsius, anything. Great for finding wrong-input bugs.
+The user picks a conversion — miles to kilometers, Fahrenheit to Celsius, and a few more
+— types a number, and the app shows the converted result. Choosing a different unit
+clears the old number and starts fresh.
 
 ### Solid
 
 #### Quiz Game
 
-Multiple-choice questions with a score at the end. Everything that can go wrong with
-scoring lives here.
+The app shows multiple-choice questions one at a time. The user picks an answer, the app
+says whether it was right or wrong, and the next question appears. A final score is shown
+when all the questions are done.
 
 #### Todo List
 
-Add tasks, check them off, delete them. Save to a file so the list survives a restart.
+The app shows a list of tasks. The user types a new task to add it, checks tasks off when
+done, and removes tasks. The list is saved to a file, so it is still there when the app
+reopens.
 
 #### Pomodoro Timer
 
-Twenty-five minutes of work, five-minute break, on a loop. Real logic, real state.
+The timer runs a repeating cycle — 25 minutes of work, then 5 minutes of break. The
+window shows which phase it is in and the time left in that phase. It switches phases on
+its own and keeps a count of completed cycles.
 
 #### Flashcards
 
-Front of a card, back of a card, mark it right or wrong. The card data structure matters.
+The app shows a card with a question or term on the front. A click flips the card to show
+the answer on the back. Buttons mark the card as known or unknown, and the app moves to
+the next card and keeps a tally of both.
 
 #### Password Strength Checker
 
-Type a password, get a rating as you type. Rules you can break.
+The user types a password and the app scores it as it is typed — weak, okay, or strong —
+based on rules like length and whether it mixes letters, numbers, and symbols. The rating
+updates with every keystroke.
 
 #### Hangman
 
-Guess the word before you run out of tries. Real game logic with win and lose states.
+The app picks a secret word. The user guesses one letter at a time; the app fills in every
+place that letter appears and adds a new part of the hangman for each wrong guess. The
+game ends when the word is complete or the drawings run out.
 
 #### Number Guessing Game
 
-It picks a number, you guess higher or lower. Perfect for learning input checking.
+The app picks a secret number. The user guesses a number and the app says whether the
+secret is higher or lower. When the user gets it right, the app shows how many guesses it
+took.
 
 #### Habit Tracker
 
-Check off daily habits and keep a streak going. Dates are gloriously buggy.
+The app shows a list of daily habits. The user checks each habit off for the day, and the
+app stores the checkmarks by date. For every habit it shows the current streak — how many
+days in a row it has been done.
 
 #### Grade Calculator
 
-Enter scores, get a weighted average. An empty list breaks it — good.
+The user enters assignment scores and the weight of each one. The app combines them into a
+weighted average and shows the final grade. If no scores are entered, it shows a message
+instead of failing.
 
 #### Tip Splitter
 
-Bill, people, tip percent, cost per person. Division by zero and rounding live here.
+The user enters the bill total, the number of people, and a tip percentage. The app
+calculates the tip and the cost per person, and shows both numbers.
 
 #### Memory Match
 
-Flip cards and find the pairs. Grids and timing.
+The app shows a grid of face-down cards. The user flips two cards at a time to find
+matching pairs — matching cards stay face up, and mismatches flip back over. A move
+counter runs until every pair is found.
 
 #### Budget Tracker
 
-Log spending by category and see totals. Store everything in a text file.
+The user logs spending as a category and an amount — food, games, transport. The app
+stores the entries in a file and shows the total spent, plus the total for each category.
 
 #### Study Playlist Timer
 
-A timer that suggests break activities. Two ideas in one app.
+The app runs a study timer for a set number of minutes. When it ends, it shows a suggested
+break activity from a list — stretch, walk, get water — and then starts the next study
+period.
 
 #### Text Adventure
 
-Rooms, choices, an ending. Great for separating the story from the code.
+The app plays a text-based story. The user reads a description of a room, then chooses
+from the options the app offers, and the story moves forward from that choice. The rooms,
+options, and endings live in a separate data file, so a new story is just a new file.
 
 ### Stretch
 
 #### Two-Player Battle Game
 
-Turn-based combat, two players, one keyboard. HP, attacks, balance.
+Two players take turns on the same keyboard. Each turn, the player whose turn it is picks
+an attack, and the app applies the damage to the other character's hit points. Both
+characters' hit points stay on screen, and a winner is declared when one runs out.
 
 #### Typing Speed Test
 
-Type a passage and get words-per-minute and accuracy. Timing plus string comparison.
+The app shows a passage to type. As the user types, it times them and compares each
+keystroke to the passage. When the passage is finished, it shows words per minute and an
+accuracy percentage.
 
 #### Recipe Scaler
 
-Put in a recipe and scale it to any number of servings. Fractions are genuinely hard.
+The app shows a recipe with ingredient amounts. The user enters how many servings they
+want, and the app multiplies every ingredient to match. Fractional amounts scale too — a
+third becomes two-thirds — and the scaled amounts are shown next to the originals.
 
 #### Class Schedule Builder
 
-Add classes and find time conflicts. Real algorithmic thinking.
+The user adds classes one at a time, each with a day and a time slot. The app checks each
+new class against the ones already added and flags any that overlap. The schedule is laid
+out in a grid with conflicts highlighted.
 
 #### Simple Drawing App
 
-Draw on a canvas, pick colors, save your art. Canvas events and file output.
+The app shows a blank canvas. The user draws by clicking and dragging, picks a color from
+a palette, and can erase. A save button writes the drawing to a file so it can be opened
+again later.
 
 #### Music Practice Log
 
-Log practice sessions and chart your weekly minutes. Data over time.
+The user logs each practice session by entering the date and the number of minutes
+practiced. The app stores the entries and shows the practice time per week as a list or
+chart.
 
 #### Wordle Clone
 
-Five letters, six guesses, color feedback. The yellow-letter rule is sneaky.
+The user gets six tries to guess a five-letter word. After each guess, the app colors each
+letter — green for a letter in the right place, yellow for a letter in the word but in
+the wrong place, gray for a letter not in the word. The game ends when the word is
+guessed or the six tries run out.
 
 #### Inventory Manager
 
-Items, quantities, low-stock alerts. Multi-file, JSON data.
+The app tracks a list of items, each with a quantity. The user adds, removes, and edits
+items, and the app saves the inventory to a data file. Items below a set quantity appear
+on a low-stock list.
 
 #### Sports Stat Tracker
 
-Log games and compute season averages. Real data modeling.
+The user logs each game for a team — the score, the opponent, and the date. The app
+stores the games and computes season statistics like average score and win-loss record,
+showing them on a summary screen.
 
 #### Choose-Your-Own-Story Engine
 
-A story loaded from a data file. The best multi-file project here.
+The app plays a branching story in which the user chooses what happens next at each
+point. Every scene and every choice is loaded from a separate data file, so the engine
+itself never changes when a new story is added.
 
 #### Pixel Art Editor
 
-A grid of cells, click to color, export. Grid math, save and load.
+The app shows a grid of empty cells. The user clicks cells to fill them with the current
+color, switches colors from a palette, and clears cells. Save and load buttons write a
+picture to a file and bring it back.
 
 #### Sorting Visualizer
 
-Watch bubble sort run step by step. Animation plus a real CS concept.
+The app shows a list of bars of different heights. The user picks a sorting algorithm and
+presses a button, and the app animates the sort step by step, moving the bars as it goes,
+until the list is sorted.
 
 ---
 
