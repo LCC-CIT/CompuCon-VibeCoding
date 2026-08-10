@@ -24,8 +24,9 @@ docs/                          THE SITE — GitHub Pages serves from here
   index.html                   Landing page          ┐
   middle-school.html           MS session index      │ hand-authored — no
   high-school.html             HS session index      │ markdown source,
-  faq.html                     Questions             │ edit these directly
-  teacher.html                 Instructor hub         │
+  teacher.html                 Instructor hub         │ edit these directly
+  faq.html                     Questions             │
+  about.html                   What this is          │
   style.css                    Shared theme          ┘
   session-1/
     lesson-plan.md             Instructor script — both age groups
@@ -79,11 +80,12 @@ Three consequences follow from this:
   markdown→HTML pipeline.
 - **Rendered curriculum pages don't inherit the site chrome.** GitHub Pages themes the
   rendered markdown with its default layout — no hand-authored nav or footer, no
-  `style.css`. The five hand-authored pages keep the full theme; the curriculum pages
+  `style.css`. The six hand-authored pages keep the full theme; the curriculum pages
   don't. Known and accepted for now — see `preflight.md`.
 
 **Hand-authored pages** — `index.html`, `middle-school.html`, `high-school.html`,
-`faq.html`, `teacher.html`, plus `style.css`. No markdown source; edit them directly.
+`teacher.html`, `faq.html`, `about.html`, plus `style.css`. No markdown source; edit
+them directly.
 They share
 `style.css` rather than each inlining the theme, so a colour or spacing change happens
 in one place. `index.html` keeps its terminal animation as an inline `<script>`.
