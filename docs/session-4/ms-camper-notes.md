@@ -1,5 +1,29 @@
 # Session 4 — Make It Yours
 
+## Contents
+
+- [Vibe Coding · Middle School · Keep this with you](#vibe-coding-middle-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [The most important thing on this page](#the-most-important-thing-on-this-page)
+- [Your pitch](#your-pitch)
+  - [Ideas that are the right size](#ideas-that-are-the-right-size)
+  - [Ideas we'll ask you to shrink](#ideas-well-ask-you-to-shrink)
+  - [Totally allowed](#totally-allowed)
+- [Getting set up](#getting-set-up)
+  - [Spend the first 5 minutes NOT coding](#spend-the-first-5-minutes-not-coding)
+- [While you build](#while-you-build)
+  - [Watch the clock](#watch-the-clock)
+  - [If you get stuck](#if-you-get-stuck)
+- [Polish and demo prep](#polish-and-demo-prep)
+  - [Polish (5 min) — looks only, no new features](#polish-5-min-looks-only-no-new-features)
+  - [Demo prep (5 min)](#demo-prep-5-min)
+- [The showcase](#the-showcase)
+- [What you actually learned this week](#what-you-actually-learned-this-week)
+- [Honestly, though](#honestly-though)
+- [Take your stuff home](#take-your-stuff-home)
+  - [What to build next](#what-to-build-next)
+
 ### Vibe Coding · Middle School · Keep this with you
 
 ---

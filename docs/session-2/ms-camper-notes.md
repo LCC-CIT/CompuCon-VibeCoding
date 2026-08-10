@@ -1,5 +1,29 @@
 # Session 2 — Ask Better, Check Harder
 
+## Contents
+
+- [Vibe Coding · Middle School · Keep this with you](#vibe-coding-middle-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [Starting up](#starting-up)
+- [Bad prompt vs. good prompt](#bad-prompt-vs-good-prompt)
+- [How much to ask for at once](#how-much-to-ask-for-at-once)
+  - [Starting a brand new app → describe the whole thing](#starting-a-brand-new-app-describe-the-whole-thing)
+  - [Changing an app that works → ONE thing at a time](#changing-an-app-that-works-one-thing-at-a-time)
+  - [The size test](#the-size-test)
+- [The two checks](#the-two-checks)
+  - [Check 1 — Does it do the thing?](#check-1-does-it-do-the-thing)
+  - [Check 2 — Does it survive the wrong thing?](#check-2-does-it-survive-the-wrong-thing)
+  - [Here's a real example](#heres-a-real-example)
+- [One question to memorize](#one-question-to-memorize)
+- [Today's build: write the plan FIRST](#todays-build-write-the-plan-first)
+  - [While you build](#while-you-build)
+- [Swap and break](#swap-and-break)
+- [If you get stuck](#if-you-get-stuck)
+- [The short version](#the-short-version)
+- [Taking it home](#taking-it-home)
+- [Next time](#next-time)
+
 ### Vibe Coding · Middle School · Keep this with you
 
 ---

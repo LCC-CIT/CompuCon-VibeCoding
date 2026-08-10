@@ -12,6 +12,37 @@ give them the four-question prompt template. They'll keep up.
 
 ---
 
+## Contents
+
+- [Timing](#timing)
+  - [Middle school — 85 min](#middle-school-85-min)
+  - [High school — 180 min](#high-school-180-min)
+- [Warm-Up: Same Prompt, Four Ways (MS 6 min / HS 10 min)](#warm-up-same-prompt-four-ways-ms-6-min-hs-10-min)
+- [How Much To Ask For At Once (MS 12 min / HS 20 min)](#how-much-to-ask-for-at-once-ms-12-min-hs-20-min)
+  - [The two modes](#the-two-modes)
+  - [Why one at a time (the real reason)](#why-one-at-a-time-the-real-reason)
+  - [The size test](#the-size-test)
+  - [The exception worth naming](#the-exception-worth-naming)
+- [Prompt Lab (MS 15 min / HS 25 min)](#prompt-lab-ms-15-min-hs-25-min)
+- [Break — HS only (10 min)](#break-hs-only-10-min)
+- [How To Check The AI's Work (MS 15 min / HS 25 min)](#how-to-check-the-ais-work-ms-15-min-hs-25-min)
+  - [It ran ≠ it's right](#it-ran-its-right)
+  - [The four checks (put these on the wall — they stay up through Session 4)](#the-four-checks-put-these-on-the-wall-they-stay-up-through-session-4)
+  - [Making the AI check itself](#making-the-ai-check-itself)
+  - [The 60-second demo](#the-60-second-demo)
+- [Build: Spec First (MS 24 min / HS 35 min)](#build-spec-first-ms-24-min-hs-35-min)
+  - [Spec sheet (MS 6 min / HS 10 min, on paper)](#spec-sheet-ms-6-min-hs-10-min-on-paper)
+  - [Build (MS 15 min / HS 20 min)](#build-ms-15-min-hs-20-min)
+  - [Land it (MS 3 min / HS 5 min)](#land-it-ms-3-min-hs-5-min)
+- [Swap And Break (MS 13 min / HS 15 min)](#swap-and-break-ms-13-min-hs-15-min)
+- [Capstone Pitch + Scope Check — HS only (20 min)](#capstone-pitch-scope-check-hs-only-20-min)
+  - [Pitch to a partner (8 min)](#pitch-to-a-partner-8-min)
+  - [Instructor scope check (12 min)](#instructor-scope-check-12-min)
+- [Capstone: Plan And First Build — HS only (20 min)](#capstone-plan-and-first-build-hs-only-20-min)
+  - [End of session](#end-of-session)
+- [Wrap (built into the last block for both groups)](#wrap-built-into-the-last-block-for-both-groups)
+- [Instructor Prep Checklist](#instructor-prep-checklist)
+
 ## Timing
 
 The first five blocks are shared. HS then adds a break, a longer build, and the capstone

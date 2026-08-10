@@ -1,5 +1,30 @@
 # Session 2 — Ask Better, Check Harder
 
+## Contents
+
+- [Vibe Coding · High School · Keep this with you](#vibe-coding-high-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [Starting up](#starting-up)
+- [Four ways to ask for the same app](#four-ways-to-ask-for-the-same-app)
+- [How much to ask for at once](#how-much-to-ask-for-at-once)
+  - [The legitimate exception](#the-legitimate-exception)
+- [The four checks](#the-four-checks)
+  - [It ran ≠ it's right](#it-ran-its-right)
+  - [The checks themselves](#the-checks-themselves)
+  - [Making the AI check itself](#making-the-ai-check-itself)
+  - [Worked example](#worked-example)
+- [Practice build: spec first](#practice-build-spec-first)
+- [Swap and break](#swap-and-break)
+- [Your capstone](#your-capstone)
+  - [The pitch](#the-pitch)
+  - [Scope, honestly](#scope-honestly)
+  - [Setting it up](#setting-it-up)
+  - [Before you leave — make a save point](#before-you-leave-make-a-save-point)
+- [The short version](#the-short-version)
+- [Taking it home](#taking-it-home)
+- [Next time](#next-time)
+
 ### Vibe Coding · High School · Keep this with you
 
 ---

@@ -7,6 +7,42 @@ All commands below assume that.
 
 ---
 
+## Contents
+
+- [Before Campers Arrive (every session)](#before-campers-arrive-every-session)
+  - [PowerShell gotchas worth knowing before you're in front of 25 kids](#powershell-gotchas-worth-knowing-before-youre-in-front-of-25-kids)
+- [Claude Code Problems](#claude-code-problems)
+  - [`claude` doesn't start / hangs](#claude-doesnt-start-hangs)
+  - [`claude` prompts for a login](#claude-prompts-for-a-login)
+  - [It's stuck thinking / no output for a long time](#its-stuck-thinking-no-output-for-a-long-time)
+  - [Responses got worse over a long session](#responses-got-worse-over-a-long-session)
+  - [It's editing the wrong file / can't find the file](#its-editing-the-wrong-file-cant-find-the-file)
+  - [It keeps "fixing" and making it worse](#it-keeps-fixing-and-making-it-worse)
+  - [It wrote something in a language we're not using](#it-wrote-something-in-a-language-were-not-using)
+  - [It's asking permission for everything and the camper is confused](#its-asking-permission-for-everything-and-the-camper-is-confused)
+- [Python Problems](#python-problems)
+  - [`ModuleNotFoundError: No module named 'tkinter'`](#modulenotfounderror-no-module-named-tkinter)
+  - [`python` opens the Microsoft Store](#python-opens-the-microsoft-store)
+  - [The tkinter window doesn't appear](#the-tkinter-window-doesnt-appear)
+  - [The window opens and immediately closes](#the-window-opens-and-immediately-closes)
+  - [`IndentationError` after a camper hand-edits](#indentationerror-after-a-camper-hand-edits)
+- [Save Point / Undo Problems](#save-point-undo-problems)
+  - [They never made a copy](#they-never-made-a-copy)
+  - [`Remove-Item -Recurse` asks for confirmation](#remove-item--recurse-asks-for-confirmation)
+  - ["Cannot remove item — being used by another process"](#cannot-remove-item-being-used-by-another-process)
+  - [They restored but it's still broken](#they-restored-but-its-still-broken)
+  - [Copies are piling up and they can't tell them apart](#copies-are-piling-up-and-they-cant-tell-them-apart)
+  - [A camper is copying into the project folder instead of beside it](#a-camper-is-copying-into-the-project-folder-instead-of-beside-it)
+- [Classroom Problems](#classroom-problems)
+  - [One camper is way ahead](#one-camper-is-way-ahead)
+  - [A camper wants to use a language other than Python](#a-camper-wants-to-use-a-language-other-than-python)
+  - [One camper is way behind](#one-camper-is-way-behind)
+  - [A camper is just accepting everything without reading](#a-camper-is-just-accepting-everything-without-reading)
+  - [A camper is frustrated and shutting down](#a-camper-is-frustrated-and-shutting-down)
+  - [The whole room is stuck on the same thing](#the-whole-room-is-stuck-on-the-same-thing)
+  - [Campers racing to add features without testing](#campers-racing-to-add-features-without-testing)
+- [If The Network Or API Is Down](#if-the-network-or-api-is-down)
+
 ## Before Campers Arrive (every session)
 
 Run this on one lab machine:

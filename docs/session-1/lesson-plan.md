@@ -4,6 +4,36 @@
 
 ---
 
+## Contents
+
+- [Timing](#timing)
+  - [Middle school — 85 min](#middle-school-85-min)
+  - [High school — 120 min](#high-school-120-min)
+- [Hook (MS 8 min / HS 10 min)](#hook-ms-8-min-hs-10-min)
+- [What Just Happened (MS 7 min / HS 12 min)](#what-just-happened-ms-7-min-hs-12-min)
+  - [1. You're the boss, not the typist](#1-youre-the-boss-not-the-typist)
+  - [2. The AI is a very fast guesser](#2-the-ai-is-a-very-fast-guesser)
+  - [3. Running it is the only real test](#3-running-it-is-the-only-real-test)
+  - [The tool](#the-tool)
+- [Build #1: Everyone Builds Mad Libs (MS 25 min / HS 28 min)](#build-1-everyone-builds-mad-libs-ms-25-min-hs-28-min)
+  - [Setup (5 min)](#setup-5-min)
+  - [Prompt 1 (MS 10 min / HS 10 min)](#prompt-1-ms-10-min-hs-10-min)
+  - [Notice the prompt (MS 4 min / HS 5 min)](#notice-the-prompt-ms-4-min-hs-5-min)
+  - [One change each (MS 6 min / HS 8 min)](#one-change-each-ms-6-min-hs-8-min)
+- [The Three Moves (MS 8 min / HS 15 min)](#the-three-moves-ms-8-min-hs-15-min)
+  - [Move 1: ASK](#move-1-ask)
+  - [Move 2: RUN](#move-2-run)
+  - [Move 3: FIX](#move-3-fix)
+- [Build #2 (MS 22 min / HS 35 min)](#build-2-ms-22-min-hs-35-min)
+  - [Before they touch the keyboard (MS 3 min / HS 5 min)](#before-they-touch-the-keyboard-ms-3-min-hs-5-min)
+  - [Build (MS 15 min / HS 25 min)](#build-ms-15-min-hs-25-min)
+  - [Land it (MS 4 min / HS 5 min)](#land-it-ms-4-min-hs-5-min)
+- [The AI Was Wrong (MS 8 min / HS 12 min)](#the-ai-was-wrong-ms-8-min-hs-12-min)
+- [Showcase + Take It Home (MS 7 min / HS 8 min)](#showcase-take-it-home-ms-7-min-hs-8-min)
+  - [Showcase (MS 5 min / HS 5 min)](#showcase-ms-5-min-hs-5-min)
+  - [Take it home (MS 2 min / HS 3 min)](#take-it-home-ms-2-min-hs-3-min)
+- [Instructor Prep Checklist](#instructor-prep-checklist)
+
 ## Timing
 
 MS and HS run the same seven blocks. HS gets 35 more minutes, spent almost entirely on

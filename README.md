@@ -23,6 +23,18 @@ Two things follow from this and are baked into the curriculum:
 
 ---
 
+## Contents
+
+- [The One-Sentence Version](#the-one-sentence-version)
+- [Session Map](#session-map)
+- [Published site](#published-site)
+- [Learning Goals Across the Track](#learning-goals-across-the-track)
+- [The Setup](#the-setup)
+  - [The stack](#the-stack)
+- [Middle School vs. High School](#middle-school-vs-high-school)
+- [What We Are Not Teaching](#what-we-are-not-teaching)
+- [Standing Classroom Rules](#standing-classroom-rules)
+
 ## The One-Sentence Version
 
 Vibe coding is *steering*, not typing. The skill we're teaching isn't syntax — it's

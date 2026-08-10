@@ -1,5 +1,40 @@
 # Session 3 — Build Something Bigger
 
+## Contents
+
+- [Vibe Coding · High School · Keep this with you](#vibe-coding-high-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [Starting up](#starting-up)
+- [Why one file stops working](#why-one-file-stops-working)
+  - [The fix: split by job](#the-fix-split-by-job)
+- [Plan before you build](#plan-before-you-build)
+  - [Argue with it](#argue-with-it)
+  - [Then build in order, one piece at a time](#then-build-in-order-one-piece-at-a-time)
+  - [Your `PLAN.md` is your checklist](#your-planmd-is-your-checklist)
+- [Claude Code for real projects](#claude-code-for-real-projects)
+  - [Point at files directly](#point-at-files-directly)
+  - [`/clear` — reset the conversation](#clear-reset-the-conversation)
+  - [`CLAUDE.md` — notes the AI reads every time](#claudemd-notes-the-ai-reads-every-time)
+  - [Ask before you commit to something](#ask-before-you-commit-to-something)
+  - [Read what it did](#read-what-it-did)
+- [Save points](#save-points)
+  - [If restore fails](#if-restore-fails)
+  - [Copies as a verification tool](#copies-as-a-verification-tool)
+- [The capstone build](#the-capstone-build)
+  - [Requirements](#requirements)
+  - [The rhythm](#the-rhythm)
+  - [Watch the clock](#watch-the-clock)
+  - [If you finish early](#if-you-finish-early)
+  - [If you get stuck](#if-you-get-stuck)
+- [Debugging method](#debugging-method)
+  - [Escape hatches](#escape-hatches)
+- [Before you leave: demo prep](#before-you-leave-demo-prep)
+  - [Make the demo copy](#make-the-demo-copy)
+  - [Plan your 90 seconds](#plan-your-90-seconds)
+- [The short version](#the-short-version)
+- [Taking it home](#taking-it-home)
+
 ### Vibe Coding · High School · Keep this with you
 
 ---
@@ -157,7 +192,7 @@ Make a file called `CLAUDE.md` in your project folder. Claude Code reads it auto
 at the start of every session.
 
 ```markdown
-# Quiz Game
+## Quiz Game
 
 A multiple-choice quiz in Python + tkinter.
 

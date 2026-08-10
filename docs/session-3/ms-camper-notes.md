@@ -1,5 +1,36 @@
 # Session 3 — Make It Solid
 
+## Contents
+
+- [Vibe Coding · Middle School · Keep this with you](#vibe-coding-middle-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [Starting up](#starting-up)
+- [Save points](#save-points)
+  - [The problem](#the-problem)
+  - [The whole system: copy the folder](#the-whole-system-copy-the-folder)
+  - [The rule](#the-rule)
+  - [Name your copies](#name-your-copies)
+  - [Two things that go wrong](#two-things-that-go-wrong)
+- [When the AI makes it worse](#when-the-ai-makes-it-worse)
+  - [Escape hatch 1: `/clear`](#escape-hatch-1-clear)
+  - [Escape hatch 2: go back to your save point](#escape-hatch-2-go-back-to-your-save-point)
+  - [Escape hatch 3: delete the file and ask again](#escape-hatch-3-delete-the-file-and-ask-again)
+  - [The 10-minute rule](#the-10-minute-rule)
+- [How to actually debug something](#how-to-actually-debug-something)
+  - [1. What exactly happens?](#1-what-exactly-happens)
+  - [2. When did it last work?](#2-when-did-it-last-work)
+  - [3. Ask precisely](#3-ask-precisely)
+  - [4. Check the fix — AND check the old stuff still works](#4-check-the-fix-and-check-the-old-stuff-still-works)
+- [Build time: make your app good](#build-time-make-your-app-good)
+  - [Job 1 — Make it unbreakable](#job-1-make-it-unbreakable)
+  - [Job 2 — Make it look good](#job-2-make-it-look-good)
+  - [Job 3 — Understand one piece of it](#job-3-understand-one-piece-of-it)
+- [Show one thing you fixed](#show-one-thing-you-fixed)
+- [The short version](#the-short-version)
+- [Taking it home](#taking-it-home)
+- [Next time](#next-time)
+
 ### Vibe Coding · Middle School · Keep this with you
 
 ---

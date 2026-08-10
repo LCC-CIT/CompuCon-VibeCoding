@@ -1,5 +1,25 @@
 # Session 1 — Make Something Work
 
+## Contents
+
+- [Vibe Coding · High School · Keep this with you](#vibe-coding-high-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [Getting started](#getting-started)
+  - [One command per line](#one-command-per-line)
+- [What you're actually working with](#what-youre-actually-working-with)
+  - [Two things worth understanding](#two-things-worth-understanding)
+- [Writing a prompt that works](#writing-a-prompt-that-works)
+- [How much to ask for at once](#how-much-to-ask-for-at-once)
+- [The loop](#the-loop)
+- [Running and reading the result](#running-and-reading-the-result)
+  - [Reporting a bug](#reporting-a-bug)
+- [Useful things to say to the AI](#useful-things-to-say-to-the-ai)
+- [Try to break it](#try-to-break-it)
+- [When you're stuck](#when-youre-stuck)
+- [The showcase](#the-showcase)
+- [Before you go](#before-you-go)
+
 ### Vibe Coding · High School · Keep this with you
 
 ---

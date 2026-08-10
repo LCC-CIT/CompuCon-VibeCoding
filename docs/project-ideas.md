@@ -26,6 +26,19 @@ idea; the stack is a detail. See the "different language" entry in
 
 ---
 
+## Contents
+
+- [Starter — build in 10–20 minutes](#starter-build-in-1020-minutes)
+- [Solid — build in 30–60 minutes](#solid-build-in-3060-minutes)
+- [Stretch — 60–90 minutes, some ambition](#stretch-6090-minutes-some-ambition)
+- [Project Descriptions](#project-descriptions)
+  - [Starter](#starter)
+  - [Solid](#solid)
+  - [Stretch](#stretch)
+- [Good For Specific Lessons](#good-for-specific-lessons)
+- [Ideas To Steer Away From](#ideas-to-steer-away-from)
+- [Instructor Note: Letting Campers Bring Their Own](#instructor-note-letting-campers-bring-their-own)
+
 ## Starter — build in 10–20 minutes
 
 **Everything middle school builds comes from this tier**, plus HS's Session 1 build.

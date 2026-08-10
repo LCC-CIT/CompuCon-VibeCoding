@@ -8,6 +8,12 @@ delivery to run long. Delete this file once the track has run once.
 
 ---
 
+## Contents
+
+- [Before you teach — in order](#before-you-teach-in-order)
+- [Still your call](#still-your-call)
+- [Deliberately not done](#deliberately-not-done)
+
 ## Before you teach — in order
 
 Each item names what breaks if you skip it.

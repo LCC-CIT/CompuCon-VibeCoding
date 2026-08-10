@@ -1,5 +1,24 @@
 # Session 1 — Make Something Work
 
+## Contents
+
+- [Vibe Coding · Middle School · Keep this with you](#vibe-coding-middle-school-keep-this-with-you)
+- [What you're doing today](#what-youre-doing-today)
+- [Today's plan](#todays-plan)
+- [How to start](#how-to-start)
+- [Type one command per line](#type-one-command-per-line)
+- [What the AI actually is](#what-the-ai-actually-is)
+- [How to ask for what you want](#how-to-ask-for-what-you-want)
+- [The one rule that matters most](#the-one-rule-that-matters-most)
+- [The loop](#the-loop)
+- [When something goes wrong](#when-something-goes-wrong)
+  - [How to report a problem](#how-to-report-a-problem)
+- [Break your own app](#break-your-own-app)
+- [If you get stuck](#if-you-get-stuck)
+- [Words you'll hear today](#words-youll-hear-today)
+- [Showing your work](#showing-your-work)
+- [Taking it home](#taking-it-home)
+
 ### Vibe Coding · Middle School · Keep this with you
 
 ---

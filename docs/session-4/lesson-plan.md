@@ -11,6 +11,39 @@ Read your age group's section.
 
 ---
 
+## Contents
+
+- [Timing](#timing)
+  - [Middle school — 85 min](#middle-school-85-min)
+  - [High school — 60 min](#high-school-60-min)
+- [MIDDLE SCHOOL — Make It Yours (85 min)](#middle-school-make-it-yours-85-min)
+- [0:00 — Pitch + Scope Check (12 min)](#000-pitch-scope-check-12-min)
+  - [Pitch to a partner (5 min)](#pitch-to-a-partner-5-min)
+  - [Instructor scope check (7 min)](#instructor-scope-check-7-min)
+- [0:12 — Build Block (38 min)](#012-build-block-38-min)
+  - [First 5 minutes, no code](#first-5-minutes-no-code)
+  - [Then: build, run, check, copy](#then-build-run-check-copy)
+  - [Timed callouts](#timed-callouts)
+  - [The halftime rule](#the-halftime-rule)
+  - [Instructor circulation, in priority order](#instructor-circulation-in-priority-order)
+- [0:50 — Polish + Demo Prep (10 min)](#050-polish-demo-prep-10-min)
+  - [Five minutes of polish](#five-minutes-of-polish)
+  - [Five minutes of demo prep](#five-minutes-of-demo-prep)
+- [1:00 — Showcase (20 min)](#100-showcase-20-min)
+- [1:20 — Where This Goes Next (5 min)](#120-where-this-goes-next-5-min)
+  - [What they actually learned](#what-they-actually-learned)
+  - [The honest part](#the-honest-part)
+  - [Last thing](#last-thing)
+- [HIGH SCHOOL — Demo Day (60 min)](#high-school-demo-day-60-min)
+- [0:00 — Setup + Last Rehearsal (10 min)](#000-setup-last-rehearsal-10-min)
+- [0:10 — Showcase (30 min)](#010-showcase-30-min)
+- [0:40 — What You Actually Learned (12 min)](#040-what-you-actually-learned-12-min)
+  - [The honest part](#the-honest-part-1)
+  - [One round of reflection (5 min)](#one-round-of-reflection-5-min)
+- [0:52 — Where This Goes Next (8 min)](#052-where-this-goes-next-8-min)
+  - [Last thing](#last-thing-1)
+- [Instructor Prep Checklist](#instructor-prep-checklist)
+
 ## Timing
 
 ### Middle school — 85 min
@@ -37,7 +70,7 @@ Read your age group's section.
 
 ---
 
-# MIDDLE SCHOOL — Make It Yours (85 min)
+## MIDDLE SCHOOL — Make It Yours (85 min)
 
 38 minutes of build time. That is not much, and the scope check at the start is what
 makes it work. Be ruthless there and the session lands; be generous and half the room
@@ -229,7 +262,7 @@ camper notes.
 
 ---
 
-# HIGH SCHOOL — Demo Day (60 min)
+## HIGH SCHOOL — Demo Day (60 min)
 
 **No build time.** The capstone was finished in Session 3. Anyone who shows up expecting
 to code today was told twice last session that this wasn't happening — hold the line, or

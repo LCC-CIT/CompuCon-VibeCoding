@@ -1,5 +1,25 @@
 # Session 4 — Demo Day
 
+## Contents
+
+- [Vibe Coding · High School · Keep this with you](#vibe-coding-high-school-keep-this-with-you)
+- [What today is](#what-today-is)
+- [Today's plan](#todays-plan)
+- [Setup](#setup)
+  - [If it doesn't run](#if-it-doesnt-run)
+  - [Rehearse twice](#rehearse-twice)
+- [Your demo — 90 seconds](#your-demo-90-seconds)
+  - [If it crashes in front of everyone](#if-it-crashes-in-front-of-everyone)
+  - [While others demo](#while-others-demo)
+- [What you actually learned](#what-you-actually-learned)
+- [The honest part](#the-honest-part)
+- [Where to go next](#where-to-go-next)
+  - [Keep what you've got](#keep-what-youve-got)
+  - [Learn what's underneath](#learn-whats-underneath)
+  - [Build for somebody else](#build-for-somebody-else)
+- [The commands, one last time](#the-commands-one-last-time)
+- [The whole course, in four lines](#the-whole-course-in-four-lines)
+
 ### Vibe Coding · High School · Keep this with you
 
 ---

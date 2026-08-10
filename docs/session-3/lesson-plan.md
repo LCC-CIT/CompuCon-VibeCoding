@@ -15,6 +15,66 @@ method; everything else differs.
 
 ---
 
+## Contents
+
+- [Timing](#timing)
+  - [Middle school — 85 min](#middle-school-85-min)
+  - [High school — 180 min](#high-school-180-min)
+- [MIDDLE SCHOOL — Make It Solid (85 min)](#middle-school-make-it-solid-85-min)
+- [0:00 — Save Points: Copy The Folder (12 min)](#000-save-points-copy-the-folder-12-min)
+  - [The problem](#the-problem)
+  - [The whole system](#the-whole-system)
+  - [Practice right now, everyone](#practice-right-now-everyone)
+  - [The rule](#the-rule)
+- [0:12 — When The AI Makes It Worse (13 min)](#012-when-the-ai-makes-it-worse-13-min)
+  - [The three escape hatches](#the-three-escape-hatches)
+  - [The 10-minute rule](#the-10-minute-rule)
+- [0:25 — The Debugging Method (15 min)](#025-the-debugging-method-15-min)
+  - [1. What exactly happens?](#1-what-exactly-happens)
+  - [2. When did it last work?](#2-when-did-it-last-work)
+  - [3. Ask precisely](#3-ask-precisely)
+  - [4. Verify the fix — and check the old thing still works](#4-verify-the-fix-and-check-the-old-thing-still-works)
+- [0:40 — Build: Make Your App Good (30 min)](#040-build-make-your-app-good-30-min)
+  - [Job 1: Make it unbreakable (15 min)](#job-1-make-it-unbreakable-15-min)
+  - [Job 2: Make it look good (10 min)](#job-2-make-it-look-good-10-min)
+  - [Job 3: Understand one piece of it (5 min)](#job-3-understand-one-piece-of-it-5-min)
+- [1:10 — Show One Thing You Fixed (15 min)](#110-show-one-thing-you-fixed-15-min)
+- [HIGH SCHOOL — Build Something Bigger (180 min)](#high-school-build-something-bigger-180-min)
+- [0:00 — Why One File Stops Working (12 min)](#000-why-one-file-stops-working-12-min)
+  - [The two real problems](#the-two-real-problems)
+  - [The fix](#the-fix)
+- [0:12 — Plan Before You Build (20 min)](#012-plan-before-you-build-20-min)
+  - [Ask for a plan, not code](#ask-for-a-plan-not-code)
+  - [Build in order, verify each piece](#build-in-order-verify-each-piece)
+  - [The plan is your checklist](#the-plan-is-your-checklist)
+  - [Campers revise their own plan (8 min)](#campers-revise-their-own-plan-8-min)
+- [0:32 — Claude Code For Real Projects (18 min)](#032-claude-code-for-real-projects-18-min)
+  - [Point at files directly](#point-at-files-directly)
+  - [`/clear` — start a fresh conversation](#clear-start-a-fresh-conversation)
+  - [`CLAUDE.md` — notes the AI reads every time](#claudemd-notes-the-ai-reads-every-time)
+  - [Ask before you commit](#ask-before-you-commit)
+  - [Reading what it did](#reading-what-it-did)
+- [0:50 — Break (10 min)](#050-break-10-min)
+- [1:00 — Save Points: Copy The Folder (15 min)](#100-save-points-copy-the-folder-15-min)
+  - [The system](#the-system)
+  - [Practice (5 min)](#practice-5-min)
+  - [The rule](#the-rule-1)
+  - [Using copies to verify (HS-only addition)](#using-copies-to-verify-hs-only-addition)
+- [1:15 — Capstone Build (75 min)](#115-capstone-build-75-min)
+  - [Requirements](#requirements)
+  - [The rhythm, on the board](#the-rhythm-on-the-board)
+  - [Timed callouts](#timed-callouts)
+  - [Instructor circulation](#instructor-circulation)
+  - [The 20-minute rule](#the-20-minute-rule)
+  - [For campers who finish early](#for-campers-who-finish-early)
+- [2:30 — Debugging Clinic (18 min)](#230-debugging-clinic-18-min)
+  - [The escape hatches](#the-escape-hatches)
+- [2:48 — Demo Prep + Wrap (12 min)](#248-demo-prep-wrap-12-min)
+  - [Make the safety copy (3 min)](#make-the-safety-copy-3-min)
+  - [Plan the 90 seconds (7 min)](#plan-the-90-seconds-7-min)
+  - [Today's three moves (2 min)](#todays-three-moves-2-min)
+- [Instructor Prep Checklist](#instructor-prep-checklist)
+
 ## Timing
 
 ### Middle school — 85 min
@@ -45,7 +105,7 @@ method; everything else differs.
 
 ---
 
-# MIDDLE SCHOOL — Make It Solid (85 min)
+## MIDDLE SCHOOL — Make It Solid (85 min)
 
 Campers bring the app they built in Session 2 (or Session 1 — either is fine). Today
 isn't about building something new. It's about making one thing genuinely good.
@@ -252,7 +312,7 @@ Two questions to think about before then:
 
 ---
 
-# HIGH SCHOOL — Build Something Bigger (180 min)
+## HIGH SCHOOL — Build Something Bigger (180 min)
 
 Campers continue the capstone they pitched and planned in Session 2. **It has to be
 finished by the end of today.** Session 4 is 60 minutes and is demos only — say this at
@@ -402,7 +462,7 @@ Create a file called `CLAUDE.md` in the project folder. Claude Code reads it
 automatically at the start of every session.
 
 ```markdown
-# Quiz Game
+## Quiz Game
 
 A multiple-choice quiz in Python + tkinter.
 
