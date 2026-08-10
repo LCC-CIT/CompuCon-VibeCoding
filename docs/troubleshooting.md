@@ -140,11 +140,15 @@ commands:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse myproject myproject-working    # SAVE
 
 Remove-Item -Recurse myproject                    # UNDO (two steps)
 Copy-Item -Recurse myproject-working myproject
 ```
+
+`<Name>` is the camper's name folder — each camper works inside their own, so
+projects are `Projects\<Name>\<project>`.
 
 ### They never made a copy
 
@@ -189,7 +193,8 @@ working.
 
 Produces `myproject\myproject-working\...`, which confuses both the camper and the AI —
 Claude Code will read the nested copy as part of the project. Make sure they `cd
-$HOME\Documents\Projects` first, so copies sit *next to* the project, not inside it.
+$HOME\Documents\Projects`, then `cd <Name>`, so copies sit *next to* the project, not
+inside it.
 
 Worth showing on the projector once. It's the mistake that generates the weirdest
 downstream symptoms.

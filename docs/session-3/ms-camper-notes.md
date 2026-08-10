@@ -39,11 +39,13 @@ Open **PowerShell**. Go to the project you built last session:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 cd madlibs
 claude
 ```
 
-(Use your own folder name.)
+`<Name>` is your name — the folder you made in Session 1. (Use your own name and
+folder name.)
 
 **Run your app:**
 
@@ -70,6 +72,7 @@ Without a save point, you start over from nothing.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse madlibs madlibs-working
 ```
 
@@ -79,11 +82,12 @@ That makes a complete copy of your folder, frozen at a moment when it worked.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse madlibs
 Copy-Item -Recurse madlibs-working madlibs
 ```
 
-Line 2 throws away the broken version. Line 3 brings back the good one.
+Line 3 throws away the broken version. Line 4 brings back the good one.
 
 > **You can do exactly the same thing in File Explorer.** Right-click your project
 > folder → Copy → Paste → rename the copy. Same result. Use whichever makes more sense

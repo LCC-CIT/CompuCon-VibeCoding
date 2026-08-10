@@ -148,14 +148,17 @@ requiring pip installs, API keys, accounts, or network access.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse myproject myproject-working    # save
 Remove-Item -Recurse myproject                    # undo, step 1
 Copy-Item -Recurse myproject-working myproject    # undo, step 2
 ```
 
-Taught in Session 3 for both age groups. Same concept as a commit, no new tool. Always
-offer the File Explorer equivalent alongside the commands — some campers need the
-visual route. **Grep for `git` before calling any file finished.**
+`<Name>` is the camper's name folder — every project lives at
+`Projects\<Name>\<project>`, matching their Google Drive folder. Taught in Session 3
+for both age groups. Same concept as a commit, no new tool. Always offer the File
+Explorer equivalent alongside the commands — some campers need the visual route.
+**Grep for `git` before calling any file finished.**
 
 **Windows 11, PowerShell 5.1 or 7 — lab machines may run either.** Write every command
 so it works on both:

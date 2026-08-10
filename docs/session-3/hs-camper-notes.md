@@ -36,9 +36,12 @@ Plan around that. If you're behind at the halfway mark, cut a feature — don't 
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 cd capstone
 claude
 ```
+
+`<Name>` is your name — the folder you made in Session 1.
 
 **Run it:** `python main.py`
 
@@ -198,6 +201,7 @@ that is throwing away your best verification tool.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-working
 ```
 
@@ -205,6 +209,7 @@ Copy-Item -Recurse capstone capstone-working
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-working capstone
 ```
@@ -219,9 +224,9 @@ folder. Close the window, `Ctrl+C`, retry.
 **Argument order** is `Copy-Item -Recurse SOURCE DESTINATION`. Reversing it copies the
 broken version over your good one.
 
-**Don't copy into the project folder.** `cd $HOME\Documents\Projects` first, so copies
-sit *beside* your project, not inside it. A copy inside the folder gets read by the AI as
-part of your project and causes genuinely bizarre problems.
+**Don't copy into the project folder.** `cd $HOME\Documents\Projects`, then
+`cd <Name>`, so copies sit *beside* your project, not inside it. A copy inside the
+folder gets read by the AI as part of your project and causes genuinely bizarre problems.
 
 ### Copies as a verification tool
 
@@ -313,6 +318,7 @@ show.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-demo
 ```
 

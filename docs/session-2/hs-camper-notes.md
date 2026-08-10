@@ -41,12 +41,14 @@ accordingly, which mostly means picking something smaller than you want to.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 mkdir myproject
 cd myproject
 claude
 ```
 
-One command per line — 5.1 doesn't support `&&`.
+`<Name>` is your name — the folder you made in Session 1. Your name folder is
+where all your projects live. One command per line — 5.1 doesn't support `&&`.
 
 **Run it:** `python app.py`
 
@@ -294,6 +296,7 @@ You have the rest of today plus Session 3. That's it.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 mkdir capstone
 cd capstone
 claude
@@ -320,6 +323,7 @@ reorder the build. Changing a plan is free. Changing code is not.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-working
 ```
 

@@ -72,6 +72,7 @@ Two commands. That's it.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse madlibs madlibs-working
 ```
 
@@ -81,6 +82,7 @@ To go back:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse madlibs
 Copy-Item -Recurse madlibs-working madlibs
 ```
@@ -453,6 +455,7 @@ Same content as the MS block above — teach it the same way, faster.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-working
 ```
 
@@ -460,6 +463,7 @@ To restore:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-working capstone
 ```
@@ -591,6 +595,7 @@ Everyone, right now:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-demo
 ```
 

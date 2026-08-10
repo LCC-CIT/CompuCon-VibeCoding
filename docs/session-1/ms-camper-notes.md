@@ -37,13 +37,17 @@ Open **PowerShell**. Type these lines **one at a time**, pressing Enter after ea
 
 ```powershell
 cd $HOME\Documents\Projects
+mkdir <Name>
+cd <Name>
 mkdir madlibs
 cd madlibs
 claude
 ```
 
-The first three lines get you into today's project folder. `Projects` is where
-all your projects live. That last one, `claude`, starts the AI.
+Put your name where it says `<Name>` — one word, like `maya`, so it works in the
+commands. Your name folder is where all your projects will live. The first five
+lines get you into today's project folder, and that last one, `claude`, starts
+the AI.
 
 **To quit the AI:** hold `Ctrl` and press `C`.
 **To start it again:** type `claude`.

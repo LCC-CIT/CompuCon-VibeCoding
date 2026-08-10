@@ -35,10 +35,14 @@ whether it's *right*.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 mkdir myproject
 cd myproject
 claude
 ```
+
+`<Name>` is your name — the folder you made in Session 1. Your name folder is
+where all your projects live.
 
 **Run your app:**
 

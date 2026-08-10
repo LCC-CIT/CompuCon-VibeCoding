@@ -44,10 +44,15 @@ independent build time and on the concepts blocks.
 
 ```powershell
 cd $HOME\Documents\Projects
+mkdir <Name>
+cd <Name>
 mkdir demo
 cd demo
 claude
 ```
+
+Make your own name folder for `<Name>` — the same one campers will use. First
+name, one word, matching their Google Drive folder.
 
 Type your prompt out loud so they see you thinking:
 
@@ -135,12 +140,16 @@ Lockstep. Everyone builds the same thing so nobody is lost and everyone succeeds
 
 ```powershell
 cd $HOME\Documents\Projects
+mkdir <Name>
+cd <Name>
 mkdir madlibs
 cd madlibs
 claude
 ```
 
-Walk the room. This is where setup problems surface — catch them now.
+`<Name>` is the camper's name folder — first name, one word, matching their
+Google Drive folder. Walk the room. This is where setup problems surface — catch
+them now.
 
 ### Prompt 1 (MS 10 min / HS 10 min)
 
@@ -416,6 +425,8 @@ to tell when the AI is lying to you."**
 - [ ] Test `claude` on a lab machine the morning of
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine — create it
       if it's missing
+- [ ] Know the name-folder rule before setup: `<Name>` is the camper's first name, one
+      word, matching their Google Drive folder. Expect questions — it's new.
 - [ ] Confirm tkinter is available: `python -c "import tkinter"` (no output = good)
 - [ ] Make sure every machine is signed in to `claude` before campers arrive
 - [ ] Have `dice.py` demo working before campers arrive

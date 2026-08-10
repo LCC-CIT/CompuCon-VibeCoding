@@ -105,10 +105,14 @@ struggling to choose. Ownership matters more than novelty.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 mkdir capstone
 cd capstone
 claude
 ```
+
+`<Name>` is the camper's name folder from Session 1. Campers who missed Session 1
+don't have one yet — make it for them with `mkdir <Name>`.
 
 1. Write the first prompt on paper — the whole app, answering the four questions
 2. Get it checked by the instructor or a partner
@@ -122,6 +126,7 @@ Post it. Say it every ten minutes.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-working
 ```
 
@@ -241,6 +246,7 @@ Everyone gets their app running and rehearses the demo path twice.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 cd capstone
 python main.py
 ```
@@ -249,6 +255,7 @@ python main.py
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-demo capstone
 ```

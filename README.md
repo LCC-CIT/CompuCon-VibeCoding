@@ -123,13 +123,17 @@ Each camper works in their own folder:
 
 ```powershell
 cd $HOME\Documents\Projects
+mkdir <Name>
+cd <Name>
 mkdir my-project
 cd my-project
 claude
 ```
 
-Working in a project folder, not the Projects folder itself, matters — that folder is
-the AI's whole world, and a focused folder means focused attention.
+`<Name>` is the camper's name — first name, one word, matching their Google Drive
+folder. Every project lives at `Projects\<Name>\<project>`. Working in a project
+folder, not the Projects folder itself, matters — that folder is the AI's whole world,
+and a focused folder means focused attention.
 
 > **PowerShell note for instructors:** lab machines may run PowerShell 5.1 or 7, and
 > 5.1 does **not** support `&&` for chaining commands. Since there's no reliable way to

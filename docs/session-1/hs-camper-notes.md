@@ -40,12 +40,16 @@ Open **PowerShell** (through Windows Terminal). One command per line:
 
 ```powershell
 cd $HOME\Documents\Projects
+mkdir <Name>
+cd <Name>
 mkdir madlibs
 cd madlibs
 claude
 ```
 
-`claude` launches **Claude Code**.
+Put your name where it says `<Name>` — one word, like `maya`, so it works in the
+commands. Your name folder is where all your projects live. `claude` launches
+**Claude Code**.
 
 **Exit:** `Ctrl+C` · **Restart:** `claude`
 

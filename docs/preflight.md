@@ -15,7 +15,8 @@ Each item names what breaks if you skip it.
 1. **Verify the environment on a real lab laptop.** `claude` launches · `python -c
    "import tkinter"` is silent · `Documents\Projects` exists (create it if missing) ·
    note whether PowerShell is 5.1 or 7 · walk the full `Copy-Item` / `Remove-Item`
-   save-point cycle.
+   save-point cycle · make a `<Name>` folder and confirm `mkdir` / `cd` work inside it
+   — name folders are new, and every session's setup now depends on them.
    *If `claude` or tkinter fails, Session 1 doesn't happen. If the copy commands are
    blocked by lab permissions, the entire save-point system in Session 3 breaks. If
    `Documents\Projects` is missing, every session's setup fails on the first `cd`.*
@@ -24,6 +25,8 @@ Each item names what breaks if you skip it.
    (middle school) and the HS link (high school), and confirm every camper has a folder
    with their name in the right one. Campers copy their code to Drive at the end of every
    session — if the link is wrong or a folder is missing, that camper leaves with nothing.
+   Local name folders should match the Drive folders: `Projects\<Name>\<project>`, first
+   name, one word.
    - MS: <https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link>
    - HS: <https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link>
 

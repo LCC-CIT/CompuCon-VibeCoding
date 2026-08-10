@@ -33,9 +33,12 @@ Get your app running:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 cd capstone
 python main.py
 ```
+
+`<Name>` is your name — the folder you made in Session 1.
 
 ### If it doesn't run
 
@@ -43,6 +46,7 @@ Restore the demo copy you made at the end of last session:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-demo capstone
 ```
@@ -175,12 +179,15 @@ satisfying than building for yourself.
 
 ```powershell
 cd $HOME\Documents\Projects   # go to your Projects folder
+cd <Name>                     # go into your name folder
 mkdir myproject               # make a project folder
 cd myproject                  # go into it
-claude                         # start Claude Code
+claude                        # start Claude Code
 
 python app.py                 # run your app
 
+cd $HOME\Documents\Projects   # back to Projects
+cd <Name>                     # back to your name folder
 Copy-Item -Recurse myproject myproject-working    # save point
 ```
 

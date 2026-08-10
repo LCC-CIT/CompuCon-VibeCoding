@@ -94,12 +94,14 @@ That's a great capstone. Don't feel like you need a brand new idea.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 mkdir capstone
 cd capstone
 claude
 ```
 
-(One command per line, no `&&`.)
+`<Name>` is your name — the folder you made in Session 1. (One command per line,
+no `&&`.)
 
 ### Spend the first 5 minutes NOT coding
 
@@ -134,6 +136,7 @@ python app.py
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-working
 ```
 
@@ -141,6 +144,7 @@ Copy-Item -Recurse capstone capstone-working
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Remove-Item -Recurse capstone
 Copy-Item -Recurse capstone-working capstone
 ```

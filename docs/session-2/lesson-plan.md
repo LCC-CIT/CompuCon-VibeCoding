@@ -457,10 +457,14 @@ Set up the project properly. This 20 minutes is what makes Session 3 productive.
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 mkdir capstone
 cd capstone
 claude
 ```
+
+`<Name>` is the camper's name folder from Session 1. Campers who missed Session 1
+don't have one yet — make it for them with `mkdir <Name>` during setup.
 
 Four things, in order:
 
@@ -484,6 +488,7 @@ Everyone makes a save-point copy of their project folder before they leave:
 
 ```powershell
 cd $HOME\Documents\Projects
+cd <Name>
 Copy-Item -Recurse capstone capstone-working
 ```
 
