@@ -1,10 +1,6 @@
 # Session 1 — Make Something Work
 
-**Standalone, for both age groups.** A student who attends only this session leaves with
-a working app they built, understands the loop that produced it, and could do it again
-at home.
-
-Nothing in this session assumes a Session 2.
+**This is a standalone session for both age groups.** A student who attends only this session leaves with a working app they built, understands the loop that produced it, and could do it again. Nothing in this session assumes a Session 2.
 
 ---
 
