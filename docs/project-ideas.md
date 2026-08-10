@@ -13,7 +13,7 @@ of the track.
 | **Session 4** | — | *No build time* — demos only |
 
 **Starter is a hard ceiling for middle school.** MS is a single 85-minute session with
-one ~22-minute build block in it. Anything above Starter will not finish.
+one 17-minute open build block in it. Anything above Starter will not finish.
 
 **All of these assume Python + tkinter.** That's deliberate — one language, one GUI
 library, no install friction on the Windows lab image, instant visual payoff.
@@ -419,7 +419,7 @@ idea well. Protect that — just protect them from reaching the showcase with no
 demo.
 
 **Be strictest with middle school.** Their whole track is one session, and Build #2 is
-~22 minutes of it. "Change Mad Libs into something else" is a completely legitimate
+17 minutes of it. "Change Mad Libs into something else" is a completely legitimate
 answer for anyone who can't settle on something.
 
 ------

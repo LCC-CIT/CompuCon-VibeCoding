@@ -2,96 +2,151 @@
 
 Project status, not conventions. Constraints live in `CLAUDE.md`, in the repo root.
 
-**Nothing here has been taught or tested on real hardware.** All five timing tables sum
-correctly on paper, but no block has been run with real campers — expect the first
-delivery to run long. Delete this file once the track has run once.
+**Session 1 has now been delivered to both age groups.** That makes the middle school
+track complete — MS is Session 1 and ends there. High school still has Sessions 2, 3,
+and 4 ahead, and none of those have been run with campers. This file is rewritten around
+that split: what the first delivery settled, and what is still an estimate on paper.
 
-**Middle school is one session.** Session 1, 85 minutes, and it ends there. High school
-runs all four. Sessions 2–4 are high school only.
+Recorded 2026-08-10.
 
 ---
 
 ## Contents
 
-- [Before you teach — in order](#before-you-teach-in-order)
+- [What the first delivery settled](#what-the-first-delivery-settled)
+- [The timing finding, and what it implies](#the-timing-finding-and-what-it-implies)
+- [Fill these in while it's fresh](#fill-these-in-while-its-fresh)
+- [Before you teach HS Session 2 — in order](#before-you-teach-hs-session-2-in-order)
 - [Still your call](#still-your-call)
 - [Deliberately not done](#deliberately-not-done)
 
-## Before you teach — in order
+## What the first delivery settled
 
-Each item names what breaks if you skip it.
+Session 1 running at all means a whole column of assumptions came good. Don't re-verify
+these from scratch — check them the morning of, out of habit, not out of doubt.
 
-1. **Verify the environment on a real lab laptop.** `claude` launches · `python -c
-   "import tkinter"` is silent · `Documents\Projects` exists (create it if missing) ·
-   note whether PowerShell is 5.1 or 7 · walk the full `Copy-Item` / `Remove-Item`
-   save-point cycle · make a `<Name>` folder and confirm `mkdir` / `cd` work inside it
-   — name folders are new, and every session's setup now depends on them.
-   *If `claude` or tkinter fails, Session 1 doesn't happen. If the copy commands are
-   blocked by lab permissions, the entire save-point system in Session 3 breaks. If
-   `Documents\Projects` is missing, every session's setup fails on the first `cd`.*
+| Assumption | Status after Session 1 |
+|---|---|
+| `claude` launches on a lab machine | **Confirmed** — the session happened |
+| `python -c "import tkinter"` works | **Confirmed** — campers got windows on screen |
+| `Documents\Projects` exists / can be made | **Confirmed** |
+| Name folders (`mkdir <Name>` / `cd <Name>`) | **Confirmed** — setup depended on them |
+| The 6-minute `dice.py` opening demo | **Confirmed** — improvised live, it worked |
+| Google Drive take-home, both age groups | **Confirmed as far as Session 1 goes** |
+| MS Session 1 fits 85 minutes | **Confirmed** — ran the full 85, with a break, pacing judged right |
+| `Copy-Item` / `Remove-Item` save-point cycle | **Still unverified** — Session 3 only |
+| HS Session 4 demo pacing | **Still unverified** — Session 4 hasn't run |
+| Session 2 bad-prompts handout in practice | **Still unverified** |
 
-2. **Confirm the Google Drive take-home link works on a lab machine.** Open the MS link
-   (middle school) and the HS link (high school), and confirm every camper has a folder
-   with their name in the right one. Campers copy their code to Drive before they leave —
-   if the link is wrong or a folder is missing, that camper leaves with nothing. **This
-   matters most for middle school**, who get exactly one chance at it.
-   Local name folders should match the Drive folders: `Projects\<Name>\<project>`, first
-   name, one word.
-   - MS: <https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link>
+The save-point line is the one that matters. **Nothing in Session 1 exercised the folder
+copy commands**, so the lab-permissions risk that could break the entire Session 3 save
+point system is exactly as unverified as it was before you taught anything.
+
+## The timing finding, and what it implies
+
+The two deliveries disagree, and the disagreement is the useful part:
+
+| | Planned | Actual |
+|---|---|---|
+| **MS Session 1** | 85 min | **85 min.** Fit, with a break. Pacing judged right. |
+| **HS Session 1** | 120 min | **~60 min.** Half the budget. |
+
+**The MS estimate was good. The HS estimate was inverted.** Session 1's plan assumed high
+schoolers need about 1.4x the middle school durations for the same block sequence. They
+actually got through it in about 0.7x — faster in absolute terms than the younger group,
+not slower. The content wasn't wrong; the assumption that older campers consume more
+clock was.
+
+That matters for what's left, because Sessions 2 and 3 were estimated the same way. But
+don't apply a flat discount — **the compression is in the talk and structured-exercise
+blocks, not the build blocks.** A 75-minute build block is 75 minutes of building
+regardless of age. What collapsed in Session 1 was the talking.
+
+| Session | Planned | Where the risk is |
+|---|---|---|
+| HS 2 | 180 min | **The one to watch.** ~70 min of it is talk and lab (warm-up, prompt sizing, prompt lab, the four checks). Expect that front half to run well short. |
+| HS 3 | 180 min | Lower risk — 75 min of it is capstone build, which will use its time. The opening 50 min of talk may compress. |
+| HS 4 | 60 min | Demos scale with class size, not with the estimate. Unaffected. |
+
+If Session 2's front half collapses you have an hour of dead room with campers who have
+pitched a capstone and can't properly start it until Session 3. Have overflow ready
+before you walk in — the [AI topics segment bank](session-1/ai-topics.html) was written
+for exactly this, and any of its six segments drops into Session 2 as easily as
+Session 1.
+
+**Leave the MS timings alone.** They are the one set of numbers in this repo that has
+been measured against real campers and come out right.
+
+## Fill these in while it's fresh
+
+These are the things only you know now, and they'll be gone in a month. Replace each
+line with the answer.
+
+- **Where in the MS session did you take the break?** We know one was taken and the
+  session still fit 85 minutes. The block sequence assumes no break and suggests 0:48 if
+  you need one — worth recording whether that's where it landed, and whether anything
+  got cut to pay for it. →
+- **Which HS block ran shortest against its estimate?** That's where the padding is
+  concentrated, and it's the best predictor for Sessions 2 and 3. →
+- **What broke that isn't in [`troubleshooting.html`](troubleshooting.html)?** Add it
+  there, not here. →
+- **Did the printed camper notes come out readable?** The print stylesheet flips the dark
+  theme to black-on-white but had never met a real printer before this. →
+- **Did anyone actually scan the QR code?** →
+
+## Before you teach HS Session 2 — in order
+
+Trimmed to what's genuinely still ahead. Each item names what breaks if you skip it.
+
+1. **Walk the save-point cycle on a real lab laptop.** `Copy-Item -Recurse` to save,
+   `Remove-Item -Recurse` then `Copy-Item -Recurse` back to undo, inside a `<Name>`
+   folder. Do the File Explorer version too (right-click → Copy → Paste → rename).
+   *This is the highest-risk unverified thing left in the track. If lab permissions
+   block the copy commands, the entire save-point system in Session 3 breaks, and
+   Session 3 is where the capstone has to be finished.* Session 2 also ends with campers
+   making a `capstone-working` copy, so it fails there first.
+
+2. **Confirm class size for HS.** Session 4 has 30 minutes of demo time; at 90 seconds
+   each that's 20 campers with zero slack. Above ~20, cut to 60 seconds or run part of
+   it as a gallery walk — decide before the day, not during it.
+
+3. **Have the overflow material ready.** See [the timing finding](#the-timing-finding-and-what-it-implies)
+   above. Pick your segments from the [topic bank](session-1/ai-topics.html) before the session,
+   not from the front of a room with 40 minutes left.
+
+4. **Confirm the HS Drive folders still have every camper's name folder.** Same check as
+   Session 1, but the roster may have moved.
    - HS: <https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link>
 
-3. **Read MS Session 1 aloud with a timer.** 85 minutes is the tightest budget in the
-   track, and it is the entire middle school experience — there is no second session to
-   recover in. It has to land the first time.
+5. **Print the Session 2 handouts.** Camper notes one per camper, the bad-prompts sheet
+   one per pair (it lives inline in the lesson plan), and spec sheets one per camper plus
+   spares.
 
-4. **Dry-run the Session 1 opening demo.** The 6-minute live build of `dice.py` is the
-   hook for the whole track, and there's no script for it — you're improvising in front
-   of the room. There is deliberately no pre-written demo file.
-
-5. **Confirm class size.** HS Session 4 has 30 minutes of demo time; at 90 seconds each
-   that's 20 campers with zero slack. Above ~20, cut to 60 seconds or run part of it as
-   a gallery walk — decide before the day, not during it.
-
-6. **Decide the MS break policy.** The MS session runs 85 minutes straight. Session 1
-   notes where to take five minutes and what to cut for it; the call is yours.
-
-7. **Check the live site.** Settings → Pages → Deploy from a branch, `main`, folder
-   `/docs`. GitHub Pages renders the markdown there, so the curriculum `.md` files
-   appear as `.html` pages. Then click through: home → Middle School → a session's
-   notes → back. **Open it on a phone too** — campers will. Check the nav stacks and
-   that the wide tables in `project-ideas.html` are usable.
-
-8. **Scan the QR code with a phone.** The code on `about.html` is an image — nothing in
-   the repo checks that it encodes the right address. Scan it from the screen, and from
-   a printout if you're handing one out, and confirm it lands on the live site. Also
-   confirm the URL printed under it still matches where Pages actually serves from.
-   *If the code is wrong, every camper who scans it instead of typing lands nowhere.*
-
-9. **Print one camper notes page from the browser and look at it.** The print stylesheet
-   flips the dark theme to black-on-white and hides the nav, but it has never met a real
-   printer. If it comes out dark, print from the markdown instead.
-
-10. **Print the rest.** Camper notes, correct age group — one handout per middle school
-   camper, one per session for high school. They're written to be kept and referred back
-   to, not skimmed once. Plus the Session 2 bad-prompts handout, which lives inline in
-   the lesson plan.
-
----
+6. **Re-check the live site if you've edited it since.** Settings → Pages → Deploy from
+   a branch, `main`, folder `/docs`. Click through home → High School → a session's notes
+   → back, and open it on a phone.
 
 ## Still your call
 
 **The tone of the "the AI wrote the code" talks** at the end of Sessions 1 and 4. The
 most opinionated thing in the curriculum. MS gets two sentences, HS the full paragraph.
-Soften, sharpen, or keep. For middle school it's the last thing they hear all camp.
+You've now delivered the MS version once — if it landed, leave it alone.
 
----
+**Whether the MS break becomes the default.** It's currently written as "no break
+scheduled, take 5 at 0:48 if your group needs one." A break was taken, the session fit,
+and the pacing was right — so the note arguably has it backwards. Flipping it means
+editing the MS timing table, so it's your call, not a correction.
+
+~~Whether MS gets a topic segment.~~ **Settled: no.** MS Session 1 ran its full 85
+minutes and the workload was judged about right, so there is no slack to spend. The
+[topic bank](session-1/ai-topics.html) stays HS-only. Anything added to MS displaces
+something that's already earning its place.
 
 ## Deliberately not done
 
 So nobody "fixes" these by accident.
 
-- **No slides.** Everything is instructor-read. Session 1 is the only one that would
-  really warrant them.
+- **No slides.** Everything is instructor-read.
 - **No assessment or rubric.** The showcase is the assessment.
 - **No parent-facing summary.** Likely useful; not written.
 - **No registration or contact link on the site.** Enrolment is handled elsewhere.

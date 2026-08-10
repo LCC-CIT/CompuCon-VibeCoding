@@ -14,8 +14,12 @@ to maintain.
 
 **Current state: rebuilt against the real schedule, git removed throughout, middle school
 cut to a single session.** Session 1 carries separate MS and HS timing tables; Sessions
-2–4 are high school only and carry one each. Nothing has been taught yet — see
-`preflight.md` for what's still unverified.
+2–4 are high school only and carry one each. **Session 1 has been delivered to both age
+groups** (2026-08-10), so the MS track is complete and HS Sessions 2–4 are still ahead.
+**MS ran its full 85 minutes and the pacing was right — don't touch the MS timings.**
+HS Session 1 ran in ~60 minutes against a 120-minute plan, so treat the remaining HS
+estimates with suspicion; the padding is in the talk blocks, not the build blocks. See
+`preflight.md`.
 
 ---
 
@@ -35,17 +39,19 @@ docs/                          THE SITE — GitHub Pages serves from here
     lesson-plan.md             Instructor script — both age groups
     ms-camper-notes.md         Camper handout, middle school
     hs-camper-notes.md         Camper handout, high school
+    ai-topics.md               HS-only segment bank for when a group runs short (draft)
   session-2/                   HS only — lesson-plan.md + hs-camper-notes.md
   session-3/                   HS only
   session-4/                   HS only
   project-ideas.md             Idea bank by difficulty
   troubleshooting.md           Instructor reference for when things break
-  preflight.md                 Untested assumptions, known gaps, pre-teaching checklist
+  preflight.md                 What the first delivery settled, what's still unverified
 ```
 
-Session 1 has three files: one lesson plan, two camper handouts. Sessions 2–4 have two:
-a lesson plan and the HS handout. **There is no `ms-camper-notes.md` outside
-`session-1/`** — don't re-create one.
+Session 1 has four files: one lesson plan, two camper handouts, and `ai-topics.md` — an
+HS-only bank of short teach-then-build segments for when a group finishes early. Sessions
+2–4 have two: a lesson plan and the HS handout. **There is no `ms-camper-notes.md`
+outside `session-1/`** — don't re-create one.
 
 Session 1's lesson plan uses one block sequence with dual MS/HS durations. Sessions 2–4
 are single-audience and use plain durations. The `## MIDDLE SCHOOL` / `## HIGH SCHOOL`

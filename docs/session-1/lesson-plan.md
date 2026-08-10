@@ -29,9 +29,9 @@ High school continues into Sessions 2–4.
   - [Move 1: ASK](#move-1-ask)
   - [Move 2: RUN](#move-2-run)
   - [Move 3: FIX](#move-3-fix)
-- [Build #2 (MS 22 min / HS 35 min)](#build-2-ms-22-min-hs-35-min)
+- [Build #2 (MS 17 min / HS 35 min)](#build-2-ms-17-min-hs-35-min)
   - [Before they touch the keyboard (MS 3 min / HS 5 min)](#before-they-touch-the-keyboard-ms-3-min-hs-5-min)
-  - [Build (MS 15 min / HS 25 min)](#build-ms-15-min-hs-25-min)
+  - [Build (MS 10 min / HS 25 min)](#build-ms-10-min-hs-25-min)
   - [Land it (MS 4 min / HS 5 min)](#land-it-ms-4-min-hs-5-min)
 - [The AI Was Wrong (MS 8 min / HS 12 min)](#the-ai-was-wrong-ms-8-min-hs-12-min)
 - [Showcase + Take It Home (MS 7 min / HS 8 min)](#showcase-take-it-home-ms-7-min-hs-8-min)
@@ -52,12 +52,14 @@ independent build time and on the concepts blocks.
 | 0:08–0:15 | What just happened | Short talk |
 | 0:15–0:40 | Build #1: everyone builds Mad Libs | Guided, lockstep |
 | 0:40–0:48 | The three moves: Ask, Run, Fix | Short talk + demo |
-| 0:48–1:10 | Build #2: make it yours | Independent |
+| 0:48–0:53 | **Break** | |
+| 0:53–1:10 | Build #2: make it yours | Independent |
 | 1:10–1:18 | The AI was wrong + break your app | Whole group |
 | 1:18–1:25 | Showcase + take it home | Campers demo |
 
-> **No break is scheduled.** 85 minutes is the whole session. If your group needs one,
-> take 5 at the 0:48 mark and cut Build #2 to 17 minutes — don't cut the 1:10 block.
+> **Take the break.** This ran as written with a real MS group — full 85 minutes, break
+> included, workload about right. If you'd rather skip it, give the 5 minutes back to
+> Build #2 (making it 22) — but don't spend them on the 1:10 or 1:18 blocks.
 
 ### High school — 120 min
 
@@ -301,7 +303,7 @@ It's a real professional skill and they're learning it today.
 
 ---
 
-## Build #2 (MS 22 min / HS 35 min)
+## Build #2 (MS 17 min / HS 35 min)
 
 This is where the two age groups genuinely diverge in ambition.
 
@@ -320,9 +322,13 @@ Everyone writes their first prompt (or their next three changes, for MS) **on pa
 gets it checked against the four questions. This catches the "make me a game" prompts
 before they waste the whole block.
 
-### Build (MS 15 min / HS 25 min)
+### Build (MS 10 min / HS 25 min)
 
 Independent work. Instructor circulates.
+
+**MS is tight here** — 10 minutes is enough to make three real changes to `story.py` and
+no more. Anyone starting a fresh app from the idea bank needs to have decided that during
+the previous block, not now.
 
 **Checkpoints on the board:**
 

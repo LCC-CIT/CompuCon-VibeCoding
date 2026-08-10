@@ -95,8 +95,8 @@ serves — a `.md` link would 404 on the live site.
 reminders for that session, so campers never juggle two documents. Print one per camper
 per session.
 
-Plus [`preflight.md`](docs/preflight.md) — what's untested, what's deliberately missing, and
-what to do before Session 1.
+Plus [`preflight.md`](docs/preflight.md) — what the first delivery settled, what's still
+unverified, and what to do before HS Session 2.
 
 ---
 
