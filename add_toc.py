@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Add or refresh the ``## Contents`` section of each Markdown file.
 
-Scans a file for ``##`` and ``###`` headings and lists them under a ``## Contents``
-heading near the top, as linked entries using the GitHub-style anchors that GitHub
-Pages / kramdown renders. Only the title of a file should be ``#``; the script warns
-about any other ``#`` headings but never rewrites them.
+Scans a file for headings at levels two through four (``##``, ``###``, ``####``) and
+lists them under a ``## Contents`` heading near the top, as linked entries using the
+GitHub-style anchors that GitHub Pages / kramdown renders. Only the title of a file
+should be ``#``; the script warns about any other ``#`` headings but never rewrites
+them.
 
 It is idempotent — run it again after adding, removing, or renaming headings and it
 updates the existing Contents section in place instead of adding a second one. It
@@ -35,11 +36,10 @@ def discover_default_files() -> list[pathlib.Path]:
 
 
 def heading_info(line: str) -> tuple[int, str] | None:
-    """Return (level, text) for a ``##`` or ``###`` heading line, else None."""
-    if line.startswith("## "):
-        return (2, line[3:].strip())
-    if line.startswith("### "):
-        return (3, line[4:].strip())
+    """Return (level, text) for a ``##``, ``###``, or ``####`` heading, else None."""
+    m = re.match(r"^(#{2,4}) (.+)$", line)
+    if m:
+        return (len(m.group(1)), m.group(2).strip())
     return None
 
 
@@ -96,24 +96,23 @@ def add_toc(text: str) -> tuple[str, str, list[str]]:
         headings.append((level, htext, anchor, i))
 
     if not headings:
-        return text, "no ##/### headings to index", warnings
+        return text, "no ## or deeper headings to index", warnings
 
     first_real_index = min(h[3] for h in headings)
     if contents_index is not None and contents_index > first_real_index:
         # A "Contents" heading deeper in the document is content, not ours.
         contents_index = None
 
-    # Render the fresh section. A ### only nests under a ## when one precedes
-    # it; a ### that opens a file (no ## parent) sits at the top level.
+    # Render the fresh section, nesting each entry under the heading that most
+    # recently precedes it at a shallower level — ### under ##, #### under ###,
+    # and so on. A heading that opens a file (no shallower parent) is top level.
     section = ["## Contents", ""]
-    seen_h2 = False
+    stack: list[int] = []
     for level, htext, anchor, _ in headings:
-        if level == 2:
-            seen_h2 = True
-            section.append(f"- [{htext}](#{anchor})")
-        else:
-            indent = "  " if seen_h2 else ""
-            section.append(f"{indent}- [{htext}](#{anchor})")
+        while stack and stack[-1] >= level:
+            stack.pop()
+        section.append(f"{'  ' * len(stack)}- [{htext}](#{anchor})")
+        stack.append(level)
     section.append("")
 
     if contents_index is not None:
