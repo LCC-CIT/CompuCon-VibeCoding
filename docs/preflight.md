@@ -20,31 +20,38 @@ Each item names what breaks if you skip it.
    blocked by lab permissions, the entire save-point system in Session 3 breaks. If
    `Documents\Projects` is missing, every session's setup fails on the first `cd`.*
 
-2. **Read MS Session 1 aloud with a timer.** 85 minutes is the tightest budget in the
+2. **Confirm the Google Drive take-home link works on a lab machine.** Open the MS link
+   (middle school) and the HS link (high school), and confirm every camper has a folder
+   with their name in the right one. Campers copy their code to Drive at the end of every
+   session — if the link is wrong or a folder is missing, that camper leaves with nothing.
+   - MS: <https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link>
+   - HS: <https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link>
+
+3. **Read MS Session 1 aloud with a timer.** 85 minutes is the tightest budget in the
    track, and it's the one session that must land perfectly, since it stands alone.
 
-3. **Dry-run the Session 1 opening demo.** The 6-minute live build of `dice.py` is the
+4. **Dry-run the Session 1 opening demo.** The 6-minute live build of `dice.py` is the
    hook for the whole track, and there's no script for it — you're improvising in front
    of the room. There is deliberately no pre-written demo file.
 
-4. **Confirm class size.** HS Session 4 has 30 minutes of demo time; at 90 seconds each
+5. **Confirm class size.** HS Session 4 has 30 minutes of demo time; at 90 seconds each
    that's 20 campers with zero slack. Above ~20, cut to 60 seconds or run part of it as
    a gallery walk — decide before the day, not during it.
 
-5. **Decide the MS break policy.** All four MS sessions are 85 minutes straight. Each
+6. **Decide the MS break policy.** All four MS sessions are 85 minutes straight. Each
    file notes where to take five minutes and what to cut for it; the call is yours.
 
-6. **Check the live site.** Settings → Pages → Deploy from a branch, `main`, folder
+7. **Check the live site.** Settings → Pages → Deploy from a branch, `main`, folder
    `/docs`. GitHub Pages renders the markdown there, so the curriculum `.md` files
    appear as `.html` pages. Then click through: home → Middle School → a session's
    notes → back. **Open it on a phone too** — campers will. Check the nav stacks and
    that the wide tables in `project-ideas.html` are usable.
 
-7. **Print one camper notes page from the browser and look at it.** The print stylesheet
+8. **Print one camper notes page from the browser and look at it.** The print stylesheet
    flips the dark theme to black-on-white and hides the nav, but it has never met a real
    printer. If it comes out dark, print from the markdown instead.
 
-8. **Print the rest.** Camper notes: one per camper per session, correct age group —
+9. **Print the rest.** Camper notes: one per camper per session, correct age group —
    they're written to be kept and referred back to, not skimmed once. Plus the Session 2
    bad-prompts handout, which lives inline in the lesson plan.
 

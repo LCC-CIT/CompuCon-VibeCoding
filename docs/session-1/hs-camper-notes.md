@@ -249,7 +249,11 @@ Number 2 is required. Everyone's app broke today; making that public is the poin
 
 ## Before you go
 
-Get your file off this machine — email or USB.
+Get your file off this machine. Save a copy to your Google Drive folder:
+
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link)
+2. Find the folder with your name
+3. Copy your app file into it
 
 **And the honest version of what happened today:** the AI wrote the code. What you did —
 deciding what to build, catching what was wrong, steering it — is real work, and it's

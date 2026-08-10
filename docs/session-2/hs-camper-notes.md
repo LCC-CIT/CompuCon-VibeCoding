@@ -342,6 +342,16 @@ full system next session. For now: **it works, so copy it.**
 
 ---
 
+## Taking it home
+
+Your project is on this computer. Save a copy to your Google Drive folder:
+
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link)
+2. Find the folder with your name
+3. Copy your project folder into it
+
+---
+
 ## Next time
 
 Your project gets too big for one file, and you finish your capstone. **Session 4 is

@@ -338,3 +338,13 @@ If it crashes on stage: say what it does and keep going.
 ## The short version
 
 > ## Plan before you build. Split by job. Copy every time it works.
+
+---
+
+## Taking it home
+
+Your project is on this computer. Save a copy to your Google Drive folder:
+
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link)
+2. Find the folder with your name
+3. Copy your project folder into it

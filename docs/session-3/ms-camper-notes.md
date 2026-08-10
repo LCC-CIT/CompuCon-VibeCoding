@@ -255,6 +255,18 @@ At the end, everyone shows **one bug they found and fixed**, in about 30 seconds
 
 ---
 
+## Taking it home
+
+Your project is on this computer. Save a copy to your Google Drive folder:
+
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link)
+2. Find the folder with **your name**
+3. Copy your project folder into it
+
+Ask an instructor if you can't find your folder.
+
+---
+
 ## Next time
 
 You pick something to build from scratch — your idea — and you demo it to everyone at the

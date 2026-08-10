@@ -236,10 +236,13 @@ both — steer the AI *and* read what it wrote — are going to be unbelievably 
 
 ## Take your stuff home
 
-**Do this before you leave.** Ask an instructor to help you email your project to yourself
-or put it on a USB stick.
+**Do this before you leave.** Save a copy of your project to your Google Drive folder:
 
-Claude Code is free to install at home, and there are free models you can use with it.
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link)
+2. Find the folder with **your name**
+3. Copy your project folder into it
+
+Ask an instructor if you can't find your folder.
 
 ### What to build next
 

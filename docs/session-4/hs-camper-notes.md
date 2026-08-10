@@ -139,9 +139,10 @@ which gap is which.
 
 ### Keep what you've got
 
-- **Get your project off this machine today** — USB, email, shared folder. Do it in the
-  last block, not "later."
-- Claude Code is free to install, and there are free model options
+- **Get your project off this machine today** — save a copy to your Google Drive folder:
+  open the [Google Drive link](https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link),
+  find the folder with your name, and copy your project folder into it. Do it in the last
+  block, not "later."
 - Add one feature a week to what you built
 
 ### Learn what's underneath

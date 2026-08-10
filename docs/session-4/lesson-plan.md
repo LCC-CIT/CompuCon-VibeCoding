@@ -219,7 +219,8 @@ Say these out loud. They'll undersell it to themselves otherwise.
 
 > "You built three things that didn't exist before you got here. Go build a fourth."
 
-Make sure everyone gets their project off the machine — USB, email, or shared folder.
+Make sure everyone copies their project into their Google Drive folder — link in the
+camper notes.
 
 ---
 
@@ -346,9 +347,8 @@ next time you run this track — write down what you hear.
 
 **Keep going with what you have:**
 
-- Get your project off this machine — USB, email, or shared folder. Do it now, in this
-  block, not later.
-- Claude Code is free to install, and there are free model options
+- Get your project into your Google Drive folder — link in the camper notes. Do it now,
+  in this block, not later.
 - Add one feature a week to the thing you built
 
 **Learn what's underneath:**
@@ -382,7 +382,7 @@ next time you run this track — write down what you hear.
 - [ ] Scope-cut table printed for the pitch block
 - [ ] Pre-approve "rebuild my Session 1 app, better" for anyone who can't choose
 - [ ] Visible countdown timer for the showcase
-- [ ] Plan for getting projects off the machines — USB, email, or shared folder
+- [ ] Confirm every camper has a folder with their name in the right Google Drive folder
 
 **HS:**
 

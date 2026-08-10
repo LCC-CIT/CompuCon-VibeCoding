@@ -213,8 +213,13 @@ Number 2 is not optional! Everybody's app broke today. Saying so out loud is the
 
 ## Taking it home
 
-Your app is a file on this computer. Ask an instructor how to email it to yourself or put
-it on a USB stick.
+Your app is a file on this computer. Save a copy to your Google Drive folder:
+
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link)
+2. Find the folder with **your name**
+3. Copy your app file into it
+
+Ask an instructor if you can't find your folder.
 
 **One last thing, and it's honest:** the AI wrote the code. You decided what to build, you
 found what was wrong, and you fixed it — that's real, and it's most of what the job

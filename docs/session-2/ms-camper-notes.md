@@ -253,6 +253,18 @@ Then swap back and fix the best bug your partner found.
 
 ---
 
+## Taking it home
+
+Your app is on this computer. Save a copy to your Google Drive folder:
+
+1. Open the [Google Drive link](https://drive.google.com/drive/folders/1oNet8nYU7jCxaeuXWlM8ZIS7dL_IS2rY?usp=drive_link)
+2. Find the folder with **your name**
+3. Copy your project folder into it
+
+Ask an instructor if you can't find your folder.
+
+---
+
 ## Next time
 
 How to save your work so you can never lose it, and what to do when the AI keeps "fixing"

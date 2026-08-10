@@ -387,8 +387,8 @@ Three things they leave with:
 1. **The loop, on an index card:**
    > **Ask small → Run it → Say exactly what went wrong → Repeat**
 
-2. **Their app.** It's theirs. It's on the machine, and if they have a USB stick or
-   email, it's a single file they can take.
+2. **Their app.** It's theirs. Have them copy it to their Google Drive folder — the
+   link is in the camper notes.
 
 3. **The honest note.** Say this out loud:
 
