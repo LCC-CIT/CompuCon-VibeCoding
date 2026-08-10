@@ -37,10 +37,10 @@ Plan around that. If you're behind at the halfway mark, cut a feature — don't 
 ```powershell
 cd $HOME\Documents\Projects
 cd capstone
-cc-ds
+claude
 ```
 
-`cc` if you're on your own Claude Pro account. **Run it:** `python main.py`
+**Run it:** `python main.py`
 
 `Ctrl+C` quits · `/clear` resets the conversation without touching your code · one
 command per line, no `&&`

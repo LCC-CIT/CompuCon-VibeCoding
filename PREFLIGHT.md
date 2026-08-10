@@ -12,11 +12,11 @@ delivery to run long. Delete this file once the track has run once.
 
 Each item names what breaks if you skip it.
 
-1. **Verify the environment on a real lab laptop.** `cc-ds` launches · `python -c
+1. **Verify the environment on a real lab laptop.** `claude` launches · `python -c
    "import tkinter"` is silent · `Documents\Projects` exists (create it if missing) ·
    note whether PowerShell is 5.1 or 7 · walk the full `Copy-Item` / `Remove-Item`
    save-point cycle.
-   *If `cc-ds` or tkinter fails, Session 1 doesn't happen. If the copy commands are
+   *If `claude` or tkinter fails, Session 1 doesn't happen. If the copy commands are
    blocked by lab permissions, the entire save-point system in Session 3 breaks. If
    `Documents\Projects` is missing, every session's setup fails on the first `cd`.*
 

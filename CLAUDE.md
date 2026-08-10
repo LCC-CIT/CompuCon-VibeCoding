@@ -173,13 +173,14 @@ this. The most common failure mode when expanding a curriculum is adding lecture
 
 ## The tooling campers use
 
-- **`cc-ds`** — Claude Code on DeepSeek models, preconfigured on lab laptops. The default.
-- **`cc`** — Claude Code on Anthropic models, for campers with their own Claude Pro
-  account. Functionally identical for this curriculum.
+**`claude`** — Claude Code. One command on every machine. The old two-command setup
+(`cc-ds` on DeepSeek, `cc` for campers with their own Claude Pro account) was retired
+because the launcher scripts couldn't be deployed to the college lab machines
+(permission restrictions). Don't reintroduce a second command.
 
-Mentioned once in Session 1, then treated as the same thing. Don't add material that
-distinguishes them beyond the Session 2 "the interface and the model are separable"
-aside (HS only).
+The Session 2 "the interface and the model are separable" aside (HS only) still stands —
+the tool is separate from the model behind it. It just no longer has two commands to
+point at.
 
 **No git.** Not part of the toolset. See the no-git constraint above for the save-point
 alternative.

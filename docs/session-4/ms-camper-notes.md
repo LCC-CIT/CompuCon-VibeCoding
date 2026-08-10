@@ -96,11 +96,10 @@ That's a great capstone. Don't feel like you need a brand new idea.
 cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
-cc-ds
+claude
 ```
 
-(`cc` instead of `cc-ds` if you have your own Claude Pro account. One command per line,
-no `&&`.)
+(One command per line, no `&&`.)
 
 ### Spend the first 5 minutes NOT coding
 

@@ -14,7 +14,7 @@ Run this on one lab machine:
 ```powershell
 python --version                # should print 3.x
 python -c "import tkinter"      # must produce no output
-cc-ds                           # should launch and accept a prompt
+claude                           # should launch and accept a prompt
 ```
 
 No git check needed — campers don't use git. Save points are folder copies; see
@@ -37,26 +37,18 @@ No git check needed — campers don't use git. Save points are folder copies; se
 
 ## Claude Code Problems
 
-### `cc-ds` doesn't start / hangs
+### `claude` doesn't start / hangs
 
-1. `Ctrl+C`, run `cc-ds` again — fixes most of them
+1. `Ctrl+C`, run `claude` again — fixes most of them
 2. Check the network — it needs to reach the model API
 3. Move to a spare machine rather than debugging in front of the class
 
-### A camper is using `cc` and something differs
+### `claude` prompts for a login
 
-`cc` runs Claude Code on Anthropic's models via the camper's own Claude Pro account;
-`cc-ds` runs it on DeepSeek. The tool, commands, and everything in this curriculum are
-identical. Differences you may see:
-
-- **Slightly different code style or verbosity.** Not a problem. Don't chase it.
-- **`cc` hits a usage limit.** Pro accounts have caps. Have them switch to `cc-ds` —
-  the project folder is unchanged, so they just restart and keep going.
-- **A camper didn't log in.** `cc` will prompt for auth. If they don't have an account,
-  `cc-ds` is the answer.
-
-Don't let this become a topic. One mention in Session 1, then treat them as the same
-thing.
+`claude` is the one command on every machine. If it asks to log in, that machine isn't
+signed in — get every machine signed in during "Before Campers Arrive," and if one
+still prompts, move the camper to a machine that's signed in. Don't debug logins in
+front of the class.
 
 ### It's stuck thinking / no output for a long time
 
@@ -83,7 +75,7 @@ Get-Location    # where am I?
 Get-ChildItem   # is my file here?
 ```
 
-`Ctrl+C`, `cd` to the right folder, `cc-ds` again.
+`Ctrl+C`, `cd` to the right folder, `claude` again.
 
 ### It keeps "fixing" and making it worse
 
@@ -173,7 +165,7 @@ delete irreversible.
 ### "Cannot remove item — being used by another process"
 
 The app is still running, or Claude Code is open in that folder. Close the tkinter
-window, `Ctrl+C` out of `cc-ds`, then retry.
+window, `Ctrl+C` out of `claude`, then retry.
 
 This is the most common failure in the restore cycle. Check it first.
 

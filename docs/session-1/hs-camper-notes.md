@@ -42,16 +42,12 @@ Open **PowerShell** (through Windows Terminal). One command per line:
 cd $HOME\Documents\Projects
 mkdir madlibs
 cd madlibs
-cc-ds
+claude
 ```
 
-`cc-ds` launches **Claude Code** running on a DeepSeek model.
+`claude` launches **Claude Code**.
 
-> **If you have your own Claude Pro account,** use `cc` instead — same tool, Anthropic's
-> models behind it. Functionally identical for everything this week. If you hit a usage
-> limit on `cc`, just switch to `cc-ds`; your project folder is untouched.
-
-**Exit:** `Ctrl+C` · **Restart:** `cc-ds`
+**Exit:** `Ctrl+C` · **Restart:** `claude`
 
 **Run your app** (in PowerShell, not inside the AI):
 
@@ -69,17 +65,16 @@ way.
 
 ## What you're actually working with
 
-`cc-ds` starts an AI that can **read and write files in the folder you started it in**,
+`claude` starts an AI that can **read and write files in the folder you started it in**,
 and run commands. That folder is its entire world — which is why you always start it
 inside your project folder, not in the Projects folder.
 
 ### Two things worth understanding
 
 **The tool and the model are separate.** Claude Code is the interface — the thing that
-reads your files and edits them. The model is the intelligence behind it. We're running
-Anthropic's tool on DeepSeek's model. That's why `cc` and `cc-ds` behave nearly
-identically despite different companies' AI underneath. Most AI products are assembled
-this way, and knowing that makes the whole landscape less mysterious.
+reads your files and edits them. The model is the intelligence behind it. Most AI
+products are assembled this way, and knowing that makes the whole landscape less
+mysterious.
 
 **The model is a very fast, very well-read guesser.** It predicts what code should come
 next based on an enormous amount of code it has read. It is not reasoning about your

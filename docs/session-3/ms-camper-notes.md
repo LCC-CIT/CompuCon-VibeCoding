@@ -40,10 +40,10 @@ Open **PowerShell**. Go to the project you built last session:
 ```powershell
 cd $HOME\Documents\Projects
 cd madlibs
-cc-ds
+claude
 ```
 
-(Use your own folder name. `cc` instead of `cc-ds` if you have a Claude Pro account.)
+(Use your own folder name.)
 
 **Run your app:**
 

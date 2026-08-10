@@ -32,16 +32,16 @@ idea; the stack is a detail. See the "different language" entry in
 
 | App | What it does | Why it works |
 |---|---|---|
-| **Mad Libs** | Fill in 5 words, get a funny story | Instant payoff, endlessly customizable |
-| **Dice Roller** | Click to roll a d20 | Simplest possible thing that's still fun |
-| **Magic 8-Ball** | Ask a question, get an answer | Adding your own answers is the hook |
-| **Coin Flip Streak** | Flip and track heads/tails counts | Sneaks in real state management |
-| **Compliment Generator** | Random nice thing, on a button | Easy to personalize |
-| **Random Team Picker** | Names in, shuffled groups out | Actually useful — they'll use it |
-| **Color Picker** | Sliders that change the background live | Very visual, very immediate |
-| **Countdown Timer** | Set minutes, count down, beep | Timing bugs teach a lot |
-| **Rock Paper Scissors** | Play the computer, keep score | Score tracking is the real lesson |
-| **Unit Converter** | Miles↔km, F↔C, etc. | Great for wrong-input testing |
+| [**Mad Libs**](#mad-libs) | Fill in 5 words, get a funny story | Instant payoff, endlessly customizable |
+| [**Dice Roller**](#dice-roller) | Click to roll a d20 | Simplest possible thing that's still fun |
+| [**Magic 8-Ball**](#magic-8-ball) | Ask a question, get an answer | Adding your own answers is the hook |
+| [**Coin Flip Streak**](#coin-flip-streak) | Flip and track heads/tails counts | Sneaks in real state management |
+| [**Compliment Generator**](#compliment-generator) | Random nice thing, on a button | Easy to personalize |
+| [**Random Team Picker**](#random-team-picker) | Names in, shuffled groups out | Actually useful — they'll use it |
+| [**Color Picker**](#color-picker) | Sliders that change the background live | Very visual, very immediate |
+| [**Countdown Timer**](#countdown-timer) | Set minutes, count down, beep | Timing bugs teach a lot |
+| [**Rock Paper Scissors**](#rock-paper-scissors) | Play the computer, keep score | Score tracking is the real lesson |
+| [**Unit Converter**](#unit-converter) | Miles↔km, F↔C, etc. | Great for wrong-input testing |
 
 ---
 
@@ -52,20 +52,20 @@ capstones. Too big for any MS block.
 
 | App | What it does | The interesting part |
 |---|---|---|
-| **Quiz Game** | Multiple choice, score at the end | Scoring edge cases everywhere |
-| **Todo List** | Add, check off, delete | Persistence — save to a file |
-| **Pomodoro Timer** | 25 work / 5 break, cycles | State machine, real logic |
-| **Flashcards** | Front/back cards, mark right or wrong | Data structure choice matters |
-| **Password Strength Checker** | Live feedback as you type | Rules-based scoring, easy to break |
-| **Hangman** | Classic word guessing | Real game logic, win/lose states |
-| **Number Guessing Game** | Higher/lower with hints | Perfect for teaching input validation |
-| **Habit Tracker** | Check off daily habits, keep streaks | Dates are gloriously bug-prone |
-| **Grade Calculator** | Enter scores, get weighted average | Empty-list bug lives here |
-| **Tip Splitter** | Bill + people + tip % → per person | Division by zero, rounding |
-| **Memory Match** | Flip cards, find pairs | Grid layout, timing |
-| **Budget Tracker** | Log spending by category | Text file storage, totals |
-| **Study Playlist Timer** | Timer that suggests break activities | Combines two ideas |
-| **Text Adventure** | Rooms, choices, an ending | Great for data-file separation |
+| [**Quiz Game**](#quiz-game) | Multiple choice, score at the end | Scoring edge cases everywhere |
+| [**Todo List**](#todo-list) | Add, check off, delete | Persistence — save to a file |
+| [**Pomodoro Timer**](#pomodoro-timer) | 25 work / 5 break, cycles | State machine, real logic |
+| [**Flashcards**](#flashcards) | Front/back cards, mark right or wrong | Data structure choice matters |
+| [**Password Strength Checker**](#password-strength-checker) | Live feedback as you type | Rules-based scoring, easy to break |
+| [**Hangman**](#hangman) | Classic word guessing | Real game logic, win/lose states |
+| [**Number Guessing Game**](#number-guessing-game) | Higher/lower with hints | Perfect for teaching input validation |
+| [**Habit Tracker**](#habit-tracker) | Check off daily habits, keep streaks | Dates are gloriously bug-prone |
+| [**Grade Calculator**](#grade-calculator) | Enter scores, get weighted average | Empty-list bug lives here |
+| [**Tip Splitter**](#tip-splitter) | Bill + people + tip % → per person | Division by zero, rounding |
+| [**Memory Match**](#memory-match) | Flip cards, find pairs | Grid layout, timing |
+| [**Budget Tracker**](#budget-tracker) | Log spending by category | Text file storage, totals |
+| [**Study Playlist Timer**](#study-playlist-timer) | Timer that suggests break activities | Combines two ideas |
+| [**Text Adventure**](#text-adventure) | Rooms, choices, an ending | Great for data-file separation |
 
 ---
 
@@ -76,18 +76,178 @@ they'll cut something.
 
 | App | What it does | Why it stretches |
 |---|---|---|
-| **Two-Player Battle Game** | Turn-based, same keyboard, HP and attacks | Turn logic, state, balance |
-| **Typing Speed Test** | Type a passage, get WPM and accuracy | Timing + string comparison |
-| **Recipe Scaler** | Recipe in, scale to N servings | Fractions and units are hard |
-| **Class Schedule Builder** | Add classes, detect time conflicts | Real algorithmic thinking |
-| **Simple Drawing App** | Draw on a canvas, pick colors, save | Canvas events, file output |
-| **Music Practice Log** | Log sessions, chart weekly minutes | Data over time, simple charting |
-| **Wordle Clone** | 5 letters, 6 guesses, color feedback | The yellow-letter rule is genuinely tricky |
-| **Inventory Manager** | Items, quantities, low-stock alerts | Multi-file, JSON data |
-| **Sports Stat Tracker** | Log games, compute season averages | Real data modeling |
-| **Choose-Your-Own-Story Engine** | Story loaded from a data file | Best multi-file project on this list |
-| **Pixel Art Editor** | Grid of cells, click to color, export | Grid math, save/load |
-| **Sorting Visualizer** | Watch bubble sort run step by step | Animation + a real CS concept |
+| [**Two-Player Battle Game**](#two-player-battle-game) | Turn-based, same keyboard, HP and attacks | Turn logic, state, balance |
+| [**Typing Speed Test**](#typing-speed-test) | Type a passage, get WPM and accuracy | Timing + string comparison |
+| [**Recipe Scaler**](#recipe-scaler) | Recipe in, scale to N servings | Fractions and units are hard |
+| [**Class Schedule Builder**](#class-schedule-builder) | Add classes, detect time conflicts | Real algorithmic thinking |
+| [**Simple Drawing App**](#simple-drawing-app) | Draw on a canvas, pick colors, save | Canvas events, file output |
+| [**Music Practice Log**](#music-practice-log) | Log sessions, chart weekly minutes | Data over time, simple charting |
+| [**Wordle Clone**](#wordle-clone) | 5 letters, 6 guesses, color feedback | The yellow-letter rule is genuinely tricky |
+| [**Inventory Manager**](#inventory-manager) | Items, quantities, low-stock alerts | Multi-file, JSON data |
+| [**Sports Stat Tracker**](#sports-stat-tracker) | Log games, compute season averages | Real data modeling |
+| [**Choose-Your-Own-Story Engine**](#choose-your-own-story-engine) | Story loaded from a data file | Best multi-file project on this list |
+| [**Pixel Art Editor**](#pixel-art-editor) | Grid of cells, click to color, export | Grid math, save/load |
+| [**Sorting Visualizer**](#sorting-visualizer) | Watch bubble sort run step by step | Animation + a real CS concept |
+
+---
+
+## Project Descriptions
+
+One paragraph each — enough to picture the screen and start building. The names in the
+tables above link here.
+
+### Starter
+
+#### Mad Libs
+
+Fill in a few words, get a silly story back. The classic first build — quick to finish,
+easy to make funnier.
+
+#### Dice Roller
+
+A big button. Click it, get a number. Add sounds, colors, or a list of your last rolls.
+
+#### Magic 8-Ball
+
+Type a question, get a mysterious answer. Writing your own answers is the fun part.
+
+#### Coin Flip Streak
+
+Flip a coin and count heads versus tails. Simple, but the counting gets interesting.
+
+#### Compliment Generator
+
+A button that says something nice. Personalizing the compliments is where it gets good.
+
+#### Random Team Picker
+
+Type in names, get shuffled groups back. Actually useful — campers will use it to split
+into teams.
+
+#### Color Picker
+
+Sliders that change the window's color as you move them. Instant visual payoff.
+
+#### Countdown Timer
+
+Set minutes, watch it count down, get beeped at zero. Timing is harder than it looks.
+
+#### Rock Paper Scissors
+
+Play the computer and keep score. The scorekeeping is the real lesson.
+
+#### Unit Converter
+
+Miles to kilometers, Fahrenheit to Celsius, anything. Great for finding wrong-input bugs.
+
+### Solid
+
+#### Quiz Game
+
+Multiple-choice questions with a score at the end. Everything that can go wrong with
+scoring lives here.
+
+#### Todo List
+
+Add tasks, check them off, delete them. Save to a file so the list survives a restart.
+
+#### Pomodoro Timer
+
+Twenty-five minutes of work, five-minute break, on a loop. Real logic, real state.
+
+#### Flashcards
+
+Front of a card, back of a card, mark it right or wrong. The card data structure matters.
+
+#### Password Strength Checker
+
+Type a password, get a rating as you type. Rules you can break.
+
+#### Hangman
+
+Guess the word before you run out of tries. Real game logic with win and lose states.
+
+#### Number Guessing Game
+
+It picks a number, you guess higher or lower. Perfect for learning input checking.
+
+#### Habit Tracker
+
+Check off daily habits and keep a streak going. Dates are gloriously buggy.
+
+#### Grade Calculator
+
+Enter scores, get a weighted average. An empty list breaks it — good.
+
+#### Tip Splitter
+
+Bill, people, tip percent, cost per person. Division by zero and rounding live here.
+
+#### Memory Match
+
+Flip cards and find the pairs. Grids and timing.
+
+#### Budget Tracker
+
+Log spending by category and see totals. Store everything in a text file.
+
+#### Study Playlist Timer
+
+A timer that suggests break activities. Two ideas in one app.
+
+#### Text Adventure
+
+Rooms, choices, an ending. Great for separating the story from the code.
+
+### Stretch
+
+#### Two-Player Battle Game
+
+Turn-based combat, two players, one keyboard. HP, attacks, balance.
+
+#### Typing Speed Test
+
+Type a passage and get words-per-minute and accuracy. Timing plus string comparison.
+
+#### Recipe Scaler
+
+Put in a recipe and scale it to any number of servings. Fractions are genuinely hard.
+
+#### Class Schedule Builder
+
+Add classes and find time conflicts. Real algorithmic thinking.
+
+#### Simple Drawing App
+
+Draw on a canvas, pick colors, save your art. Canvas events and file output.
+
+#### Music Practice Log
+
+Log practice sessions and chart your weekly minutes. Data over time.
+
+#### Wordle Clone
+
+Five letters, six guesses, color feedback. The yellow-letter rule is sneaky.
+
+#### Inventory Manager
+
+Items, quantities, low-stock alerts. Multi-file, JSON data.
+
+#### Sports Stat Tracker
+
+Log games and compute season averages. Real data modeling.
+
+#### Choose-Your-Own-Story Engine
+
+A story loaded from a data file. The best multi-file project here.
+
+#### Pixel Art Editor
+
+A grid of cells, click to color, export. Grid math, save and load.
+
+#### Sorting Visualizer
+
+Watch bubble sort run step by step. Animation plus a real CS concept.
 
 ---
 

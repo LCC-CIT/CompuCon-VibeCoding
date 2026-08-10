@@ -43,11 +43,10 @@ accordingly, which mostly means picking something smaller than you want to.
 cd $HOME\Documents\Projects
 mkdir myproject
 cd myproject
-cc-ds
+claude
 ```
 
-`cc` if you have your own Claude Pro account. One command per line — 5.1 doesn't support
-`&&`.
+One command per line — 5.1 doesn't support `&&`.
 
 **Run it:** `python app.py`
 
@@ -297,7 +296,7 @@ You have the rest of today plus Session 3. That's it.
 cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
-cc-ds
+claude
 ```
 
 Four steps, in order:

@@ -39,17 +39,14 @@ Open **PowerShell**. Type these lines **one at a time**, pressing Enter after ea
 cd $HOME\Documents\Projects
 mkdir madlibs
 cd madlibs
-cc-ds
+claude
 ```
 
 The first three lines get you into today's project folder. `Projects` is where
-all your projects live. That last one, `cc-ds`, starts the AI.
-
-> **Got your own Claude Pro account?** Type `cc` instead of `cc-ds`. Everything else is
-> exactly the same.
+all your projects live. That last one, `claude`, starts the AI.
 
 **To quit the AI:** hold `Ctrl` and press `C`.
-**To start it again:** type `cc-ds`.
+**To start it again:** type `claude`.
 
 **To run your app** (do this in PowerShell, not in the AI):
 

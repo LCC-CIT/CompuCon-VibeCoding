@@ -107,7 +107,7 @@ struggling to choose. Ownership matters more than novelty.
 cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
-cc-ds
+claude
 ```
 
 1. Write the first prompt on paper — the whole app, answering the four questions

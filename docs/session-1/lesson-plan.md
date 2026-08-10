@@ -46,7 +46,7 @@ independent build time and on the concepts blocks.
 cd $HOME\Documents\Projects
 mkdir demo
 cd demo
-cc-ds
+claude
 ```
 
 Type your prompt out loud so they see you thinking:
@@ -109,18 +109,15 @@ today than you'd guess.
 
 Point at the terminal:
 
-- `cc-ds` starts **Claude Code**, an AI that can read and write files in the folder
+- `claude` starts **Claude Code**, an AI that can read and write files in the folder
   you're in and run commands
-- It's running on a model from a company called **DeepSeek** — the tool and the AI
-  brain behind it are separate pieces
-- **If you have your own Claude Pro account, type `cc` instead.** Same tool, different
-  model behind it. Everything today works the same either way.
+- The tool and the AI model behind it are separate pieces — Claude Code is the
+  interface, and it can be wired to different models
 - It sees the folder you started it in. That's its whole world. Start it in your
   project folder.
-- `Ctrl+C` gets you out. `cc-ds` (or `cc`) gets you back in.
+- `Ctrl+C` gets you out. `claude` gets you back in.
 
-> Say `cc-ds` for the rest of the session. Campers on `cc` will follow along fine —
-> don't say both every time.
+> Say `claude` for the rest of the session. One command — don't introduce a second.
 
 **MS/HS**
 > **MS:** Stop after the intern analogy and the tool basics. Skip the tool/model
@@ -140,7 +137,7 @@ Lockstep. Everyone builds the same thing so nobody is lost and everyone succeeds
 cd $HOME\Documents\Projects
 mkdir madlibs
 cd madlibs
-cc-ds
+claude
 ```
 
 Walk the room. This is where setup problems surface — catch them now.
@@ -416,11 +413,11 @@ to tell when the AI is lying to you."**
 
 - [ ] **Print camper notes** — `ms-camper-notes.md` or `hs-camper-notes.md`, one per
       camper. Hand out at the start; they're written to be followed along with.
-- [ ] Test `cc-ds` on a lab machine the morning of
+- [ ] Test `claude` on a lab machine the morning of
 - [ ] Confirm the `Documents\Projects` folder exists on every lab machine — create it
       if it's missing
 - [ ] Confirm tkinter is available: `python -c "import tkinter"` (no output = good)
-- [ ] Know that campers with Claude Pro can use `cc` — mention it once at the start
+- [ ] Make sure every machine is signed in to `claude` before campers arrive
 - [ ] Have `dice.py` demo working before campers arrive
 - [ ] Project the idea board and the prompt template
 - [ ] Index cards for the take-home loop

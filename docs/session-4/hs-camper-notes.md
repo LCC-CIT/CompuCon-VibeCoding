@@ -176,7 +176,7 @@ satisfying than building for yourself.
 cd $HOME\Documents\Projects   # go to your Projects folder
 mkdir myproject               # make a project folder
 cd myproject                  # go into it
-cc-ds                         # start Claude Code  (or: cc)
+claude                         # start Claude Code
 
 python app.py                 # run your app
 

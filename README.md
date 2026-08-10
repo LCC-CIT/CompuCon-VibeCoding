@@ -107,22 +107,15 @@ every single day.
 Terminal) and type:
 
 ```powershell
-cc-ds
+claude
 ```
 
-This launches Claude Code wired to a DeepSeek model. Campers never touch an API key.
-
-**Campers with their own Claude Pro account** can type `cc` instead, which runs Claude
-Code on Anthropic's models. Both work identically for everything in this curriculum —
-campers should use whichever they have. Mention both in Session 1 and then stop
-distinguishing.
+This launches Claude Code. Campers never touch an API key.
 
 **Instructors should know:** Claude Code is Anthropic's terminal coding agent. It can
 read and write files in the current folder, run commands, and hold a conversation about
-a codebase. On lab machines we run it against DeepSeek's models rather than Anthropic's
-— same tool, different engine underneath. That `cc` and `cc-ds` behave the same while
-running different models *is* the lesson: the interface and the model are separable
-pieces. Worth surfacing in Session 2 (HS only — MS skips it for time).
+a codebase. The tool and the model behind it are separable pieces — worth surfacing in
+Session 2 (HS only — MS skips it for time).
 
 Each camper works in their own folder:
 
@@ -130,7 +123,7 @@ Each camper works in their own folder:
 cd $HOME\Documents\Projects
 mkdir my-project
 cd my-project
-cc-ds
+claude
 ```
 
 Working in a project folder, not the Projects folder itself, matters — that folder is

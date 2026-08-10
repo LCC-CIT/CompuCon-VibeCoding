@@ -459,7 +459,7 @@ Set up the project properly. This 20 minutes is what makes Session 3 productive.
 cd $HOME\Documents\Projects
 mkdir capstone
 cd capstone
-cc-ds
+claude
 ```
 
 Four things, in order:

@@ -37,10 +37,8 @@ whether it's *right*.
 cd $HOME\Documents\Projects
 mkdir myproject
 cd myproject
-cc-ds
+claude
 ```
-
-(Use `cc` instead of `cc-ds` if you have your own Claude Pro account.)
 
 **Run your app:**
 
