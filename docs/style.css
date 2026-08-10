@@ -76,8 +76,6 @@
   .nav-links{margin-left:auto;display:flex;gap:26px;align-items:center}
   .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .18s}
   .nav-links a:hover{color:var(--cyan)}
-  .nav-links .gh-link{display:inline-flex;align-items:center}
-  .nav-links .gh-link svg{display:block}
   /* Phones: stack the nav instead of hiding it. Hiding it left index.html with no
      navigation at all, since that page has no in-body links. */
   @media(max-width:640px){
@@ -260,6 +258,9 @@
   footer{border-top:1px solid var(--border);padding:32px 0;text-align:center}
   footer p{font-family:var(--mono);font-size:.8rem;color:var(--dim)}
   footer .hl{color:var(--cyan)}
+  footer .gh-link{display:inline-flex;align-items:center;color:var(--dim);text-decoration:none;transition:color .18s}
+  footer .gh-link:hover{color:var(--cyan)}
+  footer .gh-link svg{display:block}
 
   .rv{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
   .rv.in{opacity:1;transform:none}
