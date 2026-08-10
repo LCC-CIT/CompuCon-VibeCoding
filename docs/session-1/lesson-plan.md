@@ -267,9 +267,9 @@ This is where the two age groups genuinely diverge in ambition.
 **MS: make it yours.** Students keep working on `story.py` and customize it heavily —
 their own story templates, inside jokes, colors, extra buttons, a random-story mode.
 Anyone who finishes early and wants a fresh app may start one from
-[`project-ideas.md`](../project-ideas.md), Starter tier only.
+[`project-ideas.md`](../project-ideas.html), Starter tier only.
 
-**HS: pick your own app.** Students choose from [`project-ideas.md`](../project-ideas.md)
+**HS: pick your own app.** Students choose from [`project-ideas.md`](../project-ideas.html)
 or bring their own. Instructor approves the idea before they start — sanity check on
 scope. Starter or Solid tier.
 
@@ -425,6 +425,6 @@ to tell when the AI is lying to you."**
 - [ ] Project the idea board and the prompt template
 - [ ] Index cards for the take-home loop
 - [ ] Know how to `Ctrl+C` out of a hung session and restart — you'll do it a dozen times
-- [ ] Read [`troubleshooting.md`](../troubleshooting.md)
+- [ ] Read [`troubleshooting.md`](../troubleshooting.html)
 - [ ] **Decide your break policy for MS** before you start — see the note under the MS
       timing table

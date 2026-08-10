@@ -35,9 +35,10 @@ Each item names what breaks if you skip it.
    file notes where to take five minutes and what to cut for it; the call is yours.
 
 6. **Check the live site.** Settings → Pages → Deploy from a branch, `main`, folder
-   `/docs`. Then click through: home → Middle School → a session's notes → back.
-   **Open it on a phone too** — campers will. Check the nav stacks and that the wide
-   tables in `project-ideas.html` are usable.
+   `/docs`. GitHub Pages renders the markdown there, so the curriculum `.md` files
+   appear as `.html` pages. Then click through: home → Middle School → a session's
+   notes → back. **Open it on a phone too** — campers will. Check the nav stacks and
+   that the wide tables in `project-ideas.html` are usable.
 
 7. **Print one camper notes page from the browser and look at it.** The print stylesheet
    flips the dark theme to black-on-white and hides the nav, but it has never met a real
@@ -68,6 +69,11 @@ So nobody "fixes" these by accident.
 - **No registration or contact link on the site.** Enrolment is handled elsewhere.
 - **Session 2's bad-prompts list is instructor-side only.** The spec sheet from that
   session *is* reproduced in the camper notes, so campers have that one.
-- **Lesson plans are published but unlinked.** `docs/session-N/lesson-plan.html` is
-  reachable by direct URL; nothing on the site links to it. Fine if the plans aren't
-  secret — worth knowing if they are.
+- **Lesson plans are published but unlinked.** Each `docs/session-N/lesson-plan.md`
+  renders to a `/session-N/lesson-plan.html` page; nothing on the site links to it.
+  Fine if the plans aren't secret — worth knowing if they are.
+- **Curriculum pages don't inherit the site chrome.** GitHub Pages themes the rendered
+  markdown with its default layout — no hand-authored nav or footer, no `style.css`.
+  The pandoc template that used to wrap those pages in the site theme is gone. Known
+  and accepted; if site-wide consistency ever matters, a Jekyll layout committed to
+  the repo would fix it.

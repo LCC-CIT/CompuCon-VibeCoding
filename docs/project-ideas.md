@@ -22,7 +22,7 @@ library, no install friction on the Windows lab image, instant visual payoff.
 **Students who already know another stack may use it.** Every idea below works in
 HTML/CSS/JS in a browser too, and most work as a plain terminal program. The idea is the
 idea; the stack is a detail. See the "different language" entry in
-[`troubleshooting.md`](troubleshooting.md) for the two conditions.
+[`troubleshooting.md`](troubleshooting.html) for the two conditions.
 
 ---
 

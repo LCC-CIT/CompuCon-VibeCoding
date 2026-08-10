@@ -6,8 +6,9 @@ schedules are genuinely different, not just a pacing dial. See the schedule belo
 
 **This repo contains teaching materials, not software.** There is no app to build, no
 tests to run, no dependencies. The curriculum is Markdown, meant to be read by an
-instructor in front of a classroom or handed to a student. `docs/` additionally holds a
-small published website — see below.
+instructor in front of a classroom or handed to a student. `docs/` *is* the published
+site — GitHub Pages renders the markdown there directly, so there is no separate HTML
+to maintain.
 
 **Current state: rebuilt against the real schedule, git removed throughout.** All four
 session files carry separate MS and HS timing tables. Nothing has been taught yet — see
@@ -20,17 +21,12 @@ session files carry separate MS and HS timing tables. Nothing has been taught ye
 ```
 README.md                      Track overview — start here
 PREFLIGHT.md                   Untested assumptions, known gaps, pre-teaching checklist
-docs/                          PUBLISHED SITE — GitHub Pages serves from here
+docs/                          THE SITE — GitHub Pages serves from here
   index.html                   Landing page          ┐
-  middle-school.html           MS session index      │ hand-authored,
-  high-school.html             HS session index      │ see warning below
-  faq.html                     Questions             ┘
-  style.css                    Shared theme for the four pages above
-  session-N/*.html             AUTO-GENERATED from curriculum/ — do not edit
-  project-ideas.html           AUTO-GENERATED
-  troubleshooting.html         AUTO-GENERATED
-  .nojekyll                    Skips Jekyll processing; leave it alone
-curriculum/
+  middle-school.html           MS session index      │ hand-authored — no
+  high-school.html             HS session index      │ markdown source,
+  faq.html                     Questions             │ edit these directly
+  style.css                    Shared theme          ┘
   session-1/
     lesson-plan.md             Instructor script — both age groups
     ms-camper-notes.md         Student handout, middle school
@@ -40,11 +36,6 @@ curriculum/
   session-4/
   project-ideas.md             Idea bank by difficulty
   troubleshooting.md           Instructor reference for when things break
-.github/
-  pandoc/camper-notes.html     Template wrapping every generated page in the site theme
-  workflows/
-    markdown-to-html.yml       Converts changed curriculum markdown on push
-    cleanup-deleted-markdown-html.yml   Full re-sync + deletes orphaned HTML
 ```
 
 Every session folder has exactly three files: one lesson plan, two camper handouts.
@@ -62,41 +53,41 @@ for that session, so a camper never needs a second document mid-class. There is 
 separate cheat sheet — it was retired to stop two handouts from drifting apart. If you
 add a command or a rule, check whether the camper notes for that session need it too.
 
-**All HTML goes in `docs/`.** GitHub Pages serves from that folder, so a page anywhere
-else won't be published. No CDN links and no build step — the camp network may block
-outside requests. Relative local files (`style.css`) are fine; external requests aren't.
+---
 
-**`docs/` has two kinds of file, and they're handled completely differently:**
+## How the site works — the only build step is GitHub Pages
 
-*Auto-generated* — `session-N/*.html`, `project-ideas.html`, `troubleshooting.html`. A
-GitHub Action runs pandoc over `curriculum/**/*.md` on every push and rewrites these.
-**Editing them directly is pointless; your changes get overwritten.** Edit the markdown.
+**The curriculum markdown in `docs/` is the published site.** GitHub Pages builds from
+the `docs/` folder and renders each `.md` file to an `.html` page (`session-N/*.md` →
+`/session-N/*.html`, `project-ideas.md` → `/project-ideas.html`, and so on). There is no
+generation script, no pandoc, no workflow — nothing in the repo converts markdown to
+HTML. Edit the `.md` and the live page updates on the next Pages build. **Do not add a
+`.nojekyll` file to `docs/`** — Jekyll is what performs that rendering, and `.nojekyll`
+would serve the markdown as raw text instead.
 
-Generated pages are wrapped in `.github/pandoc/camper-notes.html`, so they get the same
-nav, footer, and `style.css` as the hand-authored pages. The workflow derives three
-things per file: the page title (first `# ` heading), the relative path back to `docs/`
-(so `style.css` resolves at any depth), and the "back" link — `ms-` files point to
-Middle School, `hs-` files to High School, everything else to Home. It also rewrites
-`.md` cross-links to `.html`, since the markdown links would 404 on the published site.
+Three consequences follow from this:
 
-**Both workflows contain an identical copy of that `convert_md` function.** If you
-change one, change the other, or pages will flip appearance depending on which workflow
-ran last.
+- **Cross-links between curriculum files are `.html`, not `.md`.** Pages serves
+  `project-ideas.html`, so a `](troubleshooting.md)` link would 404 on the live site.
+  Write `](troubleshooting.html)`. This flipped from the old convention, where a
+  workflow rewrote `.md` links at build time — no rewrite happens now, and nothing will
+  fix it for you.
+- **The old pipeline is gone.** The two pandoc workflows and the
+  `.github/pandoc/camper-notes.html` wrapper template were deleted when the curriculum
+  moved into `docs/`. There is no `.github/` directory anymore. Don't re-create a
+  markdown→HTML pipeline.
+- **Rendered curriculum pages don't inherit the site chrome.** GitHub Pages themes the
+  rendered markdown with its default layout — no hand-authored nav or footer, no
+  `style.css`. The four hand-authored pages keep the full theme; the curriculum pages
+  don't. Known and accepted for now — see `PREFLIGHT.md`.
 
-*Hand-authored* — `index.html`, `middle-school.html`, `high-school.html`, `faq.html`,
-plus `style.css`. No markdown source. These are the public-facing pages.
+**Hand-authored pages** — `index.html`, `middle-school.html`, `high-school.html`,
+`faq.html`, plus `style.css`. No markdown source; edit them directly. They share
+`style.css` rather than each inlining the theme, so a colour or spacing change happens
+in one place. `index.html` keeps its terminal animation as an inline `<script>`.
 
-> **⚠ Adding a new hand-authored page? You must add it to the `HANDWRITTEN` array in
-> `.github/workflows/cleanup-deleted-markdown-html.yml`.** That workflow deletes any
-> `.html` in `docs/` with no matching `.md` in `curriculum/`. It has already silently
-> deleted `index.html` once. The array is the only thing preventing a repeat.
-
-The four hand-authored pages share `style.css` rather than each inlining the theme, so a
-colour or spacing change happens in one place. `index.html` keeps its terminal animation
-as an inline `<script>`.
-
-`style.css` is responsive and covers both the landing pages and the pandoc output
-(`.prose` rules). Breakpoints: 900 / 860 / 700 / 640 / 600 / 520 / 480 / 420 / 360.
+`style.css` is responsive and covers both the landing pages and the `.prose` content.
+Breakpoints: 900 / 860 / 700 / 640 / 600 / 520 / 480 / 420 / 360.
 **Don't hide the nav on small screens** — it was `display:none` below 640px once, which
 left `index.html` with no navigation at all, since that page has no in-body links. It
 stacks now instead. There's also a print block that flips the whole palette to
@@ -152,7 +143,7 @@ requiring pip installs, API keys, accounts, or network access.
 **No git.** Students do not use version control. "Save points" are manual folder copies:
 
 ```powershell
-cd $HOME\Documents
+cd $HOME\Documents\Projects
 Copy-Item -Recurse myproject myproject-working    # save
 Remove-Item -Recurse myproject                    # undo, step 1
 Copy-Item -Recurse myproject-working myproject    # undo, step 2
@@ -239,12 +230,12 @@ use case.
   no longer sum to the same total. This is the easiest thing to silently break.
 - **Grep for `git` before treating a file as finished.** It should only appear inside an
   explanation of *why* it was removed, never as an instruction to students.
-- **Check cross-file links.** README links into `curriculum/`; files inside
-  `curriculum/` link to each other with bare `.md` filenames. That's correct — the
-  workflow rewrites them to `.html` when it publishes, so don't "fix" them to `.html`
-  in the markdown or they'll break for anyone reading the repo directly.
+- **Check cross-file links.** README links into `docs/` with `.md` filenames (it's read
+  on GitHub, not the site). Links *between* curriculum files are `.html` — that's the
+  URL GitHub Pages serves, and nothing rewrites it, so a `.md` link would 404 on the
+  published site. Don't "fix" the `.html` links back to `.md`.
 - **Don't add a package manager, bundler, or test framework.** The curriculum is
-  Markdown and the site is hand-written HTML + one CSS file. The only automation is the
-  two pandoc workflows described above — don't add a third pipeline.
+  Markdown and the site is hand-written HTML + one CSS file. The only build step is
+  GitHub Pages itself — don't add another pipeline.
 - The author is a professor running this camp. Treat pedagogical judgment as theirs —
   offer alternatives rather than rewriting the teaching approach unprompted.
