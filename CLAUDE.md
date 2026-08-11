@@ -80,17 +80,18 @@ that's per-model or total — treat it as a live caveat, not settled. If you add
 bare. Writing accurately about that provider's free models is correct and wanted; it does
 not conflict with the rule against calling Claude Code free.
 
-**`local-models-howto.md` is the third at-home option, and the least tested.** It covers
+**`local-models-howto.md` is the third at-home option — partly tested.** It covers
 running a model locally with Ollama or LM Studio, and using it from OpenCode or from
-`claude` itself (via Ollama's Anthropic-compatible endpoint). Added 2026-08-11, written
-from vendor docs and outside write-ups — **nobody has run these steps themselves.** It is
-a bigger departure from the track than the Zen page: real hardware, a multi-gigabyte
-install, and command-line setup, all outside the Session 1 spine. **It is not linked from
-anywhere on the site yet** — not footnoted, not in `teacher.html`, not in any resource
-list. Don't add a footnote link to it until someone has walked Parts 1–5 end to end,
-especially [Part 5](docs/session-1/local-models-howto.html#part-5-use-it-with-claude-code),
-which depends on an Ollama version number and command set that could easily have moved by
-the time anyone reads this.
+`claude` itself (via Ollama's Anthropic-compatible endpoint). Added 2026-08-11. **The
+Claude Code half is confirmed** — the direct env-var connection to Ollama has been run
+for real, on both a Mac and a Windows machine. **The OpenCode half is still unverified**,
+built from OpenCode's provider docs rather than from running it. It is a bigger
+departure from the track than the Zen page regardless: real hardware, a multi-gigabyte
+install, and command-line setup, all outside the Session 1 spine — and it needs hardware
+CompuCon's lab laptops don't have, so it's a home-only option, never something to point a
+camper at in class. `faq.html` links to it (the "without the cloud" question); it is
+still not in `teacher.html`, the main nav, or any resource list — treat that as a
+judgment call, not something still blocked, now that the Claude Code path is confirmed.
 
 Session 1's lesson plan uses one block sequence with dual MS/HS durations. Sessions 2–4
 are single-audience and use plain durations. The `## MIDDLE SCHOOL` / `## HIGH SCHOOL`

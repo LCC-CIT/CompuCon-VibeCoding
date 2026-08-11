@@ -1,9 +1,12 @@
-# How To — Running AI Models on Your Own Computer (Draft)
+# How To — Running AI Models on Your Own Computer
 
-**Draft. Not tested on a CompuCon lab machine, not tested at home either.** Everything
-below is built from current vendor docs and community write-ups, not from running it
-ourselves. Treat commands and numbers as a starting point, not a promise. See
+**Confirmed working for Claude Code.** Ollama connected directly to `claude` (the
+env-var method in [Part 5](#part-5-use-it-with-claude-code)) has been run for real on
+multiple machines, both Mac and Windows. **The OpenCode half is still unverified** — see
 [Verify This Before You Teach It](#verify-this-before-you-teach-it).
+
+**This is a home option only. It will not work on CompuCon's lab laptops** — they don't
+have the hardware for it. See [Hardware You Need](#hardware-you-need).
 
 This is the deepest of the three "keep coding at home" options:
 
@@ -41,14 +44,17 @@ patience than either of the other two. Read [What You Get](#what-you-get) and
 
 ## Verify This Before You Teach It
 
-- **Nobody on this project has run these steps.** They come from Ollama's own docs,
-  OpenCode's provider docs, and a handful of 2026 write-ups on connecting Claude Code to
-  a local model. Before this page gets a footnote link anywhere, someone needs to walk
-  it end to end on a real Windows 11 machine.
-- **The Claude Code half is the least certain part.** Claude Code only speaks
-  Anthropic's own API format. Ollama added a compatible endpoint in version 0.14, which
-  is what [Part 5](#part-5-use-it-with-claude-code) uses — confirm that version number
-  and the exact commands still match Ollama's current docs before you teach this.
+- **Settled: Ollama + Claude Code works, on real hardware.** The direct env-var
+  connection in [Part 5](#part-5-use-it-with-claude-code) — `claude` talking straight to
+  Ollama's built-in endpoint, no proxy — has been run for real on both a Mac and a
+  Windows machine. Treat that part as confirmed.
+- **Still open: the OpenCode half.** [Part 4](#part-4-use-it-with-opencode) is built
+  from OpenCode's provider docs, not from running it. Before pointing a camper at it,
+  confirm the `opencode.json` config below still matches OpenCode's current docs.
+- **Still open: install and hardware specifics.** [Part 1](#part-1-pick-a-local-model-server)
+  and [Part 2](#part-2-install-and-pull-a-model) are Ollama's own install steps, and the
+  [hardware table](#hardware-you-need) is built from community benchmarks — reasonable
+  starting points, not measured on a specific machine here.
 - **Model names and sizes move fast.** The models named in
   [Part 3](#part-3-pick-a-coding-model) are what's strong as of August 2026. Check
   `ollama.com/library` or LM Studio's model browser for anything newer before you point
@@ -196,10 +202,10 @@ own computer instead of the internet — no request leaves the machine.
 
 ## Part 5 — Use It With Claude Code
 
-**This is the least certain part of this page — see the warning at the top.** Claude
-Code normally only understands Anthropic's own API. Recent versions of Ollama (0.14 and
-up) added a compatible endpoint, which lets `claude` talk to it directly with no
-translator program in between:
+**Confirmed working, on a Mac and on Windows.** Claude Code normally only understands
+Anthropic's own API. Recent versions of Ollama (0.14 and up) added a compatible
+endpoint, which lets `claude` talk to it directly with no translator program in
+between:
 
 ```powershell
 $env:ANTHROPIC_BASE_URL = "http://localhost:11434"
