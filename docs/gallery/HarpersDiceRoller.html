@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D20 Dice Roller</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0510 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 2vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 55vh;
+            flex-shrink: 0;
+            position: relative;
+            cursor: grab;
+        }
+
+        #canvas-container:active {
+            cursor: grabbing;
+        }
+
+        #canvas-container.rolling {
+            cursor: default;
+        }
+
+        #canvas-container canvas {
+            display: block;
+        }
+
+        #result-container {
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 4px 0;
+        }
+
+        #result-label {
+            color: #a088cc;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 4px;
+        }
+
+        #result-number {
+            color: #e8d5ff;
+            font-size: 72px;
+            font-weight: bold;
+            text-shadow:
+                0 0 20px rgba(180, 130, 255, 0.6),
+                0 0 40px rgba(180, 130, 255, 0.3),
+                0 0 80px rgba(180, 130, 255, 0.15);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            line-height: 1;
+        }
+
+        #result-number.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        #result-number.celebrating {
+            animation: critPulse 0.6s ease-out;
+        }
+
+        @keyframes critPulse {
+            0%   { transform: scale(1); text-shadow: 0 0 20px rgba(180,130,255,0.6), 0 0 40px rgba(180,130,255,0.3); }
+            30%  { transform: scale(1.35); text-shadow: 0 0 40px rgba(220,180,255,1), 0 0 80px rgba(200,150,255,0.8), 0 0 120px rgba(180,130,255,0.5); }
+            100% { transform: scale(1); text-shadow: 0 0 20px rgba(180,130,255,0.6), 0 0 40px rgba(180,130,255,0.3); }
+        }
+
+        #roll-button {
+            background: linear-gradient(135deg, #7B2FBE 0%, #5A1E8A 50%, #3D1160 100%);
+            color: #e8d5ff;
+            border: 2px solid #a044dd;
+            border-radius: 50px;
+            padding: 16px 48px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow:
+                0 4px 20px rgba(120, 40, 200, 0.4),
+                0 0 40px rgba(120, 40, 200, 0.15);
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        #roll-button:hover {
+            background: linear-gradient(135deg, #9030D8 0%, #6B22A0 50%, #4D1578 100%);
+            border-color: #c060ff;
+            box-shadow:
+                0 6px 28px rgba(140, 50, 220, 0.5),
+                0 0 50px rgba(140, 50, 220, 0.25);
+            transform: translateY(-2px);
+        }
+
+        #roll-button:active {
+            transform: translateY(0);
+            box-shadow:
+                0 2px 12px rgba(120, 40, 200, 0.3);
+            transition: all 0.05s ease;
+        }
+
+        #roll-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow:
+                0 2px 12px rgba(120, 40, 200, 0.2);
+        }
+
+        /* ── Confetti overlay ── */
+        #confetti-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            top: -20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            animation: confettiFall var(--fall-duration, 3s) linear var(--delay, 0s) forwards;
+            opacity: 0;
+        }
+
+        @keyframes confettiFall {
+            0%   { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            15%  { opacity: 1; }
+            60%  { opacity: 0.9; }
+            100% { opacity: 0; transform: translateY(105vh) rotate(var(--spin, 720deg)) scale(0.4); }
+        }
+
+        @keyframes confettiSway {
+            0%   { margin-left: 0; }
+            25%  { margin-left: var(--sway1, 40px); }
+            50%  { margin-left: var(--sway2, -30px); }
+            75%  { margin-left: var(--sway3, 20px); }
+            100% { margin-left: var(--sway4, -50px); }
+        }
+
+        /* ── Crit-fail red flash ── */
+        #crit-flash {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            background: radial-gradient(ellipse at center, rgba(255, 20, 20, 0.6) 0%, rgba(180, 0, 0, 0.3) 60%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.1s ease-out;
+        }
+
+        #crit-flash.active {
+            opacity: 1;
+            transition: opacity 0.05s ease-in;
+        }
+
+        /* ── Die selection menu ── */
+        #select-die-btn {
+            background: rgba(60, 20, 90, 0.6);
+            color: #a088cc;
+            border: 1px solid rgba(160, 68, 221, 0.5);
+            border-radius: 50px;
+            padding: 10px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        #select-die-btn:hover {
+            background: rgba(100, 30, 150, 0.7);
+            border-color: #a044dd;
+            color: #d0b0f0;
+            box-shadow: 0 0 16px rgba(140, 50, 220, 0.3);
+        }
+
+        #die-menu-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 2, 15, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        #die-menu-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #die-menu {
+            background: linear-gradient(145deg, #1a0a2e 0%, #120820 100%);
+            border: 1px solid rgba(160, 68, 221, 0.4);
+            border-radius: 20px;
+            padding: 36px 40px;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(120, 40, 200, 0.3);
+            max-width: 420px;
+            width: 90%;
+        }
+
+        #die-menu h2 {
+            color: #e8d5ff;
+            font-size: 22px;
+            margin: 0 0 24px 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #die-menu .menu-dice-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        /* Per-die button colors — each matches its die */
+        #die-menu .menu-dice-btn[data-die="d4"]  { --die-a: #E05555; --die-b: #740B12; --die-glow: #ff6b6b; --die-text: #fff; }
+        #die-menu .menu-dice-btn[data-die="d6"]  { --die-a: #F5A437; --die-b: #8F4A05; --die-glow: #ffb65e; --die-text: #fff; }
+        #die-menu .menu-dice-btn[data-die="d8"]  { --die-a: #F7D94C; --die-b: #8A7408; --die-glow: #ffe476; --die-text: #3a3200; }
+        #die-menu .menu-dice-btn[data-die="d10"] { --die-a: #53E08A; --die-b: #116B32; --die-glow: #7dfbb3; --die-text: #fff; }
+        #die-menu .menu-dice-btn[data-die="d12"] { --die-a: #55A9F0; --die-b: #11466B; --die-glow: #93d2ff; --die-text: #fff; }
+        #die-menu .menu-dice-btn[data-die="d20"] { --die-a: #9B4FCF; --die-b: #3D1160; --die-glow: #c9a0ff; --die-text: #f3e8ff; }
+
+        #die-menu .menu-dice-btn {
+            background: linear-gradient(135deg, var(--die-a, #9B4FCF), var(--die-b, #3D1160));
+            color: var(--die-text, #f3e8ff);
+            border: 1px solid var(--die-glow, rgba(160, 68, 221, 0.35));
+            border-radius: 12px;
+            padding: 14px 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            letter-spacing: 1px;
+        }
+
+        #die-menu .menu-dice-btn:hover {
+            filter: brightness(1.18);
+            border-color: var(--die-glow, #a044dd);
+            box-shadow: 0 0 14px var(--die-glow, rgba(140, 50, 220, 0.35));
+            transform: translateY(-1px);
+        }
+
+        #die-menu .menu-dice-btn.selected {
+            outline: 2px solid var(--die-glow, #c060ff);
+            outline-offset: 1px;
+            box-shadow: 0 0 18px var(--die-glow, rgba(140, 50, 220, 0.55));
+            filter: brightness(1.1);
+        }
+
+        #die-menu .menu-close-btn {
+            background: rgba(60, 20, 90, 0.5);
+            color: #a088cc;
+            border: 1px solid rgba(160, 68, 221, 0.35);
+            border-radius: 50px;
+            padding: 10px 36px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            letter-spacing: 1px;
+        }
+
+        #die-menu .menu-close-btn:hover {
+            background: rgba(100, 30, 150, 0.6);
+            border-color: #a044dd;
+            color: #d0b0f0;
+        }
+
+        #made-with-ai {
+            position: fixed;
+            bottom: 10px;
+            right: 12px;
+            color: #ff5252;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            opacity: 0.75;
+            user-select: none;
+            pointer-events: none;
+            z-index: 5;
+            font-family: inherit;
+        }
+
+        /* Pride-flag button: toggles rainbow dice */
+        #rainbow-btn {
+            position: fixed;
+            top: 10px;
+            left: 12px;
+            width: 60px;
+            height: 38px;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            background: #000;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 20;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+            transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        #rainbow-btn svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #rainbow-btn:hover {
+            transform: scale(1.07);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+        }
+        #rainbow-btn.active {
+            border-color: #fff;
+            transform: scale(1.07);
+            box-shadow: 0 0 18px rgba(255, 200, 60, 0.65), 0 0 32px rgba(255, 80, 220, 0.35);
+        }
+
+        /* Rainbow mode (body.rainbow-mode): every button turns rainbow */
+        body.rainbow-mode #die-menu .menu-dice-btn[data-die] {
+            --die-glow: rgba(255, 255, 255, 0.8);
+            background: linear-gradient(135deg, #ff3b30 0%, #ff9500 20%, #ffcc00 40%, #34c759 60%, #007aff 80%, #af52de 100%);
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        body.rainbow-mode #select-die-btn {
+            background: linear-gradient(135deg, #ff3b30, #ff9500, #ffcc00, #34c759, #007aff, #af52de);
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        body.rainbow-mode #roll-button {
+            background: linear-gradient(135deg, #ff3b30 0%, #ff9500 20%, #ffcc00 40%, #34c759 60%, #007aff 80%, #af52de 100%);
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        body.rainbow-mode #roll-button:hover {
+            background: linear-gradient(135deg, #ff5a50 0%, #ffb02e 20%, #ffe03e 40%, #58e08a 60%, #2f96ff 80%, #c07bf0 100%);
+            border-color: #fff;
+        }
+        body.rainbow-mode #die-menu .menu-close-btn {
+            background: linear-gradient(135deg, #ff3b30 0%, #ff9500 20%, #ffcc00 40%, #34c759 60%, #007aff 80%, #af52de 100%);
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            #canvas-container { height: 45vh; }
+            #result-number { font-size: 52px; }
+            #roll-button { padding: 14px 36px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="confetti-overlay"></div>
+    <div id="crit-flash"></div>
+    <div id="canvas-container"></div>
+    <div id="result-container">
+        <div id="result-label">You rolled</div>
+        <div id="result-number"></div>
+    </div>
+    <button id="roll-button">ROLL!</button>
+    <button id="select-die-btn">Select Die</button>
+    <div id="made-with-ai">Made with AI - 8/11/2026</div>
+    <button id="rainbow-btn" title="Toggle rainbow dice" aria-label="Toggle rainbow dice">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 762">
+            <path fill="#6d2380" d="M0 0h1200v762H0V0z"/>
+            <path fill="#2c58a4" d="M0 0h1200v635H0V0z"/>
+            <path fill="#78b82a" d="M0 0h1200v508H0V0z"/>
+            <path fill="#efe524" d="M0 0h1200v381H0V0z"/>
+            <path fill="#f28917" d="M0 0h1200v254H0V0z"/>
+            <path fill="#e22016" d="M0 0h1200v127H0V0z"/>
+            <path d="M315 0H0v762h315l353-381L315 0z"/>
+            <path fill="#945516" d="M241 0H0v762h241l353-381L241 0z"/>
+            <path fill="#7bcce5" d="M168 0H0v762h168l353-381L168 0z"/>
+            <path fill="#f4aec8" d="M95 0H0v762h95l353-381L95 0z"/>
+            <path fill="#fff" d="M0 0v762h22l352-381L22 0H0z"/>
+            <path fill="#fdd817" d="m0 706 301-325L0 55v651z"/>
+            <circle cx="111" cy="381" r="80" fill="none" stroke="#66338b" stroke-width="19"/>
+        </svg>
+    </button>
+
+    <div id="die-menu-overlay">
+        <div id="die-menu">
+            <h2>Choose Your Die</h2>
+            <div class="menu-dice-grid">
+                <button class="menu-dice-btn" data-die="d4">d4</button>
+                <button class="menu-dice-btn" data-die="d6">d6</button>
+                <button class="menu-dice-btn" data-die="d8">d8</button>
+                <button class="menu-dice-btn" data-die="d10">d10</button>
+                <button class="menu-dice-btn" data-die="d12">d12</button>
+                <button class="menu-dice-btn selected" data-die="d20">d20</button>
+            </div>
+            <button class="menu-close-btn">Back</button>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // ─────────────────────────────────────
+        // DOM refs
+        // ─────────────────────────────────────
+        const container = document.getElementById('canvas-container');
+        const resultLabel = document.getElementById('result-label');
+        const resultNumber = document.getElementById('result-number');
+        const rollButton = document.getElementById('roll-button');
+
+        // ─────────────────────────────────────
+        // Three.js boilerplate
+        // ─────────────────────────────────────
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            48, // fov
+            container.clientWidth / container.clientHeight,
+            0.1,
+            100
+        );
+        camera.position.set(0, 1.6, 4.2);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        // ─────────────────────────────────────
+        // OrbitControls
+        // ─────────────────────────────────────
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.target.set(0, 0, 0);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.minDistance = 2.5;
+        controls.maxDistance = 8;
+        controls.maxPolarAngle = Math.PI * 0.75;
+        controls.update();
+
+        // ─────────────────────────────────────
+        // Lights
+        // ─────────────────────────────────────
+        const ambientLight = new THREE.AmbientLight(0x554477, 0.8);
+        scene.add(ambientLight);
+
+        const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        keyLight.position.set(5, 8, 5);
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.width = 512;
+        keyLight.shadow.mapSize.height = 512;
+        keyLight.shadow.camera.near = 0.5;
+        keyLight.shadow.camera.far = 50;
+        keyLight.shadow.camera.left = -5;
+        keyLight.shadow.camera.right = 5;
+        keyLight.shadow.camera.top = 5;
+        keyLight.shadow.camera.bottom = -5;
+        keyLight.shadow.bias = -0.0001;
+        scene.add(keyLight);
+
+        const fillLight = new THREE.PointLight(0x9966cc, 15, 8, 1.5);
+        fillLight.position.set(-1, -0.5, 2);
+        scene.add(fillLight);
+
+        const rimLight = new THREE.PointLight(0x6644aa, 8, 6, 2);
+        rimLight.position.set(0, -1.5, -2);
+        scene.add(rimLight);
+
+        // ─────────────────────────────────────
+        // Subtle ground ring for spatial grounding
+        // ─────────────────────────────────────
+        const ringGeom = new THREE.TorusGeometry(1.35, 0.02, 16, 64);
+        const ringMat = new THREE.MeshStandardMaterial({
+            color: 0x8866bb,
+            roughness: 0.4,
+            metalness: 0.6,
+            emissive: 0x331144,
+            emissiveIntensity: 0.5,
+        });
+        const ring = new THREE.Mesh(ringGeom, ringMat);
+        ring.rotation.x = -Math.PI / 2;
+        ring.position.y = -1.9;
+        ring.receiveShadow = true;
+        scene.add(ring);
+
+        // ─────────────────────────────────────
+        // Die group (parent for die mesh + sparkles)
+        // ─────────────────────────────────────
+        const dieGroup = new THREE.Group();
+        scene.add(dieGroup);
+
+        // ─────────────────────────────────────
+        // Face texture generator
+        // ─────────────────────────────────────
+        // Per-die body colors (d20 keeps its original purple)
+        const dieStyles = {
+            d4:  { c0: '#E05555', c1: '#C21E2C', c2: '#740B12', emissive: 0x2B0000 },  // red
+            d6:  { c0: '#F5A437', c1: '#E07B16', c2: '#8F4A05', emissive: 0x2B1200 },  // orange
+            d8:  { c0: '#F7D94C', c1: '#E0B719', c2: '#8A7408', emissive: 0x2B2300 },  // yellow
+            d10: { c0: '#53E08A', c1: '#2FB95D', c2: '#116B32', emissive: 0x001F0A },  // green
+            d12: { c0: '#55A9F0', c1: '#2F80C9', c2: '#11466B', emissive: 0x001328 },  // blue
+            d20: { c0: '#9B4FCF', c1: '#6B2A9E', c2: '#3D1160', emissive: 0x220044 },  // purple
+        };
+
+        // Rainbow mode: toggled by the pride-flag button. When on, every die face
+        // uses a rainbow gradient instead of its die-specific color.
+        let rainbowMode = false;
+
+        function createFaceTexture(number, dieType) {
+            const style = dieStyles[dieType] || dieStyles.d20;
+            const size = 256;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Background — die color (radial) or rainbow (diagonal) in rainbow mode
+            if (rainbowMode) {
+                const rg = ctx.createLinearGradient(0, 0, size, size);
+                rg.addColorStop(0.00, '#ff3b30');  // red
+                rg.addColorStop(0.20, '#ff9500');  // orange
+                rg.addColorStop(0.40, '#ffcc00');  // yellow
+                rg.addColorStop(0.60, '#34c759');  // green
+                rg.addColorStop(0.80, '#007aff');  // blue
+                rg.addColorStop(1.00, '#af52de');  // purple
+                ctx.fillStyle = rg;
+            } else {
+                const gradient = ctx.createRadialGradient(
+                    size * 0.4, size * 0.4, size * 0.05,
+                    size * 0.5, size * 0.5, size * 0.7
+                );
+                gradient.addColorStop(0, style.c0);
+                gradient.addColorStop(0.5, style.c1);
+                gradient.addColorStop(1, style.c2);
+                ctx.fillStyle = gradient;
+            }
+            ctx.fillRect(0, 0, size, size);
+
+            // Subtle sparkle dots baked into the texture
+            for (let i = 0; i < 25; i++) {
+                const sx = Math.random() * size;
+                const sy = Math.random() * size;
+                const alpha = 0.08 + Math.random() * 0.25;
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(sx, sy, 0.8 + Math.random() * 2.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Silver number — centered for full-face UV mapping
+            const cx = size * 0.5;
+            const cy = size * 0.5;
+
+            // Text shadow for depth
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
+            ctx.shadowBlur = 6;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            // Main silver text
+            ctx.fillStyle = '#E0D8F0';
+            ctx.font = 'bold 96px "Segoe UI", "Helvetica Neue", Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(String(number), cx, cy);
+
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Thin dark outline for readability
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
+            ctx.lineWidth = 1.5;
+            ctx.strokeText(String(number), cx, cy);
+
+            // Highlight overlay: subtle lighter stroke on top
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+            ctx.lineWidth = 0.5;
+            ctx.strokeText(String(number), cx - 0.5, cy - 0.5);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.colorSpace = THREE.SRGBColorSpace;
+            texture.minFilter = THREE.LinearMipmapLinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.generateMipmaps = true;
+            return texture;
+        }
+
+        // ─────────────────────────────────────
+        // D10 geometry (pentagonal trapezohedron)
+        // ─────────────────────────────────────
+        function createD10Geometry(radius) {
+            // Real d10 = pentagonal trapezohedron: 10 planar kite faces.
+            // Vertex layout (verified against a commercial d10 mesh):
+            //   apices at (0, ±h, 0); upper ring at +c, lower ring at -c,
+            //   each of radius rho, upper ring rotated 36° from the lower.
+            // The kite faces are EXACTLY planar when c/h = 0.382/3.618 ≈ 0.1056
+            // (the constraint is independent of rho), so the ring radius can be
+            // chosen freely. rho > h makes the die wider than tall with the
+            // equatorial ring bulging out — matching the physical d10.
+            const h = 1.0;
+            const rho = 1.2;                 // ring radius (bulge) — wider than tall
+            const c = 0.1056 * h;            // ring half-height for planar kites
+
+            const verts = [
+                [0, h, 0],                   // 0: top apex
+                [0, -h, 0],                  // 1: bottom apex
+            ];
+            for (let i = 0; i < 5; i++) {
+                const a = Math.PI / 5 + i * 2 * Math.PI / 5;
+                verts.push([rho * Math.cos(a), c, rho * Math.sin(a)]);   // 2-6: upper ring
+            }
+            for (let i = 0; i < 5; i++) {
+                const a = i * 2 * Math.PI / 5;
+                verts.push([rho * Math.cos(a), -c, rho * Math.sin(a)]);  // 7-11: lower ring
+            }
+
+            function addTri(arr, i0, i1, i2) {
+                const a = verts[i0], b = verts[i1], cv = verts[i2];
+                const ab = [b[0]-a[0], b[1]-a[1], b[2]-a[2]];
+                const ac = [cv[0]-a[0], cv[1]-a[1], cv[2]-a[2]];
+                const nx = ab[1]*ac[2] - ab[2]*ac[1];
+                const ny = ab[2]*ac[0] - ab[0]*ac[2];
+                const nz = ab[0]*ac[1] - ab[1]*ac[0];
+                const cx = (a[0]+b[0]+cv[0])/3, cy = (a[1]+b[1]+cv[1])/3, cz = (a[2]+b[2]+cv[2])/3;
+                if (nx*cx + ny*cy + nz*cz < 0) arr.push([i0, i2, i1]);
+                else arr.push([i0, i1, i2]);
+            }
+
+            // 10 kite faces (2 triangles each):
+            //   top kite i    = {A, U_{i-1}, L_i, U_i}   — cyclic A→U_{i-1}→L_i→U_i
+            //   bottom kite i = {B, L_i, U_i, L_{i+1}}   — cyclic B→L_i→U_i→L_{i+1}
+            const tris = [];
+            for (let i = 0; i < 5; i++) {
+                const u = 2 + i, um = 2 + (i + 4) % 5;   // U_i, U_{i-1}
+                const l = 7 + i, lp = 7 + (i + 1) % 5;   // L_i, L_{i+1}
+                addTri(tris, 0, um, l);
+                addTri(tris, 0, l, u);
+                addTri(tris, 1, l, u);
+                addTri(tris, 1, u, lp);
+            }
+
+            // Scale so the farthest vertex (the ring) lies at `radius`
+            const maxDist = Math.sqrt(rho * rho + c * c);
+            const scale = radius / maxDist;
+
+            const positions = new Float32Array(60 * 3);
+            for (let t = 0; t < 20; t++) {
+                const b = t * 9;
+                for (let k = 0; k < 3; k++) {
+                    const v = verts[tris[t][k]];
+                    positions[b + k * 3] = v[0] * scale;
+                    positions[b + k * 3 + 1] = v[1] * scale;
+                    positions[b + k * 3 + 2] = v[2] * scale;
+                }
+            }
+
+            const geom = new THREE.BufferGeometry();
+            geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            return { geometry: geom, faceCount: 10, vertsPerGroup: 6 };
+        }
+
+        // ─────────────────────────────────────
+        // Die geometry factory
+        // ─────────────────────────────────────
+        const dieRadius = 1.0;
+
+        function createDieGeometry(type, radius) {
+            switch (type) {
+                case 'd4':
+                    return { geometry: new THREE.TetrahedronGeometry(radius, 0).toNonIndexed(), faceCount: 4, vertsPerGroup: 3 };
+                case 'd6': {
+                    const half = radius / Math.sqrt(3);
+                    return { geometry: new THREE.BoxGeometry(half * 2, half * 2, half * 2).toNonIndexed(), faceCount: 6, vertsPerGroup: 6 };
+                }
+                case 'd8':
+                    return { geometry: new THREE.OctahedronGeometry(radius, 0).toNonIndexed(), faceCount: 8, vertsPerGroup: 3 };
+                case 'd10':
+                    return createD10Geometry(radius);
+                case 'd12':
+                    return { geometry: new THREE.DodecahedronGeometry(radius, 0).toNonIndexed(), faceCount: 12, vertsPerGroup: 9 };
+                case 'd20':
+                    return { geometry: new THREE.IcosahedronGeometry(radius, 0).toNonIndexed(), faceCount: 20, vertsPerGroup: 3 };
+            }
+        }
+
+        // ─────────────────────────────────────
+        // Build a die of the given type
+        // ─────────────────────────────────────
+        let faceNormals, numberToGroupIndex, groupIndexToNumber;
+        let dieMesh;
+
+        function buildDie(type) {
+            if (dieMesh) {
+                dieMesh.geometry.dispose();
+                dieMesh.material.forEach(m => { m.map.dispose(); m.dispose(); });
+                dieGroup.remove(dieMesh);
+            }
+
+            const { geometry: geom, faceCount, vertsPerGroup } = createDieGeometry(type, dieRadius);
+            geom.clearGroups();
+            for (let i = 0; i < faceCount; i++) geom.addGroup(i * vertsPerGroup, vertsPerGroup, i);
+
+            // --- Face normals ---
+            const posAttr = geom.getAttribute('position');
+            const totalVerts = posAttr.count;
+            faceNormals = new Array(faceCount);
+
+            for (let i = 0; i < faceCount; i++) {
+                const i0 = i * vertsPerGroup;
+                const v0 = new THREE.Vector3(posAttr.getX(i0), posAttr.getY(i0), posAttr.getZ(i0));
+                const v1 = new THREE.Vector3(posAttr.getX(i0 + 1), posAttr.getY(i0 + 1), posAttr.getZ(i0 + 1));
+                const v2 = new THREE.Vector3(posAttr.getX(i0 + 2), posAttr.getY(i0 + 2), posAttr.getZ(i0 + 2));
+                const edge1 = new THREE.Vector3().subVectors(v1, v0);
+                const edge2 = new THREE.Vector3().subVectors(v2, v0);
+                faceNormals[i] = new THREE.Vector3().crossVectors(edge1, edge2).normalize();
+            }
+
+            // --- Number mapping (opposite faces sum to faceCount+1) ---
+            const unassigned = new Set(Array.from({ length: faceCount }, (_, i) => i));
+            const pairs = [];
+            while (unassigned.size > 0) {
+                const [i] = unassigned;
+                unassigned.delete(i);
+                let bestJ = -1, bestDot = 2;
+                for (const j of unassigned) {
+                    const dot = faceNormals[i].dot(faceNormals[j]);
+                    if (dot < bestDot) { bestDot = dot; bestJ = j; }
+                }
+                unassigned.delete(bestJ);
+                pairs.push([i, bestJ]);
+            }
+
+            const numPairs = [];
+            for (let n = 1; n <= faceCount / 2; n++) numPairs.push([n, faceCount + 1 - n]);
+
+            numberToGroupIndex = new Map();
+            groupIndexToNumber = new Map();
+            for (let p = 0; p < pairs.length; p++) {
+                const [faceA, faceB] = pairs[p];
+                const [numA, numB] = numPairs[p];
+                numberToGroupIndex.set(numA, faceA);
+                numberToGroupIndex.set(numB, faceB);
+                groupIndexToNumber.set(faceA, numA);
+                groupIndexToNumber.set(faceB, numB);
+            }
+
+            // --- UVs (position-based projection: one full texture per face) ---
+            const uvs = new Float32Array(totalVerts * 2);
+            for (let face = 0; face < faceCount; face++) {
+                const i0 = face * vertsPerGroup;
+                const n = faceNormals[face];
+
+                // Build orthonormal basis for the face plane
+                const arb = Math.abs(n.x) < 0.9 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0);
+                const tangent = new THREE.Vector3().crossVectors(n, arb).normalize();
+                const bitangent = new THREE.Vector3().crossVectors(n, tangent).normalize();
+
+                // Project all vertices of the face into 2D
+                let minU = Infinity, maxU = -Infinity, minV = Infinity, maxV = -Infinity;
+                const proj = [];
+                for (let vi = 0; vi < vertsPerGroup; vi++) {
+                    const p = new THREE.Vector3(posAttr.getX(i0 + vi), posAttr.getY(i0 + vi), posAttr.getZ(i0 + vi));
+                    const u = p.dot(tangent);
+                    const v = p.dot(bitangent);
+                    proj.push({ u, v });
+                    if (u < minU) minU = u; if (u > maxU) maxU = u;
+                    if (v < minV) minV = v; if (v > maxV) maxV = v;
+                }
+
+                // Map to [0,1] UV range
+                const rangeU = maxU - minU || 1;
+                const rangeV = maxV - minV || 1;
+                for (let vi = 0; vi < vertsPerGroup; vi++) {
+                    const uvIdx = (i0 + vi) * 2;
+                    uvs[uvIdx] = (proj[vi].u - minU) / rangeU;
+                    uvs[uvIdx + 1] = (proj[vi].v - minV) / rangeV;
+                }
+            }
+            geom.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+
+            // --- Force flat normals using face normals (hides creases in multi-tri faces) ---
+            const normalsArr = new Float32Array(totalVerts * 3);
+            for (let face = 0; face < faceCount; face++) {
+                const n = faceNormals[face];
+                for (let vi = 0; vi < vertsPerGroup; vi++) {
+                    const idx = (face * vertsPerGroup + vi) * 3;
+                    normalsArr[idx] = n.x;
+                    normalsArr[idx + 1] = n.y;
+                    normalsArr[idx + 2] = n.z;
+                }
+            }
+            geom.setAttribute('normal', new THREE.BufferAttribute(normalsArr, 3));
+
+            // --- Materials ---
+            const style = dieStyles[type] || dieStyles.d20;
+            const materials = new Array(faceCount);
+            for (let groupIdx = 0; groupIdx < faceCount; groupIdx++) {
+                const num = groupIndexToNumber.get(groupIdx);
+                const tex = createFaceTexture(num, type);
+                materials[groupIdx] = new THREE.MeshStandardMaterial({
+                    map: tex,
+                    roughness: 0.32,
+                    metalness: 0.2,
+                    emissive: new THREE.Color(rainbowMode ? 0x0e0a16 : style.emissive),
+                    emissiveIntensity: 0.12,
+                });
+            }
+
+            // --- Mesh ---
+            dieMesh = new THREE.Mesh(geom, materials);
+            dieMesh.castShadow = true;
+            dieMesh.receiveShadow = true;
+            dieGroup.add(dieMesh);
+        }
+
+        // ─────────────────────────────────────
+        // Sparkle particle system
+        // ─────────────────────────────────────
+        const sparkleCount = 350;
+        const sparklePositions = new Float32Array(sparkleCount * 3);
+        const sparkleRadius = dieRadius * 1.55;
+
+        for (let i = 0; i < sparkleCount; i++) {
+            // Random point on sphere, then jitter radius
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            const r = sparkleRadius * (0.65 + Math.random() * 0.35);
+
+            sparklePositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+            sparklePositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            sparklePositions[i * 3 + 2] = r * Math.cos(phi);
+        }
+
+        const sparkleGeom = new THREE.BufferGeometry();
+        sparkleGeom.setAttribute('position', new THREE.BufferAttribute(sparklePositions, 3));
+
+        // Sprite texture: soft radial glow
+        const spriteCanvas = document.createElement('canvas');
+        spriteCanvas.width = 32;
+        spriteCanvas.height = 32;
+        const sctx = spriteCanvas.getContext('2d');
+        const sg = sctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+        sg.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        sg.addColorStop(0.15, 'rgba(240, 225, 255, 0.9)');
+        sg.addColorStop(0.5, 'rgba(200, 170, 240, 0.4)');
+        sg.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        sctx.fillStyle = sg;
+        sctx.fillRect(0, 0, 32, 32);
+        const spriteTex = new THREE.CanvasTexture(spriteCanvas);
+
+        const sparkleMat = new THREE.PointsMaterial({
+            size: 0.09,
+            map: spriteTex,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            depthTest: true,
+            transparent: true,
+            opacity: 0.7,
+            color: new THREE.Color(0xDDCCFF),
+        });
+
+        const sparkles = new THREE.Points(sparkleGeom, sparkleMat);
+        sparkles.name = 'sparkles';
+        dieGroup.add(sparkles);
+
+        // Second, smaller sparkle ring for extra magic
+        const innerSparkleCount = 120;
+        const innerPositions = new Float32Array(innerSparkleCount * 3);
+        for (let i = 0; i < innerSparkleCount; i++) {
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            const r = dieRadius * 1.15;
+            innerPositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+            innerPositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            innerPositions[i * 3 + 2] = r * Math.cos(phi);
+        }
+        const innerGeom = new THREE.BufferGeometry();
+        innerGeom.setAttribute('position', new THREE.BufferAttribute(innerPositions, 3));
+        const innerMat = new THREE.PointsMaterial({
+            size: 0.04,
+            map: spriteTex,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            depthTest: true,
+            transparent: true,
+            opacity: 0.9,
+            color: new THREE.Color(0xFFFFFF),
+        });
+        const innerSparkles = new THREE.Points(innerGeom, innerMat);
+        innerSparkles.name = 'innerSparkles';
+        dieGroup.add(innerSparkles);
+
+        // ─────────────────────────────────────
+        // CSS Confetti (nat-20 celebration)
+        // ─────────────────────────────────────
+        const confettiOverlay = document.getElementById('confetti-overlay');
+
+        const CONFETTI_COLORS = [
+            '#FFD700', '#E040FB', '#E0E0FF', '#40E0D0',
+            '#FF4088', '#B388FF', '#FFFFFF', '#FF8C00',
+            '#7C4DFF', '#00E5FF', '#FF6E40', '#EA80FC',
+        ];
+
+        function triggerConfetti() {
+            const pieceCount = 200;
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < pieceCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+
+                const left = Math.random() * 100; // % across viewport
+                const delay = Math.random() * 0.8; // stagger start times
+                const fallDuration = 2.5 + Math.random() * 2.5;
+                const spin = (360 + Math.random() * 1080) * (Math.random() > 0.5 ? 1 : -1);
+                const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+                const size = 6 + Math.random() * 14;
+                const sway1 = (Math.random() - 0.5) * 120;
+                const sway2 = (Math.random() - 0.5) * 120;
+                const sway3 = (Math.random() - 0.5) * 120;
+                const sway4 = (Math.random() - 0.5) * 120;
+
+                piece.style.setProperty('--fall-duration', fallDuration + 's');
+                piece.style.setProperty('--delay', delay + 's');
+                piece.style.setProperty('--spin', spin + 'deg');
+                piece.style.setProperty('--sway1', sway1 + 'px');
+                piece.style.setProperty('--sway2', sway2 + 'px');
+                piece.style.setProperty('--sway3', sway3 + 'px');
+                piece.style.setProperty('--sway4', sway4 + 'px');
+                piece.style.left = left + '%';
+                piece.style.width = size + 'px';
+                piece.style.height = size + 'px';
+                piece.style.backgroundColor = color;
+                piece.style.boxShadow = `0 0 ${size}px ${color}`;
+                piece.style.animationName = 'confettiFall, confettiSway';
+                piece.style.animationDuration = fallDuration + 's, ' + (fallDuration * 0.8) + 's';
+                piece.style.animationDelay = delay + 's, ' + delay + 's';
+                piece.style.animationTimingFunction = 'linear, ease-in-out';
+                piece.style.animationFillMode = 'forwards, forwards';
+
+                fragment.appendChild(piece);
+            }
+
+            confettiOverlay.appendChild(fragment);
+
+            // Clean up after longest animation finishes
+            const maxDuration = 5.8; // max fallDuration + max delay (in seconds)
+            setTimeout(() => {
+                while (confettiOverlay.firstChild) {
+                    confettiOverlay.removeChild(confettiOverlay.firstChild);
+                }
+            }, maxDuration * 1000);
+        }
+
+        function triggerRedFlash() {
+            const flash = document.getElementById('crit-flash');
+            flash.classList.add('active');
+            // Fade out after a brief hold
+            setTimeout(() => flash.classList.remove('active'), 900);
+        }
+
+        // ─────────────────────────────────────
+        // Result detection
+        // ─────────────────────────────────────
+        function getTopFaceNumber() {
+            // Find the face whose normal points most toward the camera
+            const camDir = camera.position.clone().normalize();
+            let bestDot = -Infinity;
+            let bestGroup = -1;
+
+            for (let i = 0; i < faceNormals.length; i++) {
+                const worldNormal = faceNormals[i].clone().applyQuaternion(dieGroup.quaternion);
+                const dot = worldNormal.dot(camDir);
+                if (dot > bestDot) {
+                    bestDot = dot;
+                    bestGroup = i;
+                }
+            }
+
+            return groupIndexToNumber.get(bestGroup);
+        }
+
+        // ─────────────────────────────────────
+        // Roll animation state
+        // ─────────────────────────────────────
+        let isRolling = false;
+        let rollAnimId = null;
+
+        function setRolling(rolling) {
+            isRolling = rolling;
+            rollButton.disabled = rolling;
+            if (rolling) {
+                container.classList.add('rolling');
+                controls.enabled = false;
+            } else {
+                container.classList.remove('rolling');
+                controls.enabled = true;
+            }
+        }
+
+        function animateRoll(targetNumber, duration = 2000) {
+            const startQuat = dieGroup.quaternion.clone();
+            const targetGroup = numberToGroupIndex.get(targetNumber);
+            const targetNormal = faceNormals[targetGroup].clone();
+
+            // Quaternion that rotates the target face normal to point toward the camera
+            const camDir = camera.position.clone().normalize();
+            const targetQuat = new THREE.Quaternion().setFromUnitVectors(targetNormal, camDir);
+
+            // Random spin around camera axis so same number doesn't always look identical
+            const randomSpin = Math.random() * Math.PI * 2;
+            const spinQuat = new THREE.Quaternion().setFromAxisAngle(camDir, randomSpin);
+            const finalTarget = spinQuat.clone().multiply(targetQuat);
+
+            // Extra spin: random axis, 3-7 full rotations
+            const spinAxis = new THREE.Vector3(
+                Math.random() - 0.5,
+                Math.random() - 0.5,
+                Math.random() - 0.5
+            ).normalize();
+            const totalExtraAngle = (3 + Math.random() * 4) * Math.PI * 2;
+
+            const startTime = performance.now();
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const t = Math.min(elapsed / duration, 1.0);
+
+                // Cubic ease-out
+                const easeT = 1 - Math.pow(1 - t, 3);
+
+                // Slerp toward target
+                const baseQuat = new THREE.Quaternion().slerpQuaternions(startQuat, finalTarget, easeT);
+
+                // Decaying extra spin (quadratic decay)
+                const extraAngle = (1 - t) * (1 - t) * totalExtraAngle;
+                const extraQuat = new THREE.Quaternion().setFromAxisAngle(spinAxis, extraAngle);
+
+                dieGroup.quaternion.copy(baseQuat).multiply(extraQuat);
+
+                if (t < 1) {
+                    rollAnimId = requestAnimationFrame(step);
+                } else {
+                    // Snap to exact target
+                    dieGroup.quaternion.copy(finalTarget);
+                    rollAnimId = null;
+
+                    // Verify result
+                    const detected = getTopFaceNumber();
+                    showResult(detected);
+                    setRolling(false);
+                }
+            }
+
+            rollAnimId = requestAnimationFrame(step);
+        }
+
+        // ─────────────────────────────────────
+        // Result display
+        // ─────────────────────────────────────
+        function showResult(number) {
+            resultNumber.textContent = number;
+            resultNumber.classList.add('visible');
+
+            // Nat-1: red flash
+            if (number === 1) {
+                triggerRedFlash();
+            }
+
+            // Max roll: pulse + confetti burst
+            if (number === groupIndexToNumber.size) {
+                resultNumber.classList.add('celebrating');
+                setTimeout(() => resultNumber.classList.remove('celebrating'), 700);
+                triggerConfetti();
+            }
+        }
+
+        // ─────────────────────────────────────
+        // Roll button handler
+        // ─────────────────────────────────────
+        rollButton.addEventListener('click', () => {
+            if (isRolling) return;
+
+            // Hide previous result
+            resultNumber.classList.remove('visible', 'celebrating');
+
+            // Brief delay so the die "resets" visually before the spin
+            setTimeout(() => {
+                const targetNumber = Math.floor(Math.random() * groupIndexToNumber.size) + 1;
+                setRolling(true);
+                animateRoll(targetNumber);
+            }, 150);
+        });
+
+        // Keyboard shortcut: Space to roll
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !isRolling && document.activeElement === document.body) {
+                e.preventDefault();
+                rollButton.click();
+            }
+        });
+
+        // ─────────────────────────────────────
+        // Render loop
+        // ─────────────────────────────────────
+        function render() {
+            requestAnimationFrame(render);
+
+            const t = performance.now() * 0.001; // seconds
+            controls.update();
+
+            // Gentle hover-bob for the die when idle
+            if (!isRolling) {
+                const bob = Math.sin(t * 0.8) * 0.15;
+                dieGroup.position.y = bob;
+            } else {
+                // Smoothly return to center during/after roll
+                dieGroup.position.y += (0 - dieGroup.position.y) * 0.1;
+            }
+
+            // Sparkle steady glow
+            sparkleMat.opacity = 0.6;
+            innerMat.opacity = 0.85;
+
+            // Gentle rotation of outer sparkles around Y
+            sparkles.rotation.y += 0.003;
+            sparkles.rotation.x += 0.001;
+            innerSparkles.rotation.y -= 0.005;
+            innerSparkles.rotation.z += 0.002;
+
+            // Ring glow pulse
+            ringMat.emissiveIntensity = 0.5 + 0.2 * Math.sin(t * 1.2);
+
+            renderer.render(scene, camera);
+        }
+
+        // ─────────────────────────────────────
+        // Window resize
+        // ─────────────────────────────────────
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        // ─────────────────────────────────────
+        // Kick off
+        // ─────────────────────────────────────
+        let currentDieType = 'd20';
+
+        // ── Die selection menu ──
+        const selectDieBtn = document.getElementById('select-die-btn');
+        const dieMenuOverlay = document.getElementById('die-menu-overlay');
+        const menuDiceBtns = dieMenuOverlay.querySelectorAll('.menu-dice-btn');
+        const menuCloseBtn = dieMenuOverlay.querySelector('.menu-close-btn');
+
+        function openDieMenu() {
+            if (isRolling) return;
+            // Highlight current die
+            menuDiceBtns.forEach(b => {
+                b.classList.toggle('selected', b.dataset.die === currentDieType);
+            });
+            dieMenuOverlay.classList.add('open');
+        }
+
+        function closeDieMenu() {
+            dieMenuOverlay.classList.remove('open');
+        }
+
+        function selectDie(type) {
+            if (type === currentDieType) { closeDieMenu(); return; }
+            currentDieType = type;
+            resultNumber.classList.remove('visible', 'celebrating');
+            buildDie(type);
+            dieGroup.quaternion.setFromEuler(new THREE.Euler(0.3, 0.5, 0.2));
+            closeDieMenu();
+        }
+
+        selectDieBtn.addEventListener('click', openDieMenu);
+        menuCloseBtn.addEventListener('click', closeDieMenu);
+        dieMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === dieMenuOverlay) closeDieMenu();
+        });
+
+        menuDiceBtns.forEach(btn => {
+            btn.addEventListener('click', () => selectDie(btn.dataset.die));
+        });
+
+        // ── Rainbow mode (pride-flag button) ──
+        const rainbowBtn = document.getElementById('rainbow-btn');
+        rainbowBtn.addEventListener('click', () => {
+            if (isRolling) return;
+            rainbowMode = !rainbowMode;
+            rainbowBtn.classList.toggle('active', rainbowMode);
+            document.body.classList.toggle('rainbow-mode', rainbowMode);
+            buildDie(currentDieType);
+            dieGroup.quaternion.setFromEuler(new THREE.Euler(0.3, 0.5, 0.2));
+        });
+
+        // Build initial die
+        buildDie('d20');
+        dieGroup.quaternion.setFromEuler(new THREE.Euler(0.3, 0.5, 0.2));
+
+        render();
+
+        console.log('🎲 Purple sparkly dice ready! d4 d6 d8 d10 d12 d20 — SPACE or click ROLL!');
+    </script>
+</body>
+</html>
