@@ -169,9 +169,9 @@ which gap is which.
   block, not "later."
 - Add one feature a week to what you built\*
 
-<small>\* Doing this needs your own account with an AI coding tool. Claude Code, the
-tool you used in class, is a paid product. Some tools have free options to start with —
-see the [OpenCode Zen how-to](../session-1/opencode-zen-howto.html).</small>
+<small>\* Doing this needs an AI coding tool. Claude Code, the tool you used in class, is
+a paid product that needs an account. Some tools have free options with no account
+needed — see the [OpenCode Zen how-to](../session-1/opencode-zen-howto.html).</small>
 
 ### Learn what's underneath
 

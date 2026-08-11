@@ -40,7 +40,7 @@ docs/                          THE SITE — GitHub Pages serves from here
     ms-camper-notes.md         Camper handout, middle school
     hs-camper-notes.md         Camper handout, high school
     ai-topics.md               HS-only segment bank for when a group runs short (draft)
-    opencode-zen-howto.md      Free-model provider setup — instructor-side option (draft)
+    opencode-zen-howto.md      Free-model how-to — confirmed working, no account needed
   session-2/                   HS only — lesson-plan.md + hs-camper-notes.md
   session-3/                   HS only
   session-4/                   HS only
@@ -49,29 +49,34 @@ docs/                          THE SITE — GitHub Pages serves from here
   preflight.md                 What the first delivery settled, what's still unverified
 ```
 
-Session 1 has five files: one lesson plan, two camper handouts, and two drafts —
-`ai-topics.md` (an HS-only bank of short teach-then-build segments for when a group
-finishes early) and `opencode-zen-howto.md` (setting up a free third-party model
-provider). Sessions 2–4 have two: a lesson plan and the HS handout. **There is no
-`ms-camper-notes.md` outside `session-1/`** — don't re-create one.
+Session 1 has five files: one lesson plan, two camper handouts, one draft, and one
+confirmed how-to — `ai-topics.md` (an HS-only bank of short teach-then-build segments for
+when a group finishes early, still draft) and `opencode-zen-howto.md` (using a free
+third-party model provider, confirmed working). Sessions 2–4 have two: a lesson plan and
+the HS handout. **There is no `ms-camper-notes.md` outside `session-1/`** — don't
+re-create one.
 
-**`opencode-zen-howto.md` deliberately breaks three standing rules** — one command, no
-accounts, no API keys. It exists so campers can keep coding **at home** for free, since
-the in-class tool costs money; it is an after-camp path, not part of the Session 1 spine.
-Don't let its contents leak into the lesson plans or camper notes.
+**`opencode-zen-howto.md` deliberately breaks one standing rule** — one command. It turns
+out the free models need no account and no API key at all, so it no longer breaks those
+two rules; installing and running `opencode` is the whole setup. It exists so campers can
+keep coding **at home** for free, since the in-class tool costs money; it is an after-camp
+path, not part of the Session 1 spine. Don't let its contents leak into the lesson plans
+or camper notes.
 
 **It is footnoted, not fully linked.** Added 2026-08-10: every place the site tells a
 camper to keep building at home — `middle-school.html`, `session-3/hs-camper-notes.md`,
 `session-4/hs-camper-notes.md` — carries a `\*` footnote pointing here. It is still
-**not** in any primary navigation, resource list, or `teacher.html` — that step waits
-until the connect-to-Zen flow has been tested on an LCC lab (CompuCon) machine. Signup
-and the free models themselves are now confirmed working (personal Windows 11 machine,
-via the OpenCode **desktop app**, 2026-08-10) — but the doc's written steps are the
-terminal/CLI flow, which is a *different interface* from what was tested and remains
-unverified as written. Don't read "the models work" as "the lab steps work." If you add
-another "keep building at home" line anywhere, footnote it the same way instead of
-leaving it bare. Writing accurately about that provider's free models is correct and
-wanted; it does not conflict with the rule against calling Claude Code free.
+**not** in any primary navigation, resource list, or `teacher.html` — promoting it there
+is now a judgment call, not something still blocked. **Confirmed 2026-08-11:** the free
+models are available the moment OpenCode is installed — no signup, no API key, no
+provider setup — tested on a personal Windows 11 machine (2026-08-10) and on an actual
+CompuCon lab machine (2026-08-11). That resolves the earlier CLI-vs-desktop-app gap;
+there's no connect flow left to get wrong. **The only open question now is the usage
+cap:** one user reports hitting 200 requests in a 5-hour window, unconfirmed whether
+that's per-model or total — treat it as a live caveat, not settled. If you add another
+"keep building at home" line anywhere, footnote it the same way instead of leaving it
+bare. Writing accurately about that provider's free models is correct and wanted; it does
+not conflict with the rule against calling Claude Code free.
 
 Session 1's lesson plan uses one block sequence with dual MS/HS durations. Sessions 2–4
 are single-audience and use plain durations. The `## MIDDLE SCHOOL` / `## HIGH SCHOOL`

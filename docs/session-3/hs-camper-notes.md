@@ -359,9 +359,9 @@ Copy-Item -Recurse capstone capstone-demo
 
 If you tinker at home\* and break something, this one survives.
 
-<small>\* Tinkering at home needs your own account with an AI coding tool. Claude Code,
-the tool you used in class, is a paid product. Some tools have free options to start
-with — see the [OpenCode Zen how-to](../session-1/opencode-zen-howto.html).</small>
+<small>\* Tinkering at home needs an AI coding tool. Claude Code, the tool you used in
+class, is a paid product that needs an account. Some tools have free options with no
+account needed — see the [OpenCode Zen how-to](../session-1/opencode-zen-howto.html).</small>
 
 ### Plan your 90 seconds
 

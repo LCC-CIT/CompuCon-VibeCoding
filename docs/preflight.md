@@ -153,17 +153,21 @@ So nobody "fixes" these by accident.
 - **Session 2's bad-prompts list is instructor-side only.** The spec sheet from that
   session *is* reproduced in the camper notes, so campers have that one.
 - **The OpenCode Zen how-to is footnoted, not fully linked.** `session-1/opencode-zen-howto.md`
-  covers setting up a free third-party model provider so campers can keep coding at home
-  at no cost. As of 2026-08-10, every "keep building at home" line on the site links to
-  it via a `\*` footnote — `middle-school.html`, `session-3/hs-camper-notes.md`,
+  covers using OpenCode's free models so campers can keep coding at home at no cost. As of
+  2026-08-10, every "keep building at home" line on the site links to it via a `\*`
+  footnote — `middle-school.html`, `session-3/hs-camper-notes.md`,
   `session-4/hs-camper-notes.md`. It is still **not** in `teacher.html`, the main nav, or
-  any resource list. Signup and the free models are now confirmed working on a personal
-  Windows 11 machine via the OpenCode **desktop app** — but that's a different interface
-  from the terminal/CLI steps the doc actually documents, which remain unverified as
-  written. **Two separate things are still needed before this is class-ready:** the CLI
-  steps run end to end at all, and *either* interface tested on an actual LCC lab
-  (CompuCon) machine. It intentionally breaks the one-command / no-accounts / no-API-keys
-  rules, which is why it lives as a footnote rather than class material.
+  any resource list — that's now a judgment call rather than something still blocked.
+  **Update, 2026-08-11:** the free models turn out to need no account, no API key, and no
+  provider setup at all — they're available the moment OpenCode is installed. That
+  dissolves the earlier CLI-vs-desktop-app split; there's no connect flow to get wrong.
+  Confirmed working on a personal Windows 11 machine (2026-08-10) and, this update, on an
+  actual CompuCon lab machine (2026-08-11) — the one gating item left. **The only open
+  question now is the usage cap:** one user reports hitting 200 requests in a 5-hour
+  window, unconfirmed whether that's per-model or total. The doc still intentionally
+  breaks the one-command rule (`opencode` vs `claude`), which is why it lives as a
+  footnote rather than class material — but that's a smaller departure than before, since
+  it no longer breaks the no-accounts / no-API-keys rules too.
 - **Lesson plans are public.** Each `docs/session-N/lesson-plan.md` renders to a
   `/session-N/lesson-plan.html` page, and `teacher.html` links all four. Anyone who
   finds the site can read them. Fine if the plans aren't secret — worth knowing if
