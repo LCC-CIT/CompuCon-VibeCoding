@@ -168,6 +168,13 @@ So nobody "fixes" these by accident.
   breaks the one-command rule (`opencode` vs `claude`), which is why it lives as a
   footnote rather than class material — but that's a smaller departure than before, since
   it no longer breaks the no-accounts / no-API-keys rules too.
+- **`local-models-howto.md` exists but is unlinked.** Added 2026-08-11, a third
+  "keep coding at home" option — running a model on your own computer with Ollama or LM
+  Studio, used from OpenCode or from `claude` directly. Written from vendor docs, not
+  from running it. **Not tested by anyone on this project, and not linked from any
+  page.** Before it gets a footnote anywhere, walk it end to end on a real Windows 11
+  machine — the Claude Code half (Ollama's Anthropic-compatible endpoint) is the part
+  most likely to have drifted from what's written.
 - **Lesson plans are public.** Each `docs/session-N/lesson-plan.md` renders to a
   `/session-N/lesson-plan.html` page, and `teacher.html` links all four. Anyone who
   finds the site can read them. Fine if the plans aren't secret — worth knowing if

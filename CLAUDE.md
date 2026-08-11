@@ -41,6 +41,7 @@ docs/                          THE SITE — GitHub Pages serves from here
     hs-camper-notes.md         Camper handout, high school
     ai-topics.md               HS-only segment bank for when a group runs short (draft)
     opencode-zen-howto.md      Free-model how-to — confirmed working, no account needed
+    local-models-howto.md      Self-hosted model how-to — draft, unverified end to end
   session-2/                   HS only — lesson-plan.md + hs-camper-notes.md
   session-3/                   HS only
   session-4/                   HS only
@@ -49,12 +50,13 @@ docs/                          THE SITE — GitHub Pages serves from here
   preflight.md                 What the first delivery settled, what's still unverified
 ```
 
-Session 1 has five files: one lesson plan, two camper handouts, one draft, and one
-confirmed how-to — `ai-topics.md` (an HS-only bank of short teach-then-build segments for
-when a group finishes early, still draft) and `opencode-zen-howto.md` (using a free
-third-party model provider, confirmed working). Sessions 2–4 have two: a lesson plan and
-the HS handout. **There is no `ms-camper-notes.md` outside `session-1/`** — don't
-re-create one.
+Session 1 has six files: one lesson plan, two camper handouts, and three take-home /
+overflow resources — `ai-topics.md` (an HS-only bank of short teach-then-build segments
+for when a group finishes early, still draft), `opencode-zen-howto.md` (using a free
+third-party model provider, confirmed working), and `local-models-howto.md` (running a
+model on your own computer with Ollama or LM Studio, draft — see below). Sessions 2–4
+have two: a lesson plan and the HS handout. **There is no `ms-camper-notes.md` outside
+`session-1/`** — don't re-create one.
 
 **`opencode-zen-howto.md` deliberately breaks one standing rule** — one command. It turns
 out the free models need no account and no API key at all, so it no longer breaks those
@@ -77,6 +79,18 @@ that's per-model or total — treat it as a live caveat, not settled. If you add
 "keep building at home" line anywhere, footnote it the same way instead of leaving it
 bare. Writing accurately about that provider's free models is correct and wanted; it does
 not conflict with the rule against calling Claude Code free.
+
+**`local-models-howto.md` is the third at-home option, and the least tested.** It covers
+running a model locally with Ollama or LM Studio, and using it from OpenCode or from
+`claude` itself (via Ollama's Anthropic-compatible endpoint). Added 2026-08-11, written
+from vendor docs and outside write-ups — **nobody has run these steps themselves.** It is
+a bigger departure from the track than the Zen page: real hardware, a multi-gigabyte
+install, and command-line setup, all outside the Session 1 spine. **It is not linked from
+anywhere on the site yet** — not footnoted, not in `teacher.html`, not in any resource
+list. Don't add a footnote link to it until someone has walked Parts 1–5 end to end,
+especially [Part 5](docs/session-1/local-models-howto.html#part-5-use-it-with-claude-code),
+which depends on an Ollama version number and command set that could easily have moved by
+the time anyone reads this.
 
 Session 1's lesson plan uses one block sequence with dual MS/HS durations. Sessions 2–4
 are single-audience and use plain durations. The `## MIDDLE SCHOOL` / `## HIGH SCHOOL`
