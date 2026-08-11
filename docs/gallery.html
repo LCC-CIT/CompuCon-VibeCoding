@@ -37,55 +37,90 @@
       described in plain English, written by an AI, and steered until it worked.
       Click one to try it.
     </p>
+    <div class="chips">
+      <a class="chip" href="#middle-school">Middle School</a>
+      <a class="chip" href="#high-school">High School</a>
+      <a class="chip" href="#instructor">Instructor</a>
+    </div>
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
 
-    <div class="gallery">
+    <div class="gallery-section">
+      <span class="tag">middle school</span>
+      <h2 id="middle-school">Middle School</h2>
+      <div class="empty-state">
+        <p><strong>Nothing here yet.</strong></p>
+        <p>Camper apps get added after each session. Check back soon.</p>
+      </div>
+    </div>
 
-      <a class="gcard" href="gallery/madlibs.html">
-        <div class="gcard-thumb icon gthumb-cy">📝</div>
-        <div class="gcard-body">
-          <h3>Mad Libs</h3>
-          <p>Fill in the blanks, then read the silly story you made.</p>
-          <span class="gcard-by">by Brian Bird, Instructor</span>
-        </div>
-      </a>
+    <div class="gallery-section">
+      <span class="tag">high school</span>
+      <h2 id="high-school">High School</h2>
+      <div class="gallery">
 
-      <a class="gcard" href="gallery/magic8ball.py">
-        <div class="gcard-thumb icon gthumb-vi">🎱</div>
-        <div class="gcard-body">
-          <h3>Magic 8-Ball</h3>
-          <p>Ask a question, get a random answer. Python — download to run.</p>
-          <span class="gcard-by">by Brian Bird, Instructor</span>
-        </div>
-      </a>
+        <a class="gcard" href="gallery/Spring-Boots/index.html">
+          <div class="gcard-thumb icon gthumb-vi">🥾</div>
+          <div class="gcard-body">
+            <h3>Spring Boots</h3>
+            <p>Charge your spring boots and launch up a tower to the top platform.</p>
+            <span class="gcard-by">by Jeremiah Huebsch</span>
+          </div>
+        </a>
 
-      <a class="gcard" href="gallery/memory_match.py">
-        <div class="gcard-thumb icon gthumb-am">🍓</div>
-        <div class="gcard-body">
-          <h3>Memory Match</h3>
-          <p>Flip cards, find the matching pairs. Python — download to run.</p>
-          <span class="gcard-by">by Brian Bird, Instructor</span>
-        </div>
-      </a>
+      </div>
+    </div>
 
-      <a class="gcard" href="gallery/rock_paper_scissors.py">
-        <div class="gcard-thumb icon gthumb-gr">✊</div>
-        <div class="gcard-body">
-          <h3>Rock, Paper, Scissors</h3>
-          <p>Play against the computer, with a scoreboard. Python — download to run.</p>
-          <span class="gcard-by">by Brian Bird, Instructor</span>
-        </div>
-      </a>
+    <div class="gallery-section">
+      <span class="tag">from the instructor</span>
+      <h2 id="instructor">Instructor</h2>
+      <div class="gallery">
 
+        <a class="gcard" href="gallery/madlibs.html">
+          <div class="gcard-thumb icon gthumb-cy">📝</div>
+          <div class="gcard-body">
+            <h3>Mad Libs</h3>
+            <p>Fill in the blanks, then read the silly story you made.</p>
+            <span class="gcard-by">by Brian Bird, Instructor</span>
+          </div>
+        </a>
+
+        <a class="gcard" href="gallery/magic8ball.py">
+          <div class="gcard-thumb icon gthumb-vi">🎱</div>
+          <div class="gcard-body">
+            <h3>Magic 8-Ball</h3>
+            <p>Ask a question, get a random answer. Python — download to run.</p>
+            <span class="gcard-by">by Brian Bird, Instructor</span>
+          </div>
+        </a>
+
+        <a class="gcard" href="gallery/memory_match.py">
+          <div class="gcard-thumb icon gthumb-am">🍓</div>
+          <div class="gcard-body">
+            <h3>Memory Match</h3>
+            <p>Flip cards, find the matching pairs. Python — download to run.</p>
+            <span class="gcard-by">by Brian Bird, Instructor</span>
+          </div>
+        </a>
+
+        <a class="gcard" href="gallery/rock_paper_scissors.py">
+          <div class="gcard-thumb icon gthumb-gr">✊</div>
+          <div class="gcard-body">
+            <h3>Rock, Paper, Scissors</h3>
+            <p>Play against the computer, with a scoreboard. Python — download to run.</p>
+            <span class="gcard-by">by Brian Bird, Instructor</span>
+          </div>
+        </a>
+
+      </div>
     </div>
 
     <!--
-      Gallery entry template — copy this block inside the <div class="gallery">
-      above for each new app.
+      Gallery entry template — copy this block inside the .gallery div for the
+      right section (Middle School / High School / Instructor).
 
       For a web app hosted on GitHub Pages, link straight to it and use a
       screenshot thumbnail:
@@ -114,13 +149,9 @@
           </div>
         </a>
 
-      If the gallery is ever empty again, restore this markup in place of
-      <div class="gallery">...</div>:
-
-        <div class="empty-state">
-          <p><strong>Nothing here yet.</strong></p>
-          <p>Camper apps get added after each session. Check back soon.</p>
-        </div>
+      A section starts with the .empty-state markup (see Middle School or High
+      School above). Once its first entry is added, replace the .empty-state
+      div with a <div class="gallery"> holding that section's cards.
     -->
 
   </div>

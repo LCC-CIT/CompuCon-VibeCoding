@@ -353,6 +353,8 @@
 .empty-state .ico{margin:0 auto 16px}
 .empty-state p{max-width:48ch;margin:0 auto}
 .empty-state p+p{margin-top:8px}
+.gallery-section+.gallery-section{margin-top:clamp(44px,7vw,72px)}
+.gallery-section h2{scroll-margin-top:84px}
 
 /* ---------- extras strip ---------- */
 .extras{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
