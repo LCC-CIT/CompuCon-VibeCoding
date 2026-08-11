@@ -167,7 +167,11 @@ which gap is which.
   open the [Google Drive link](https://drive.google.com/drive/folders/1iNAG8vacKNsL3-c_1e_363R00ZxjgJPM?usp=drive_link),
   find the folder with your name, and copy your project folder into it. Do it in the last
   block, not "later."
-- Add one feature a week to what you built
+- Add one feature a week to what you built\*
+
+<small>\* Doing this needs your own account with an AI coding tool. Claude Code, the
+tool you used in class, is a paid product. Some tools have free options to start with —
+see the [OpenCode Zen how-to](../session-1/opencode-zen-howto.html).</small>
 
 ### Learn what's underneath
 
