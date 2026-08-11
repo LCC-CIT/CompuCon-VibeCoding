@@ -322,6 +322,38 @@
 .note .go{font-family:var(--mono);font-size:1.1rem;color:var(--dim);transition:color .2s,transform .2s}
 .note:hover .go{color:var(--cyan);transform:translateX(3px)}
 
+/* ---------- gallery ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+@media(max-width:860px){.gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.gallery{grid-template-columns:1fr}}
+.gcard{
+  display:block;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;
+  transition:border-color .22s,transform .22s,background .22s;
+}
+.gcard:hover{border-color:var(--border-bright);transform:translateY(-3px);background:var(--surface-2)}
+.gcard:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.gcard-thumb{aspect-ratio:16/10;background:var(--surface-2);overflow:hidden}
+.gcard-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.gcard-thumb.icon{display:grid;place-items:center;font-size:3.6rem}
+.gthumb-cy{background:rgba(79,214,196,.12)}
+.gthumb-am{background:rgba(255,190,92,.12)}
+.gthumb-vi{background:rgba(177,138,255,.12)}
+.gthumb-gr{background:rgba(121,232,138,.12)}
+.gcard-body{padding:16px 18px}
+.gcard-body h3{font-size:1rem;margin-bottom:6px}
+.gcard-body p{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+.gcard-by{font-family:var(--mono);font-size:.78rem;color:var(--cyan)}
+
+.empty-state{
+  text-align:center;padding:clamp(40px,8vw,64px) 24px;
+  border:1px dashed var(--border);border-radius:var(--radius);
+  color:var(--muted);margin-top:8px;
+}
+.empty-state .ico{margin:0 auto 16px}
+.empty-state p{max-width:48ch;margin:0 auto}
+.empty-state p+p{margin-top:8px}
+
 /* ---------- extras strip ---------- */
 .extras{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
 @media(max-width:700px){.extras{grid-template-columns:1fr}}
@@ -340,7 +372,7 @@
   body::before{display:none}
   nav{display:none}
   body{background:#fff;color:#111}
-  .note,.extra,.card,details{border-color:#bbb;background:#fff}
+  .note,.extra,.card,details,.gcard,.empty-state{border-color:#bbb;background:#fff}
 }
 
 /* ==========================================================================

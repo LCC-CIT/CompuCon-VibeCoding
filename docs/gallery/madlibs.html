@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mad Libs</title>
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --card: #ffffff;
+    --ink: #23201c;
+    --muted: #7a736a;
+    --line: #e0d9cd;
+    --accent: #b4472f;
+    --accent-soft: #fdf0ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 "Iowan Old Style", Georgia, serif;
+  }
+  main { max-width: 40rem; margin: 0 auto; }
+  h1 {
+    font-size: 2rem;
+    margin: 0 0 .25rem;
+    letter-spacing: -.02em;
+  }
+  .sub { color: var(--muted); margin: 0 0 2rem; font-size: .95rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .field {
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    margin-bottom: .75rem;
+  }
+  .field label {
+    flex: 0 0 9.5rem;
+    text-align: right;
+    font-size: .85rem;
+    text-transform: lowercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+  .field input {
+    flex: 1;
+    font: inherit;
+    padding: .45rem .6rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fdfcfa;
+    color: inherit;
+    min-width: 0;
+  }
+  .field input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+    border-color: transparent;
+  }
+  .field input.missing { border-color: var(--accent); background: var(--accent-soft); }
+  .buttons { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.25rem; }
+  button {
+    font: inherit;
+    padding: .55rem 1.2rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:hover { filter: brightness(.96); }
+  .note { color: var(--accent); font-size: .9rem; min-height: 1.4em; margin: .75rem 0 0; }
+  #story { font-size: 1.15rem; }
+  #story h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 1rem; font-weight: normal; }
+  #story .fill { color: var(--accent); font-weight: bold; }
+  [hidden] { display: none !important; }
+  @media (max-width: 30rem) {
+    .field { flex-direction: column; gap: .2rem; align-items: stretch; }
+    .field label { text-align: left; flex: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Mad Libs</h1>
+  <p class="sub">Fill in every word, then see what you made.</p>
+
+  <div class="card" id="form-card">
+    <div id="fields"></div>
+    <div class="buttons">
+      <button class="primary" id="build">Build the story</button>
+      <button id="clear">Clear</button>
+    </div>
+    <p class="note" id="note"></p>
+  </div>
+
+  <div class="card" id="story" hidden></div>
+</main>
+
+<script>
+/* ------------------------------------------------------------------
+   THE STORY — edit this to change the game.
+
+   Write the story as one string. Anywhere you want a blank, write
+   {word type}  e.g. {noun}, {plural noun}, {verb ending in -ing}.
+   Repeat a label to get a second, separate blank of the same type.
+   Everything else (the inputs, the result) updates automatically.
+------------------------------------------------------------------ */
+const STORY_TITLE = "A Day at the Office";
+
+const STORY = `
+It was a perfectly {adjective} Monday morning when I arrived at the office
+and found a {noun} sitting at my desk. It was {verb ending in -ing} quietly,
+so at first I didn't want to disturb it.
+
+"Excuse me," I said. "That's my {noun}."
+
+The creature looked up and blinked {number} times. Then it handed me a
+{adjective} stack of {plural noun} and said, "You're late. The meeting
+started {number} minutes ago, and everyone is already {verb ending in -ing}."
+
+I followed it down the hall, where my entire team had gathered to
+{verb} around a table made entirely of {plural noun}. My boss stood at the
+front holding a {adjective} {noun} and shouting, "This quarter, we
+{verb} harder than ever!"
+
+Everyone cheered. I quietly took a seat, opened my laptop, and typed the
+word "{noun}" seventeen times. Nobody noticed. It was, all things
+considered, a very {adjective} day.
+`;
+
+/* ---------------- Engine — no need to edit below ---------------- */
+
+// Split the story into literal text and {blank} tokens.
+const PARTS = STORY.trim().split(/(\{[^}]+\})/);
+const BLANKS = PARTS
+  .filter(p => p.startsWith("{") && p.endsWith("}"))
+  .map(p => p.slice(1, -1).trim());
+
+const fieldsEl = document.querySelector("#fields");
+const storyEl = document.querySelector("#story");
+const noteEl = document.querySelector("#note");
+
+// Build one labelled input per blank. A repeated type gets numbered
+// so "noun 1" and "noun 2" stay distinguishable.
+const counts = {};
+const totals = BLANKS.reduce((acc, t) => (acc[t] = (acc[t] || 0) + 1, acc), {});
+
+BLANKS.forEach((type, i) => {
+  counts[type] = (counts[type] || 0) + 1;
+  const label = totals[type] > 1 ? `${type} ${counts[type]}` : type;
+
+  const row = document.createElement("div");
+  row.className = "field";
+
+  const lab = document.createElement("label");
+  lab.textContent = label;
+  lab.htmlFor = "blank-" + i;
+
+  const input = document.createElement("input");
+  input.id = "blank-" + i;
+  input.type = "text";
+  input.autocomplete = "off";
+  input.placeholder = `a ${type}...`;
+  input.addEventListener("input", () => input.classList.remove("missing"));
+  input.addEventListener("keydown", e => { if (e.key === "Enter") build(); });
+
+  row.append(lab, input);
+  fieldsEl.append(row);
+});
+
+function inputs() {
+  return [...fieldsEl.querySelectorAll("input")];
+}
+
+function build() {
+  const boxes = inputs();
+  const empty = boxes.filter(b => b.value.trim() === "");
+
+  boxes.forEach(b => b.classList.remove("missing"));
+  if (empty.length) {
+    empty.forEach(b => b.classList.add("missing"));
+    noteEl.textContent =
+      `Still need ${empty.length} word${empty.length > 1 ? "s" : ""}.`;
+    storyEl.hidden = true;
+    empty[0].focus();
+    return;
+  }
+
+  noteEl.textContent = "";
+  storyEl.replaceChildren();
+
+  const heading = document.createElement("h2");
+  heading.textContent = STORY_TITLE;
+  storyEl.append(heading);
+
+  // Rebuild the story, swapping each token for its typed word.
+  // A blank line in the source starts a new paragraph.
+  let para = document.createElement("p");
+  storyEl.append(para);
+  let blankIndex = 0;
+
+  for (const part of PARTS) {
+    if (part.startsWith("{") && part.endsWith("}")) {
+      const span = document.createElement("span");
+      span.className = "fill";
+      span.textContent = boxes[blankIndex++].value.trim();
+      para.append(span);
+      continue;
+    }
+    // Break the literal text on blank lines; single newlines are just wrapping.
+    const chunks = part.split(/\n[ \t]*\n/);
+    chunks.forEach((chunk, i) => {
+      if (i > 0) {
+        para = document.createElement("p");
+        storyEl.append(para);
+      }
+      const text = chunk.replace(/\s*\n\s*/g, " ");
+      if (text) para.append(document.createTextNode(text));
+    });
+  }
+
+  storyEl.hidden = false;
+  storyEl.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function clearAll() {
+  inputs().forEach(b => { b.value = ""; b.classList.remove("missing"); });
+  noteEl.textContent = "";
+  storyEl.hidden = true;
+  inputs()[0].focus();
+}
+
+document.querySelector("#build").addEventListener("click", build);
+document.querySelector("#clear").addEventListener("click", clearAll);
+inputs()[0].focus();
+</script>
+</body>
+</html>
