@@ -68,14 +68,7 @@ What's left, and each takes one person twenty minutes to settle:
 ## What this costs
 
 Free models are rate-limited. The vendor does not publish per-model limits clearly, and
-one third-party source reports a daily request cap. **Assume a cap exists and that a room
-of twenty campers will find it.** If you're running this with a class rather than one
-person, test with several machines hitting it at once before you commit.
-
-Paid models on the same account are charged per request. Since account setup and model
-selection sit next to each other in the interface, a camper can wander onto a paid model
-by accident if billing is ever added. **Don't add billing to an account campers will
-touch.**
+one third-party source reports a daily request cap. **Assume a cap exists.** 
 
 ## Part 1 — Create the account
 
@@ -220,29 +213,25 @@ The general troubleshooting reference is
 [`troubleshooting.html`](../troubleshooting.html) — it's written for `claude`, but the
 sections on hung sessions and on reading errors apply to any agent in a terminal.
 
-## If you hand this to campers
 
-Should you decide to run it camper-side rather than instructor-side, three things change:
 
-- **Budget 15–20 minutes**, not five. Account creation with a room of twenty is slow, and
-  email verification is where it stalls.
-- **Have a fallback ready for anyone who can't sign up.** Someone will have no email
-  access, a typo'd address, or a blocked verification mail. They should pair with a
-  neighbor rather than sit out.
-- **Say the API key rule out loud before you hand out the URL**, not after. See
-  [Part 2](#part-2-get-your-api-key).
+## Free Coding Models on OpenCode Zen 
 
-Given all of that, the honest recommendation is to run this as an instructor demo and a
-take-home handout, and keep class time on building.
+## Ranked by Coding Ability
 
-**Nothing on the site links to this page while it's a draft.** That is not the same as
-hidden: GitHub Pages renders every `.md` under `docs/`, so
-`/session-1/opencode-zen-howto.html` is live and publicly reachable right now by anyone
-with the URL — which is exactly what makes it usable as a take-home link you paste into
-Drive or read out at the end of a session. When it's been tested and you're ready for
-campers to find it on their own, it belongs on `teacher.html`, or in the Session 1 camper
-notes' take-home section if it's going camper-side.
+These models were free as of August 10, 2026
 
-------
+| Rank  | Model                                  | Parameters (Total / Active) | Context Length   | Key Coding Benchmarks                                        |
+| ----- | -------------------------------------- | --------------------------- | ---------------- | ------------------------------------------------------------ |
+| **1** | **DeepSeek V4 Flash**                  | 284B / 13B                  | 1M tokens        | Terminal Bench 2.1 **82.7%**, DeepSWE **54.4%**, Toolathlon Verified **70.3%**, NL2Repo **54.2%** [[github.com\]](https://github.com/anomalyco/opencode/issues/10404), [[docs.zenmux.ai\]](https://docs.zenmux.ai/zh/best-practices/opencode.html) |
+| **2** | **Nemotron 3 Ultra**                   | 550B / 55B                  | 1M tokens        | Code benchmark **85.3%**; designed for long-horizon agentic coding, reasoning, and software engineering tasks. [[open.bigmodel.cn\]](https://open.bigmodel.cn/), [[github.com\]](https://github.com/AftabIbrahimKazi/ai-dev-kit/blob/main/skills/models/opencode/big-pickle.md), [[freeaiapi.org\]](https://freeaiapi.org/endpoint/opencode/opencode-big-pickle) |
+| **3** | **LongCat-2.0**                        | 1.6T / ~48B active          | 1M tokens        | SWE-Bench Pro **59.5%**, Terminal-Bench **70.8%**. Purpose-built for agentic coding. [[en.oninvest.com\]](https://en.oninvest.com/article/chinese-ai-company-zhipu-has-won-the-war-of-hundreds-of-models-but-what-s-next-for-it), [[en.webhakim.com\]](https://en.webhakim.com/zhipu-ai-raises-137m-to-boost-generative-ai/) |
+| **4** | **Laguna S 2.1**                       | 118B / 8B                   | 1,048,576 tokens | SWE-Bench Multilingual **78.5%**, SWE-Bench Pro **59.4%**, Terminal-Bench 2.1 **70.2%**. [[mastra.ai\]](https://mastra.ai/models/providers/opencode), [[huntscreens.com\]](https://huntscreens.com/zh/products/opencode-zen) |
+| **5** | **Big Pickle (identified as GLM-4.6)** | ~355B / ~32B active         | 200K tokens      | OpenCode maintainers confirmed Big Pickle is GLM-4.6; widely regarded as a strong coding-agent model. 200K context and 128K output. [[huggingface.co\]](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash), [[atlas.kevinhu.io\]](https://atlas.kevinhu.io/models/north-mini-code-1-0), [[artificial...nalysis.ai\]](https://artificialanalysis.ai/articles/north-mini-code-cohere-s-small-coding-focused-moe-model) |
+| **6** | **MiMo-V2.5**                          | 310B / 15B                  | 1M tokens        | Coding Agent score **71.8**, MiMo Coding Bench **62.3**, Terminal-Bench 2.0 **56.1**. [[anyrouter.dev\]](https://anyrouter.dev/model/opencode/big-pickle), [[beatriz.page\]](https://www.beatriz.page/2026-02-06-opencode-get-started-yc-case-study), [[github.com\]](https://github.com/anomalyco/opencode/issues/4276) |
+| **7** | **North Mini Code**                    | 30B / 3B                    | 256K tokens      | Artificial Analysis Coding Index **33.4-41.7**; built specifically for software engineering workflows. [[cryptopolitan.com\]](https://www.cryptopolitan.com/zhipu-ai-free-agent-launch-deepseek/), [[edgen.tech\]](https://www.edgen.tech/news/post/zhipu-ai-hikes-model-price-10-after-new-version-tops-opus-46-benchmark), [[opencode.ai\]](https://opencode.ai/docs/zen/) |
+| **8** | **Ling-3.0-tiny**                      | 7.9B / 1.3B                 | 256K-262K tokens | Artificial Analysis Coding Index **26.5**, SciCode **24.2%**. [[brunch.co.kr\]](https://brunch.co.kr/@drytree21/476), [[hunted.space\]](https://hunted.space/dashboard/opencode/launches/opencode-zen) |
+
+### 
 
 [![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/) This Vibe Coding Curriculum by [Brian Bird](https://profbird.dev), created in <time>2026</time> with AI assistance, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
