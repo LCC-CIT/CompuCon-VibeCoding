@@ -261,6 +261,9 @@
   summary::after{content:"+";font-family:var(--mono);color:var(--cyan);font-size:1.2rem;flex-shrink:0;transition:transform .22s}
   details[open] summary::after{transform:rotate(45deg)}
   details p{padding:0 20px 17px;font-size:.91rem}
+  details ul{padding:0 20px 17px 40px;margin:0;font-size:.91rem}
+  details ul li+li{margin-top:6px}
+  details ul ul{padding:6px 0 0 22px}
 
   footer{border-top:1px solid var(--border);padding:32px 0;text-align:center}
   footer p{font-family:var(--mono);font-size:.8rem;color:var(--dim)}
@@ -460,6 +463,7 @@ body{overflow-wrap:break-word}
   .card,.note,.extra{padding:18px 16px}
   details summary{padding:14px 16px}
   details p{padding:0 16px 15px}
+  details ul{padding:0 16px 15px 34px}
   .prose pre{padding:13px 13px;border-radius:9px}
 }
 

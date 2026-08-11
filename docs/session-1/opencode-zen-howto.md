@@ -1,43 +1,50 @@
 # How To — OpenCode Zen, a Free Model Provider
 
-**Confirmed working, no account needed.** OpenCode's free models are available the moment
-you install it — no signup, no API key, no provider setup. Confirmed on a personal
-Windows 11 machine (2026-08-10) and on a CompuCon lab machine (2026-08-11). The only open
-question is the usage cap — see [What this costs](#what-this-costs).
+**Confirmed working. No account needed.**
 
-This walks through installing OpenCode, running it, and picking a free model such as
-**Big Pickle** or **MiMo-V2.5**. It assumes OpenCode is already installed on the machine.
+- OpenCode's free models work the moment you install it.
+- No sign-up. No API key. No provider to set up.
+- Tested on a personal Windows 11 computer (2026-08-10) and a CompuCon lab computer
+  (2026-08-11).
+- One thing is still unknown: the usage cap. See [What This Costs](#what-this-costs).
 
-**Why this exists: so campers can keep coding at home without paying for anything.** The
-tool used in class costs money, which makes "go build a fourth thing" a hollow send-off
-for a camper whose family isn't going to buy a subscription. A free provider closes that
-gap. That is the whole point of this page — it is an *after camp* path first and
-everything else second.
+This page walks through running OpenCode and picking a free model, such as **Big
+Pickle** or **MiMo-V2.5**. It assumes OpenCode is already installed on the machine.
 
-> **It is a departure from the rest of the track, on purpose.** The curriculum's standing
-> rule is one command (`claude`). This uses a different command (`opencode`) instead —
-> though it needs no account and no API key, so it's a smaller departure than it first
-> looks. That's acceptable for a take-home page and not acceptable inside the Session 1
-> spine — don't fold it in.
+**Why this page exists:**
+
+- The tool used in class, Claude Code, costs money.
+- Telling a camper to "keep building at home" is a hollow send-off if their family
+  isn't buying a subscription.
+- A free provider closes that gap.
+- This is an *after-camp* path first, and everything else second.
+
+> **It's a departure from the rest of the track, on purpose.** The one standing rule
+> it breaks: one command. The track uses `claude`; this page uses `opencode` instead.
+> It needs no account and no API key, so it's a smaller departure than it looks.
+> That's fine for a take-home page. It's not fine inside the Session 1 spine — don't
+> fold it in.
 
 ---
 
 ## Contents
 
-- [What this costs](#what-this-costs)
+- [What This Costs](#what-this-costs)
 - [Part 1 — Run OpenCode](#part-1-run-opencode)
-- [Part 2 — Pick a free model](#part-2-pick-a-free-model)
-- [Part 3 — Prove it works](#part-3-prove-it-works)
-- [When it breaks](#when-it-breaks)
+- [Part 2 — Pick a Free Model](#part-2-pick-a-free-model)
+- [Part 3 — Prove It Works](#part-3-prove-it-works)
+- [When It Breaks](#when-it-breaks)
 - [Free Coding Models on OpenCode Zen](#free-coding-models-on-opencode-zen)
   - [Ranked by Coding Ability](#ranked-by-coding-ability)
 
-## What this costs
+## What This Costs
 
-Free models are rate-limited, and the exact caps aren't published. One user reports
-hitting a limit of **200 requests in a 5-hour window** — it isn't confirmed whether that's
-per model or a total across all free models, so budget as if it's a total. If you hit it,
-switch models or wait it out.
+- Free models are rate-limited.
+- The exact caps aren't published.
+- **One user reports a limit of 200 requests in a 5-hour window.**
+  - Not confirmed whether that's per model, or a total across all free models.
+  - Budget as if it's a total.
+- If you hit the limit: switch models, or wait it out.
 
 ## Part 1 — Run OpenCode
 
@@ -51,10 +58,14 @@ cd opencode-test
 opencode
 ```
 
-That's it — no `/connect`, no login, no key. The free models are ready to use as soon as
-OpenCode opens.
+That's the whole setup.
 
-## Part 2 — Pick a free model
+- No `/connect`.
+- No login.
+- No key.
+- The free models are ready as soon as OpenCode opens.
+
+## Part 2 — Pick a Free Model
 
 Inside OpenCode:
 
@@ -75,17 +86,16 @@ Pick one of the free models. As of writing, the free list is:
 | Ling 3.0 Tiny | `ling-3.0-tiny-free` |
 | LongCat 2.0 | `longcat-2.0-free` |
 
-Where a model has to be written out in full, the form is `opencode/` plus the ID — so
+**Writing out a model name in full:** `opencode/` plus the ID. For example,
 `opencode/big-pickle` or `opencode/mimo-v2.5-free`.
 
-**Note the pattern:** every free model except Big Pickle carries `-free` in its ID. If
-you're reading a model name off a screen and typing it somewhere, that suffix is the
-difference between free and billed. Check it twice.
+**Note the pattern:** every free model except Big Pickle carries `-free` in its ID.
+That suffix is the difference between free and billed — check it twice.
 
-## Part 3 — Prove it works
+## Part 3 — Prove It Works
 
-Don't assume the connection is good because nothing errored. Run the track's own standard
-and make it build something you can check:
+Don't assume the connection is good just because nothing errored. Run the track's own
+standard, and make it build something you can check:
 
 ```
 Build a dice roller in Python with a tkinter window. Big button that says ROLL, and
@@ -99,16 +109,16 @@ Then:
 python dice.py
 ```
 
-A window with a working button means the whole chain is good — OpenCode, the free
-provider, model, and the model's ability to write code that runs.
+- A window with a working button means the whole chain is good: OpenCode, the free
+  provider, the model, and the model's ability to write code that runs.
+- **This is the same dice roller from the Session 1 hook.** That makes it a fair
+  comparison — run the identical prompt through `claude` and through a free Zen
+  model, then look at the two results side by side.
+- That comparison is worth class time. It makes "the interface and the model are
+  separable" concrete instead of abstract, and it shows that model choice is a real
+  engineering decision with visible consequences.
 
-**This is the same dice roller from the Session 1 hook**, which makes it a fair
-comparison: run the identical prompt through `claude` and through a free Zen model and
-look at the two results side by side. That comparison is genuinely worth class time — it
-makes "the interface and the model are separable" concrete instead of abstract, and it
-shows that model choice is a real engineering decision with visible consequences.
-
-## When it breaks
+## When It Breaks
 
 | What you see | Likely cause |
 |---|---|
@@ -117,14 +127,14 @@ shows that model choice is a real engineering decision with visible consequences
 | Nothing connects, on every machine | Lab firewall blocking outbound access — nothing you can fix in the room |
 
 The general troubleshooting reference is
-[`troubleshooting.html`](../troubleshooting.html) — it's written for `claude`, but the
-sections on hung sessions and on reading errors apply to any agent in a terminal.
+[`troubleshooting.html`](../troubleshooting.html). It's written for `claude`, but
+the sections on hung sessions and on reading errors apply to any agent in a terminal.
 
 ## Free Coding Models on OpenCode Zen
 
 ### Ranked by Coding Ability
 
-These models were free as of August 10, 2026
+These models were free as of August 10, 2026.
 
 | Rank  | Model                                  | Parameters (Total / Active) | Context Length   | Key Coding Benchmarks                                        |
 | ----- | -------------------------------------- | --------------------------- | ---------------- | ------------------------------------------------------------ |
