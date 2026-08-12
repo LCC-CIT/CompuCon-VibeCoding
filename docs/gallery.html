@@ -62,7 +62,7 @@
       <h2 id="high-school">High School</h2>
       <div class="gallery">
 
-        <a class="gcard" href="gallery/Spring-Boots/index.html">
+        <a class="gcard" href="gallery/HighSchool/Jeremiah-Huebsch/index.html">
           <div class="gcard-thumb icon gthumb-vi">🥾</div>
           <div class="gcard-body">
             <h3>Spring Boots</h3>
@@ -71,7 +71,7 @@
           </div>
         </a>
 
-        <a class="gcard" href="gallery/HarpersDiceRoller.html">
+        <a class="gcard" href="gallery/HighSchool/Harper-Cotterell/HarpersDiceRoller.html">
           <div class="gcard-thumb icon gthumb-cy">🎲</div>
           <div class="gcard-body">
             <h3>Delux Dice Roller</h3>
@@ -88,7 +88,7 @@
       <h2 id="instructor">Instructor</h2>
       <div class="gallery">
 
-        <a class="gcard" href="gallery/madlibs.html">
+        <a class="gcard" href="gallery/Instructor/Brian-Bird/madlibs.html">
           <div class="gcard-thumb icon gthumb-cy">📝</div>
           <div class="gcard-body">
             <h3>Mad Libs</h3>
@@ -97,7 +97,7 @@
           </div>
         </a>
 
-        <a class="gcard" href="gallery/magic8ball.py">
+        <a class="gcard" href="gallery/Instructor/Brian-Bird/magic8ball.py">
           <div class="gcard-thumb icon gthumb-vi">🎱</div>
           <div class="gcard-body">
             <h3>Magic 8-Ball</h3>
@@ -106,7 +106,7 @@
           </div>
         </a>
 
-        <a class="gcard" href="gallery/memory_match.py">
+        <a class="gcard" href="gallery/Instructor/Brian-Bird/memory_match.py">
           <div class="gcard-thumb icon gthumb-am">🍓</div>
           <div class="gcard-body">
             <h3>Memory Match</h3>
@@ -115,11 +115,20 @@
           </div>
         </a>
 
-        <a class="gcard" href="gallery/rock_paper_scissors.py">
+        <a class="gcard" href="gallery/Instructor/Brian-Bird/rock_paper_scissors.py">
           <div class="gcard-thumb icon gthumb-gr">✊</div>
           <div class="gcard-body">
             <h3>Rock, Paper, Scissors</h3>
             <p>Play against the computer, with a scoreboard. Python — download to run.</p>
+            <span class="gcard-by">by Brian Bird, Instructor</span>
+          </div>
+        </a>
+
+        <a class="gcard" href="gallery/Instructor/Brian-Bird/PersonalityQuizAnimalType.html">
+          <div class="gcard-thumb icon gthumb-vi">🦊</div>
+          <div class="gcard-body">
+            <h3>Which Animal Are You?</h3>
+            <p>Answer a few questions and find out your animal type.</p>
             <span class="gcard-by">by Brian Bird, Instructor</span>
           </div>
         </a>
@@ -131,12 +140,17 @@
       Gallery entry template — copy this block inside the .gallery div for the
       right section (Middle School / High School / Instructor).
 
-      For a web app hosted on GitHub Pages, link straight to it and use a
-      screenshot thumbnail:
+      Folders under gallery/ are two levels deep: gallery/Section/Camper-Name/...
+      Section is one of MiddleSchool, HighSchool, or Instructor, matching the
+      page section the entry goes in. If a person has more than one app, they
+      all go in that same gallery/Section/Camper-Name/ folder as separate
+      files or subfolders.
 
-        <a class="gcard" href="https://camper-project.github.io/app-name/" target="_blank" rel="noopener">
+      For a web app, link to its index.html and use a screenshot thumbnail:
+
+        <a class="gcard" href="gallery/Section/Camper-Name/app-name.html" target="_blank" rel="noopener">
           <div class="gcard-thumb">
-            <img src="gallery/app-name-thumb.png" alt="Screenshot of App Name">
+            <img src="gallery/Section/Camper-Name/app-name-thumb.png" alt="Screenshot of App Name">
           </div>
           <div class="gcard-body">
             <h3>App Name</h3>
@@ -149,7 +163,7 @@
       icon thumbnail instead of a screenshot — pick one of gthumb-cy / -am /
       -vi / -gr to vary the color:
 
-        <a class="gcard" href="gallery/app-name.py">
+        <a class="gcard" href="gallery/Section/Camper-Name/app-name.py">
           <div class="gcard-thumb icon gthumb-cy">🎮</div>
           <div class="gcard-body">
             <h3>App Name</h3>
@@ -158,9 +172,9 @@
           </div>
         </a>
 
-      A section starts with the .empty-state markup (see Middle School or High
-      School above). Once its first entry is added, replace the .empty-state
-      div with a <div class="gallery"> holding that section's cards.
+      A section starts with the .empty-state markup (see Middle School above).
+      Once its first entry is added, replace the .empty-state div with a
+      <div class="gallery"> holding that section's cards.
     -->
 
   </div>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Which Animal Are You? — A Big Five Personality Quiz</title>
+  <style>
+    :root {
+      --bg: #16131f;
+      --panel: #221d33;
+      --panel-2: #2b2440;
+      --text: #f5f2ff;
+      --muted: #a8a1c4;
+      --accent: #ff7ac6;
+      --accent-2: #7c5cff;
+      --bar: linear-gradient(90deg, #ff7ac6, #7c5cff);
+      --ring: #3d3560;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(124, 92, 255, 0.25), transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(255, 122, 198, 0.2), transparent 45%),
+        var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--ring);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .hidden { display: none !important; }
+
+    h1 {
+      font-size: 1.7rem;
+      margin: 0 0 6px;
+      letter-spacing: 0.3px;
+      background: linear-gradient(90deg, #ff7ac6, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0 0 28px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .btn {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #ff7ac6, #7c5cff);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(124, 92, 255, 0.5); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--ring);
+      padding: 10px 18px;
+      font-size: 0.9rem;
+    }
+
+    .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+
+    /* Intro */
+    .intro-animal { font-size: 4rem; text-align: center; margin-bottom: 8px; }
+    .intro-list { list-style: none; padding: 0; margin: 0 0 28px; }
+    .intro-list li { color: var(--muted); padding: 4px 0; font-size: 0.95rem; }
+
+    /* Quiz */
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: var(--panel-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--bar);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .progress-count { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+
+    .question { font-size: 1.25rem; font-weight: 600; line-height: 1.45; margin: 0 0 22px; min-height: 2.9em; }
+
+    .answers { display: flex; flex-direction: column; gap: 10px; }
+
+    .answer {
+      background: var(--panel-2);
+      border: 2px solid var(--ring);
+      color: var(--text);
+      text-align: left;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 12px;
+    }
+
+    .answer:hover { border-color: var(--accent-2); background: #332c52; transform: translateY(-1px); }
+
+    .answer:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    .answer.selected {
+      border-color: var(--accent);
+      background: linear-gradient(90deg, rgba(255,122,198,0.18), rgba(124,92,255,0.18));
+    }
+
+    .quiz-nav { display: flex; justify-content: space-between; margin-top: 22px; }
+
+    /* Results */
+    .result-head { text-align: center; }
+    .result-emoji { font-size: 5rem; margin: 4px 0 2px; }
+    .result-tag { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.78rem; font-weight: 700; }
+    .result-title { font-size: 1.6rem; font-weight: 800; margin: 6px 0 4px; }
+    .result-blurb { color: var(--muted); font-size: 1rem; margin: 0 0 22px; line-height: 1.5; }
+
+    .result-why {
+      background: var(--panel-2);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: var(--text);
+      margin: 0 0 26px;
+    }
+
+    .result-why strong { color: var(--accent); }
+
+    .breakdown-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin: 0 0 14px; }
+
+    .trait-row { margin-bottom: 14px; }
+    .trait-row:last-child { margin-bottom: 0; }
+
+    .trait-head { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
+    .trait-head .name { font-weight: 600; }
+    .trait-head .pct { color: var(--muted); }
+
+    .trait-track {
+      height: 10px;
+      background: var(--panel-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .trait-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--bar);
+      border-radius: 999px;
+      transition: width 0.6s ease;
+    }
+    .trait-fill.top { background: linear-gradient(90deg, #ff7ac6, #7c5cff); box-shadow: 0 0 12px rgba(255,122,198,0.5); }
+
+    .result-actions { display: flex; justify-content: center; margin-top: 28px; }
+
+    .note { color: var(--muted); font-size: 0.82rem; text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <!-- Intro -->
+    <section class="card" id="intro">
+      <div class="intro-animal">🦁</div>
+      <h1>Which animal are you?</h1>
+      <p class="subtitle">
+        Answer 15 quick questions about how you think, feel, and act. We'll measure
+        the <strong>Big Five</strong> personality traits and match you to an animal
+        that reflects who you are.
+      </p>
+      <ul class="intro-list">
+        <li>🧠 Openness · 🗓️ Conscientiousness · 🎉 Extraversion</li>
+        <li>💛 Agreeableness · 🌊 Sensitivity</li>
+      </ul>
+      <div style="text-align: center;">
+        <button class="btn btn-primary" id="start">Start the quiz</button>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="card hidden" id="quiz">
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-count" id="progressCount">1 / 15</span>
+      </div>
+      <p class="question" id="questionText"></p>
+      <div class="answers" id="answers" role="group" aria-label="Answer choices"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="back">← Back</button>
+        <span></span>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="card hidden" id="results">
+      <div class="result-head">
+        <div class="result-emoji" id="resultEmoji"></div>
+        <div class="result-tag" id="resultTag"></div>
+        <div class="result-title" id="resultTitle"></div>
+        <p class="result-blurb" id="resultBlurb"></p>
+      </div>
+      <div class="result-why" id="resultWhy"></div>
+      <p class="breakdown-title">Your Big Five breakdown</p>
+      <div id="breakdown"></div>
+      <div class="result-actions">
+        <button class="btn btn-primary" id="retake">Retake quiz</button>
+      </div>
+      <p class="note" id="note"></p>
+    </section>
+  </main>
+
+  <script>
+    const ANSWER_LABELS = [
+      { value: 0, label: "Strongly disagree" },
+      { value: 1, label: "Disagree" },
+      { value: 2, label: "Neutral" },
+      { value: 3, label: "Agree" },
+      { value: 4, label: "Strongly agree" },
+    ];
+
+    const QUESTIONS = [
+      { trait: "O", text: "I love coming up with new ideas and imagining possibilities." },
+      { trait: "C", text: "I like to plan things out and stay organized." },
+      { trait: "N", text: "I worry about things more than most people." },
+      { trait: "E", text: "I feel energized when I'm around other people." },
+      { trait: "A", text: "I care a lot about other people's feelings." },
+      { trait: "O", reverse: true, text: "I prefer sticking to what I already know." },
+      { trait: "C", reverse: true, text: "I tend to leave tasks unfinished." },
+      { trait: "E", reverse: true, text: "I need a lot of quiet time alone to recharge." },
+      { trait: "A", reverse: true, text: "I put my own needs first, even when it bothers others." },
+      { trait: "N", reverse: true, text: "I stay calm even in tough situations." },
+      { trait: "O", text: "I enjoy exploring unfamiliar topics and learning for fun." },
+      { trait: "C", text: "I follow through on my commitments." },
+      { trait: "E", text: "I enjoy being the center of attention." },
+      { trait: "A", text: "I enjoy cooperating and helping others." },
+      { trait: "N", text: "I get stressed out easily." },
+    ];
+
+    const ANIMALS = {
+      O: {
+        traitName: "Openness to Experience",
+        emoji: "🐙",
+        animal: "Octopus",
+        title: "The Curious Octopus",
+        blurb: "You're imaginative, inventive, and always ready to explore something new.",
+        why: "Octopuses are famously curious and adaptable — they explore, solve puzzles, and thrive on novelty. <strong>Like you</strong>, they're drawn to new experiences and see possibilities where others see routine."
+      },
+      C: {
+        traitName: "Conscientiousness",
+        emoji: "🦫",
+        animal: "Beaver",
+        title: "The Diligent Beaver",
+        blurb: "You're organized, disciplined, and dependable — you see things through.",
+        why: "Beavers are nature's engineers, methodically building and refining their world. <strong>Like you</strong>, they plan ahead, work steadily toward a goal, and can be counted on to finish what they start."
+      },
+      E: {
+        traitName: "Extraversion",
+        emoji: "🐬",
+        animal: "Dolphin",
+        title: "The Social Dolphin",
+        blurb: "You're outgoing, energetic, and you light up around other people.",
+        why: "Dolphins are social, playful, and communicative — they thrive in groups and lift the energy around them. <strong>Like you</strong>, you draw strength from connection and love being in the thick of things."
+      },
+      A: {
+        traitName: "Agreeableness",
+        emoji: "🐘",
+        animal: "Elephant",
+        title: "The Kind Elephant",
+        blurb: "You're warm, compassionate, and you put others at ease.",
+        why: "Elephants form deep bonds and are famously empathetic — they look out for their herd and celebrate and grieve together. <strong>Like you</strong>, you lead with kindness and make people feel genuinely cared for."
+      },
+      N: {
+        traitName: "Sensitivity",
+        emoji: "🐇",
+        animal: "Rabbit",
+        title: "The Alert Rabbit",
+        blurb: "You're emotionally attuned, sensitive, and deeply aware of your surroundings.",
+        why: "Rabbits are finely tuned to their environment — alert, responsive, and quick to sense what's happening around them. <strong>Like you</strong>, you feel things deeply and notice details that others often miss."
+      },
+    };
+
+    const TRAIT_ORDER = ["O", "C", "E", "A", "N"];
+    const TOTAL = QUESTIONS.length;
+
+    const answers = new Array(TOTAL).fill(null);
+    let current = 0;
+
+    const introEl = document.getElementById("intro");
+    const quizEl = document.getElementById("quiz");
+    const resultsEl = document.getElementById("results");
+
+    const questionText = document.getElementById("questionText");
+    const answersEl = document.getElementById("answers");
+    const progressFill = document.getElementById("progressFill");
+    const progressCount = document.getElementById("progressCount");
+
+    function show(el) {
+      [introEl, quizEl, resultsEl].forEach((e) => e.classList.add("hidden"));
+      el.classList.remove("hidden");
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[current];
+      questionText.textContent = q.text;
+      progressCount.textContent = `${current + 1} / ${TOTAL}`;
+      progressFill.style.width = `${((current) / TOTAL) * 100}%`;
+
+      answersEl.innerHTML = "";
+      ANSWER_LABELS.forEach((opt) => {
+        const btn = document.createElement("button");
+        btn.className = "answer";
+        btn.textContent = opt.label;
+        btn.setAttribute("aria-label", opt.label);
+        if (answers[current] === opt.value) btn.classList.add("selected");
+        btn.addEventListener("click", () => select(opt.value, btn));
+        answersEl.appendChild(btn);
+      });
+
+      document.getElementById("back").disabled = current === 0;
+      document.getElementById("back").style.opacity = current === 0 ? 0.4 : 1;
+    }
+
+    function select(value, btn) {
+      answers[current] = value;
+      answersEl.querySelectorAll(".answer").forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+
+      setTimeout(() => {
+        if (current < TOTAL - 1) {
+          current++;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      }, 220);
+    }
+
+    function computeResults() {
+      const totals = { O: 0, C: 0, E: 0, A: 0, N: 0 };
+      QUESTIONS.forEach((q, i) => {
+        const raw = answers[i];
+        const val = q.reverse ? 4 - raw : raw;
+        totals[q.trait] += val;
+      });
+
+      let top = TRAIT_ORDER[0];
+      TRAIT_ORDER.forEach((t) => { if (totals[t] > totals[top]) top = t; });
+
+      const runnerUp = TRAIT_ORDER
+        .filter((t) => t !== top)
+        .reduce((a, b) => (totals[b] > totals[a] ? b : a));
+
+      const tied = totals[runnerUp] === totals[top];
+
+      return { totals, top, runnerUp, tied };
+    }
+
+    function showResults() {
+      const { totals, top, runnerUp, tied } = computeResults();
+      const a = ANIMALS[top];
+
+      resultEmoji.textContent = a.emoji;
+      resultTag.textContent = "Your spirit animal";
+      resultTitle.textContent = `${a.title} · ${a.animal}`;
+      resultBlurb.textContent = a.blurb;
+      resultWhy.innerHTML = a.why;
+
+      const breakdown = document.getElementById("breakdown");
+      breakdown.innerHTML = "";
+      TRAIT_ORDER.forEach((t) => {
+        const max = 12; // 3 questions × 4 points
+        const pct = Math.round((totals[t] / max) * 100);
+
+        const row = document.createElement("div");
+        row.className = "trait-row";
+
+        const head = document.createElement("div");
+        head.className = "trait-head";
+        const name = document.createElement("span");
+        name.className = "name";
+        name.textContent = ANIMALS[t].traitName;
+        const pctSpan = document.createElement("span");
+        pctSpan.className = "pct";
+        pctSpan.textContent = `${pct}%`;
+        head.append(name, pctSpan);
+
+        const track = document.createElement("div");
+        track.className = "trait-track";
+        const fill = document.createElement("div");
+        fill.className = "trait-fill" + (t === top ? " top" : "");
+        fill.style.width = "0%";
+        track.appendChild(fill);
+
+        row.append(head, track);
+        breakdown.appendChild(row);
+
+        // Animate the bar to its final width.
+        requestAnimationFrame(() => {
+          setTimeout(() => { fill.style.width = pct + "%"; }, 50);
+        });
+      });
+
+      const note = document.getElementById("note");
+      if (tied) {
+        note.textContent = `You're closely tied on ${ANIMALS[runnerUp].traitName} too — you're a bit of a ${ANIMALS[runnerUp].animal} as well.`;
+      } else {
+        note.textContent = "This is a lighthearted reflection, not a diagnosis — personality is complex!";
+      }
+
+      show(resultsEl);
+      resultsEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    document.getElementById("start").addEventListener("click", () => {
+      answers.fill(null);
+      current = 0;
+      show(quizEl);
+      renderQuestion();
+    });
+
+    document.getElementById("back").addEventListener("click", () => {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    });
+
+    document.getElementById("retake").addEventListener("click", () => {
+      answers.fill(null);
+      current = 0;
+      show(quizEl);
+      renderQuestion();
+    });
+  </script>
+</body>
+</html>
