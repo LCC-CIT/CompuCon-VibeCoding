@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's Your Type? — An MBTI-Style Personality Quiz</title>
+  <style>
+    :root {
+      --bg: #16131f;
+      --panel: #221d33;
+      --panel-2: #2b2440;
+      --text: #f5f2ff;
+      --muted: #a8a1c4;
+      --accent: #ff7ac6;
+      --accent-2: #7c5cff;
+      --bar: linear-gradient(90deg, #ff7ac6, #7c5cff);
+      --ring: #3d3560;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(124, 92, 255, 0.25), transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(255, 122, 198, 0.2), transparent 45%),
+        var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .app { width: 100%; max-width: 560px; }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--ring);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .hidden { display: none !important; }
+
+    h1 {
+      font-size: 1.7rem;
+      margin: 0 0 6px;
+      letter-spacing: 0.3px;
+      background: linear-gradient(90deg, #ff7ac6, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle { color: var(--muted); margin: 0 0 28px; font-size: 0.98rem; line-height: 1.5; }
+
+    .btn {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #ff7ac6, #7c5cff);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(124, 92, 255, 0.5); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--ring);
+      padding: 10px 18px;
+      font-size: 0.9rem;
+    }
+
+    .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+    .btn-ghost:disabled { cursor: default; }
+
+    /* Intro */
+    .intro-emoji { font-size: 4rem; text-align: center; margin-bottom: 8px; }
+    .intro-list { list-style: none; padding: 0; margin: 0 0 28px; }
+    .intro-list li { color: var(--muted); padding: 4px 0; font-size: 0.95rem; }
+
+    /* Quiz */
+    .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .progress-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: var(--bar); border-radius: 999px; transition: width 0.3s ease; }
+    .progress-count { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+
+    .question { font-size: 1.25rem; font-weight: 600; line-height: 1.45; margin: 0 0 22px; min-height: 2.9em; }
+
+    .answers { display: flex; flex-direction: column; gap: 10px; }
+
+    .answer {
+      background: var(--panel-2);
+      border: 2px solid var(--ring);
+      color: var(--text);
+      text-align: left;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 12px;
+    }
+
+    .answer:hover { border-color: var(--accent-2); background: #332c52; transform: translateY(-1px); }
+    .answer:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .answer.selected {
+      border-color: var(--accent);
+      background: linear-gradient(90deg, rgba(255,122,198,0.18), rgba(124,92,255,0.18));
+    }
+
+    .quiz-nav { display: flex; justify-content: space-between; margin-top: 22px; }
+
+    /* Results */
+    .result-head { text-align: center; }
+    .result-emoji { font-size: 5rem; margin: 4px 0 2px; }
+    .result-tag { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.78rem; font-weight: 700; }
+    .result-title { font-size: 1.6rem; font-weight: 800; margin: 6px 0 4px; }
+    .result-blurb { color: var(--muted); font-size: 1rem; margin: 0 0 22px; line-height: 1.5; }
+
+    .result-why {
+      background: var(--panel-2);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: var(--text);
+      margin: 0 0 26px;
+    }
+
+    .result-why strong { color: var(--accent); }
+
+    .breakdown-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin: 0 0 14px; }
+
+    .trait-row { margin-bottom: 16px; }
+    .trait-row:last-child { margin-bottom: 0; }
+
+    .trait-head { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
+    .trait-head .name { font-weight: 600; }
+    .trait-head .pct { color: var(--muted); }
+
+    .trait-track { height: 10px; background: var(--panel-2); border-radius: 999px; overflow: hidden; }
+    .trait-fill { height: 100%; width: 0%; background: var(--bar); border-radius: 999px; transition: width 0.6s ease; }
+
+    .result-actions { display: flex; justify-content: center; margin-top: 28px; }
+
+    .note { color: var(--muted); font-size: 0.82rem; text-align: center; margin-top: 20px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <!-- Intro -->
+    <section class="card" id="intro">
+      <div class="intro-emoji">🧭</div>
+      <h1>What's your type?</h1>
+      <p class="subtitle">
+        Answer 20 quick questions about how you focus your energy, take in
+        information, make decisions, and live your life. We'll estimate your
+        four-letter personality type, MBTI-style.
+      </p>
+      <ul class="intro-list">
+        <li>⚡ Extraversion vs. Introversion</li>
+        <li>🔭 Sensing vs. Intuition</li>
+        <li>⚖️ Thinking vs. Feeling</li>
+        <li>🗂️ Judging vs. Perceiving</li>
+      </ul>
+      <div style="text-align: center;">
+        <button class="btn btn-primary" id="start">Start the quiz</button>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="card hidden" id="quiz">
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-count" id="progressCount">1 / 20</span>
+      </div>
+      <p class="question" id="questionText"></p>
+      <div class="answers" id="answers" role="group" aria-label="Answer choices"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="back">← Back</button>
+        <span></span>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="card hidden" id="results">
+      <div class="result-head">
+        <div class="result-emoji" id="resultEmoji"></div>
+        <div class="result-tag" id="resultTag"></div>
+        <div class="result-title" id="resultTitle"></div>
+        <p class="result-blurb" id="resultBlurb"></p>
+      </div>
+      <div class="result-why" id="resultWhy"></div>
+      <p class="breakdown-title">Your four dimensions</p>
+      <div id="breakdown"></div>
+      <div class="result-actions">
+        <button class="btn btn-primary" id="retake">Retake quiz</button>
+      </div>
+      <p class="note" id="note"></p>
+    </section>
+  </main>
+
+  <script>
+    const ANSWER_LABELS = [
+      { value: 0, label: "Strongly disagree" },
+      { value: 1, label: "Disagree" },
+      { value: 2, label: "Neutral" },
+      { value: 3, label: "Agree" },
+      { value: 4, label: "Strongly agree" },
+    ];
+
+    // Each question leans toward one letter of a pair.
+    // "pair" is which dichotomy it belongs to; "letter" is the side it scores toward.
+    const QUESTIONS = [
+      // Extraversion (E) vs. Introversion (I)
+      { pair: "EI", letter: "E", text: "I get energized by being around other people." },
+      { pair: "EI", letter: "I", text: "I need quiet time alone to recharge after socializing." },
+      { pair: "EI", letter: "E", text: "I'd rather talk through an idea out loud than think it over silently." },
+      { pair: "EI", letter: "I", text: "I prefer a few close friends over a big circle of acquaintances." },
+      { pair: "EI", letter: "E", text: "I speak up quickly in group discussions." },
+
+      // Sensing (S) vs. Intuition (N)
+      { pair: "SN", letter: "S", text: "I trust hands-on experience and concrete facts over theories." },
+      { pair: "SN", letter: "N", text: "I enjoy thinking about patterns, possibilities, and 'what if' ideas." },
+      { pair: "SN", letter: "S", text: "I focus on the details of what's actually happening right now." },
+      { pair: "SN", letter: "N", text: "I like imagining how things could be different in the future." },
+      { pair: "SN", letter: "S", text: "I'd rather follow a proven, step-by-step method than improvise." },
+
+      // Thinking (T) vs. Feeling (F)
+      { pair: "TF", letter: "T", text: "I make decisions based on logic, even if it upsets someone." },
+      { pair: "TF", letter: "F", text: "I consider people's feelings first when making a decision." },
+      { pair: "TF", letter: "T", text: "I value being fair and consistent over being especially kind." },
+      { pair: "TF", letter: "F", text: "I find it easy to empathize with how others are feeling." },
+      { pair: "TF", letter: "T", text: "I'd rather give honest, direct feedback than a gentle, softened version." },
+
+      // Judging (J) vs. Perceiving (P)
+      { pair: "JP", letter: "J", text: "I like having a clear plan and sticking to a schedule." },
+      { pair: "JP", letter: "P", text: "I prefer to stay flexible and see what happens rather than plan ahead." },
+      { pair: "JP", letter: "J", text: "I feel best when things are decided and settled." },
+      { pair: "JP", letter: "P", text: "I often start things at the last minute and work well under pressure." },
+      { pair: "JP", letter: "J", text: "I like to keep my space and tasks organized." },
+    ];
+
+    const TYPES = {
+      ISTJ: { emoji: "🛡️", title: "The Inspector", blurb: "Responsible, thorough, and grounded in facts.", why: "You value order, follow-through, and doing things the right way. <strong>Like an Inspector</strong>, people count on you to keep things running exactly as they should." },
+      ISFJ: { emoji: "🌾", title: "The Protector", blurb: "Warm, dependable, and quietly attentive to others.", why: "You notice what people need before they ask, and you show up for them consistently. <strong>Like a Protector</strong>, your loyalty and care are the glue that holds a group together." },
+      INFJ: { emoji: "🕊️", title: "The Advocate", blurb: "Insightful, idealistic, and deeply principled.", why: "You see meaning and connections others miss, and you care about doing what's right. <strong>Like an Advocate</strong>, you're driven by values and a quiet sense of purpose." },
+      INTJ: { emoji: "♟️", title: "The Architect", blurb: "Strategic, independent, and big-picture focused.", why: "You think several steps ahead and trust your own analysis. <strong>Like an Architect</strong>, you build long-term plans and push to make them real." },
+      ISTP: { emoji: "🔧", title: "The Craftsman", blurb: "Practical, cool-headed, and good in a crisis.", why: "You'd rather figure things out hands-on than talk about them. <strong>Like a Craftsman</strong>, you stay calm, solve the immediate problem, and move on." },
+      ISFP: { emoji: "🎨", title: "The Artist", blurb: "Gentle, sensory, and quietly expressive.", why: "You experience the world through feel and aesthetics, and you'd rather show who you are than announce it. <strong>Like an Artist</strong>, you value freedom and authenticity." },
+      INFP: { emoji: "🌙", title: "The Dreamer", blurb: "Idealistic, imaginative, and guided by inner values.", why: "You're driven by what feels meaningful and true to you, not by outside rules. <strong>Like a Dreamer</strong>, you look for the deeper story in everything." },
+      INTP: { emoji: "🧪", title: "The Thinker", blurb: "Curious, analytical, and endlessly questioning.", why: "You love pulling ideas apart to see how they work. <strong>Like a Thinker</strong>, you're happiest exploring a concept until it makes complete sense." },
+      ESTP: { emoji: "🏍️", title: "The Doer", blurb: "Bold, energetic, and thrives in the moment.", why: "You jump into action and figure it out as you go. <strong>Like a Doer</strong>, you bring energy and quick thinking to whatever's happening right now." },
+      ESFP: { emoji: "🎉", title: "The Performer", blurb: "Fun-loving, spontaneous, and the life of the room.", why: "You bring warmth and energy wherever you go, and you live in the present. <strong>Like a Performer</strong>, you make everyday moments feel a little more fun." },
+      ENFP: { emoji: "✨", title: "The Champion", blurb: "Enthusiastic, imaginative, and people-focused.", why: "You get excited about ideas and about the people around you in equal measure. <strong>Like a Champion</strong>, your energy and optimism are contagious." },
+      ENTP: { emoji: "💡", title: "The Debater", blurb: "Quick-witted, curious, and loves a good argument.", why: "You enjoy playing devil's advocate and exploring every angle of an idea. <strong>Like a Debater</strong>, you think fastest when you're bouncing ideas off someone else." },
+      ESTJ: { emoji: "📋", title: "The Director", blurb: "Organized, decisive, and results-driven.", why: "You like clear structure and you're comfortable taking charge to get things done. <strong>Like a Director</strong>, people look to you to make the plan happen." },
+      ESFJ: { emoji: "🤝", title: "The Caregiver", blurb: "Sociable, supportive, and community-minded.", why: "You pay close attention to the people around you and work hard to keep everyone comfortable and included. <strong>Like a Caregiver</strong>, you build strong, warm communities." },
+      ENFJ: { emoji: "🌟", title: "The Mentor", blurb: "Charismatic, encouraging, and people-focused.", why: "You naturally bring people together and help them grow. <strong>Like a Mentor</strong>, you lead with warmth and inspire others to be their best." },
+      ENTJ: { emoji: "🚀", title: "The Commander", blurb: "Confident, strategic, and a natural leader.", why: "You set ambitious goals and organize people and resources to reach them. <strong>Like a Commander</strong>, you take charge and drive things forward." },
+    };
+
+    const PAIRS = [
+      { key: "EI", left: "E", right: "I", leftName: "Extraversion", rightName: "Introversion" },
+      { key: "SN", left: "S", right: "N", leftName: "Sensing", rightName: "Intuition" },
+      { key: "TF", left: "T", right: "F", leftName: "Thinking", rightName: "Feeling" },
+      { key: "JP", left: "J", right: "P", leftName: "Judging", rightName: "Perceiving" },
+    ];
+
+    const TOTAL = QUESTIONS.length;
+    const answers = new Array(TOTAL).fill(null);
+    let current = 0;
+
+    const introEl = document.getElementById("intro");
+    const quizEl = document.getElementById("quiz");
+    const resultsEl = document.getElementById("results");
+
+    const questionText = document.getElementById("questionText");
+    const answersEl = document.getElementById("answers");
+    const progressFill = document.getElementById("progressFill");
+    const progressCount = document.getElementById("progressCount");
+
+    function show(el) {
+      [introEl, quizEl, resultsEl].forEach((e) => e.classList.add("hidden"));
+      el.classList.remove("hidden");
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[current];
+      questionText.textContent = q.text;
+      progressCount.textContent = `${current + 1} / ${TOTAL}`;
+      progressFill.style.width = `${(current / TOTAL) * 100}%`;
+
+      answersEl.innerHTML = "";
+      ANSWER_LABELS.forEach((opt) => {
+        const btn = document.createElement("button");
+        btn.className = "answer";
+        btn.textContent = opt.label;
+        btn.setAttribute("aria-label", opt.label);
+        if (answers[current] === opt.value) btn.classList.add("selected");
+        btn.addEventListener("click", () => select(opt.value, btn));
+        answersEl.appendChild(btn);
+      });
+
+      document.getElementById("back").disabled = current === 0;
+      document.getElementById("back").style.opacity = current === 0 ? 0.4 : 1;
+    }
+
+    function select(value, btn) {
+      answers[current] = value;
+      answersEl.querySelectorAll(".answer").forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+
+      setTimeout(() => {
+        if (current < TOTAL - 1) {
+          current++;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      }, 220);
+    }
+
+    function computeResults() {
+      // Score each pair 0-4 per question, disagree counts toward the opposite letter.
+      const scores = {};
+      PAIRS.forEach((p) => { scores[p.key] = { left: 0, right: 0 }; });
+
+      QUESTIONS.forEach((q, i) => {
+        const raw = answers[i];
+        const pairInfo = PAIRS.find((p) => p.key === q.pair);
+        const towardLeft = q.letter === pairInfo.left;
+        if (towardLeft) {
+          scores[q.pair].left += raw;
+          scores[q.pair].right += (4 - raw);
+        } else {
+          scores[q.pair].right += raw;
+          scores[q.pair].left += (4 - raw);
+        }
+      });
+
+      let code = "";
+      const percents = {};
+      PAIRS.forEach((p) => {
+        const { left, right } = scores[p.key];
+        const max = left + right;
+        const winner = left >= right ? p.left : p.right;
+        code += winner;
+        percents[p.key] = {
+          leftPct: Math.round((left / max) * 100),
+          rightPct: Math.round((right / max) * 100),
+        };
+      });
+
+      return { code, percents };
+    }
+
+    function showResults() {
+      const { code, percents } = computeResults();
+      const t = TYPES[code];
+
+      resultEmoji.textContent = t.emoji;
+      resultTag.textContent = "Your type";
+      resultTitle.textContent = `${code} · ${t.title}`;
+      resultBlurb.textContent = t.blurb;
+      resultWhy.innerHTML = t.why;
+
+      const breakdown = document.getElementById("breakdown");
+      breakdown.innerHTML = "";
+      PAIRS.forEach((p) => {
+        const { leftPct, rightPct } = percents[p.key];
+        const leaningRight = rightPct > leftPct;
+        const pct = leaningRight ? rightPct : leftPct;
+        const label = leaningRight
+          ? `${p.rightName} (${p.right})`
+          : `${p.leftName} (${p.left})`;
+
+        const row = document.createElement("div");
+        row.className = "trait-row";
+
+        const head = document.createElement("div");
+        head.className = "trait-head";
+        const name = document.createElement("span");
+        name.className = "name";
+        name.textContent = label;
+        const pctSpan = document.createElement("span");
+        pctSpan.className = "pct";
+        pctSpan.textContent = `${pct}%`;
+        head.append(name, pctSpan);
+
+        const track = document.createElement("div");
+        track.className = "trait-track";
+        const fill = document.createElement("div");
+        fill.className = "trait-fill";
+        fill.style.width = "0%";
+        track.appendChild(fill);
+
+        row.append(head, track);
+        breakdown.appendChild(row);
+
+        requestAnimationFrame(() => {
+          setTimeout(() => { fill.style.width = pct + "%"; }, 50);
+        });
+      });
+
+      document.getElementById("note").textContent =
+        "This is a fun, lighthearted estimate — not a scientific or clinical assessment.";
+
+      show(resultsEl);
+      resultsEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    document.getElementById("start").addEventListener("click", () => {
+      answers.fill(null);
+      current = 0;
+      show(quizEl);
+      renderQuestion();
+    });
+
+    document.getElementById("back").addEventListener("click", () => {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    });
+
+    document.getElementById("retake").addEventListener("click", () => {
+      answers.fill(null);
+      current = 0;
+      show(quizEl);
+      renderQuestion();
+    });
+  </script>
+</body>
+</html>
