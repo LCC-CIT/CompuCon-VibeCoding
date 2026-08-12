@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which YA Character Are You?</title>
+<meta name="description" content="A 25-question personality quiz to discover which YA book, show, and movie character you are — from Powerless, Fourth Wing, Harry Potter, Star Wars, Percy Jackson, The Hunger Games, Throne of Glass, ACOTAR, Twilight, Six of Crows, Stranger Things, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#0d0a1f; --bg2:#171133; --bg3:#241a45;
+    --text:#f0eafc; --muted:#a99ec8; --muted2:#7f74a3;
+    --card:rgba(255,255,255,.045); --border:rgba(255,255,255,.09);
+    --gold:#ffd470; --pink:#ff8ad4; --violet:#8f7bff;
+    --grad:linear-gradient(90deg,#7c5cff,#e05ad8);
+    --grad2:linear-gradient(120deg,#ffcf6b,#ff8a5c);
+    --display:'Fraunces',Georgia,serif;
+    --ui:'Inter',system-ui,-apple-system,sans-serif;
+    --script:'Caveat','Segoe Script',cursive;
+    --shadow:0 24px 70px rgba(0,0,0,.5);
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--ui); color:var(--text); background:var(--bg1);
+    min-height:100vh; overflow-x:hidden; line-height:1.6;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.22), transparent 60%),
+      radial-gradient(1000px 500px at 5% 15%, rgba(224,90,216,.12), transparent 60%),
+      radial-gradient(900px 700px at 50% 110%, rgba(124,92,255,.14), transparent 60%),
+      linear-gradient(180deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+    background-attachment:fixed;
+  }
+  ::selection{background:rgba(143,123,255,.4)}
+
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+
+  /* HERO */
+  header.hero{padding:72px 22px 40px;text-align:center}
+  .kicker{
+    font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);font-weight:700;margin-bottom:14px;
+  }
+  h1.display{
+    font-family:var(--display);font-weight:900;
+    font-size:clamp(2.3rem,6vw,4rem);line-height:1.05;
+    letter-spacing:-.01em;
+  }
+  h1.display .accent{
+    background:var(--grad2);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .script-line{
+    font-family:var(--script);font-size:clamp(1.4rem,3vw,1.8rem);
+    color:var(--pink);margin:12px 0 6px;
+  }
+  .hero p.sub{color:var(--muted);max-width:640px;margin:14px auto 0;font-size:.98rem}
+  .hero .chips{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .chip{
+    font-size:.72rem;font-weight:600;letter-spacing:.04em;
+    padding:6px 12px;border-radius:999px;border:1px solid var(--border);
+    background:var(--card);color:var(--muted);
+  }
+  .chip b{color:var(--text)}
+
+  /* SECTIONS */
+  section{margin:34px 0 70px}
+  .section-title{
+    font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,3.4vw,1.9rem);
+    margin-bottom:6px;
+  }
+  .section-note{color:var(--muted);font-size:.9rem;margin-bottom:24px;max-width:660px}
+
+  /* QUIZ CARD */
+  .quiz-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:26px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .quiz-card::before{
+    content:"";position:absolute;inset:0 0 auto 0;height:3px;
+    background:var(--grad);opacity:.8;
+  }
+  .progress-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .progress-track{flex:1;height:7px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden}
+  .progress-fill{height:100%;border-radius:999px;background:var(--grad);transition:width .35s ease}
+  .progress-label{font-size:.75rem;color:var(--muted);font-weight:600;white-space:nowrap;min-width:44px;text-align:right}
+  .q-count{font-size:.72rem;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase;font-weight:700}
+
+  .question-text{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(1.15rem,2.6vw,1.5rem);line-height:1.35;margin-bottom:22px;min-height:3.4em;
+  }
+  .options{display:grid;gap:12px}
+  .option{
+    display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:14px 16px;color:var(--text);font-family:var(--ui);font-size:.95rem;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .option:hover{transform:translateY(-2px);border-color:rgba(255,212,112,.5);background:rgba(255,255,255,.07)}
+  .option:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+  .opt-letter{
+    flex:0 0 30px;height:30px;border-radius:10px;display:grid;place-items:center;
+    font-weight:800;font-size:.85rem;color:#1a1330;background:var(--grad2);
+  }
+  .option.selected{border-color:var(--gold);background:rgba(255,212,112,.08)}
+
+  .quiz-foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+  .back-btn{
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-family:var(--ui);font-size:.85rem;font-weight:600;padding:6px 10px;border-radius:8px;
+  }
+  .back-btn:hover{color:var(--text);background:rgba(255,255,255,.06)}
+  .back-btn:disabled{visibility:hidden}
+
+  /* RESULTS */
+  #results{display:none}
+  #results.show{display:block;animation:fadeUp .5s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  .result-stage{
+    border-radius:var(--radius);padding:10px;box-shadow:var(--shadow);
+    position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+    background:var(--theme-bg, linear-gradient(135deg,#7c5cff,#e05ad8));
+  }
+  .stage-symbol{
+    position:absolute;right:-14px;bottom:-22px;font-size:150px;line-height:1;
+    opacity:.14;pointer-events:none;user-select:none;transform:rotate(-8deg);
+  }
+  .result-card{
+    background:rgba(10,8,22,.74);backdrop-filter:blur(3px);
+    border-radius:calc(var(--radius) - 6px);padding:34px 28px;text-align:center;position:relative;
+  }
+  .you-are{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .result-name{
+    font-family:var(--display);font-weight:900;font-size:clamp(2rem,6vw,3rem);
+    margin:8px 0 2px;color:var(--char);line-height:1.05;
+    text-shadow:0 0 28px color-mix(in srgb, var(--char) 45%, transparent);
+  }
+  .franchise-chip{
+    display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.06em;
+    padding:5px 14px;border-radius:999px;margin-top:10px;
+    color:#fff;background:var(--char);
+  }
+  .vibe{font-family:var(--script);font-size:1.3rem;color:var(--char);margin-top:12px;opacity:.9}
+  .result-tagline{font-family:var(--script);font-size:1.5rem;color:var(--gold);margin:4px 0 0}
+  .result-bio{color:var(--muted);max-width:560px;margin:12px auto 0;font-size:.95rem}
+  .result-quote{
+    font-family:var(--display);font-style:italic;color:var(--text);
+    font-size:1.05rem;max-width:520px;margin:22px auto 0;line-height:1.5;
+  }
+  .result-quote::before{content:"\201C";color:var(--char);font-size:2rem;font-family:var(--display)}
+  .result-quote::after{content:"\201D";color:var(--char);font-size:2rem;font-family:var(--display)}
+  .result-traits{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+  .trait{
+    font-size:.78rem;font-weight:700;padding:7px 14px;border-radius:999px;
+    background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text);
+  }
+
+  /* WHY YOU WERE CHOSEN */
+  .why-block{
+    margin-top:26px;max-width:600px;margin-left:auto;margin-right:auto;text-align:left;
+    background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:16px;padding:20px 22px;
+  }
+  .why-title{font-family:var(--display);font-weight:700;color:var(--char);font-size:1.12rem;margin-bottom:8px}
+  .why-static{color:var(--muted);font-size:.92rem;line-height:1.65}
+  .why-answers{margin-top:12px;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px dashed var(--border);padding-top:12px}
+  .why-answers em{color:var(--text);font-style:italic}
+  .why-close{margin-top:10px;color:var(--muted);font-size:.85rem;line-height:1.6}
+  .why-close b{color:var(--char)}
+
+  .match-line{color:var(--muted2);font-size:.8rem;margin-top:18px}
+  .match-line b{color:var(--char);font-size:.95rem}
+
+  .top3{display:grid;gap:10px;margin-top:26px;max-width:560px;margin-left:auto;margin-right:auto}
+  .rank-row{display:grid;grid-template-columns:78px 1fr 52px;align-items:center;gap:12px}
+  .rank-label{font-size:.78rem;color:var(--muted);font-weight:700;text-align:right}
+  .rank-bar-track{height:14px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+  .rank-bar{height:100%;border-radius:999px;background:var(--rank-c,var(--grad));transition:width .7s ease;width:0}
+  .rank-pct{font-size:.76rem;color:var(--muted);font-weight:700;text-align:right}
+
+  .retake-row{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    cursor:pointer;border:none;border-radius:12px;padding:13px 26px;
+    font-family:var(--ui);font-weight:700;font-size:.92rem;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(124,92,255,.35)}
+  .btn-ghost{background:var(--card);color:var(--text);border:1px solid var(--border)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary:hover{box-shadow:0 12px 30px rgba(124,92,255,.5)}
+
+  /* CAST GALLERY */
+  .cast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+  .cast-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:18px;position:relative;overflow:hidden;
+  }
+  .cast-card::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--cc)}
+  .cast-name{font-family:var(--display);font-weight:700;font-size:1.2rem}
+  .cast-franchise{font-size:.72rem;color:var(--cc);font-weight:700;letter-spacing:.04em;margin:2px 0 8px;text-transform:uppercase}
+  .cast-tag{font-size:.86rem;color:var(--muted);font-style:italic;margin-bottom:8px}
+  .cast-quote{font-size:.8rem;color:var(--muted2);border-top:1px dashed var(--border);padding-top:10px;margin-top:4px}
+  .cast-quote::before{content:"\201C";color:var(--cc)}
+  .cast-quote::after{content:"\201D";color:var(--cc)}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* FOOTER */
+  footer{
+    text-align:center;padding:34px 22px 48px;color:var(--muted2);font-size:.8rem;
+    border-top:1px solid rgba(255,255,255,.05);
+  }
+  footer .disclaimer{max-width:640px;margin:10px auto 0;line-height:1.6}
+
+  @media (max-width:520px){
+    .question-text{min-height:0}
+    .result-card{padding:26px 18px}
+    .top3{grid-template-columns:64px 1fr 46px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition:none!important;animation:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">A personality test for the bookish &amp; the brave</div>
+  <h1 class="display">Which YA Character<br><span class="accent">Are You?</span></h1>
+  <div class="script-line">25 questions. 54 characters. One fictional soulmate.</div>
+  <p class="sub">Built on heroes (and a few lovable villains) from <b>Powerless</b>, <b>Fourth Wing</b>, <b>Harry Potter</b>, <b>Star Wars</b>, <b>Percy Jackson</b>, <b>The Hunger Games</b>, <b>Divergent</b>, <b>Throne of Glass</b>, <b>ACOTAR</b>, <b>The Cruel Prince</b>, <b>Shatter Me</b>, <b>The Inheritance Games</b>, <b>Red Queen</b>, <b>Shadow &amp; Bone</b>, <b>Twilight</b>, <b>Six of Crows</b>, <b>The Maze Runner</b>, <b>The Mortal Instruments</b>, <b>Stranger Things</b>, and <b>To All the Boys I've Loved Before</b>. Answer honestly — you'll get your result <em>explained</em>, dressed in the aesthetic of your character's world.</p>
+  <div class="chips">
+    <span class="chip"><b>54</b> characters</span>
+    <span class="chip"><b>25</b> questions</span>
+    <span class="chip"><b>21</b> franchises</span>
+    <span class="chip"><b>~5</b> min</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="quiz">
+    <div class="quiz-card" id="quizCard">
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel">1 / 18</span>
+      </div>
+      <div class="q-count" id="qCount">Question 1</div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="options"></div>
+      <div class="quiz-foot">
+        <button class="back-btn" id="backBtn" disabled>&larr; Back</button>
+        <span class="progress-label" id="flavor"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="result-stage" id="resultStage">
+      <span class="stage-symbol" id="stageSymbol">&#127752;</span>
+      <div class="result-card" id="resultCard"></div>
+    </div>
+  </section>
+
+  <section id="cast">
+    <h2 class="section-title">Meet the 54</h2>
+    <p class="section-note">Every possible result, in one cast list. If a card speaks to you, that's probably your answer key. Each result page gets its own world's aesthetic — plus a rundown of the answers that led you there.</p>
+    <div class="cast-grid" id="castGrid"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>A fan-made personality quiz. Not affiliated with or endorsed by the authors, publishers, or studios behind the source material.</p>
+    <p class="disclaimer">All characters belong to their creators: <i>Powerless</i> &copy; Lauren Roberts, <i>Fourth Wing</i> &copy; Rebecca Yarros / Red Tower, <i>Harry Potter</i> &copy; J.K. Rowling, <i>Star Wars</i> &copy; Lucasfilm Ltd., <i>Percy Jackson</i> &copy; Rick Riordan, <i>The Hunger Games</i> &copy; Suzanne Collins, <i>Divergent</i> &copy; Veronica Roth, <i>Throne of Glass</i> &amp; <i>A Court of Thorns &amp; Roses</i> &copy; Sarah J. Maas, <i>The Cruel Prince</i> &copy; Holly Black, <i>Shatter Me</i> &copy; Tahereh Mafi, <i>The Inheritance Games</i> &copy; Jennifer Lynn Barnes, <i>Red Queen</i> &copy; Victoria Aveyard, <i>Shadow &amp; Bone</i> &copy; Leigh Bardugo, <i>Twilight</i> &copy; Stephenie Meyer / Little, Brown, <i>Six of Crows</i> &copy; Leigh Bardugo / Henry Holt, <i>The Maze Runner</i> &copy; James Dashner / Delacorte, <i>The Mortal Instruments</i> &copy; Cassandra Clare / Simon &amp; Schuster, <i>Stranger Things</i> &copy; Netflix / the Duffer Brothers, <i>To All the Boys I've Loved Before</i> &copy; Jenny Han / Simon &amp; Schuster.</p>
+  </div>
+</footer>
+
+<script>
+const FRANCHISES = {
+  powerless: {
+    label: "Powerless", color: "#f2b33d", symbol: "👑",
+    vibe: "Era of the elites.",
+    hero: "radial-gradient(600px 400px at 85% 0%, rgba(242,179,61,.30), transparent 60%), radial-gradient(500px 400px at 10% 100%, rgba(255,138,92,.18), transparent 60%), linear-gradient(160deg,#241505,#0d0a1f 70%)"
+  },
+  fourthwing: {
+    label: "Fourth Wing", color: "#ef5350", symbol: "🐉",
+    vibe: "Mind over body, cadet.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(239,83,80,.32), transparent 60%), radial-gradient(500px 380px at 0% 110%, rgba(255,176,32,.14), transparent 55%), linear-gradient(165deg,#2e0f13,#0d0a1f 70%)"
+  },
+  agggtm: {
+    label: "A Good Girl's Guide to Murder", color: "#2dd4bf", symbol: "🔍",
+    vibe: "The truth is out there.",
+    hero: "radial-gradient(600px 400px at 85% -5%, rgba(45,212,191,.24), transparent 60%), linear-gradient(165deg,#0a2126,#0d0a1f 72%)"
+  },
+  harrypotter: {
+    label: "Harry Potter", color: "#c1533a", symbol: "⚡",
+    vibe: "Mischief managed.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(193,83,58,.28), transparent 60%), radial-gradient(500px 400px at 10% 110%, rgba(255,212,112,.14), transparent 55%), linear-gradient(165deg,#261110,#0d0a1f 72%)"
+  },
+  starwars: {
+    label: "Star Wars", color: "#5aa7f0", symbol: "🌌",
+    vibe: "May the Force be with you.",
+    hero: "radial-gradient(600px 400px at 75% -10%, rgba(90,167,240,.24), transparent 60%), radial-gradient(600px 400px at 90% 110%, rgba(124,92,255,.16), transparent 55%), linear-gradient(170deg,#0b1533,#0d0a1f 75%)"
+  },
+  percyjackson: {
+    label: "Percy Jackson", color: "#2fa8d6", symbol: "🌊",
+    vibe: "Camp Half-Blood energy.",
+    hero: "radial-gradient(600px 420px at 80% -5%, rgba(47,168,214,.28), transparent 60%), radial-gradient(500px 380px at 5% 105%, rgba(45,212,191,.14), transparent 55%), linear-gradient(170deg,#0a1f33,#0d0a1f 74%)"
+  },
+  hungergames: {
+    label: "The Hunger Games", color: "#ffb020", symbol: "🔥",
+    vibe: "May the odds be ever in your favor.",
+    hero: "radial-gradient(620px 420px at 80% -10%, rgba(255,176,32,.28), transparent 60%), radial-gradient(500px 400px at 10% 110%, rgba(239,83,80,.14), transparent 55%), linear-gradient(165deg,#27190a,#0d0a1f 74%)"
+  },
+  divergent: {
+    label: "Divergent", color: "#5b6cff", symbol: "⬡",
+    vibe: "Faction before blood.",
+    hero: "radial-gradient(600px 420px at 80% -5%, rgba(91,108,255,.26), transparent 60%), radial-gradient(500px 380px at 5% 105%, rgba(47,168,214,.12), transparent 55%), linear-gradient(170deg,#15112d,#0d0a1f 76%)"
+  },
+  throneofglass: {
+    label: "Throne of Glass", color: "#e07b3a", symbol: "⚔️",
+    vibe: "You do not yield.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(224,123,58,.28), transparent 60%), radial-gradient(500px 380px at 10% 110%, rgba(255,212,112,.12), transparent 55%), linear-gradient(165deg,#2a160b,#0d0a1f 72%)"
+  },
+  acotar: {
+    label: "A Court of Thorns & Roses", color: "#9a5cf0", symbol: "🌙",
+    vibe: "To the stars who listen.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(154,92,240,.26), transparent 60%), radial-gradient(500px 400px at 5% 105%, rgba(90,167,240,.10), transparent 55%), linear-gradient(170deg,#1b0f2e,#0d0a1f 74%)"
+  },
+  cruelprince: {
+    label: "The Cruel Prince", color: "#4ade80", symbol: "🧚",
+    vibe: "Play the game or be played.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(74,222,128,.22), transparent 60%), linear-gradient(165deg,#0d2318,#0d0a1f 74%)"
+  },
+  shatterme: {
+    label: "Shatter Me", color: "#e7c93a", symbol: "🌩️",
+    vibe: "The touch of a storm.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(231,201,58,.24), transparent 60%), radial-gradient(500px 380px at 10% 110%, rgba(61,211,240,.12), transparent 55%), linear-gradient(165deg,#2a2410,#0d0a1f 74%)"
+  },
+  inheritancegames: {
+    label: "The Inheritance Games", color: "#10b981", symbol: "🎩",
+    vibe: "Every game has a riddle.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(16,185,129,.24), transparent 60%), radial-gradient(500px 400px at 5% 105%, rgba(201,168,106,.10), transparent 55%), linear-gradient(170deg,#0b231c,#0d0a1f 74%)"
+  },
+  redqueen: {
+    label: "Red Queen", color: "#e6454a", symbol: "🩸",
+    vibe: "Red blood, silver lies.",
+    hero: "radial-gradient(620px 420px at 80% -10%, rgba(230,69,74,.26), transparent 60%), radial-gradient(500px 400px at 10% 110%, rgba(200,160,240,.10), transparent 55%), linear-gradient(165deg,#2b0d0d,#0d0a1f 74%)"
+  },
+  shadowandbone: {
+    label: "Shadow & Bone", color: "#f5d060", symbol: "☀️",
+    vibe: "Saints alive.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(245,208,96,.22), transparent 60%), radial-gradient(600px 400px at 90% 110%, rgba(90,167,240,.12), transparent 55%), linear-gradient(170deg,#221a0b,#0d0a1f 74%)"
+  },
+  twilight: {
+    label: "Twilight", color: "#c95d8a", symbol: "🌒",
+    vibe: "Immortality is a love story.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(201,93,138,.26), transparent 60%), radial-gradient(500px 400px at 5% 105%, rgba(120,110,200,.14), transparent 55%), linear-gradient(170deg,#2a1230,#0d0a1f 74%)"
+  },
+  sixofcrows: {
+    label: "Six of Crows", color: "#b8c4cf", symbol: "🎲",
+    vibe: "No mourners. No funerals.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(150,170,185,.22), transparent 60%), radial-gradient(500px 400px at 10% 110%, rgba(90,167,240,.12), transparent 55%), linear-gradient(170deg,#11131f,#0d0a1f 76%)"
+  },
+  mazerunner: {
+    label: "The Maze Runner", color: "#7fd08a", symbol: "🌀",
+    vibe: "WICKED is good.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(127,208,138,.22), transparent 60%), radial-gradient(500px 380px at 5% 105%, rgba(47,168,214,.14), transparent 55%), linear-gradient(170deg,#0f2417,#0d0a1f 76%)"
+  },
+  shadowhunters: {
+    label: "The Mortal Instruments", color: "#5f8df2", symbol: "🗡️",
+    vibe: "The world is not what it seems.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(95,141,242,.26), transparent 60%), radial-gradient(500px 400px at 10% 110%, rgba(201,93,138,.12), transparent 55%), linear-gradient(170deg,#131a38,#0d0a1f 76%)"
+  },
+  strangethings: {
+    label: "Stranger Things", color: "#ff5a5f", symbol: "📼",
+    vibe: "Friends don't lie.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(255,90,95,.26), transparent 60%), radial-gradient(500px 400px at 5% 105%, rgba(47,168,214,.14), transparent 55%), linear-gradient(170deg,#2a1012,#0d0a1f 74%)"
+  },
+  tatbilb: {
+    label: "To All the Boys I've Loved Before", color: "#ff8fb3", symbol: "💌",
+    vibe: "Write the letter. Send it.",
+    hero: "radial-gradient(600px 400px at 80% -10%, rgba(255,143,179,.26), transparent 60%), radial-gradient(500px 400px at 5% 105%, rgba(143,123,255,.14), transparent 55%), linear-gradient(170deg,#2a1220,#0d0a1f 74%)"
+  }
+};
+
+const CHARACTERS = {
+  /* ---- Powerless ---- */
+  paedyn: {
+    name: "Paedyn Gray", franchise: "powerless", color: "#f5c25b",
+    tagline: "The ordinary girl with an extraordinary heart",
+    quote: "I'm not a damsel in distress.",
+    bio: "You're Paedyn Gray — the ordinary girl who turned out to be extraordinary. Quick-witted, brave, and fiercely independent, you fight for the people you love even when the whole world is against you. You've learned that being underestimated is a weapon.",
+    traits: ["Brave", "Quick-witted", "Independent"],
+    why: "You refuse to be ordinary — brave, quick on your feet, and ready to fight for the ones you love. That's Paedyn's whole code."
+  },
+  kai: {
+    name: "Kai Azer", franchise: "powerless", color: "#e8b23a",
+    tagline: "The prince with a locked heart",
+    quote: "I want to be the reason you smile.",
+    bio: "You're Kai Azer — the prince with a carefully kept heart. Powerful, disciplined, and secretly soft beneath the armor, you keep your true feelings locked away to protect the people around you. Loyal to a fault, and willing to burn a kingdom for one person.",
+    traits: ["Disciplined", "Protective", "Deeply loyal"],
+    why: "You keep your feelings locked behind discipline, but the few people you let in get a loyalty that burns. That's Kai."
+  },
+  kitt: {
+    name: "Kitt Azer", franchise: "powerless", color: "#ff9f43",
+    tagline: "The second son who wants it all",
+    quote: "Everyone has their price.",
+    bio: "You're Kitt Azer — charming, ambitious, and tired of being second-best. You know what you want, and you're not above bending a few rules to get it. Under the easy smile there's more insecurity than you'd ever admit — and that's exactly why people underestimate your scheming.",
+    traits: ["Ambitious", "Charming", "Competitive"],
+    why: "You want what you want, and you're not above a little scheming to get it. That's Kitt."
+  },
+
+  /* ---- Fourth Wing ---- */
+  violet: {
+    name: "Violet Sorrengail", franchise: "fourthwing", color: "#ef5350",
+    tagline: "The underestimated survivor",
+    quote: "You made me this. Don't hate me for it.",
+    bio: "You're Violet Sorrengail — the one everyone counted out. Small in stature, gigantic in willpower, you've spent your whole life being told you're too fragile, and you've made being underestimated your secret weapon. Clever, strategic, and absolutely fearless when it counts.",
+    traits: ["Resilient", "Strategic", "Fierce"],
+    why: "You've turned being underestimated into a weapon — strategic, stubborn, and stronger than anyone expects. That's Violet."
+  },
+  xaden: {
+    name: "Xaden Riorson", franchise: "fourthwing", color: "#ff6b6b",
+    tagline: "The shadow with a soft center",
+    quote: "I don't do well with people.",
+    bio: "You're Xaden Riorson — the brooding one with secrets stacked like armor. Cold on the surface, burning underneath, you protect your people with everything you have and let almost no one past your walls. When you love, you love like a storm.",
+    traits: ["Brooding", "Protective", "Fiercely loyal"],
+    why: "You protect with walls and shadows, but underneath you love like a storm. That's Xaden."
+  },
+  rhiannon: {
+    name: "Rhiannon Matthias", franchise: "fourthwing", color: "#ff7d6b",
+    tagline: "The ride-or-die best friend",
+    quote: "We're a team. That's the deal.",
+    bio: "You're Rhiannon Matthias — the ride-or-die best friend every hero needs. Warm, steady, and loyal beyond measure, you're the one holding your crew together. You don't need to be the main character — you're the one who keeps the main character alive.",
+    traits: ["Loyal", "Steady", "Kind"],
+    why: "You're the one holding the group together — steady, warm, and loyal to the bone. That's Rhiannon."
+  },
+
+  /* ---- A Good Girl's Guide to Murder ---- */
+  pip: {
+    name: "Pip Fitz-Amobi", franchise: "agggtm", color: "#2dd4bf",
+    tagline: "The detective who can't let go",
+    quote: "I just need to know the truth.",
+    bio: "You're Pip Fitz-Amobi — the one who can't let a mystery go. Sharp, determined, and relentless in the pursuit of justice, you follow the threads everyone else is afraid to touch. You ask the questions nobody else will, because someone has to.",
+    traits: ["Determined", "Sharp", "Justice-driven"],
+    why: "You can't let an injustice go — you follow the truth wherever it leads, even when it's dangerous. That's Pip."
+  },
+  ravi: {
+    name: "Ravi Singh", franchise: "agggtm", color: "#5eead4",
+    tagline: "The calm in the storm",
+    quote: "I'll be right there with you.",
+    bio: "You're Ravi Singh — the calm in someone else's storm. Kind, patient, and quietly brave, you show up for the people you love without being asked. You don't need the spotlight; you just need to be useful to the people who matter.",
+    traits: ["Kind", "Steady", "Dependable"],
+    why: "You're the calm someone can lean on — kind, patient, and quietly brave. That's Ravi."
+  },
+
+  /* ---- Harry Potter ---- */
+  hermione: {
+    name: "Hermione Granger", franchise: "harrypotter", color: "#e0a458",
+    tagline: "The brightest witch of her age",
+    quote: "Just because you have the emotional range of a teaspoon doesn't mean we all have.",
+    bio: "You're Hermione Granger — the brightest person in the room, and you know it. You've read the book, checked the facts, and probably rewritten the rules. Bossy, brilliant, and brave in a way that surprises everyone, including sometimes yourself.",
+    traits: ["Brilliant", "Prepared", "Brave"],
+    why: "You lead with your brain and your principles — prepared, brilliant, and never backing down. That's Hermione."
+  },
+  ron: {
+    name: "Ron Weasley", franchise: "harrypotter", color: "#d94f3d",
+    tagline: "The loyal heart of the trio",
+    quote: "I'm the one who's the best friend of the Chosen One.",
+    bio: "You're Ron Weasley — the loyal best friend who's funnier than he thinks he is. You make the jokes, stand your ground, and would do anything for your people even when you're scared out of your mind. Your heart is your biggest weapon.",
+    traits: ["Loyal", "Funny", "Brave"],
+    why: "You're the loyal heart of the group — funny, brave, and there when it counts. That's Ron."
+  },
+  luna: {
+    name: "Luna Lovegood", franchise: "harrypotter", color: "#a78bfa",
+    tagline: "Wonderfully, gloriously herself",
+    quote: "Things we lose have a way of coming back to us in the end, if not always in the way we expect.",
+    bio: "You're Luna Lovegood — gloriously, wonderfully yourself. You see what other people miss and believe in what others dismiss. You're underestimated constantly, and it never bothers you, because you know exactly who you are.",
+    traits: ["Quirky", "Perceptive", "Unshakable"],
+    why: "You're unapologetically yourself, and you see the things everyone else misses. That's Luna."
+  },
+  draco: {
+    name: "Draco Malfoy", franchise: "harrypotter", color: "#86d4a8",
+    tagline: "The complicated schemer",
+    quote: "My father will hear about this!",
+    bio: "You're Draco Malfoy — complicated, privileged, and far more conflicted than you let on. You've been handed advantages and sometimes used them unfairly, but underneath the sneer is someone more capable of good than anyone gives you credit for.",
+    traits: ["Ambitious", "Complex", "Cunning"],
+    why: "Complicated, ambitious, and far more capable of good than you let on. That's Draco."
+  },
+
+  /* ---- Star Wars ---- */
+  leia: {
+    name: "Leia Organa", franchise: "starwars", color: "#5aa7f0",
+    tagline: "The leader who didn't ask permission",
+    quote: "Somebody has to save our skins.",
+    bio: "You're Leia Organa — the leader in the room without having to ask. Sharp-tongued, brave, and impossibly capable, you've been doing the work others only talk about. You'd face an entire army before letting the people you love stand alone.",
+    traits: ["Brave", "Leader", "Sharp"],
+    why: "You lead without asking permission — brave, sharp, and ready to face an army for your people. That's Leia."
+  },
+  han: {
+    name: "Han Solo", franchise: "starwars", color: "#ffd76b",
+    tagline: "The rogue with a heart of gold",
+    quote: "Never tell me the odds.",
+    bio: "You're Han Solo — the charming rogue with a heart of gold he'd never admit to. Fast with a comeback and faster with a plan, you act first and worry later. You claim you're only in it for yourself — and then you risk everything for your friends.",
+    traits: ["Charming", "Impulsive", "Loyal"],
+    why: "You act first and charm your way out of it later — but your heart always lands on the right side. That's Han."
+  },
+  rey: {
+    name: "Rey", franchise: "starwars", color: "#ffb27a",
+    tagline: "The nobody who found her strength",
+    quote: "I'm no one. But that's not true either.",
+    bio: "You're Rey — the one searching for belonging, who keeps finding strength instead. Resilient beyond belief, you refuse to let your past define you. You're still figuring out who you are, but you already know you'd fight for the light.",
+    traits: ["Resilient", "Hopeful", "Strong"],
+    why: "You're still finding your place, but you already know you'd fight for the light. That's Rey."
+  },
+  luke: {
+    name: "Luke Skywalker", franchise: "starwars", color: "#8fd3ff",
+    tagline: "The idealist who chose hope",
+    quote: "I want to be a Jedi... like my father.",
+    bio: "You're Luke Skywalker — the idealist who believes in the best in people. Kind, hopeful, and stubborn in the most heroic way, you choose light over darkness even when it costs you. You'd rather save a friend than win a war.",
+    traits: ["Idealistic", "Hopeful", "Heroic"],
+    why: "You choose hope and believe in people, even when it costs you. That's Luke."
+  },
+
+  /* ---- Percy Jackson ---- */
+  percy: {
+    name: "Percy Jackson", franchise: "percyjackson", color: "#2fa8d6",
+    tagline: "The sea prince with a smart mouth",
+    quote: "The sea does not like to be restrained.",
+    bio: "You're Percy Jackson — the kid everyone wrote off who turned out to be a legend. Brave, funny, and fiercely loyal, you'd take on an army to save your friends and still crack a joke in the middle of it. You're more powerful than you know — especially when the ones you love are in danger.",
+    traits: ["Brave", "Loyal", "Wise-cracking"],
+    why: "You're brave, funny, and loyal — and you'd take on an army for your friends. That's Percy."
+  },
+  annabeth: {
+    name: "Annabeth Chase", franchise: "percyjackson", color: "#f0c33c",
+    tagline: "The architect who thinks ten moves ahead",
+    quote: "You are the most undiplomatic demigod I have ever met.",
+    bio: "You're Annabeth Chase — brilliant, ambitious, and the strategist of every quest. You've been training your whole life to be useful, and you always are. Proud of your brain and your bravery, you love fiercely and plan even fiercer.",
+    traits: ["Brilliant", "Strategic", "Ambitious"],
+    why: "You think ten moves ahead and you're proud of your brain. That's Annabeth."
+  },
+  grover: {
+    name: "Grover Underwood", franchise: "percyjackson", color: "#7fb069",
+    tagline: "The best friend who'd walk into danger for you",
+    quote: "I'm a natural disaster, apparently.",
+    bio: "You're Grover Underwood — anxious, loyal, and braver than you give yourself credit for. You worry about everyone, protect the things you love, and find your courage when it matters most. Half the group wouldn't survive without you and your snacks.",
+    traits: ["Loyal", "Anxious", "Kind-hearted"],
+    why: "You're the anxious, loyal best friend who finds courage exactly when it matters. That's Grover."
+  },
+  nico: {
+    name: "Nico di Angelo", franchise: "percyjackson", color: "#8b7be0",
+    tagline: "The loner with a secret softness",
+    quote: "I'm not going to fade away.",
+    bio: "You're Nico di Angelo — the brooding one who keeps everyone at arm's length, then would burn the world down for the few people who get in. You've been through more than your age shows, and you carry it with a dark, stubborn pride. Underneath it all, you just want to belong.",
+    traits: ["Brooding", "Loyal", "Mysterious"],
+    why: "You keep people at a distance, but the few you love would get your whole world. That's Nico."
+  },
+
+  /* ---- The Hunger Games ---- */
+  katniss: {
+    name: "Katniss Everdeen", franchise: "hungergames", color: "#ffb020",
+    tagline: "The survivor with the fire inside",
+    quote: "I'm not a piece in their games.",
+    bio: "You're Katniss Everdeen — guarded, fierce, and a survivor down to your bones. You protect the people you love with your life and you're done pretending to be what the world wants. You didn't ask to be a symbol, but if you're going to be one, you'll be one they can't control.",
+    traits: ["Fierce", "Protective", "Survivor"],
+    why: "You're a survivor — fierce, guarded, and done being controlled. That's Katniss."
+  },
+  peeta: {
+    name: "Peeta Mellark", franchise: "hungergames", color: "#e8a04c",
+    tagline: "The gentle heart with hidden steel",
+    quote: "I want to be more than just a piece in their games.",
+    bio: "You're Peeta Mellark — kind, thoughtful, and quietly brilliant at strategy when it counts. You believe in people and you'd give everything to protect the one you love. People mistake your gentleness for weakness — and they're always wrong.",
+    traits: ["Kind", "Selfless", "Strategically sweet"],
+    why: "You're gentle and kind, but there's real steel underneath. That's Peeta."
+  },
+  gale: {
+    name: "Gale Hawthorne", franchise: "hungergames", color: "#8b98ad",
+    tagline: "The hunter who fights first, thinks later",
+    quote: "You're the bravest person I've ever met.",
+    bio: "You're Gale Hawthorne — blunt, fierce, and fiercely protective. You've learned to survive by trusting your instincts and hitting hard. You say what you mean, fight for your people, and hate injustice with every fiber of your being.",
+    traits: ["Blunt", "Fierce", "Protective"],
+    why: "You're blunt and fierce, and you protect your people without hesitation. That's Gale."
+  },
+  effie: {
+    name: "Effie Trinket", franchise: "hungergames", color: "#ff8ad4",
+    tagline: "The spectacle with a real heart underneath",
+    quote: "That is MAHOGANY!",
+    bio: "You're Effie Trinket — colorful, extra, and underestimated by absolutely everyone. You put on a show, love your clothes, and pretend the games are a party. But under all that glitter is someone who genuinely cares and would break the rules to protect her people.",
+    traits: ["Colorful", "Dramatic", "Secretly caring"],
+    why: "You're extra, colorful, and way more caring than people give you credit for. That's Effie."
+  },
+
+  /* ---- Divergent ---- */
+  tris: {
+    name: "Tris Prior", franchise: "divergent", color: "#ff6b5e",
+    tagline: "The selfless one who chose brave",
+    quote: "I am not who I was.",
+    bio: "You're Tris Prior — the quiet one who turned out to be the fiercest in the room. You've re-made yourself, on purpose, and you keep choosing courage over comfort. You're brave not because you're unafraid, but because you refuse to let fear decide for you.",
+    traits: ["Brave", "Selfless", "Determined"],
+    why: "You keep choosing courage over comfort, over and over. That's Tris."
+  },
+  four: {
+    name: "Four / Tobias Eaton", franchise: "divergent", color: "#5b6cff",
+    tagline: "The tough trainer with a hidden past",
+    quote: "You want to be brave? Let me teach you.",
+    bio: "You're Four — strong, guarded, and impossible to intimidate. You've survived more than people realize and you turned your scars into armor. You push people hard because you know what they're capable of, and you protect your inner circle like it's a faction you'd die for.",
+    traits: ["Tough", "Protective", "Secretly soft"],
+    why: "You're tough and guarded, but your inner circle gets a protector who'd do anything. That's Four."
+  },
+  christina: {
+    name: "Christina", franchise: "divergent", color: "#ff9f8a",
+    tagline: "The bold best friend with a competitive streak",
+    quote: "You can't leave me to be the only one who's brave.",
+    bio: "You're Christina — loud, loyal, and up for any challenge. You'll race, tease, and trash-talk your friends, and you'll also be the first one standing next to them in a fight. You keep the group honest and the energy high.",
+    traits: ["Bold", "Loyal", "Competitive"],
+    why: "You're bold, loud, and fiercely loyal — up for any challenge. That's Christina."
+  },
+  caleb: {
+    name: "Caleb Prior", franchise: "divergent", color: "#5fb0e8",
+    tagline: "The intellect who weighs every choice",
+    quote: "The truth is the only thing worth living for.",
+    bio: "You're Caleb Prior — bookish, analytical, and ambitious. You believe in the power of information and the courage of ideas, and you'll make hard, calculating choices others won't. People call you cold — you call it clarity.",
+    traits: ["Intellectual", "Ambitious", "Calculating"],
+    why: "You value logic and information, and you're not afraid of hard choices. That's Caleb."
+  },
+
+  /* ---- Throne of Glass ---- */
+  aelin: {
+    name: "Aelin Galathynius", franchise: "throneofglass", color: "#f08a3c",
+    tagline: "The fire queen who faked her own death",
+    quote: "I am not a hero. I am a villain with a better press team.",
+    bio: "You're Aelin — a fire-wielding queen who survived assassinations, a glass castle, and a thousand close calls. Dramatic, brilliant, and terrifyingly capable, you've built yourself from the ashes more times than anyone knows. You play the long game, love your people like war, and burn brighter than anyone in the room.",
+    traits: ["Fierce", "Dramatic", "Unbreakable"],
+    why: "You'd rather burn it all down than bow to something unjust — courage, fire, and a flair for the dramatic. That's Aelin."
+  },
+  rowan: {
+    name: "Rowan Whitethorn", franchise: "throneofglass", color: "#8fb0d9",
+    tagline: "The deadly shadow who chose to care",
+    quote: "Live, Aelin. Live.",
+    bio: "You're Rowan — a lethal warrior who keeps everyone at knifepoint until they prove they're worth trusting. Cold, efficient, and fiercely protective, you don't do soft. But for the people who earn your loyalty, you would cross kingdoms, centuries, and your own rules.",
+    traits: ["Lethal", "Protective", "Loyal"],
+    why: "You protect through strength and silence — lethal on the outside, fiercely loyal beneath. That's Rowan."
+  },
+
+  /* ---- A Court of Thorns & Roses ---- */
+  feyre: {
+    name: "Feyre Archeron", franchise: "acotar", color: "#e0658f",
+    tagline: "The human who became a High Lady",
+    quote: "I am broken and healing, but every piece of my heart belongs to you.",
+    bio: "You're Feyre — a survivor who started with nothing and rebuilt herself into a force. You've walked through nightmares and kept your heart intact. Fierce when pushed, gentle when it matters, and absolutely unwilling to be anyone's victim ever again.",
+    traits: ["Survivor", "Determined", "Fierce-heart"],
+    why: "You meet pain with steel and still keep your heart whole — strength and softness in one. That's Feyre."
+  },
+  rhys: {
+    name: "Rhysand", franchise: "acotar", color: "#9a5cf0",
+    tagline: "The High Lord who plays the monster",
+    quote: "Don't let the hard days win.",
+    bio: "You're Rhysand — powerful, playful, and wearing a mask of cruelty to protect everyone underneath. You carry enormous weight and enormous charm, and people never see the full you. But the few you love get everything — every secret, every weapon, every promise.",
+    traits: ["Charming", "Protective", "Morally gray"],
+    why: "You hide how much you care behind charm and masks, protecting everyone from a distance. That's Rhysand."
+  },
+
+  /* ---- The Cruel Prince ---- */
+  jude: {
+    name: "Jude Duarte", franchise: "cruelprince", color: "#34d399",
+    tagline: "The mortal who conquered the fae",
+    quote: "If I cannot be better than them, I will become so much worse.",
+    bio: "You're Jude — the mortal who walked into a court of immortal monsters and made them kneel anyway. Ambitious, ruthless when she has to be, and brilliant at playing the long game, you've learned that the best way to win is to be underestimated. You belong at the table, and you'll claw your way there.",
+    traits: ["Ambitious", "Ruthless", "Strategic"],
+    why: "You refuse to be underestimated and play the long game — turning every disadvantage into a weapon. That's Jude."
+  },
+  cardan: {
+    name: "Cardan Greenbriar", franchise: "cruelprince", color: "#e8c25b",
+    tagline: "The wicked prince with a hidden heart",
+    quote: "I will do everything in my power to make you happy, and nothing in my power to make you smile.",
+    bio: "You're Cardan — gorgeous, cruel, theatrical, and hiding a softness you'd never admit to. You deflect with wicked humor because feeling things is scary. But beneath the mischief and menace, you're more capable of real love and real loyalty than anyone suspects.",
+    traits: ["Theatrical", "Cunning", "Secretly soft"],
+    why: "You deflect with mischief and masks, but you're far more caring underneath than you let on. That's Cardan."
+  },
+
+  /* ---- Shatter Me ---- */
+  juliette: {
+    name: "Juliette Ferrars", franchise: "shatterme", color: "#ffd76b",
+    tagline: "The gentle girl with a lethal touch",
+    quote: "I am not something to be afraid of.",
+    bio: "You're Juliette — soft-hearted and gentle, carrying a power that scares everyone. You've been told you're dangerous and tried to hide yourself away. But you're learning that your strength can protect, and that you're worthy of love exactly as you are.",
+    traits: ["Gentle", "Powerful", "Resilient"],
+    why: "You're softer than people expect and stronger than they realize — learning to own your own power. That's Juliette."
+  },
+  warner: {
+    name: "Aaron Warner", franchise: "shatterme", color: "#e7c93a",
+    tagline: "The cold commander who falls hard",
+    quote: "I would choose you. Always.",
+    bio: "You're Warner — sharp, intense, and unsettlingly composed. You keep everyone at a distance because vulnerability feels like a weakness. But once you let someone in, you love with terrifying, absolute devotion — ready to burn the whole world to keep them safe.",
+    traits: ["Intense", "Obsessively loyal", "Composed"],
+    why: "You feel in absolutes — all in or nothing — and you guard your heart behind perfect control. That's Warner."
+  },
+
+  /* ---- The Inheritance Games ---- */
+  avery: {
+    name: "Avery Grambs", franchise: "inheritancegames", color: "#e0c27a",
+    tagline: "The girl who inherited the world's biggest game",
+    quote: "I don't need to be a Hawthorne to survive this.",
+    bio: "You're Avery — smart, grounded, and suddenly in way over your head, handling it anyway. You solve puzzles by staying calm and thinking clearly when everyone around you panics. People keep trying to use you, and you keep turning their plans into your own.",
+    traits: ["Clever", "Grounded", "Brave"],
+    why: "You keep your head in chaos and solve your way out — brains over panic, always. That's Avery."
+  },
+  jameson: {
+    name: "Jameson Hawthorne", franchise: "inheritancegames", color: "#7aa5ff",
+    tagline: "The chaos agent who'd rather lose spectacularly than win safely",
+    quote: "What's a life without a little risk?",
+    bio: "You're Jameson — charming, reckless, and allergic to the easy path. You play games for the thrill, run toward danger, and bet everything on a gut feeling. Under the chaos is a fierce heart that loves hard and would do anything for the people who matter.",
+    traits: ["Reckless", "Charming", "Fierce"],
+    why: "You chase the thrill and bet on yourself — boring and safe aren't in your vocabulary. That's Jameson."
+  },
+
+  /* ---- Red Queen ---- */
+  mare: {
+    name: "Mare Barrow", franchise: "redqueen", color: "#e6454a",
+    tagline: "The Red girl with lightning in her blood",
+    quote: "I'm a weapon made of lightning, and I'm done hiding.",
+    bio: "You're Mare — an underdog who suddenly discovered power the world says you shouldn't have. Fierce, stubborn, and reckless with the truth, you fight a corrupt system with everything you have. You didn't ask to be a symbol — but you're not backing down.",
+    traits: ["Fierce", "Rebellious", "Stubborn"],
+    why: "You fight the system even when the odds are against you — fire and defiance in the face of injustice. That's Mare."
+  },
+
+  /* ---- Shadow & Bone ---- */
+  nikolai: {
+    name: "Nikolai Lantsov", franchise: "shadowandbone", color: "#f5d060",
+    tagline: "The privateer prince with a silver tongue",
+    quote: "The cleverer the monster, the more charming he is.",
+    bio: "You're Nikolai — quick-witted, magnetic, and always three steps ahead. You charm your way into every room and scheme your way out of every corner. Roguish and sharp, you're the person everyone underestimates right up until you've already won.",
+    traits: ["Charming", "Clever", "Roguish"],
+    why: "You win with wit and charm, disarming people before they know they're playing your game. That's Nikolai."
+  },
+
+  /* ---- Twilight ---- */
+  bella: {
+    name: "Bella Swan", franchise: "twilight", color: "#e6b0c8",
+    tagline: "The ordinary girl who chose the extraordinary",
+    quote: "I was unconditionally and irrevocably in love with him.",
+    bio: "You're Bella Swan — the self-possessed outsider who walked into a supernatural world and chose it anyway. Understated, fiercely loyal, and quietly brave, you'd give up an ordinary life without a second thought for the people you love. People mistake your calm for weakness — they're always wrong.",
+    traits: ["Selfless", "Loyal", "Quietly brave"],
+    why: "You'd give up an ordinary life for the people you love without blinking — calm, selfless, quietly fierce. That's Bella."
+  },
+  edward: {
+    name: "Edward Cullen", franchise: "twilight", color: "#c9d4e8",
+    tagline: "The old soul who fell hard",
+    quote: "And so the lion fell in love with the lamb.",
+    bio: "You're Edward — intense, old-fashioned, and in control of everything except your feelings. You've lived long enough to be guarded, but once you care, you care with terrifying, absolute devotion. Protective to a fault, you'd sooner destroy yourself than let harm touch the person you love.",
+    traits: ["Intense", "Protective", "Old soul"],
+    why: "You guard your heart behind restraint, but the person you love gets absolute, old-souled devotion. That's Edward."
+  },
+
+  /* ---- Six of Crows ---- */
+  kaz: {
+    name: "Kaz Brekker", franchise: "sixofcrows", color: "#aeb9c4",
+    tagline: "The boy who never lost the game",
+    quote: "Fear is a construct of the mind. And I am the mind.",
+    bio: "You're Kaz Brekker — the schemer who's always three moves ahead and ten years behind on sleep. Ruthless, brilliant, and allergic to trusting anyone, you turn every weakness into a lever. You play people like chess pieces — and you only ever lose on purpose.",
+    traits: ["Brilliant", "Ruthless", "Mastermind"],
+    why: "You never show your hand, you turn every problem into leverage, and you win quietly. That's Kaz."
+  },
+  inej: {
+    name: "Inej Ghafa", franchise: "sixofcrows", color: "#c9d1dc",
+    tagline: "The Wraith who keeps her faith",
+    quote: "I will have my revenge, and then I will be free.",
+    bio: "You're Inej — the ghost who walks rooftops and keeps her soul anyway. Deadly, devout, and impossibly steady, you move through darkness without losing your light. Loyal to those who've earned it, and single-minded about the freedom you're owed.",
+    traits: ["Stealthy", "Faithful", "Fierce"],
+    why: "You move quietly but never lose your principles — deadly when needed, faithful always. That's Inej."
+  },
+  jesper: {
+    name: "Jesper Fahey", franchise: "sixofcrows", color: "#8fb7d6",
+    tagline: "The sharpshooter with terrible impulse control",
+    quote: "What's the worst that could happen?",
+    bio: "You're Jesper — charming, reckless, and endlessly entertaining. You gamble with money, danger, and your own safety, then win anyway because you're that good. Under the jokes and the chaos is someone who'd take a bullet for his crew and never mention it.",
+    traits: ["Charming", "Reckless", "Loyal"],
+    why: "You keep everyone laughing while quietly being the most loyal person in the room. That's Jesper."
+  },
+
+  /* ---- The Maze Runner ---- */
+  thomas: {
+    name: "Thomas", franchise: "mazerunner", color: "#a8d8a0",
+    tagline: "The Runner who asked why",
+    quote: "We have to know the truth. Whatever it costs.",
+    bio: "You're Thomas — curious, brave, and impossible to keep down. You ask the questions nobody else will and follow them straight into danger. Instinct tells you when something's wrong, and loyalty tells you to bring the whole crew with you — even out of a maze.",
+    traits: ["Brave", "Curious", "Instinctive"],
+    why: "You refuse to accept things as they are — you ask why and run toward the answer. That's Thomas."
+  },
+  newt: {
+    name: "Newt", franchise: "mazerunner", color: "#d8c48a",
+    tagline: "The steady heart of the Glade",
+    quote: "We're going to do this together. All of us.",
+    bio: "You're Newt — the one everyone leans on and the one who never gets to fall apart. Kind, steady, and quietly weary, you hold people together with patience and a well-timed joke. When the group doubts itself, they look at you — and that's why they make it out.",
+    traits: ["Steady", "Kind", "Resilient"],
+    why: "You're the calm everyone else relies on — patient, kind, and unshakeable in a crisis. That's Newt."
+  },
+
+  /* ---- The Mortal Instruments ---- */
+  clary: {
+    name: "Clary Fray", franchise: "shadowhunters", color: "#ff8f9c",
+    tagline: "The artist who drew a sword",
+    quote: "I'm not just some mundane girl. I can fight.",
+    bio: "You're Clary — creative, brave, and thrown into a world you never asked for, handling it anyway. You feel things loudly, love fiercely, and will absolutely fight a demon armed with a paintbrush. People see a normal girl — they should see a warrior.",
+    traits: ["Brave", "Creative", "Fierce"],
+    why: "You jump into impossible situations headfirst and fight for the people you love. That's Clary."
+  },
+  jace: {
+    name: "Jace Wayland", franchise: "shadowhunters", color: "#8db0f2",
+    tagline: "The Shadowhunter who found a family",
+    quote: "I'm your brother. I'll always have your back.",
+    bio: "You're Jace — cocky, brilliant, and hiding more wounds than he shows. You weaponize charm and swagger, but what you really want is somewhere to belong. Once you find your people, you'd walk into hell for them — and make it look easy.",
+    traits: ["Cocky", "Fierce", "Family-first"],
+    why: "You front confidence to hide the soft core — and you'd go through anything for your found family. That's Jace."
+  },
+
+  /* ---- Stranger Things ---- */
+  eleven: {
+    name: "Eleven / Jane", franchise: "strangethings", color: "#ff8f6b",
+    tagline: "The quiet girl with world-ending power",
+    quote: "Friends don't lie.",
+    bio: "You're Eleven — quiet, powerful, and loyal in a way words can't capture. You've been used and hurt, so you keep your walls high and your heart small. But the friends who earn your trust get a devotion that moves mountains — literally.",
+    traits: ["Quiet", "Powerful", "Devoted"],
+    why: "You're quiet about your power and loud about your loyalty — fierce, guarded, and unshakeable. That's Eleven."
+  },
+  dustin: {
+    name: "Dustin Henderson", franchise: "strangethings", color: "#7fc4d8",
+    tagline: "The nerd who saves the day",
+    quote: "Scientifically speaking, this is a disaster.",
+    bio: "You're Dustin — curious, nerdy, and the first to volunteer for the dangerous experiment. You crack jokes in the face of cosmic horror and keep the party together with sheer enthusiasm. Brains, heart, and a walkie-talkie — you've got it handled.",
+    traits: ["Curious", "Brains", "Upbeat"],
+    why: "You're the curious one who nerds out, cracks jokes, and quietly saves everyone. That's Dustin."
+  },
+  robin: {
+    name: "Robin Buckley", franchise: "strangethings", color: "#8fd0b8",
+    tagline: "The deadpan brainiac with a heart",
+    quote: "I like my humor dry and my facts right.",
+    bio: "You're Robin — sharp, funny, and the smartest person in the room whether the room knows it or not. You hide your soft side under deadpan and sarcasm, but you're the first one to notice a friend is struggling. Loyalty, wit, and a great soundtrack.",
+    traits: ["Witty", "Smart", "Loyal"],
+    why: "You're sharp-tongued and secretly soft — the smart friend who always clocks what's really going on. That's Robin."
+  },
+
+  /* ---- To All the Boys I've Loved Before ---- */
+  larajean: {
+    name: "Lara Jean Covey", franchise: "tatbilb", color: "#ff9fbe",
+    tagline: "The romantic who believes in love letters",
+    quote: "Sometimes the best things are unplanned.",
+    bio: "You're Lara Jean — thoughtful, romantic, and living one part in your head, one part in the moment. You love your family hard, plan things out, and write your feelings before you dare say them. When you do let someone in, it's with your whole heart.",
+    traits: ["Romantic", "Thoughtful", "Family-first"],
+    why: "You're a romantic who leads with heart and family — you take love seriously, and people notice. That's Lara Jean."
+  },
+  peter: {
+    name: "Peter Kavinsky", franchise: "tatbilb", color: "#7fa8d8",
+    tagline: "The golden boy with a real heart",
+    quote: "I'll be there. That's the whole point.",
+    bio: "You're Peter — easygoing, popular, and way more thoughtful than anyone expects. You show up, you follow through, and you make people feel safe without making a big deal of it. Under the jock veneer is someone who genuinely cares and means every word.",
+    traits: ["Kind", "Confident", "Reliable"],
+    why: "You're laid-back and loyal — you show up for the people who matter and you mean it. That's Peter."
+  }
+};
+
+const QUESTIONS = [
+  {
+    text: "First day at a school for the extraordinary. What's your first move?",
+    options: [
+      { label: "Find the library and learn absolutely everything.", picks: [["hermione",2],["avery",2],["annabeth",1]] },
+      { label: "Scope out the threats — and the strongest people in the room.", picks: [["four",2],["violet",2],["rowan",1]] },
+      { label: "Find the fun people and make friends immediately.", picks: [["ron",2],["nikolai",2],["grover",1]] },
+      { label: "Keep my head down. Observe before anyone can observe me.", picks: [["kai",2],["nico",2],["luna",1]] }
+    ]
+  },
+  {
+    text: "Your best friend is being cornered by a hostile group. You...",
+    options: [
+      { label: "Run straight in. No plan, all heart.", picks: [["ron",2],["christina",2],["mare",1]] },
+      { label: "Assess the situation first, then act with precision.", picks: [["pip",2],["avery",2],["violet",1]] },
+      { label: "Talk everyone down. Charm is a weapon too.", picks: [["peeta",2],["nikolai",2],["han",1]] },
+      { label: "Wait. Watch. Strike when they least expect it.", picks: [["xaden",2],["warner",2],["kai",1]] }
+    ]
+  },
+  {
+    text: "What's your ideal night?",
+    options: [
+      { label: "A good mystery to solve or a book to devour.", picks: [["pip",2],["hermione",2],["luna",1]] },
+      { label: "A fire, good food, and the people I love laughing.", picks: [["feyre",2],["ron",2],["christina",1]] },
+      { label: "Training until my body aches. I'm getting stronger.", picks: [["katniss",2],["rowan",2],["tris",1]] },
+      { label: "A quiet corner with exactly one person I trust.", picks: [["kai",2],["four",2],["nico",1]] }
+    ]
+  },
+  {
+    text: "There's a locked door between you and what you need. You...",
+    options: [
+      { label: "Pick the lock. Obviously.", picks: [["pip",2],["avery",2],["han",1]] },
+      { label: "Get the key the legitimate way — or make one.", picks: [["hermione",2],["leia",2],["annabeth",1]] },
+      { label: "Blast the door off its hinges.", picks: [["rey",2],["luke",2],["percy",1]] },
+      { label: "Find someone else to open it for you.", picks: [["draco",2],["jude",2],["caleb",1]] }
+    ]
+  },
+  {
+    text: "Pick your motto.",
+    options: [
+      { label: "“Knowledge is power.”", picks: [["hermione",2],["annabeth",2],["caleb",1]] },
+      { label: "“I have a good feeling about this.”", picks: [["luke",2],["rey",2],["peeta",1]] },
+      { label: "“Never underestimate the small ones.”", picks: [["violet",2],["tris",2],["paedyn",1]] },
+      { label: "“Trust no one until they've earned it.”", picks: [["katniss",2],["xaden",2],["warner",1]] }
+    ]
+  },
+  {
+    text: "What are you willing to do for the people you love?",
+    options: [
+      { label: "Anything. Everything. Don't test me.", picks: [["paedyn",2],["aelin",2],["gale",1]] },
+      { label: "Stay by their side no matter what. That's my job.", picks: [["rhiannon",2],["grover",2],["juliette",1]] },
+      { label: "The right thing — even if it hurts them.", picks: [["luke",2],["feyre",2],["peeta",1]] },
+      { label: "Whatever serves us both... eventually.", picks: [["draco",2],["kitt",2],["jude",1]] }
+    ]
+  },
+  {
+    text: "Choose your weapon.",
+    options: [
+      { label: "Words — wit and a silver tongue.", picks: [["hermione",2],["pip",2],["annabeth",1]] },
+      { label: "A sword. Direct and honest.", picks: [["paedyn",2],["tris",2],["aelin",1]] },
+      { label: "A blaster. Fast, practical, no drama.", picks: [["han",2],["gale",2],["leia",1]] },
+      { label: "The shadows. Power nobody sees coming.", picks: [["xaden",2],["rhys",2],["nico",1]] }
+    ]
+  },
+  {
+    text: "What do your friends say about you when you're not around?",
+    options: [
+      { label: "“They never gave up on us.”", picks: [["rhiannon",2],["ravi",2],["grover",1]] },
+      { label: "“You always know what they'll do next.”", picks: [["annabeth",2],["avery",2],["hermione",1]] },
+      { label: "“No idea what they're thinking. But their heart's in the right place.”", picks: [["han",2],["jameson",2],["four",1]] },
+      { label: "“They're a little weird — and we love them for it.”", picks: [["luna",2],["effie",2],["cardan",1]] }
+    ]
+  },
+  {
+    text: "The rules are clearly unfair. You...",
+    options: [
+      { label: "Work the system from the inside to change it.", picks: [["hermione",2],["leia",2],["annabeth",1]] },
+      { label: "Break them loudly and make a statement.", picks: [["aelin",2],["mare",2],["paedyn",1]] },
+      { label: "Bend them quietly in my own favor.", picks: [["draco",2],["jude",2],["kitt",1]] },
+      { label: "Ignore them. Rules are for other people.", picks: [["luna",2],["cardan",2],["effie",1]] }
+    ]
+  },
+  {
+    text: "Pick your group role.",
+    options: [
+      { label: "The strategist in the corner watching everything.", picks: [["pip",2],["caleb",2],["avery",1]] },
+      { label: "The heart holding everyone together.", picks: [["rhiannon",2],["christina",2],["ron",1]] },
+      { label: "The one who laughs in the face of danger.", picks: [["han",2],["jameson",2],["percy",1]] },
+      { label: "The mystery everyone wants to figure out.", picks: [["rhys",2],["luna",2],["xaden",1]] }
+    ]
+  },
+  {
+    text: "Someone you love is keeping a dangerous secret. You...",
+    options: [
+      { label: "Find out what it is — for their own good.", picks: [["pip",2],["hermione",2],["avery",1]] },
+      { label: "Trust them until they're ready to tell me.", picks: [["peeta",2],["juliette",2],["ravi",1]] },
+      { label: "Handle the consequences myself. They'll never know.", picks: [["xaden",2],["four",2],["rowan",1]] },
+      { label: "Figure it out, and use it to keep them close.", picks: [["warner",2],["draco",2],["caleb",1]] }
+    ]
+  },
+  {
+    text: "Finish the sentence: “By the end of this story, I want...”",
+    options: [
+      { label: "...justice for everyone who got hurt.", picks: [["pip",2],["leia",2],["katniss",1]] },
+      { label: "...everyone I love to be safe.", picks: [["rhiannon",2],["grover",2],["feyre",1]] },
+      { label: "...to be free.", picks: [["paedyn",2],["jameson",2],["rey",1]] },
+      { label: "...to win.", picks: [["draco",2],["cardan",2],["kitt",1]] }
+    ]
+  },
+  {
+    text: "A big competition is coming. How do you prepare?",
+    options: [
+      { label: "Study the rulebook for loopholes and weak points.", picks: [["annabeth",2],["violet",2],["avery",1]] },
+      { label: "Train until I can't lift my arms.", picks: [["rowan",2],["katniss",2],["tris",1]] },
+      { label: "Recruit allies and befriend potential rivals.", picks: [["percy",2],["effie",2],["nikolai",1]] },
+      { label: "Walk in cold. Instinct has never failed me.", picks: [["gale",2],["mare",2],["han",1]] }
+    ]
+  },
+  {
+    text: "Your squad is planning something reckless but important. You...",
+    options: [
+      { label: "Lead it. Someone has to.", picks: [["leia",2],["katniss",2],["four",1]] },
+      { label: "Stay quiet and watch for the danger they're missing.", picks: [["rowan",2],["nico",2],["kai",1]] },
+      { label: "Make sure everyone eats and gets home safe.", picks: [["grover",2],["juliette",2],["ravi",1]] },
+      { label: "Point out the flaw — calmly, with evidence.", picks: [["annabeth",2],["caleb",2],["avery",1]] }
+    ]
+  },
+  {
+    text: "Pick a power you'd rather have.",
+    options: [
+      { label: "Command the ocean and the storm.", picks: [["percy",2],["paedyn",2],["katniss",1]] },
+      { label: "Move through shadows, unseen.", picks: [["nico",2],["warner",2],["xaden",1]] },
+      { label: "Read minds and always know the truth.", picks: [["pip",2],["jude",2],["hermione",1]] },
+      { label: "Heal or shield the people you love.", picks: [["peeta",2],["juliette",2],["rhiannon",1]] }
+    ]
+  },
+  {
+    text: "The person you love most is in danger. What's the FIRST thing you do?",
+    options: [
+      { label: "Reach them. Nothing else matters.", picks: [["aelin",2],["percy",2],["paedyn",1]] },
+      { label: "Think: what's the fastest safe way in?", picks: [["avery",2],["annabeth",2],["jude",1]] },
+      { label: "Get to their side quietly, undetected.", picks: [["kai",2],["nico",2],["warner",1]] },
+      { label: "Tell them it'll be okay — then handle it.", picks: [["feyre",2],["ravi",2],["peeta",1]] }
+    ]
+  },
+  {
+    text: "Someone underestimates you. You...",
+    options: [
+      { label: "Let them. Then prove them wrong spectacularly.", picks: [["aelin",2],["mare",2],["katniss",1]] },
+      { label: "Use it to get closer and learn more.", picks: [["jude",2],["avery",2],["annabeth",1]] },
+      { label: "Shrug it off — I know who I am.", picks: [["juliette",2],["luna",2],["ravi",1]] },
+      { label: "Make them regret it. Quietly. Completely.", picks: [["warner",2],["rowan",2],["nico",1]] }
+    ]
+  },
+  {
+    text: "Pick your vibe at a royal ball.",
+    options: [
+      { label: "Work the room like I own it.", picks: [["rhys",2],["aelin",2],["nikolai",1]] },
+      { label: "Watch from the shadows and read everyone.", picks: [["warner",2],["jude",2],["draco",1]] },
+      { label: "Find one person who actually interests me.", picks: [["feyre",2],["juliette",2],["kai",1]] },
+      { label: "Cause a little chaos — boredom is the real enemy.", picks: [["jameson",2],["cardan",2],["percy",1]] }
+    ]
+  },
+  {
+    text: "How do you deal with being scared?",
+    options: [
+      { label: "Go quiet and read the room before I move.", picks: [["inej",2],["robin",2],["kai",1]] },
+      { label: "Talk — someone has to keep the mood light.", picks: [["jesper",2],["dustin",2],["han",1]] },
+      { label: "Get protective. Fear becomes focus — my people stay safe.", picks: [["edward",2],["newt",2],["four",1]] },
+      { label: "Make a plan. Fear is just information.", picks: [["kaz",2],["clary",2],["hermione",1]] }
+    ]
+  },
+  {
+    text: "Your found family would describe you as…",
+    options: [
+      { label: "The heart — the one who keeps us together.", picks: [["newt",2],["larajean",2],["rhiannon",1]] },
+      { label: "The weapon — the one they send when it gets real.", picks: [["jace",2],["eleven",2],["katniss",1]] },
+      { label: "The brains — the one who figures it out.", picks: [["clary",2],["dustin",2],["avery",1]] },
+      { label: "The one who keeps everyone laughing.", picks: [["jesper",2],["robin",2],["ron",1]] }
+    ]
+  },
+  {
+    text: "You see someone being treated unfairly. You…",
+    options: [
+      { label: "Step in and say something, right now.", picks: [["peter",2],["clary",2],["peeta",1]] },
+      { label: "Plan a fix that nobody sees coming.", picks: [["kaz",2],["inej",2],["jude",1]] },
+      { label: "Stand beside them and take the hits together.", picks: [["newt",2],["bella",2],["rhiannon",1]] },
+      { label: "Use whatever power I have to end it.", picks: [["eleven",2],["edward",2],["mare",1]] }
+    ]
+  },
+  {
+    text: "Your ideal Friday night?",
+    options: [
+      { label: "Puzzle, mystery, or a board game that gets competitive.", picks: [["dustin",2],["avery",2],["annabeth",1]] },
+      { label: "Hanging out with the crew, laughing till it hurts.", picks: [["jesper",2],["peter",2],["christina",1]] },
+      { label: "A quiet night with one person I love.", picks: [["bella",2],["larajean",2],["kai",1]] },
+      { label: "Training, pushing myself — rest is for later.", picks: [["jace",2],["thomas",2],["tris",1]] }
+    ]
+  },
+  {
+    text: "The villain offers you power to switch sides. You…",
+    options: [
+      { label: "Ask what the real price is. There's always a price.", picks: [["kaz",2],["robin",2],["caleb",1]] },
+      { label: "Refuse on principle. Some lines don't move.", picks: [["newt",2],["peter",2],["luke",1]] },
+      { label: "Play along until I can burn it all down.", picks: [["jude",2],["jesper",2],["draco",1]] },
+      { label: "Tell them exactly who they're threatening.", picks: [["eleven",2],["edward",2],["aelin",1]] }
+    ]
+  },
+  {
+    text: "What makes you trust someone for real?",
+    options: [
+      { label: "They keep their word — that's the whole test.", picks: [["thomas",2],["inej",2],["grover",1]] },
+      { label: "They've seen me at my worst and stayed.", picks: [["bella",2],["clary",2],["juliette",1]] },
+      { label: "They're funny enough to keep up with me.", picks: [["jesper",2],["peter",2],["ron",1]] },
+      { label: "They're smarter than the room and use it to protect us.", picks: [["kaz",2],["dustin",2],["hermione",1]] }
+    ]
+  },
+  {
+    text: "Your power-up moment. You…",
+    options: [
+      { label: "Stop doubting myself and let it all out.", picks: [["eleven",2],["clary",2],["tris",1]] },
+      { label: "Unleash years of built-up quiet strength, beautifully.", picks: [["edward",2],["bella",2],["katniss",1]] },
+      { label: "Outthink them — one perfect move.", picks: [["kaz",2],["inej",2],["annabeth",1]] },
+      { label: "Risk it all on a gut feeling.", picks: [["jesper",2],["thomas",2],["jameson",1]] }
+    ]
+  }
+];
+
+const MAX_POSSIBLE = QUESTIONS.length * 2; // perfect all-primary score
+const FLAVOR = [
+  "And so it begins…", "No wrong answers. Probably.", "Trust your gut.",
+  "Be so for real.", "You're doing great.", "Era unlocked.",
+  "Keep going, bestie.", "This one's spicy.", "Your aura is showing.",
+  "Faction before blood.", "May the odds be ever in your favor.",
+  "The lore runs deep.", "Almost there…", "Who run the world?",
+  "Fate is loading…", "Play the game or be played.",
+  "To the stars who listen.", "Saints alive.",
+  "The plot thickens…", "Stay dangerous.", "Crows before glory.",
+  "The night is dark and full of terrors.", "Netflix called — you're the protagonist.",
+  "Some love stories are supernatural.", "Final stretch. No pressure."
+];
+
+let step = 0;
+let answers = [];
+
+const $ = id => document.getElementById(id);
+const fill = $("progressFill");
+const label = $("progressLabel");
+const qCount = $("qCount");
+const qText = $("questionText");
+const optsEl = $("options");
+const backBtn = $("backBtn");
+const flavor = $("flavor");
+
+function franchiseOf(id){
+  return FRANCHISES[CHARACTERS[id].franchise];
+}
+function renderQuestion(){
+  const q = QUESTIONS[step];
+  qCount.textContent = "Question " + (step + 1);
+  qText.textContent = q.text;
+  optsEl.innerHTML = "";
+  const letters = ["A","B","C","D"];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.setAttribute("aria-label", opt.label);
+    const sel = answers[step] === i;
+    if (sel) btn.classList.add("selected");
+    btn.innerHTML = '<span class="opt-letter">' + letters[i] + '</span><span>' + opt.label + "</span>";
+    btn.addEventListener("click", () => {
+      answers[step] = i;
+      if (step < QUESTIONS.length - 1){ step++; renderQuestion(); }
+      else { showResults(); }
+    });
+    optsEl.appendChild(btn);
+  });
+  updateProgress();
+  backBtn.disabled = step === 0;
+  flavor.textContent = FLAVOR[step];
+}
+function updateProgress(){
+  const p = ((step) / QUESTIONS.length) * 100;
+  fill.style.width = p + "%";
+  label.textContent = (step + 1) + " / " + QUESTIONS.length;
+}
+backBtn.addEventListener("click", () => {
+  if (step > 0){ step--; renderQuestion(); }
+});
+
+function computeResults(){
+  const scores = {};
+  const primaries = {};
+  Object.keys(CHARACTERS).forEach(id => { scores[id] = 0; primaries[id] = 0; });
+  answers.forEach((chosen, qi) => {
+    if (chosen == null) return;
+    QUESTIONS[qi].options[chosen].picks.forEach(([id, w]) => {
+      scores[id] += w;
+      if (w === 2) primaries[id]++;
+    });
+  });
+  return Object.keys(CHARACTERS)
+    .map(id => ({ id, score: scores[id], primaries: primaries[id] }))
+    .sort((a, b) => b.score - a.score || b.primaries - a.primaries || a.id.localeCompare(b.id));
+}
+
+// which of the player's chosen answers awarded points to a given character
+function matchingPicks(winnerId){
+  const list = [];
+  answers.forEach((chosen, qi) => {
+    if (chosen == null) return;
+    const opt = QUESTIONS[qi].options[chosen];
+    if (opt.picks.some(([id]) => id === winnerId)){
+      const lbl = opt.label.length > 80 ? opt.label.slice(0, 79) + "…" : opt.label;
+      list.push(lbl);
+    }
+  });
+  return list;
+}
+
+function showResults(){
+  const results = computeResults();
+  const top = results.slice(0, 3);
+  const winner = top[0];
+  const ch = CHARACTERS[winner.id];
+  const fr = franchiseOf(winner.id);
+  const pct = Math.min(100, Math.round(50 + (winner.score / MAX_POSSIBLE) * 100));
+
+  // ---- "why you" explanation, built from their actual answers ----
+  const evidence = matchingPicks(winner.id);
+  let whyBlock = '<div class="why-block">' +
+    '<div class="why-title">Why you got ' + ch.name.split(" ")[0] + '</div>' +
+    '<p class="why-static">' + ch.why + "</p>";
+  if (evidence.length){
+    const ems = evidence.slice(0, 3).map(e => '<em>“' + e + '”</em>');
+    const joined = ems.length > 2 ? ems.slice(0, -1).join(", ") + " and " + ems[ems.length - 1] : ems.join(" and ");
+    whyBlock += '<p class="why-answers">Your result was decided by answers like ' + joined + ' — that combination is ' + ch.name.split(" ")[0] + " in a nutshell.</p>";
+  }
+  if (results[1]){
+    const r2 = CHARACTERS[results[1].id];
+    whyBlock += '<p class="why-close">Close call — <b>' + r2.name + "</b>: " + r2.why + "</p>";
+  }
+  whyBlock += "</div>";
+
+  const stage = $("resultStage");
+  stage.style.setProperty("--theme-bg", fr.hero);
+  $("stageSymbol").textContent = fr.symbol;
+  const card = $("resultCard");
+  card.style.setProperty("--char", ch.color);
+  card.innerHTML =
+    '<div class="you-are">Your result</div>' +
+    '<div class="result-name">' + ch.name + "</div>" +
+    '<span class="franchise-chip" style="background:' + fr.color + '">' + fr.label + "</span>" +
+    '<div class="vibe">' + fr.vibe + "</div>" +
+    '<div class="result-tagline">' + ch.tagline + "</div>" +
+    '<p class="result-bio">' + ch.bio + "</p>" +
+    '<div class="result-quote">' + ch.quote + "</div>" +
+    '<div class="result-traits">' + ch.traits.map(t => '<span class="trait">' + t + "</span>").join("") + "</div>" +
+    whyBlock +
+    '<div class="match-line">Your match <b>' + pct + "%</b></div>" +
+    '<div class="top3">' + top.map((r, i) => {
+      const rch = CHARACTERS[r.id];
+      const barPct = Math.round((r.score / winner.score) * 100);
+      return '<div class="rank-row">' +
+        '<div class="rank-label">' + (i === 0 ? "Your match" : "#" + (i + 1)) + "</div>" +
+        '<div class="rank-bar-track"><div class="rank-bar" data-w="' + barPct + '" style="--rank-c:' + rch.color + '"></div></div>' +
+        '<div class="rank-pct">' + rch.name.split(" ")[0] + " " + barPct + "%</div>" +
+        "</div>";
+    }).join("") + "</div>" +
+    '<div class="retake-row">' +
+      '<button class="btn btn-primary" onclick="retake()">Retake the quiz</button>' +
+      '<a class="btn btn-ghost" href="#cast" style="text-decoration:none;display:inline-block">See all 54 characters</a>' +
+    "</div>";
+
+  const quizEl = $("quiz");
+  const resEl = $("results");
+  resEl.classList.add("show");
+  quizEl.style.display = "none";
+  resEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelectorAll("#results .rank-bar").forEach(bar => {
+      bar.style.width = bar.dataset.w + "%";
+    });
+  }));
+}
+function retake(){
+  step = 0;
+  answers = [];
+  const quizEl = $("quiz");
+  const resEl = $("results");
+  resEl.classList.remove("show");
+  quizEl.style.display = "";
+  renderQuestion();
+  quizEl.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Cast gallery
+(function buildCast(){
+  const grid = $("castGrid");
+  Object.values(CHARACTERS).forEach(ch => {
+    const c = FRANCHISES[ch.franchise].color;
+    const el = document.createElement("div");
+    el.className = "cast-card reveal";
+    el.style.setProperty("--cc", c);
+    el.innerHTML =
+      '<div class="cast-name">' + ch.name + "</div>" +
+      '<div class="cast-franchise">' + FRANCHISES[ch.franchise].label + "</div>" +
+      '<div class="cast-tag">' + ch.tagline + "</div>" +
+      '<div class="cast-quote">' + ch.quote + "</div>";
+    grid.appendChild(el);
+  });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll("#cast .reveal").forEach(el => io.observe(el));
+})();
+
+renderQuestion();
+</script>
+</body>
+</html>
