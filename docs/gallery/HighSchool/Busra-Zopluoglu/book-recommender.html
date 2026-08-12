@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Recommender</title>
+<style>
+  :root {
+    --bg: #f5efe4;
+    --panel: #fffdf8;
+    --card: #fbf7ee;
+    --ink: #2b2620;
+    --muted: #8a7f6d;
+    --accent: #b3541e;
+    --accent-soft: #f3e2d4;
+    --line: #e7ddcb;
+    --good: #3f7d4e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 560px;
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: 0 20px 60px rgba(80, 60, 30, .15);
+    border: 1px solid var(--line);
+  }
+
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.9rem;
+    letter-spacing: .3px;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: .95rem;
+    margin-bottom: 26px;
+  }
+
+  /* Progress */
+  .progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .progress .step {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .progress .bar {
+    flex: 1;
+    height: 6px;
+    background: var(--line);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress .bar .fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width .25s ease;
+  }
+
+  .question {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.35rem;
+    margin-bottom: 22px;
+    line-height: 1.35;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    text-align: left;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all .12s ease;
+    font-family: inherit;
+  }
+  .option:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+  }
+  .option:active { transform: translateY(0) scale(.99); }
+
+  .option .desc {
+    display: block;
+    font-size: .8rem;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  .nav button {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 9px 18px;
+    cursor: pointer;
+    font-size: .88rem;
+    font-family: inherit;
+    transition: all .12s ease;
+  }
+  .nav button:hover { color: var(--ink); border-color: var(--ink); }
+  .nav button:disabled { opacity: .4; cursor: default; }
+
+  .text-input {
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--ink);
+    font-family: inherit;
+    outline: none;
+    margin-bottom: 12px;
+  }
+  .text-input:focus { border-color: var(--accent); background: #fff; }
+  .text-actions { display: flex; gap: 10px; }
+  .text-actions .submit-btn {
+    flex: 1;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 13px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: .95rem;
+    font-weight: 600;
+    font-family: inherit;
+  }
+  .text-actions .submit-btn:hover { filter: brightness(1.08); }
+  .text-actions .skip-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    border-radius: 12px;
+    padding: 13px 18px;
+    cursor: pointer;
+    font-size: .95rem;
+    font-family: inherit;
+  }
+  .text-actions .skip-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* Results */
+  .results { display: none; }
+  .results.show { display: block; animation: fade .3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .hero {
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .tag {
+    display: inline-block;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .hero h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.7rem;
+    margin-bottom: 2px;
+  }
+  .hero .author {
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+  .hero .blurb {
+    font-size: .95rem;
+    line-height: 1.5;
+    color: #5b5243;
+  }
+  .matches {
+    margin-top: 16px;
+    font-size: .82rem;
+    color: var(--muted);
+  }
+  .matches b { color: var(--good); }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 230px; height: 230px;
+    color: var(--accent);
+    opacity: .07;
+    pointer-events: none;
+  }
+  .hero-watermark svg { width: 100%; height: 100%; }
+  .motif { display: flex; justify-content: center; margin-bottom: 12px; }
+  .motif svg { width: 64px; height: 64px; }
+  .cover {
+    width: 96px; height: 144px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 26px rgba(0,0,0,.28);
+    border: 1px solid rgba(0,0,0,.08);
+    background: #fff;
+  }
+  .runner-motif { display: flex; align-items: center; }
+  .runner-motif svg { width: 30px; height: 30px; flex: none; }
+
+  .runners {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .runner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+  }
+  .runner .meta { flex: 1; }
+  .runner .title { font-weight: 600; }
+  .runner .author { color: var(--muted); font-size: .85rem; font-style: italic; }
+  .runner .also { font-size: .7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+  .read-btn {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: .85rem;
+    font-family: inherit;
+    transition: all .12s ease;
+  }
+  .read-btn:hover { background: var(--accent); color: #fff; }
+  .hero .read-btn { margin-top: 16px; }
+  .runner-read { padding: 4px 10px; font-size: .72rem; }
+
+  .restart {
+    margin-top: 20px;
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    cursor: pointer;
+    font-size: .95rem;
+    font-weight: 600;
+    font-family: inherit;
+    transition: filter .12s ease;
+  }
+  .restart:hover { filter: brightness(1.08); }
+
+  .more {
+    margin-top: 20px;
+    text-align: left;
+  }
+  .more h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+  }
+  .more .more-note {
+    font-size: .78rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .more-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .more-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    font-size: .9rem;
+  }
+  .more-item .t { flex: 1; font-weight: 600; }
+  .more-item a { color: inherit; text-decoration: none; }
+  .more-item a:hover { text-decoration: underline; color: var(--accent); }
+  .more-item .meta {
+    color: var(--muted);
+    font-size: .78rem;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .more-status { color: var(--muted); font-size: .88rem; }
+
+  /* Smooth color shifts when the theme changes */
+  body, .app, .option, .runner, .more-item, .text-input, .hero,
+  h1, .subtitle, .question, .nav button, .skip-btn, .read-btn {
+    transition: background-color .4s ease, color .4s ease, border-color .4s ease, transform .15s ease, filter .15s ease;
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <h1>Book Match</h1>
+    <p class="subtitle">Answer a few quick questions and we'll find your next read.</p>
+
+    <!-- Quiz -->
+    <div id="quiz">
+      <div class="progress">
+        <span class="step" id="step-label">Question 1 of 7</span>
+        <div class="bar"><div class="fill" id="bar-fill" style="width: 0%"></div></div>
+      </div>
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      <div class="nav">
+        <button id="back" disabled>← Back</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results" id="results"></div>
+  </div>
+
+<script>
+  const BOOKS = [
+    // Adults (18+)
+    { title: "The Martian", author: "Andy Weir", age: "adult", genre: "scifi", mood: "funny", length: "medium", pace: "fast", series: "standalone", blurb: "An astronaut stranded on Mars survives on science, duct tape, and relentless sarcasm." },
+    { title: "Project Hail Mary", author: "Andy Weir", age: "adult", genre: "scifi", mood: "adventurous", length: "medium", pace: "fast", series: "standalone", blurb: "A lone scientist wakes with no memory on a mission to save Earth — and finds an unlikely friend." },
+    { title: "Dune", author: "Frank Herbert", age: "adult", genre: "scifi", mood: "serious", length: "epic", pace: "slow", series: "series", blurb: "A sweeping desert-planet saga of politics, ecology, and destiny." },
+    { title: "1984", author: "George Orwell", age: "adult", genre: "dystopia", mood: "dark", length: "medium", pace: "medium", series: "standalone", blurb: "A chilling vision of a totalitarian future where truth itself is rewritten." },
+    { title: "Brave New World", author: "Aldous Huxley", age: "adult", genre: "dystopia", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A rigid, pleasure-driven future where society is engineered and individuality is outlawed." },
+    { title: "Fahrenheit 451", author: "Ray Bradbury", age: "adult", genre: "dystopia", mood: "dark", length: "short", pace: "medium", series: "standalone", blurb: "In a future where books are burned, a fireman begins to question his role." },
+    { title: "The Handmaid's Tale", author: "Margaret Atwood", age: "adult", genre: "dystopia", mood: "dark", length: "medium", pace: "medium", series: "standalone", blurb: "In a theocratic regime, women are stripped of their rights and reduced to their bodies." },
+    { title: "The Hobbit", author: "J.R.R. Tolkien", age: "adult", genre: "highfantasy", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "A comfortingly cozy adventure of dwarves, dragons, and an unexpected hero." },
+    { title: "Mistborn", author: "Brandon Sanderson", age: "adult", genre: "highfantasy", mood: "serious", length: "long", pace: "fast", series: "series", blurb: "A heist to overthrow a god-emperor, powered by a hard-magic system." },
+    { title: "The Name of the Wind", author: "Patrick Rothfuss", age: "adult", genre: "highfantasy", mood: "serious", length: "long", pace: "medium", series: "series", blurb: "A legend-in-his-own-time tells the story of how he became a wizard." },
+    { title: "The House in the Cerulean Sea", author: "T.J. Klune", age: "adult", genre: "lowfantasy", mood: "wholesome", length: "medium", pace: "medium", series: "standalone", blurb: "A gentle, heartwarming tale about found family and magical misfits." },
+    { title: "The Night Circus", author: "Erin Morgenstern", age: "adult", genre: "lowfantasy", mood: "dark", length: "long", pace: "slow", series: "standalone", blurb: "A dreamlike duel of magicians set in a mysterious travelling circus." },
+    { title: "And Then There Were None", author: "Agatha Christie", age: "adult", genre: "mystery", mood: "suspenseful", length: "short", pace: "fast", series: "standalone", blurb: "Ten strangers, an isolated island, and a killer among them. A masterclass." },
+    { title: "The Thursday Murder Club", author: "Richard Osman", age: "adult", genre: "mystery", mood: "funny", length: "medium", pace: "medium", series: "series", blurb: "Four retirees in a retirement village solve cold cases — charmingly." },
+    { title: "The Adventures of Sherlock Holmes", author: "Arthur Conan Doyle", age: "adult", genre: "mystery", mood: "suspenseful", length: "medium", pace: "medium", series: "series", blurb: "The great detective and Dr. Watson crack baffling cases across Victorian London." },
+    { title: "Murder on the Orient Express", author: "Agatha Christie", age: "adult", genre: "mystery", mood: "suspenseful", length: "short", pace: "medium", series: "series", blurb: "Hercule Poirot must find a killer among the passengers of a snowbound train." },
+    { title: "The No. 1 Ladies' Detective Agency", author: "Alexander McCall Smith", age: "adult", genre: "mystery", mood: "wholesome", length: "medium", pace: "medium", series: "series", blurb: "Botswana's only lady detective solves gentle mysteries with warmth and wit." },
+    { title: "Gone Girl", author: "Gillian Flynn", age: "adult", genre: "thriller", mood: "dark", length: "medium", pace: "fast", series: "standalone", blurb: "A marriage, a disappearance, and a twist that changes everything." },
+    { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson", age: "adult", genre: "thriller", mood: "dark", length: "long", pace: "fast", series: "series", blurb: "A disgraced journalist and a brilliant hacker unravel a decades-old mystery." },
+    { title: "Pride and Prejudice", author: "Jane Austen", age: "adult", genre: "romance", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "Wit, social class, and one of literature's great slow-burn romances." },
+    { title: "The Notebook", author: "Nicholas Sparks", age: "adult", genre: "romance", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "An elderly man reads a love story from a notebook, recounting a sweeping decades-long romance." },
+    { title: "Beach Read", author: "Emily Henry", age: "adult", genre: "romance", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "Two rival writers swap genres for the summer and fall for each other instead." },
+    { title: "Red, White & Royal Blue", author: "Casey McQuiston", age: "adult", genre: "romance", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "The First Son and a British prince stage a fake friendship — then fall in love for real." },
+    { title: "Circe", author: "Madeline Miller", age: "adult", genre: "historical", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A lyrical retelling of the witch Circe's life, exile, and self-discovery." },
+    { title: "All the Light We Cannot See", author: "Anthony Doerr", age: "adult", genre: "historical", mood: "serious", length: "long", pace: "slow", series: "standalone", blurb: "A blind French girl and a German boy cross paths in occupied France during WWII." },
+    { title: "A Gentleman in Moscow", author: "Amor Towles", age: "adult", genre: "historical", mood: "serious", length: "long", pace: "slow", series: "standalone", blurb: "A count is sentenced to house arrest in a grand Moscow hotel for decades." },
+    { title: "Sapiens", author: "Yuval Noah Harari", age: "adult", genre: "nonfiction", mood: "serious", length: "long", pace: "slow", series: "standalone", blurb: "A big-picture history of humankind, from the Stone Age to today." },
+    { title: "Educated", author: "Tara Westover", age: "adult", genre: "nonfiction", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A memoir of growing up off-grid and fighting for an education." },
+    { title: "Ender's Game", author: "Orson Scott Card", age: "adult", genre: "scifi", mood: "serious", length: "medium", pace: "medium", series: "series", blurb: "A gifted boy is recruited to a military academy in space to prepare for an alien war." },
+    { title: "Neuromancer", author: "William Gibson", age: "adult", genre: "scifi", mood: "dark", length: "medium", pace: "medium", series: "series", blurb: "A washed-up hacker takes a job that pulls him into a high-stakes cyberspace heist." },
+    { title: "Piranesi", author: "Susanna Clarke", age: "adult", genre: "lowfantasy", mood: "serious", length: "medium", pace: "slow", series: "standalone", blurb: "A man lives alone in an endless, statue-filled house and slowly uncovers its secret." },
+    { title: "The Invisible Life of Addie LaRue", author: "V.E. Schwab", age: "adult", genre: "lowfantasy", mood: "serious", length: "long", pace: "medium", series: "standalone", blurb: "A woman makes a bargain to live forever but be forgotten by everyone she meets." },
+    { title: "The Silent Patient", author: "Alex Michaelides", age: "adult", genre: "thriller", mood: "suspenseful", length: "medium", pace: "fast", series: "standalone", blurb: "A woman shoots her husband then stops speaking; a therapist tries to unlock why." },
+    { title: "The Big Sleep", author: "Raymond Chandler", age: "adult", genre: "mystery", mood: "dark", length: "medium", pace: "medium", series: "series", blurb: "Hard-boiled detective Philip Marlowe untangles a web of blackmail and murder." },
+    { title: "Born a Crime", author: "Trevor Noah", age: "adult", genre: "nonfiction", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "A funny, moving memoir of growing up mixed-race in apartheid South Africa." },
+    { title: "The Immortal Life of Henrietta Lacks", author: "Rebecca Skloot", age: "adult", genre: "nonfiction", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "The true story of the woman whose cells transformed medicine without her knowledge." },
+    { title: "The Pillars of the Earth", author: "Ken Follett", age: "adult", genre: "historical", mood: "serious", length: "epic", pace: "slow", series: "series", blurb: "A sweeping saga of building a cathedral amid 12th-century English politics and war." },
+    { title: "The Hitchhiker's Guide to the Galaxy", author: "Douglas Adams", age: "adult", genre: "scifi", mood: "funny", length: "medium", pace: "medium", series: "series", blurb: "A hapless Englishman is whisked across the galaxy after Earth is demolished for a bypass." },
+    { title: "Foundation", author: "Isaac Asimov", age: "adult", genre: "scifi", mood: "serious", length: "medium", pace: "medium", series: "series", blurb: "A mathematician foresees the fall of a galactic empire and plans to shorten the dark age." },
+    { title: "Ready Player One", author: "Ernest Cline", age: "adult", genre: "scifi", mood: "funny", length: "medium", pace: "fast", series: "standalone", blurb: "A poor teen hunts an Easter egg hidden in a vast virtual world by its late creator." },
+    { title: "A Game of Thrones", author: "George R.R. Martin", age: "adult", genre: "highfantasy", mood: "dark", length: "epic", pace: "slow", series: "series", blurb: "Noble houses scheme for an iron throne as a long winter and an ancient threat loom." },
+    { title: "The Way of Kings", author: "Brandon Sanderson", age: "adult", genre: "highfantasy", mood: "serious", length: "epic", pace: "slow", series: "series", blurb: "The first doorstopper of a massive saga of war, honor, and an enslaved warrior." },
+    { title: "Good Omens", author: "Terry Pratchett & Neil Gaiman", age: "adult", genre: "lowfantasy", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "An angel and a demon team up to stop the apocalypse because they like Earth." },
+    { title: "American Gods", author: "Neil Gaiman", age: "adult", genre: "lowfantasy", mood: "dark", length: "long", pace: "medium", series: "standalone", blurb: "An ex-con drifts into a war between old gods and new across a mythic America." },
+    { title: "The Girl on the Train", author: "Paula Hawkins", age: "adult", genre: "thriller", mood: "suspenseful", length: "medium", pace: "fast", series: "standalone", blurb: "A woman watches a couple from the train and becomes entangled in a disappearance." },
+    { title: "The Da Vinci Code", author: "Dan Brown", age: "adult", genre: "thriller", mood: "suspenseful", length: "medium", pace: "fast", series: "series", blurb: "A symbologist races through clues hidden in art to solve an ancient conspiracy." },
+    { title: "The Time Traveler's Wife", author: "Audrey Niffenegger", age: "adult", genre: "romance", mood: "serious", length: "long", pace: "medium", series: "standalone", blurb: "A man involuntarily travels through time, and a woman loves him across it." },
+    { title: "Outlander", author: "Diana Gabaldon", age: "adult", genre: "romance", mood: "serious", length: "long", pace: "medium", series: "series", blurb: "A WWII nurse is swept back to 18th-century Scotland and a fateful love." },
+    { title: "Becoming", author: "Michelle Obama", age: "adult", genre: "nonfiction", mood: "serious", length: "long", pace: "medium", series: "standalone", blurb: "The former First Lady's memoir of roots, ambition, and life in the White House." },
+    { title: "Things Fall Apart", author: "Chinua Achebe", age: "adult", genre: "historical", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A powerful Igbo leader's world unravels as colonial forces arrive in his Nigerian village." },
+    { title: "One Hundred Years of Solitude", author: "Gabriel García Márquez", age: "adult", genre: "lowfantasy", mood: "serious", length: "long", pace: "slow", series: "standalone", blurb: "Seven generations of the Buendía family live out their loves and follies in the magical town of Macondo." },
+    { title: "Beloved", author: "Toni Morrison", age: "adult", genre: "historical", mood: "dark", length: "medium", pace: "medium", series: "standalone", blurb: "A formerly enslaved woman is haunted by the ghost of the daughter she lost." },
+    { title: "The Kite Runner", author: "Khaled Hosseini", age: "adult", genre: "historical", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A friendship and a betrayal in Afghanistan, and one man's long road to redemption." },
+    { title: "The Road", author: "Cormac McCarthy", age: "adult", genre: "dystopia", mood: "dark", length: "medium", pace: "slow", series: "standalone", blurb: "A father and son walk a burned, ash-covered road through post-apocalyptic America." },
+    { title: "Parable of the Sower", author: "Octavia Butler", age: "adult", genre: "dystopia", mood: "dark", length: "medium", pace: "medium", series: "series", blurb: "A young woman founds a new belief system amid a collapsing near-future America." },
+    { title: "Never Let Me Go", author: "Kazuo Ishiguro", age: "adult", genre: "dystopia", mood: "serious", length: "medium", pace: "slow", series: "standalone", blurb: "Students at an idyllic boarding school slowly learn the dark truth of their purpose." },
+    { title: "The Fifth Season", author: "N.K. Jemisin", age: "adult", genre: "highfantasy", mood: "dark", length: "long", pace: "slow", series: "series", blurb: "In a world wracked by quakes, a mother searches for her daughter through an apocalypse." },
+    { title: "It Ends with Us", author: "Colleen Hoover", age: "adult", genre: "romance", mood: "serious", length: "medium", pace: "medium", series: "series", blurb: "A woman must break the cycle of an abusive love." },
+    { title: "Wuthering Heights", author: "Emily Brontë", age: "adult", genre: "romance", mood: "dark", length: "medium", pace: "medium", series: "standalone", blurb: "A passionate, destructive love plays out across the wild Yorkshire moors." },
+    { title: "Jane Eyre", author: "Charlotte Brontë", age: "adult", genre: "romance", mood: "serious", length: "long", pace: "medium", series: "standalone", blurb: "A governess falls for a brooding master who hides a terrible secret." },
+    { title: "Anna Karenina", author: "Leo Tolstoy", age: "adult", genre: "romance", mood: "serious", length: "epic", pace: "slow", series: "standalone", blurb: "A married woman's affair and its devastating consequences in Russian high society." },
+    { title: "The Great Gatsby", author: "F. Scott Fitzgerald", age: "adult", genre: "historical", mood: "serious", length: "short", pace: "medium", series: "standalone", blurb: "A mysterious millionaire pursues a lost love across the roaring Jazz Age." },
+    { title: "To Kill a Mockingbird", author: "Harper Lee", age: "adult", genre: "historical", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A small-town lawyer defends an innocent Black man in 1930s Alabama." },
+    { title: "The House of the Spirits", author: "Isabel Allende", age: "adult", genre: "historical", mood: "serious", length: "long", pace: "medium", series: "standalone", blurb: "A family saga of love, politics, and restless spirits across generations in Chile." },
+
+    // Teens (13–17)
+    { title: "The Hunger Games", author: "Suzanne Collins", age: "teen", genre: "dystopia", mood: "dark", length: "medium", pace: "fast", series: "series", blurb: "In a dystopian future, teens fight to the death on live TV — and one girl defies the Capitol." },
+    { title: "Divergent", author: "Veronica Roth", age: "teen", genre: "dystopia", mood: "serious", length: "medium", pace: "fast", series: "series", blurb: "In a society divided into factions, a girl who fits none must hide what she is." },
+    { title: "The Giver", author: "Lois Lowry", age: "teen", genre: "dystopia", mood: "serious", length: "short", pace: "medium", series: "series", blurb: "A boy in a seemingly perfect, emotionless community uncovers its hidden cost." },
+    { title: "Six of Crows", author: "Leigh Bardugo", age: "teen", genre: "highfantasy", mood: "adventurous", length: "long", pace: "medium", series: "series", blurb: "A scrappy crew of outcasts pulls off an impossible heist in a richly built fantasy world." },
+    { title: "A Wrinkle in Time", author: "Madeleine L'Engle", age: "teen", genre: "scifi", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "A girl travels through space and time to rescue her missing father." },
+    { title: "The Fault in Our Stars", author: "John Green", age: "teen", genre: "romance", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "Two witty teens meet in a cancer support group and fall in love." },
+    { title: "To All the Boys I've Loved Before", author: "Jenny Han", age: "teen", genre: "romance", mood: "funny", length: "medium", pace: "medium", series: "series", blurb: "Her secret love letters get mailed out, so she fakes a relationship with one of the boys." },
+    { title: "The Sun Is Also a Star", author: "Nicola Yoon", age: "teen", genre: "romance", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "Two teens meet by chance on the eve of one's deportation and spend one life-changing day together." },
+    { title: "The Book Thief", author: "Markus Zusak", age: "teen", genre: "historical", mood: "serious", length: "long", pace: "slow", series: "standalone", blurb: "Death narrates the story of a girl stealing books in Nazi Germany." },
+    { title: "Salt to the Sea", author: "Ruta Sepetys", age: "teen", genre: "historical", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "Four young refugees flee the WWII East Prussian front aboard a doomed ship." },
+    { title: "One of Us Is Lying", author: "Karen M. McManus", age: "teen", genre: "thriller", mood: "suspenseful", length: "medium", pace: "fast", series: "series", blurb: "Five students walk into detention — only four walk out." },
+    { title: "A Good Girl's Guide to Murder", author: "Holly Jackson", age: "teen", genre: "mystery", mood: "suspenseful", length: "medium", pace: "fast", series: "series", blurb: "A student reopens a closed murder case for a school project and finds the real killer." },
+    { title: "The Inheritance Games", author: "Jennifer Lynn Barnes", age: "teen", genre: "mystery", mood: "suspenseful", length: "medium", pace: "fast", series: "series", blurb: "A girl inherits a billionaire's fortune and a mansion full of riddles and scheming heirs." },
+    { title: "Truly Devious", author: "Maureen Johnson", age: "teen", genre: "mystery", mood: "suspenseful", length: "medium", pace: "medium", series: "series", blurb: "A true-crime obsessed teen investigates an unsolved kidnapping at an elite boarding school." },
+    { title: "I Am Malala (Young Readers Edition)", author: "Malala Yousafzai", age: "teen", genre: "nonfiction", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "The true story of the girl who stood up for education and was shot by the Taliban." },
+    { title: "Scythe", author: "Neal Shusterman", age: "teen", genre: "scifi", mood: "serious", length: "medium", pace: "medium", series: "series", blurb: "In a world without death, trained scythes must choose who lives and who dies." },
+    { title: "Cinder", author: "Marissa Meyer", age: "teen", genre: "scifi", mood: "adventurous", length: "medium", pace: "fast", series: "series", blurb: "A cyborg Cinderella holds the secret to an interplanetary plague and a lunar threat." },
+    { title: "Graceling", author: "Kristin Cashore", age: "teen", genre: "highfantasy", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "A girl blessed with deadly grace is drawn into a kingdom's dark conspiracy." },
+    { title: "Throne of Glass", author: "Sarah J. Maas", age: "teen", genre: "highfantasy", mood: "adventurous", length: "long", pace: "medium", series: "series", blurb: "A notorious assassin fights for her freedom in a deadly royal tournament." },
+    { title: "Miss Peregrine's Home for Peculiar Children", author: "Ransom Riggs", age: "teen", genre: "lowfantasy", mood: "dark", length: "medium", pace: "medium", series: "series", blurb: "A boy discovers a secret home for children with strange, wonderful abilities." },
+    { title: "The Hazel Wood", author: "Melissa Albert", age: "teen", genre: "lowfantasy", mood: "dark", length: "medium", pace: "medium", series: "series", blurb: "A girl chases a reclusive author's dark fairy tales into a hidden world." },
+    { title: "The Cheerleaders", author: "Kara Thomas", age: "teen", genre: "thriller", mood: "suspenseful", length: "medium", pace: "fast", series: "standalone", blurb: "Years after a tragedy, a girl reopens the case of five dead cheerleaders." },
+    { title: "The 57 Bus", author: "Dashka Slater", age: "teen", genre: "nonfiction", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A true story of a crime, a victim, and the aftermath on a city bus." },
+    { title: "The Maze Runner", author: "James Dashner", age: "teen", genre: "dystopia", mood: "dark", length: "medium", pace: "fast", series: "series", blurb: "A boy wakes in a maze with no memory and must lead a group of teens to escape." },
+    { title: "City of Bones", author: "Cassandra Clare", age: "teen", genre: "lowfantasy", mood: "dark", length: "medium", pace: "fast", series: "series", blurb: "A teen discovers a hidden world of demon-hunting Shadowhunters in New York." },
+    { title: "Twilight", author: "Stephenie Meyer", age: "teen", genre: "romance", mood: "serious", length: "medium", pace: "medium", series: "series", blurb: "A girl falls for a mysterious classmate who turns out to be a vampire." },
+    { title: "The Selection", author: "Kiera Cass", age: "teen", genre: "romance", mood: "funny", length: "medium", pace: "medium", series: "series", blurb: "A poor girl enters a televised competition to win a prince's heart." },
+    { title: "Legend", author: "Marie Lu", age: "teen", genre: "dystopia", mood: "serious", length: "medium", pace: "fast", series: "series", blurb: "A prodigy and a street criminal collide in a divided future America." },
+    { title: "An Ember in the Ashes", author: "Sabaa Tahir", age: "teen", genre: "highfantasy", mood: "dark", length: "long", pace: "medium", series: "series", blurb: "A slave and a soldier resist a brutal empire in a Roman-inspired fantasy world." },
+    { title: "Fire", author: "Kristin Cashore", age: "teen", genre: "highfantasy", mood: "adventurous", length: "long", pace: "medium", series: "series", blurb: "In a realm of strange monsters, a girl with mind-altering power is drawn into a kingdom's deadly politics." },
+    { title: "Bitterblue", author: "Kristin Cashore", age: "teen", genre: "highfantasy", mood: "serious", length: "long", pace: "medium", series: "series", blurb: "A young queen works to heal a kingdom still scarred by her father's cruel reign." },
+
+    // Kids (8–12)
+    { title: "Charlotte's Web", author: "E.B. White", age: "kids", genre: "lowfantasy", mood: "wholesome", length: "short", pace: "medium", series: "standalone", blurb: "A clever spider and a kind pig form an unlikely, unforgettable friendship." },
+    { title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", age: "kids", genre: "lowfantasy", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "A boy discovers he's a wizard and heads off to a school of magic." },
+    { title: "Percy Jackson: The Lightning Thief", author: "Rick Riordan", age: "kids", genre: "lowfantasy", mood: "adventurous", length: "medium", pace: "fast", series: "series", blurb: "A twelve-year-old learns he's the son of a Greek god — and must clear his name." },
+    { title: "Matilda", author: "Roald Dahl", age: "kids", genre: "lowfantasy", mood: "funny", length: "short", pace: "medium", series: "standalone", blurb: "A brilliant little girl with a love of books takes on the adults who wronged her." },
+    { title: "The Phantom Tollbooth", author: "Norton Juster", age: "kids", genre: "lowfantasy", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "A bored boy drives a tollbooth into a land of wordplay and wonder." },
+    { title: "Holes", author: "Louis Sachar", age: "kids", genre: "lowfantasy", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "A boy sent to a desert detention camp digs up more than just dirt." },
+    { title: "The Westing Game", author: "Ellen Raskin", age: "kids", genre: "mystery", mood: "suspenseful", length: "medium", pace: "medium", series: "standalone", blurb: "Sixteen heirs compete to solve a millionaire's puzzling will." },
+    { title: "The Mysterious Benedict Society", author: "Trenton Lee Stewart", age: "kids", genre: "mystery", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "Four gifted orphans pass a secret test and go undercover to save the world." },
+    { title: "The Wild Robot", author: "Peter Brown", age: "kids", genre: "scifi", mood: "wholesome", length: "medium", pace: "medium", series: "series", blurb: "A robot washes ashore on a wild island and learns to survive among the animals." },
+    { title: "The City of Ember", author: "Jeanne DuPrau", age: "kids", genre: "dystopia", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "Two kids in an underground city race to fix its failing lights before the darkness wins." },
+    { title: "Number the Stars", author: "Lois Lowry", age: "kids", genre: "historical", mood: "serious", length: "short", pace: "medium", series: "standalone", blurb: "A Danish girl helps her Jewish friend escape the Nazis during WWII." },
+    { title: "Redwall", author: "Brian Jacques", age: "kids", genre: "highfantasy", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "Mice, badgers, and warriors defend their abbey from a rat army in a rich fantasy world." },
+    { title: "The Book of Three", author: "Lloyd Alexander", age: "kids", genre: "highfantasy", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "An assistant pig-keeper sets out on a quest that draws him into a great war." },
+    { title: "Hidden Figures (Young Readers Edition)", author: "Margot Lee Shetterly", age: "kids", genre: "nonfiction", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "The true story of the Black women mathematicians who powered NASA's space race." },
+    { title: "The Boy Who Harnessed the Wind (Young Readers Edition)", author: "William Kamkwamba", age: "kids", genre: "nonfiction", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A boy builds a windmill from scraps to save his Malawian village from famine." },
+    { title: "Escape from Mr. Lemoncello's Library", author: "Chris Grabenstein", age: "kids", genre: "mystery", mood: "funny", length: "medium", pace: "medium", series: "series", blurb: "Kids must solve puzzles to escape a fantastic library built by a game maker." },
+    { title: "The Last Cuentista", author: "Donna Barba Higuera", age: "kids", genre: "scifi", mood: "serious", length: "medium", pace: "medium", series: "standalone", blurb: "A girl carries Earth's stories aboard a ship fleeing a dying planet." },
+    { title: "The Lion, the Witch and the Wardrobe", author: "C.S. Lewis", age: "kids", genre: "highfantasy", mood: "adventurous", length: "medium", pace: "medium", series: "series", blurb: "Four siblings step through a wardrobe into a snowy land under an evil queen." },
+    { title: "Charlie and the Chocolate Factory", author: "Roald Dahl", age: "kids", genre: "lowfantasy", mood: "funny", length: "medium", pace: "medium", series: "standalone", blurb: "A poor boy wins a golden ticket to tour a mysterious candy factory." },
+    { title: "The BFG", author: "Roald Dahl", age: "kids", genre: "lowfantasy", mood: "funny", length: "short", pace: "medium", series: "standalone", blurb: "A girl befriends a friendly giant who blows dreams into children's windows." },
+    { title: "The Bad Beginning", author: "Lemony Snicket", age: "kids", genre: "mystery", mood: "funny", length: "medium", pace: "medium", series: "series", blurb: "Three orphans are pursued by a villain after their parents' terrible death." },
+    { title: "The One and Only Ivan", author: "Katherine Applegate", age: "kids", genre: "lowfantasy", mood: "wholesome", length: "medium", pace: "medium", series: "standalone", blurb: "A captive gorilla tells the story of his friendship with a baby elephant." },
+    { title: "The Miraculous Journey of Edward Tulane", author: "Kate DiCamillo", age: "kids", genre: "lowfantasy", mood: "wholesome", length: "medium", pace: "medium", series: "standalone", blurb: "A china rabbit is lost and passes through many owners, learning to love." }
+  ];
+
+  const QUESTIONS = [
+    {
+      question: "Who is this book for?",
+      key: "age",
+      options: [
+        { label: "Kids (8–12)", value: "kids" },
+        { label: "Teens (13–17)", value: "teen" },
+        { label: "Adults (18+)", value: "adult" }
+      ]
+    },
+    {
+      question: "What kind of mood are you in?",
+      key: "mood",
+      options: [
+        { label: "Something funny", value: "funny" },
+        { label: "Serious & thought-provoking", value: "serious" },
+        { label: "Dark & twisty", value: "dark" },
+        { label: "Wholesome & warm", value: "wholesome" },
+        { label: "Suspenseful", value: "suspenseful" },
+        { label: "Adventurous", value: "adventurous" }
+      ]
+    },
+    {
+      question: "Which genre catches your eye?",
+      key: "genre",
+      options: [
+        { label: "High fantasy", value: "highfantasy", desc: "Magic in an independent, imaginary world" },
+        { label: "Low fantasy", value: "lowfantasy", desc: "Magic in or tied to our own world" },
+        { label: "Science fiction", value: "scifi", desc: "Advanced tech, future science, or biological change" },
+        { label: "Mystery", value: "mystery", desc: "A crime stays unsolved to the end; a closed circle of suspects" },
+        { label: "Thriller", value: "thriller", desc: "Heightened suspense, excitement, and anticipation" },
+        { label: "Romance", value: "romance", desc: "A central love story with a satisfying ending" },
+        { label: "Dystopian", value: "dystopia", desc: "Extreme, often oppressive social or political structures" },
+        { label: "Historical fiction", value: "historical", desc: "A fictional plot set amid real historical events" },
+        { label: "Non-fiction", value: "nonfiction", desc: "Conveys real-world information, not imagination" }
+      ]
+    },
+    {
+      question: "How long a read are you up for?",
+      key: "length",
+      options: [
+        { label: "Short & snappy", value: "short" },
+        { label: "A solid medium read", value: "medium" },
+        { label: "Long & immersive", value: "long" },
+        { label: "An epic I can sink into", value: "epic" }
+      ]
+    },
+    {
+      question: "What pacing do you prefer?",
+      key: "pace",
+      options: [
+        { label: "Fast, non-stop", value: "fast" },
+        { label: "A balanced pace", value: "medium" },
+        { label: "Slow burn", value: "slow" }
+      ]
+    },
+    {
+      question: "Series or standalone?",
+      key: "series",
+      options: [
+        { label: "A series I can sink into", value: "series" },
+        { label: "A standalone book", value: "standalone" },
+        { label: "No preference", value: "either" }
+      ]
+    },
+    {
+      question: "Is there an author or book you already love?",
+      key: "favorite",
+      type: "text",
+      placeholder: "e.g. Jane Austen, or The Martian"
+    }
+  ];
+
+  const answers = {};
+  const readTitles = new Set();
+  let current = 0;
+
+  const quizEl = document.getElementById('quiz');
+  const resultsEl = document.getElementById('results');
+  const questionEl = document.getElementById('question');
+  const optionsEl = document.getElementById('options');
+  const stepLabel = document.getElementById('step-label');
+  const barFill = document.getElementById('bar-fill');
+  const backBtn = document.getElementById('back');
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    questionEl.textContent = q.question;
+    stepLabel.textContent = `Question ${current + 1} of ${QUESTIONS.length}`;
+    barFill.style.width = (current / QUESTIONS.length * 100) + '%';
+    backBtn.disabled = current === 0;
+
+    optionsEl.innerHTML = '';
+
+    if (q.type === 'text') {
+      optionsEl.innerHTML = `
+        <input id="fav-input" class="text-input" type="text" placeholder="${q.placeholder}" autocomplete="off">
+        <div class="text-actions">
+          <button class="submit-btn" id="fav-submit">Find recommendations</button>
+          <button class="skip-btn" id="fav-skip">Skip</button>
+        </div>`;
+      const input = document.getElementById('fav-input');
+      const submit = () => submitFavorite(input.value);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+      document.getElementById('fav-submit').addEventListener('click', submit);
+      document.getElementById('fav-skip').addEventListener('click', () => submitFavorite(''));
+      input.focus();
+      return;
+    }
+
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.innerHTML = `<span>${opt.label}</span>${opt.desc ? `<span class="desc">${opt.desc}</span>` : ''}`;
+      btn.addEventListener('click', () => choose(q.key, opt.value));
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function advance() {
+    if (current < QUESTIONS.length - 1) { current++; renderQuestion(); }
+    else showResults();
+  }
+
+  function choose(key, value) {
+    answers[key] = value;
+    applyTheme();
+    advance();
+  }
+
+  function submitFavorite(value) {
+    const v = value.trim();
+    if (v) answers.favorite = v;
+    advance();
+  }
+
+  backBtn.addEventListener('click', () => {
+    if (current > 0) { current--; renderQuestion(); }
+  });
+
+  const THEMES = {
+    default:     { bg: '#f5efe4', panel: '#fffdf8', card: '#fbf7ee', ink: '#2b2620', muted: '#8a7f6d', accent: '#b3541e', accentSoft: '#f3e2d4', line: '#e7ddcb' },
+    highfantasy: { bg: '#eef3ea', panel: '#fbfdf9', card: '#f2f6ee', ink: '#1f2a20', muted: '#68756a', accent: '#2e7d4f', accentSoft: '#dceadf', line: '#d4e0d5' },
+    lowfantasy:  { bg: '#f2eef7', panel: '#fdfbfe', card: '#f5f1f9', ink: '#251f2f', muted: '#7a738a', accent: '#7a54b8', accentSoft: '#e9e1f4', line: '#ded5ea' },
+    scifi:       { bg: '#e9f1f4', panel: '#f7fbfc', card: '#eef5f7', ink: '#142a33', muted: '#5c7480', accent: '#1c7f9e', accentSoft: '#d8ecf2', line: '#cfe2e8' },
+    mystery:     { bg: '#eef0f6', panel: '#f9fafc', card: '#f1f3f8', ink: '#20263a', muted: '#66708a', accent: '#39498c', accentSoft: '#e0e4f2', line: '#d4dae8' },
+    thriller:    { bg: '#f5eeee', panel: '#fdf9f9', card: '#f7f0f0', ink: '#2a2020', muted: '#816a6a', accent: '#a12828', accentSoft: '#efdcdc', line: '#e4d0d0' },
+    romance:     { bg: '#f7edf1', panel: '#fdf8fa', card: '#f9f1f4', ink: '#2f2027', muted: '#8a6b78', accent: '#c2457d', accentSoft: '#f2dfe8', line: '#ead3dc' },
+    dystopia:    { bg: '#e9ecef', panel: '#f6f8f9', card: '#eef1f3', ink: '#20262c', muted: '#6a737c', accent: '#4a5560', accentSoft: '#dde2e6', line: '#d2d8dd' },
+    historical:  { bg: '#f4eee1', panel: '#fdf9f1', card: '#f7f1e4', ink: '#2e2418', muted: '#8a7a63', accent: '#8a5a2b', accentSoft: '#ede0cc', line: '#e2d4ba' },
+    nonfiction:  { bg: '#edf1f5', panel: '#f9fbfd', card: '#f1f4f7', ink: '#1f2a33', muted: '#66788a', accent: '#3f6b9e', accentSoft: '#e0e8f0', line: '#d2dbe3' },
+    funny:       { bg: '#faf4e5', panel: '#fffdf6', card: '#faf4e9', ink: '#2b2517', muted: '#8a7f5d', accent: '#cf8a0e', accentSoft: '#f4e7cd', line: '#eadcb9' },
+    serious:     { bg: '#eef1f4', panel: '#f8fafb', card: '#f1f4f7', ink: '#232a30', muted: '#6a747e', accent: '#54616e', accentSoft: '#e3e8ed', line: '#d7dee4' },
+    dark:        { bg: '#eaecef', panel: '#f6f7f9', card: '#eff1f4', ink: '#1e2026', muted: '#6b6f78', accent: '#3c4049', accentSoft: '#e0e2e7', line: '#d2d5db' },
+    wholesome:   { bg: '#f3f6ea', panel: '#fbfdf5', card: '#f4f7ec', ink: '#28301c', muted: '#74805d', accent: '#6f8f37', accentSoft: '#e5edcf', line: '#d9e2bf' },
+    suspenseful: { bg: '#eaf1f3', panel: '#f7fafb', card: '#eef4f6', ink: '#1c2a30', muted: '#607680', accent: '#25647a', accentSoft: '#dcebef', line: '#cddfe4' },
+    adventurous: { bg: '#f9f2e6', panel: '#fdfaf4', card: '#f8f2e8', ink: '#2b2416', muted: '#8a7654', accent: '#cf7206', accentSoft: '#f3e2c9', line: '#ebd8b6' }
+  };
+
+  function applyTheme() {
+    const theme = (answers.genre && THEMES[answers.genre]) ||
+                  (answers.mood && THEMES[answers.mood]) ||
+                  THEMES.default;
+    const root = document.documentElement;
+    root.style.setProperty('--bg', theme.bg);
+    root.style.setProperty('--panel', theme.panel);
+    root.style.setProperty('--card', theme.card);
+    root.style.setProperty('--ink', theme.ink);
+    root.style.setProperty('--muted', theme.muted);
+    root.style.setProperty('--accent', theme.accent);
+    root.style.setProperty('--accent-soft', theme.accentSoft);
+    root.style.setProperty('--line', theme.line);
+  }
+
+  const SVG_MOTIFS = {
+    search: '<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>',
+    book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    eye: '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
+    moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+    star: '<polygon points="12 2 15 9 22 9 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9 9 9 12 2"/>',
+    compass: '<circle cx="12" cy="12" r="9"/><polygon points="16 8 13.5 13.5 8 16 10.5 10.5 16 8"/>',
+    crown: '<path d="M3 17h18v3H3z"/><path d="M4 8l3.5 3L12 6l4.5 5L20 8v6H4z"/>',
+    sword: '<path d="M12 3v11"/><path d="M8 9h8"/><path d="M12 14l-3 7h6z"/>',
+    flame: '<path d="M12 3c2.5 4 4 6.5 4 9a4 4 0 0 1-8 0c0-2.5 1.5-5 4-9z"/><path d="M12 20a1.8 1.8 0 0 1 0-3.6 1.8 1.8 0 0 1 0 3.6z"/>',
+    rocket: '<path d="M12 3c2.7 2.7 3.8 6.4 3.8 10L12 20l-3.8-7C8.2 9.4 9.3 5.7 12 3z"/><circle cx="12" cy="10" r="1.5"/>',
+    planet: '<circle cx="12" cy="12" r="4.2"/><ellipse cx="12" cy="12" rx="10" ry="3.6" transform="rotate(-18 12 12)"/>',
+    ring: '<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="3.5"/>',
+    broom: '<path d="M12 22v-8"/><path d="M12 14c-2-1.2-3-2.8-3-4.8 0-.4.4-.7.7-.7h4.6c.3 0 .7.3.7.7 0 2-1 3.6-3 4.8z"/>',
+    castle: '<path d="M3 21v-5h2v5M8 21v-5h2v5M13 21v-5h2v5M18 21v-5h2v5"/><path d="M2 16h20v-4H2z"/>'
+  };
+
+  const GENRE_MOTIFS = {
+    highfantasy: 'castle',
+    lowfantasy: 'star',
+    scifi: 'planet',
+    mystery: 'search',
+    thriller: 'eye',
+    romance: 'heart',
+    dystopia: 'flame',
+    historical: 'book',
+    nonfiction: 'book'
+  };
+
+  const BOOK_MOTIFS = {
+    "Harry Potter and the Sorcerer's Stone": 'broom',
+    "The Hobbit": 'ring',
+    "The Martian": 'rocket',
+    "The Hitchhiker's Guide to the Galaxy": 'rocket',
+    "Ready Player One": 'rocket',
+    "Foundation": 'planet',
+    "A Game of Thrones": 'sword',
+    "The Way of Kings": 'sword',
+    "Mistborn": 'flame',
+    "The Name of the Wind": 'zap',
+    "1984": 'eye',
+    "The Hunger Games": 'flame',
+    "Fahrenheit 451": 'flame',
+    "Percy Jackson: The Lightning Thief": 'zap',
+    "A Wrinkle in Time": 'planet',
+    "The Giver": 'eye',
+    "The Time Traveler's Wife": 'clock',
+    "The Girl on the Train": 'eye',
+    "Gone Girl": 'eye',
+    "The Da Vinci Code": 'search',
+    "The Selection": 'crown',
+    "Red, White & Royal Blue": 'crown',
+    "Good Omens": 'star',
+    "American Gods": 'moon',
+    "Piranesi": 'compass',
+    "Circe": 'zap',
+    "Redwall": 'sword',
+    "The Lion, the Witch and the Wardrobe": 'star',
+    "City of Ember": 'flame',
+    "Scythe": 'moon'
+  };
+
+  function svg(name) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + (SVG_MOTIFS[name] || SVG_MOTIFS.book) + '</svg>';
+  }
+
+  function getMotif(book) {
+    return BOOK_MOTIFS[book.title] || GENRE_MOTIFS[book.genre] || 'book';
+  }
+
+  const GENRE_COLORS = {
+    highfantasy: '#2f6b3a',
+    lowfantasy: '#6d4a9e',
+    scifi: '#1b6f8f',
+    mystery: '#35477d',
+    thriller: '#8f1f1f',
+    romance: '#b8446e',
+    dystopia: '#4a5259',
+    historical: '#8a5a2b',
+    nonfiction: '#2f5d86'
+  };
+
+  const BOOK_COLORS = {
+    "Harry Potter and the Sorcerer's Stone": '#7a1f1f',
+    "The Hobbit": '#3f7a2a',
+    "The Martian": '#c1440e',
+    "The Hitchhiker's Guide to the Galaxy": '#2f8a6a',
+    "Ready Player One": '#a0551f',
+    "Foundation": '#4a6b8a',
+    "Dune": '#a07a2f',
+    "A Game of Thrones": '#5a2020',
+    "The Way of Kings": '#1f6b6b',
+    "Mistborn": '#5a6a7a',
+    "The Name of the Wind": '#b07a1f',
+    "1984": '#33383f',
+    "The Hunger Games": '#b3541e',
+    "Fahrenheit 451": '#d4461f',
+    "Percy Jackson: The Lightning Thief": '#1d4e89',
+    "A Wrinkle in Time": '#3a6b8a',
+    "The Giver": '#8a8f96',
+    "The Time Traveler's Wife": '#5a6b8a',
+    "The Girl on the Train": '#3a3a4a',
+    "Gone Girl": '#4a2a2a',
+    "The Da Vinci Code": '#7a5c1f',
+    "The Selection": '#9a5c8f',
+    "Red, White & Royal Blue": '#34558b',
+    "Good Omens": '#6b1f1f',
+    "American Gods": '#4a3f5a',
+    "Piranesi": '#6b8a7a',
+    "Circe": '#b08a1f',
+    "Redwall": '#7a4a1f',
+    "The Lion, the Witch and the Wardrobe": '#3a6b7a',
+    "City of Ember": '#b3541e',
+    "Scythe": '#3f4a5a',
+    "Twilight": '#6b1f2a'
+  };
+
+  function getColor(book) {
+    return BOOK_COLORS[book.title] || GENRE_COLORS[book.genre] || '#b3541e';
+  }
+
+  function crest(name, color) {
+    const inner = SVG_MOTIFS[name] || SVG_MOTIFS.book;
+    return '<svg viewBox="0 0 24 24" fill="none">' +
+      '<path d="M12 1.5 L21 5 V11 C21 16.5 16.5 20.5 12 23 C7.5 20.5 3 16.5 3 11 V5 Z" fill="' + color + '"/>' +
+      '<path d="M12 3.3 L19.2 6 V11 C19.2 15.7 15 19.3 12 21.6 C9 19.3 4.8 15.7 4.8 11 V6 Z" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>' +
+      '<svg x="6" y="6" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>' +
+      '</svg>';
+  }
+
+  async function fetchCover(title, author) {
+    try {
+      const url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(title + ' ' + author) +
+        '&fields=cover_i&limit=1';
+      const data = await fetch(url).then(r => r.json());
+      const doc = data.docs && data.docs[0];
+      if (doc && doc.cover_i) return 'https://covers.openlibrary.org/b/id/' + doc.cover_i + '-L.jpg';
+    } catch (e) {}
+    return null;
+  }
+
+  const AGE_ALLOWED = {
+    kids: ['kids'],
+    teen: ['kids', 'teen'],
+    adult: ['teen', 'adult']
+  };
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+
+  function scoreBooks() {
+    const allowed = AGE_ALLOWED[answers.age] || ['kids', 'teen', 'adult'];
+    let pool = BOOKS.filter(b => allowed.includes(b.age) && !readTitles.has(b.title));
+
+    // Genre-first: if any age-appropriate book matches the genre, stick to those.
+    const genreMatch = pool.filter(b => b.genre === answers.genre);
+    if (genreMatch.length) pool = genreMatch;
+
+    const scored = pool.map(book => {
+      let s = 0;
+      for (const [key, val] of Object.entries(answers)) {
+        if (key === 'age' || key === 'genre' || key === 'favorite') continue;
+        if (key === 'series' && val === 'either') continue;
+        if (book[key] === val) s += 2;
+      }
+      return { book, score: s };
+    });
+
+    // Shuffle then stable-sort so ties break randomly → different books each run.
+    shuffle(scored);
+    return scored.sort((a, b) => b.score - a.score);
+  }
+
+  function matchedLabels(book) {
+    const labels = { age: 'age', mood: 'mood', genre: 'genre', length: 'length', pace: 'pace', series: 'series' };
+    return Object.entries(answers)
+      .filter(([k, v]) => book[k] === v)
+      .map(([k]) => labels[k]);
+  }
+
+  const SUBJECT_MAP = {
+    scifi: 'science fiction',
+    highfantasy: 'fantasy',
+    lowfantasy: 'fantasy',
+    mystery: 'mystery',
+    thriller: 'thriller',
+    romance: 'romance',
+    dystopia: 'dystopias',
+    historical: 'historical fiction',
+    nonfiction: 'nonfiction'
+  };
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function isEnglish(doc) {
+    const langs = doc.language || [];
+    if (langs.length && !langs.includes('eng')) return false;
+    const t = doc.title || '';
+    return !/[^\x20-\x7E]/.test(t); // drop titles with accents/non-Latin scripts
+  }
+
+  function hasSubject(doc, re) {
+    return Array.isArray(doc.subject) && doc.subject.some(s => re.test(s));
+  }
+
+  function filterByAge(docs, age) {
+    if (age === 'kids') return docs.filter(d => hasSubject(d, /juvenile|children/i));
+    if (age === 'teen') return docs.filter(d => hasSubject(d, /young adult|juvenile|teen/i));
+    if (age === 'adult') return docs.filter(d => !hasSubject(d, /juvenile|young adult/i));
+    return docs;
+  }
+
+  function moreItemHtml(b) {
+    const author = (b.author_name && b.author_name[0]) || 'Unknown author';
+    const year = b.first_publish_year ? ` · ${b.first_publish_year}` : '';
+    const pages = b.number_of_pages_median ? ` · ~${b.number_of_pages_median} pages` : '';
+    const link = b.key ? `https://openlibrary.org${b.key}` : '#';
+    return `<div class="more-item">
+      <span class="t"><a href="${link}" target="_blank" rel="noopener">${escapeHtml(b.title)}</a></span>
+      <span class="meta">${escapeHtml(author)}${year}${pages}</span>
+    </div>`;
+  }
+
+  async function fetchMore(genre, age) {
+    const subject = SUBJECT_MAP[genre] || genre;
+    const q = subject.includes(' ') ? `subject:"${subject}"` : `subject:${subject}`;
+    const url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(q) +
+      '&lang=eng&limit=50&fields=title,author_name,first_publish_year,number_of_pages_median,subject,key,language';
+    const data = await fetch(url).then(r => r.json());
+    const docs = (data.docs || []).filter(isEnglish);
+    let list = filterByAge(docs, age);
+    if (list.length < 3 && age !== 'kids') list = docs;
+    return list.slice(0, 10);
+  }
+
+  async function loadMore(genre, age) {
+    const list = document.getElementById('more-list');
+    try {
+      const books = await fetchMore(genre, age);
+      if (!books.length) {
+        list.innerHTML = '<span class="more-status">No extra results found for this genre.</span>';
+        return;
+      }
+      list.innerHTML = books.map(moreItemHtml).join('');
+    } catch (err) {
+      list.innerHTML = '<span class="more-status">Couldn\'t reach Open Library. Check your connection and try again.</span>';
+    }
+  }
+
+  async function loadBecauseLiked(query) {
+    const box = document.getElementById('liked-list');
+    try {
+      const resolveUrl = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) +
+        '&limit=1&fields=key,title,author_name,subject';
+      const rd = await fetch(resolveUrl).then(r => r.json());
+      const top = (rd.docs && rd.docs[0]) || null;
+      if (!top) {
+        box.innerHTML = '<span class="more-status">Couldn\'t find that author or book.</span>';
+        return;
+      }
+
+      const author = top.author_name && top.author_name[0];
+      const subject = (top.subject || []).find(s => !/fiction$/i.test(s) && !/juvenile|children/i.test(s));
+
+      const terms = [];
+      if (author) terms.push('author:"' + author + '"');
+      if (subject) terms.push('subject:"' + subject + '"');
+      if (!terms.length) {
+        box.innerHTML = '<span class="more-status">No similar books found.</span>';
+        return;
+      }
+
+      const url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(terms.join(' OR ')) +
+        '&lang=eng&limit=20&fields=title,author_name,first_publish_year,number_of_pages_median,key,language';
+      const data = await fetch(url).then(r => r.json());
+      const docs = (data.docs || [])
+        .filter(isEnglish)
+        .filter(d => d.title !== top.title)
+        .slice(0, 8);
+
+      if (!docs.length) {
+        box.innerHTML = '<span class="more-status">No similar books found.</span>';
+        return;
+      }
+      box.innerHTML = docs.map(moreItemHtml).join('');
+    } catch (err) {
+      box.innerHTML = '<span class="more-status">Couldn\'t reach Open Library. Check your connection and try again.</span>';
+    }
+  }
+
+  function renderPicks() {
+    const top = scoreBooks();
+    const picksEl = document.getElementById('picks');
+
+    if (!top.length) {
+      picksEl.innerHTML = `<div class="hero">
+        <span class="tag">All caught up</span>
+        <p class="blurb">You've marked everything in this match as read. Try different answers or start over.</p>
+      </div>`;
+      return;
+    }
+
+    const best = top[0];
+    const runners = top.slice(1, 3);
+    const matched = matchedLabels(best.book);
+    const bookColor = getColor(best.book);
+    const crestSvg = crest(getMotif(best.book), bookColor);
+
+    picksEl.innerHTML = `
+      <div class="hero">
+        <div class="hero-watermark">${crestSvg}</div>
+        <div class="hero-inner">
+          <div class="motif" id="hero-visual">${crestSvg}</div>
+          <span class="tag" style="color:${bookColor}">Your next read</span>
+          <h2>${best.book.title}</h2>
+          <div class="author">by ${best.book.author}</div>
+          <p class="blurb">${best.book.blurb}</p>
+          <p class="matches">Matched your <b>${matched.join(', ')}</b></p>
+          <button class="read-btn" data-title="${escapeHtml(best.book.title)}">Already read this — suggest another</button>
+        </div>
+      </div>
+      ${runners.length ? `<div class="runners">
+        ${runners.map(r => `
+          <div class="runner">
+            <span class="runner-motif">${crest(getMotif(r.book), getColor(r.book))}</span>
+            <span class="meta">
+              <span class="title">${r.book.title}</span>
+              <span class="author">by ${r.book.author}</span>
+            </span>
+            <button class="read-btn runner-read" data-title="${escapeHtml(r.book.title)}">already read</button>
+          </div>`).join('')}
+      </div>` : ''}
+    `;
+
+    picksEl.querySelectorAll('.read-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        readTitles.add(btn.dataset.title);
+        renderPicks();
+      });
+    });
+
+    const visual = picksEl.querySelector('#hero-visual');
+    fetchCover(best.book.title, best.book.author).then(url => {
+      if (!url || !visual) return;
+      const img = document.createElement('img');
+      img.className = 'cover';
+      img.alt = best.book.title + ' cover';
+      img.onload = () => { visual.innerHTML = ''; visual.appendChild(img); };
+      img.onerror = () => {};
+      img.src = url;
+    });
+  }
+
+  function showResults() {
+    quizEl.style.display = 'none';
+    resultsEl.classList.add('show');
+    resultsEl.innerHTML = `
+      <div id="picks"></div>
+      ${answers.favorite ? `
+      <div class="more">
+        <h3>Because you liked ${escapeHtml(answers.favorite)}</h3>
+        <p class="more-note">More like it, from Open Library</p>
+        <div class="more-list" id="liked-list"><span class="more-status">Searching Open Library…</span></div>
+      </div>` : ''}
+      <div class="more">
+        <h3>More in this genre</h3>
+        <p class="more-note">Live results from Open Library</p>
+        <div class="more-list" id="more-list"><span class="more-status">Searching Open Library…</span></div>
+      </div>
+      <button class="restart" id="restart">Start over</button>
+    `;
+
+    renderPicks();
+    document.getElementById('restart').addEventListener('click', restart);
+    loadMore(answers.genre, answers.age);
+    if (answers.favorite) loadBecauseLiked(answers.favorite);
+  }
+
+  function restart() {
+    for (const k in answers) delete answers[k];
+    readTitles.clear();
+    current = 0;
+    applyTheme();
+    resultsEl.classList.remove('show');
+    resultsEl.innerHTML = '';
+    quizEl.style.display = '';
+    renderQuestion();
+  }
+
+  renderQuestion();
+</script>
+</body>
+</html>
