@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over-Stats</title>
+<style>
+  :root {
+    --bg: #0d0d1a; --panel: #141428; --border: rgba(255,255,255,0.06);
+    --text: #ccd; --muted: #7a7a90; --orange: #f99e1b; --blue: #00c3ff;
+    --tank: #4a90d9; --damage: #e05a3a; --support: #5cb85c;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  header {
+    text-align: center; padding: 40px 20px 24px;
+    background: linear-gradient(180deg, #1a1a30 0%, var(--bg) 100%);
+  }
+  header h1 { font-size: 2.4rem; letter-spacing: 0.06em; color: #fff; }
+  header p  { color: var(--muted); margin-top: 6px; }
+  .filters {
+    display: flex; justify-content: center; gap: 10px; padding: 0 20px 30px;
+    flex-wrap: wrap;
+  }
+  .filters button {
+    padding: 8px 22px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12);
+    background: var(--panel); color: var(--text); font-size: 0.85rem;
+    font-weight: 600; cursor: pointer; letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+  .filters button:hover { border-color: rgba(255,255,255,0.3); }
+  .filters button.active { background: var(--orange); color: #000; border-color: var(--orange); }
+  .filters button.tank.active { background: var(--tank); border-color: var(--tank); }
+  .filters button.damage.active { background: var(--damage); border-color: var(--damage); }
+  .filters button.support.active { background: var(--support); border-color: var(--support); }
+
+  .grid {
+    max-width: 1300px; margin: 0 auto; padding: 0 20px 40px;
+    columns: 3; column-gap: 20px;
+  }
+  @media (max-width: 1100px) { .grid { columns: 2; } }
+  @media (max-width:  700px) { .grid { columns: 1; } }
+
+  .card {
+    break-inside: avoid; margin-bottom: 16px;
+    background: var(--panel); border-radius: 8px; border: 1px solid var(--border);
+    overflow: hidden; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.18); }
+  .card-head {
+    padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-icon {
+    width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 900; color: #fff;
+    overflow: hidden;
+  }
+  .tank-icon    { background: var(--tank); }
+  .damage-icon  { background: var(--damage); }
+  .support-icon { background: var(--support); }
+
+  .card-name   { font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; }
+  .card-real   { font-size: 0.75rem; color: var(--muted); }
+  .card-role   { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .card-body   { padding: 12px 16px; }
+  .card-story  { font-size: 0.82rem; line-height: 1.6; color: #b0b0c8; margin-bottom: 10px; }
+  .card-abilities { font-size: 0.76rem; color: var(--muted); line-height: 1.6; }
+  .card-abilities strong { color: var(--orange); }
+  .hidden { display: none; }
+
+  footer {
+    text-align: center; padding: 20px; color: var(--muted); font-size: 0.72rem;
+    letter-spacing: 0.06em; border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>OVER-STATS</h1>
+  <p>42 heroes · brief backstories &amp; abilities</p>
+  <nav style="margin-top:16px;display:flex;justify-content:center;gap:8px">
+    <a href="all-heroes.html" style="color:var(--orange);text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;padding:6px 14px;border-radius:4px;background:rgba(249,158,27,0.1)">Heroes</a>
+    <a href="about.html" style="color:var(--muted);text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;padding:6px 14px;border-radius:4px;transition:all 0.15s" onmouseover="this.style.color='var(--orange)';this.style.background='rgba(249,158,27,0.08)'" onmouseout="this.style.color='';this.style.background=''">About</a>
+  </nav>
+</header>
+
+<div class="filters">
+  <button class="active" onclick="filter('all')">All</button>
+  <button class="tank"    onclick="filter('tank')">Tank</button>
+  <button class="damage"  onclick="filter('damage')">Damage</button>
+  <button class="support" onclick="filter('support')">Support</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>OVERWATCH &copy; BLIZZARD ENTERTAINMENT — FAN REFERENCE PAGE</footer>
+
+<script>
+const heroes = [
+  // ── TANKS ──────────────────────────────
+  {name:"D.Va", real:"Hana Song", role:"tank", hp:"300A·150 (Mech)", story:"A former pro gamer from South Korea, Hana was recruited by MEKA to pilot a mech against the Gwishin omnic threat. She now balances stardom with frontline combat.", ab:"<strong>Fusion Cannons</strong> — 2.25 dmg per pellet (×11 pellets), no reload · <strong>Defense Matrix</strong> — 3s duration, 1s cooldown · <strong>Boosters</strong> — 2s duration, 3.5s cooldown · <strong>Micro Missiles</strong> — 7 dmg per missile (×18), 7s cooldown · <strong>Self-Destruct</strong> (ult · 1550 pts) — 1000 dmg center, 15m radius"},
+  {name:"Doomfist", real:"Akande Ogundimu", role:"tank", hp:"375", story:"Heir to a Nigerian cybernetics empire, Akande became a warlord who seized control of Talon. He sees conflict as the only path to making humanity stronger.", ab:"<strong>Hand Cannon</strong> — 6.6 dmg per pellet (×11), 0.65s/shot · <strong>Power Block</strong> — 80% dmg reduction, 1s duration, 8s cooldown · <strong>Seismic Slam</strong> — 50 dmg, 6.5s cooldown · <strong>Rocket Punch</strong> — 25–50 impact / 15–35 wall, 3.5s cooldown · <strong>Meteor Strike</strong> (ult · 1750 pts) — 300 center / 15–100 outer"},
+  {name:"Hazard", real:"Liam Byrne", role:"tank", hp:"325", story:"A Scottish punk and ex-Overwatch cadet turned Phreaks gang enforcer. His body is augmented with crystallized energy shards that let him manipulate a volatile resource called Spike.", ab:"<strong>Boneshatter</strong> — 7.5 dmg per pellet (×10), 1.2 shots/s · <strong>Jagged Wall</strong> — 50 dmg on impact, 6s wall duration, 12s cooldown · <strong>Violent Leap</strong> — 40 dmg on landing, 5s cooldown · <strong>Spike Guard</strong> — blocks 150 dmg, 8s cooldown · <strong>Downpour</strong> (ult · 2100 pts) — 100 dmg/s, 5s duration"},
+  {name:"Junker Queen", real:"Odessa Stone", role:"tank", hp:"425", story:"Exiled from Junkertown as a teen, Odessa fought her way back and claimed the throne. She rules the wasteland with a magnetic axe and a chip on her shoulder.", ab:"<strong>Scattergun</strong> — 8.5 dmg per pellet (×6), 0.8 shots/s · <strong>Jagged Blade</strong> — 65 impact + 15 wound (3s), 6s cooldown · <strong>Carnage</strong> — 90 dmg + 40 wound, 8s cooldown · <strong>Commanding Shout</strong> — +50 HP / +30% speed, 5s duration, 14s cooldown · <strong>Rampage</strong> (ult · 2100 pts) — 100 dmg + 100 wound, 4.5s anti-heal"},
+  {name:"Mauga", real:"Maugaloa Malosi", role:"tank", hp:"475", story:"A Samoan warrior who grew up idolizing strength above all. Baptiste's oldest friend turned bitter rival — he joined Talon for the thrill of endless combat.", ab:"<strong>Gunny</strong> — 4.5 dmg/shot, ignites on 10 hits (burn: 90 dmg/3s) · <strong>Cha-cha</strong> — 4.5 dmg/shot, crits on burning targets · <strong>Overrun</strong> — 60 dmg on stomp, 5s cooldown · <strong>Cardiac Overdrive</strong> — 30% lifesteal / 30% dmg reduction, 5s duration, 15s cooldown · <strong>Cage Fight</strong> (ult · 2200 pts) — traps enemies, 8s duration, 5.5m radius"},
+  {name:"Orisa", real:"Orisa", role:"tank", hp:"375", story:"Built by child-genius Efi Oladele to protect Numbani after Doomfist's attack. An OR-15 chassis rebuilt with heart — she is the city's gentle guardian.", ab:"<strong>Augmented Fusion Driver</strong> — 12 dmg/shot, 0.25s/shot, heat mechanic (150 rounds overheat) · <strong>Energy Javelin</strong> — 80 dmg / 40 wall impact, 6s cooldown · <strong>Fortify</strong> — 45% dmg reduction, 4.5s duration, 12s cooldown · <strong>Javelin Spin</strong> — blocks projectiles, 60 dmg on contact, 7s cooldown · <strong>Terra Surge</strong> (ult · 1850 pts) — pull + 200–500 dmg, 4s charge"},
+  {name:"Ramattra", real:"Ramattra", role:"tank", hp:"400 (+225A Nemesis)", story:"A Ravager unit who led omnics during the Crisis, then founded Null Sector to fight for omnic liberation. Zenyatta's former brother — now convinced peace is a lie.", ab:"<strong>Void Accelerator</strong> — 5 dmg per rod (×23/sec) · <strong>Nemesis Form</strong> — 8s duration, 8s cooldown · <strong>Pummel</strong> (Nemesis) — 100 dmg/punch, 0.6s/punch · <strong>Ravenous Vortex</strong> — 40 dmg/s + slow, 3s duration, 12s cooldown · <strong>Annihilation</strong> (ult · 2100 pts) — 30 dmg/s AoE, persists while enemies are in range"},
+  {name:"Reinhardt", real:"Reinhardt Wilhelm", role:"tank", hp:"225+275A", story:"A German Crusader knight who fought in the Omnic Crisis and refused to retire. Larger than life, he lives by a code of honor and a rocket hammer.", ab:"<strong>Rocket Hammer</strong> — 100 dmg/swing, 0.96s/swing, 5m range · <strong>Barrier Field</strong> — 1500 HP, regens 175/s after 2s · <strong>Charge</strong> — 225 dmg pin / 50 knockback, 7s cooldown · <strong>Fire Strike</strong> — 120 dmg (×2 charges), 6s cooldown each · <strong>Earthshatter</strong> (ult · 1650 pts) — 120 dmg + 2.75s stun, 20m cone"},
+  {name:"Roadhog", real:"Mako Rutledge", role:"tank", hp:"550", story:"A bodyguard turned wasteland enforcer after the Australian omnium explosion poisoned his homeland. Junkrat's partner — silent, brutal, and carrying deep guilt.", ab:"<strong>Scrap Gun</strong> — 6 dmg per pellet (×25) / alt fire 6 dmg per pellet (×16) · <strong>Chain Hook</strong> — 30 dmg on hook + 30 on impact, 6s cooldown · <strong>Take a Breather</strong> — heal 350 HP, 40% dmg reduction, 2s channel, 8s cooldown · <strong>Pig Pen</strong> — 60 dmg over 3s + slow, 10s cooldown · <strong>Whole Hog</strong> (ult · 2100 pts) — 6000 total dmg over 6s, knockback"},
+  {name:"Sigma", real:"Siebren de Kuiper", role:"tank", hp:"275+275S", story:"A brilliant Dutch astrophysicist whose experiments with gravity went catastrophically wrong, fracturing his mind. Talon now wields him as a living weapon.", ab:"<strong>Hyperspheres</strong> — 25 dmg per sphere (×2), 1.5 shots/s · <strong>Experimental Barrier</strong> — 700 HP, freely placeable · <strong>Kinetic Grasp</strong> — absorbs projectiles → up to 400 shields, 2s duration, 12s cooldown · <strong>Accretion</strong> — 80 dmg + knockdown, 10s cooldown · <strong>Gravitic Flux</strong> (ult · 2100 pts) — 50 lift + 50% max HP on slam"},
+  {name:"Winston", real:"Winston", role:"tank", hp:"225+300A", story:"A genetically enhanced gorilla raised on the Horizon Lunar Colony. After the other apes rebelled, he escaped to Earth and now leads the reformed Overwatch.", ab:"<strong>Tesla Cannon</strong> — 70 dmg/s, 8m range, 100 ammo (5s continuous) · <strong>Barrier Projector</strong> — 650 HP, 9s duration, 13s cooldown · <strong>Jump Pack</strong> — 50 dmg on landing, 5s cooldown · <strong>Primal Rage</strong> (ult · 1650 pts) — +700 HP, 40 dmg/swing, 10s duration"},
+  {name:"Wrecking Ball", real:"Hammond", role:"tank", hp:"150+175A", story:"A hamster who escaped the Horizon Lunar Colony alongside Winston. He built a giant mech and became Junkertown's champion gladiator before joining Overwatch.", ab:"<strong>Quad Cannons</strong> — 5.5 dmg/shot (×40/s), 80 ammo · <strong>Grappling Claw</strong> — max 50 dmg at full speed, no cooldown · <strong>Adaptive Shield</strong> — +100 HP + 100 per nearby enemy, 9s duration, 15s cooldown · <strong>Piledriver</strong> — 100 dmg, 10s cooldown · <strong>Minefield</strong> (ult · 1900 pts) — 130 dmg per mine (×15), 20s duration"},
+  {name:"Zarya", real:"Aleksandra Zaryanova", role:"tank", hp:"100+325S", story:"A Siberian weightlifter who enlisted to protect her village during the Omnic Crisis. She wields a particle cannon powered by her own strength and resolve.", ab:"<strong>Particle Cannon</strong> — 75–170 dmg/s (scales with energy 0–100%), 100 ammo · <strong>Particle Barrier</strong> — 200 HP, 2s duration, +energy on absorb, 10s cooldown · <strong>Projected Barrier</strong> — 200 HP, 2s duration, +energy on absorb, 8s cooldown · <strong>Graviton Surge</strong> (ult · 2100 pts) — 5 dmg + 3.5s pull, 6m radius"},
+
+  // ── DAMAGE ──────────────────────────────
+  {name:"Ashe", real:"Elizabeth Caledonia Ashe", role:"damage", hp:"250", story:"Heiress to a fortune she never wanted, Elizabeth became an outlaw and founded the Deadlock Gang. She runs the American Southwest with a lever-action rifle and a loyal omnic butler, B.O.B.", ab:"<strong>The Viper</strong> — 40 dmg / 85 scoped headshot, 12 rounds · <strong>Coach Gun</strong> — 80 dmg + knockback, 10s cooldown · <strong>Dynamite</strong> — 50 impact + 100 burn/5s, 12s cooldown · <strong>B.O.B.</strong> (ult · 2000 pts) — 1200 HP, charges for 120 dmg + knockup, 10s duration"},
+  {name:"Bastion", real:"SST Siege Automaton E54", role:"damage", hp:"200+100A", story:"A Bastion unit that woke up alone in the Black Forest decades after the Omnic Crisis. It overcame its combat programming and now explores the world with curiosity, befriending a bird named Ganymede.", ab:"<strong>Config: Recon</strong> — 25 dmg/shot, 5 shots/s, 25 rounds · <strong>Config: Sentry</strong> — 12 dmg/shot, 30 shots/s, 150 rounds · <strong>Config: Assault</strong> — mortar: 100–200 dmg (3 shots), 12s cooldown · <strong>A-36 Grenade</strong> — 110 dmg + bounce, 10s cooldown · <strong>Config: Artillery</strong> (ult · 2100 pts) — 3 strikes, 200–600 dmg each, 8s window"},
+  {name:"Cassidy", real:"Cole Cassidy", role:"damage", hp:"275", story:"A former Deadlock Gang gunslinger captured by Overwatch and given a second chance. After Overwatch fell, he became a wandering vigilante with a quick draw and a guilty conscience.", ab:"<strong>Peacekeeper</strong> — 70 dmg/shot, 2 shots/s, 6 rounds · <strong>Combat Roll</strong> — reloads + 75% dmg reduction, 6s cooldown · <strong>Magnetic Grenade</strong> — 70 dmg + 65 delayed, 10s cooldown · <strong>Deadeye</strong> (ult · 1950 pts) — 130 dmg/s charge per target, 6s duration"},
+  {name:"Echo", real:"Echo", role:"damage", hp:"200", story:"An adaptive AI created by Dr. Mina Liao, one of Overwatch's founders. She was designed to learn and evolve — now she carries on her creator's dream of a better world.", ab:"<strong>Tri-Shot</strong> — 17 dmg per triangle (×3), 1 shot/0.7s, 12 shots · <strong>Flight</strong> — 3s duration, 6s cooldown · <strong>Sticky Bombs</strong> — 30 dmg per bomb (×6), exploding after 1s, 6s cooldown · <strong>Focusing Beam</strong> — 200 dmg/s vs targets <50% HP, 2.5s, 8s cooldown · <strong>Duplicate</strong> (ult · 1850 pts) — copy enemy hero, 15s duration, 4× ult charge rate"},
+  {name:"Genji", real:"Genji Shimada", role:"damage", hp:"250", story:"The younger son of the Shimada crime family, nearly killed by his brother Hanzo. Rebuilt as a cyborg by Overwatch, he found peace under Zenyatta's guidance.", ab:"<strong>Shuriken</strong> — 27 dmg per shuriken (×3), 1 burst/0.68s · <strong>Deflect</strong> — reflects projectiles back at attacker, 2s duration, 8s cooldown · <strong>Swift Strike</strong> — 50 dmg, resets on elim, 8s cooldown · <strong>Dragonblade</strong> (ult · 1850 pts) — 110 dmg/swing, 6s duration"},
+  {name:"Hanzo", real:"Hanzo Shimada", role:"damage", hp:"250", story:"The elder Shimada brother who was ordered to kill Genji. Haunted by guilt, he abandoned the clan and wanders the world seeking redemption — one arrow at a time.", ab:"<strong>Storm Bow</strong> — 120 dmg full charge, 0.72s charge time · <strong>Sonic Arrow</strong> — reveals enemies in 9m radius, 6s duration, 12s cooldown · <strong>Storm Arrows</strong> — 5 rapid arrows at 65 dmg each, 8s duration, 8s cooldown · <strong>Lunge</strong> — double jump, 5s cooldown · <strong>Dragonstrike</strong> (ult · 1750 pts) — 280 dmg/s, 4s duration, passes through walls"},
+  {name:"Junkrat", real:"Jamison Fawkes", role:"damage", hp:"250", story:"A explosives-obsessed scavenger from the irradiated Australian outback. He and Roadhog travel the world causing mayhem, searching for a fabled treasure.", ab:"<strong>Frag Launcher</strong> — 80 direct / 10–60 splash, 1.66 shots/s, 5 rounds · <strong>Concussion Mine</strong> — 120 dmg, 2 charges, 8s cooldown each · <strong>Steel Trap</strong> — 100 dmg + 3s root, 10s cooldown · <strong>RIP-Tire</strong> (ult · 1500 pts) — 600 dmg, 10s duration, 100 HP, wall-climbing"},
+  {name:"Mei", real:"Mei-Ling Zhou", role:"damage", hp:"300", story:"A Chinese climatologist who cryogenically froze herself to survive a polar storm. She awoke nine years later to find Overwatch disbanded and her colleagues gone — but she never lost hope.", ab:"<strong>Endothermic Blaster</strong> — 100 dmg/s (spray) + slow → freeze at 100, 1.5s freeze · <strong>Icicle</strong> — 75 dmg, 0.4s delay · <strong>Cryo-Freeze</strong> — heals 50 HP/s, 4s duration, 12s cooldown · <strong>Ice Wall</strong> — 250 HP per pillar (×5), 5s duration, 12s cooldown · <strong>Blizzard</strong> (ult · 1500 pts) — 40 dmg/s + freeze, 5s duration, 10m radius"},
+  {name:"Pharah", real:"Fareeha Amari", role:"damage", hp:"250", story:"Daughter of Ana Amari, Fareeha grew up idolizing Overwatch. She served in the Egyptian army and now fights with a rocket-launching Raptora suit, carrying on her mother's legacy.", ab:"<strong>Rocket Launcher</strong> — 120 direct / 30–80 splash, 1 shot/0.85s, 6 rounds · <strong>Jump Jet</strong> — launches upward, 10s cooldown · <strong>Concussive Blast</strong> — knockback only, no damage, 9s cooldown · <strong>Barrage</strong> (ult · 2100 pts) — 3600 total dmg over 3s, fires 30 rockets"},
+  {name:"Reaper", real:"Gabriel Reyes", role:"damage", hp:"300", story:"Once the commander of Blackwatch, Overwatch's covert ops division. Betrayed and left for dead, he now exists as a wraith — a Talon enforcer driven by vengeance.", ab:"<strong>Hellfire Shotguns</strong> — 5.4 dmg per pellet (×20), 2 shots/s, 8 rounds · <strong>Wraith Form</strong> — invulnerable + speed boost, 3s duration, 8s cooldown · <strong>Shadow Step</strong> — teleport 35m, 10s cooldown · <strong>Death Blossom</strong> (ult · 1900 pts) — 170 dmg/s, 3s duration, 12m radius"},
+  {name:"Sojourn", real:"Vivian Chase", role:"damage", hp:"250", story:"A Canadian special-forces captain who was one of Overwatch's first recruits. A seasoned leader with cybernetic augmentations and a railgun that charges with every hit.", ab:"<strong>Railgun</strong> — primary: 9 dmg/shot (14 shots/s) · <strong>Railgun Alt</strong> — 1–130 dmg based on charge, headshot capable · <strong>Power Slide</strong> — slide + jump, 7s cooldown · <strong>Disruptor Shot</strong> — 60 dmg/s + slow, 4s duration, 15s cooldown · <strong>Overclock</strong> (ult · 2100 pts) — railgun auto-charges, pierces enemies, 9s duration"},
+  {name:"Soldier: 76", real:"Jack Morrison", role:"damage", hp:"250", story:"The former commander of Overwatch, presumed dead after the Swiss HQ explosion. Now a masked vigilante, he hunts those responsible for destroying everything he built.", ab:"<strong>Heavy Pulse Rifle</strong> — 19 dmg/shot, 9 shots/s, 30 rounds · <strong>Helix Rockets</strong> — 120 direct / 40–80 splash, 6s cooldown · <strong>Sprint</strong> — +50% move speed, infinite · <strong>Biotic Field</strong> — heals 40 HP/s, 5s duration, 18s cooldown · <strong>Tactical Visor</strong> (ult · 1950 pts) — auto-aim, +20% reload speed, 6s duration"},
+  {name:"Sombra", real:"Olivia Colomar", role:"damage", hp:"225", story:"An orphan from Dorado who survived by hacking. She uncovered a global conspiracy, went underground, and now manipulates both Talon and Overwatch from the shadows.", ab:"<strong>Machine Pistol</strong> — 8 dmg/shot, 20 shots/s, 60 rounds · <strong>Hack</strong> — silences abilities 6s, reveals through walls, 6s cooldown · <strong>Virus</strong> — 25 impact + 100 dmg/4s DoT (2× vs hacked), 6s cooldown · <strong>Translocator</strong> — teleport to beacon, 5s cooldown · <strong>EMP</strong> (ult · 1450 pts) — 30% max HP dmg + AoE hack, 3s silence"},
+  {name:"Symmetra", real:"Satya Vaswani", role:"damage", hp:"100+150S", story:"A Vishkar Corporation architech who can shape hard-light reality. She was recruited as a child from poverty and struggles to reconcile Vishkar's methods with her own conscience.", ab:"<strong>Photon Projector</strong> — beam: 60/120/180 dmg/s (charge levels 1–3), 100 ammo · <strong>Photon Projector Alt</strong> — 25 splash orb, 90 direct, chargeable · <strong>Sentry Turret</strong> — 30 dmg/s + slow, 3 charges (×3 max), 10s cooldown each · <strong>Teleporter</strong> — 12s duration, infinite uses, 150m range, 12s cooldown · <strong>Photon Barrier</strong> (ult · 1700 pts) — 4000 HP wall, 12s duration"},
+  {name:"Torbjörn", real:"Torbjörn Lindholm", role:"damage", hp:"250+50A", story:"A Swedish engineer and founding Overwatch member who designed the world's most advanced weapons systems. Now he fights to keep his creations out of the wrong hands.", ab:"<strong>Rivet Gun</strong> — primary: 70 dmg/shot, 0.55s/shot · alt fire: 12.5 dmg per pellet (×10) · <strong>Forge Hammer</strong> — repairs turret, 70 dmg/swing · <strong>Deploy Turret</strong> — 250 HP, 14 dmg/shot, 2 shots/s, 10s cooldown · <strong>Overload</strong> — +100 armor, +30% speed, +30% fire rate, 5s duration, 10s cooldown · <strong>Molten Core</strong> (ult · 1800 pts) — 10 globs, 160 dmg/s on impact, 4s pool duration"},
+  {name:"Tracer", real:"Lena Oxton", role:"damage", hp:"175", story:"The youngest pilot in Overwatch's experimental flight program. A chronal disassociation accident left her unstuck in time — now she blinks through battle as the world's most cheerful hero.", ab:"<strong>Pulse Pistols</strong> — 5.5 dmg/shot (×40/s total), 40 rounds · <strong>Blink</strong> — 7.5m teleport, 3 charges, 3s cooldown each · <strong>Recall</strong> — rewinds 3s, reloads + heals to max HP from 3s ago, 12s cooldown · <strong>Pulse Bomb</strong> (ult · 1350 pts) — 350 dmg stick / 175 splash, 3m radius"},
+  {name:"Venture", real:"Sloan Cameron", role:"damage", hp:"250+75S", story:"An archaeologist with a drill and an insatiable curiosity for buried secrets. They explore ancient ruins and aren't afraid to tunnel straight through anything in their way.", ab:"<strong>Smart Excavator</strong> — 40 dmg + 25 splash, 1.2 shots/s, 4 rounds · <strong>Drill Dash</strong> — 80 dmg, 2 charges, 8s cooldown each · <strong>Burrow</strong> — invulnerable underground, 40 dmg on emerge, 3.5s duration, 8s cooldown · <strong>Clobber</strong> (passive) — melee deals 80 dmg · <strong>Tectonic Shock</strong> (ult · 1800 pts) — 120 dmg per wave (×4), 10s duration"},
+  {name:"Widowmaker", real:"Amélie Lacroix", role:"damage", hp:"200", story:"The wife of an Overwatch agent, kidnapped and brainwashed by Talon. Her physiology was altered — her heart slowed to ice — to create the perfect assassin.", ab:"<strong>Widow's Kiss SMG</strong> — 13 dmg/shot, 10 shots/s, 35 rounds · <strong>Widow's Kiss Sniper</strong> — 120 dmg full charge, 300 headshot, 3 rounds (scoped) · <strong>Grappling Hook</strong> — pulls to ledge, 12s cooldown · <strong>Venom Mine</strong> — 15 dmg/s for 5s + reveals, 15s cooldown · <strong>Infra-Sight</strong> (ult · 1800 pts) — wallhack for entire team, 15s duration"},
+
+  // ── SUPPORT ─────────────────────────────
+  {name:"Ana", real:"Ana Amari", role:"support", hp:"250", story:"A founding Overwatch member and the world's greatest sniper. Presumed dead after a confrontation with Widowmaker, she now operates from the shadows, healing and protecting those she left behind.", ab:"<strong>Biotic Rifle</strong> — 70 dmg or 70 healing per shot, 1.25 shots/s, 15 rounds · <strong>Sleep Dart</strong> — 5s sleep (2s vs tanks), 14s cooldown · <strong>Biotic Grenade</strong> — 60 dmg / 60 healing, +50% heal buff / 3s anti-heal, 10s cooldown · <strong>Nano Boost</strong> (ult · 2100 pts) — +50% dmg / +50% dmg reduction, 8s duration"},
+  {name:"Baptiste", real:"Jean-Baptiste Augustin", role:"support", hp:"200", story:"A Haitian orphan who became a Talon soldier, then deserted when he saw what they truly were. Now a combat medic fighting to atone — one life saved for every life he took.", ab:"<strong>Biotic Launcher</strong> — 25 dmg/shot (3-round burst) / 70 healing per grenade, 10 ammo, 0.9s reload · <strong>Regenerative Burst</strong> — heals 100 HP over 5s (+40 instant self), 14s cooldown · <strong>Immortality Field</strong> — prevents death (min 25% HP), 5.5s duration, 23s cooldown · <strong>Amplification Matrix</strong> (ult · 2100 pts) — doubles all projectile dmg/healing through window, 10s duration"},
+  {name:"Brigitte", real:"Brigitte Lindholm", role:"support", hp:"150+100A", story:"Torbjörn's youngest daughter and Reinhardt's squire. She built her own armor after growing tired of watching her godfather come home broken — a mechanic who heals by fighting.", ab:"<strong>Rocket Flail</strong> — 45 dmg/swing, 0.6s/swing, 5m range · <strong>Repair Pack</strong> — heals 125 HP over 2s, 3 charges, 6s cooldown each · <strong>Whip Shot</strong> — 70 dmg + knockback, 4s cooldown · <strong>Barrier Shield</strong> — 250 HP, 5s to regen after break · <strong>Rally</strong> (ult · 1950 pts) — +100 armor to allies, +30% speed, 10s duration"},
+  {name:"Illari", real:"Illari Quispe Ruiz", role:"support", hp:"250", story:"The last of the Inti Warriors — solar-powered protectors of Peru. During her initiation ceremony, a catastrophic accident destroyed her entire order, and the power now lives in her alone.", ab:"<strong>Solar Rifle</strong> — primary: 70 dmg full charge, 1s charge · alt: 120 HP/s beam, 3s max, recharges 3s after use · <strong>Outburst</strong> — 10 dmg + knockback + self-jump, 7s cooldown · <strong>Healing Pylon</strong> — heals 40 HP/s (single target), 150 HP, 12s cooldown · <strong>Captive Sun</strong> (ult · 1950 pts) — 50 impact + 120 delayed detonation, slow effect"},
+  {name:"Juno", real:"Teo Minh", role:"support", hp:"225", story:"Born on Mars to the first interplanetary colonists. When the colony fell silent, she traveled to Earth seeking help — a Martian girl navigating a world she'd only seen in transmissions.", ab:"<strong>Mediblaster</strong> — 7 dmg/shot (×12 burst) / 7 healing/shot (×12 burst), 180 ammo · <strong>Pulsar Torpedoes</strong> — 15 dmg + lock-on / 55 healing per torpedo, 2 charges, 10s cooldown · <strong>Glide Boost</strong> — horizontal flight burst, 6s cooldown · <strong>Hyper Ring</strong> — +60% speed gate, 6s duration, 14s cooldown · <strong>Orbital Ray</strong> (ult · 2100 pts) — 100 HP/s healing + 30% dmg boost, 10s duration"},
+  {name:"Kiriko", real:"Kiriko Kamori", role:"support", hp:"225", story:"Daughter of a swordmaster and a healer, trained alongside Hanzo and Genji in Kanezaka. She blends ninja training with her grandmother's fox spirit magic to protect her neighborhood.", ab:"<strong>Healing Ofuda</strong> — 13 HP per ofuda (×5), seeks allies · <strong>Kunai</strong> — 60 dmg / 120 headshot, 0.6s/shot · <strong>Swift Step</strong> — teleport to ally through walls, 7s cooldown · <strong>Protection Suzu</strong> — cleanses debuffs + 0.75s invulnerability + 80 healing, 14s cooldown · <strong>Kitsune Rush</strong> (ult · 2000 pts) — +50% speed, +50% fire rate, 30% cooldown reduction, 10s duration"},
+  {name:"Lifeweaver", real:"Niran PruksaManee", role:"support", hp:"225+50S", story:"A Thai scientist who fled the Vishkar Corporation with his biolight technology. He believes nature and technology can coexist — and will defy any authority to prove it.", ab:"<strong>Healing Blossom</strong> — 10–80 healing (chargeable), 12 ammo, auto-reloads · <strong>Thorn Volley</strong> — 6 dmg per thorn (×20/s), 100 ammo · <strong>Petal Platform</strong> — lifts allies/enemies, 150 HP, 12s cooldown · <strong>Rejuvenating Dash</strong> — self-heals 60 HP, 5s cooldown · <strong>Life Grip</strong> — pulls ally to you, 50 healing, 16s cooldown · <strong>Tree of Life</strong> (ult · 2100 pts) — 90 HP/s healing in 8m radius, 1200 HP, 12s duration"},
+  {name:"Lúcio", real:"Lúcio Correia dos Santos", role:"support", hp:"225", story:"A Brazilian DJ who stole Vishkar sonic technology to lead a revolution in the Rio favelas. His music inspires crowds — and his amplifier heals them.", ab:"<strong>Sonic Amplifier</strong> — 20 dmg per projectile (×4 burst), 1 burst/0.8s · <strong>Crossfade</strong> — heal: 15 HP/s (×5 allies) / speed: +30% move · <strong>Amp It Up</strong> — boosts heal to 45 HP/s or speed to +50%, 3s duration, 13s cooldown · <strong>Soundwave</strong> — 45 dmg + knockback, 4s cooldown · <strong>Sound Barrier</strong> (ult · 2500 pts) — +750 shields decaying over 6s, 30m radius"},
+  {name:"Mercy", real:"Angela Ziegler", role:"support", hp:"225", story:"A Swiss surgeon and nanobiologist who pioneered battlefield healing technology. She joined Overwatch to save lives, not take them — and remains the conscience of the team.", ab:"<strong>Caduceus Staff</strong> — heals 60 HP/s or +30% dmg boost beam · <strong>Caduceus Blaster</strong> — 25 dmg/shot, 5 shots/s, 25 rounds · <strong>Guardian Angel</strong> — flies to ally, 1.5s cooldown · <strong>Resurrect</strong> — revives fallen ally at full HP, 1.75s cast, 30s cooldown · <strong>Valkyrie</strong> (ult · 1800 pts) — chain beams (5 allies), free flight, infinite ammo, 15s duration"},
+  {name:"Moira", real:"Moira O'Deorain", role:"support", hp:"225", story:"An Irish geneticist who sees no difference between healing and harming — both are just biology. She joined Talon for unlimited funding and zero ethical oversight.", ab:"<strong>Biotic Grasp</strong> — primary: heals 70 HP/s (+65 HP lingering/3s), 90 resource · alt: 65 dmg/s + self-heal 30 HP/s · <strong>Biotic Orb</strong> — damage: 50 dmg/s (max 200) / heal: 65 HP/s (max 300), 8s cooldown · <strong>Fade</strong> — invulnerable + invisible, 0.8s, 6s cooldown · <strong>Coalescence</strong> (ult · 2200 pts) — 70 dmg/s + 140 HP/s heal, pierces, 8s duration, 30m range"},
+  {name:"Zenyatta", real:"Tekhartha Zenyatta", role:"support", hp:"75+175S", story:"An omnic monk who left the Shambali monastery believing that direct engagement with humanity — not isolation — was the path to peace. Genji's mentor and a floating force of tranquility.", ab:"<strong>Orb of Destruction</strong> — 48 dmg per orb, 2.5 orbs/s (×5 volley charged: 240 dmg), 25 ammo · <strong>Orb of Harmony</strong> — heals 30 HP/s on one ally, persists 3s after LOS break · <strong>Orb of Discord</strong> — target takes +25% increased damage, 7s cooldown on same target · <strong>Snap Kick</strong> (passive) — melee deals 60 dmg + 50% knockback · <strong>Transcendence</strong> (ult · 2200 pts) — 300 HP/s AoE healing, invulnerable, 6s duration, 10m radius"},
+];
+
+// ── Fetch portraits & Render ─────────────────────
+const grid = document.getElementById('grid');
+let portraits = {};
+
+function slug(name) {
+  return name.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[.:]/g, '')
+    .replace(/\s+/g, '-');
+}
+
+(async function loadPortraits() {
+  try {
+    const res = await fetch('https://overfast-api.tekrop.fr/heroes');
+    const data = await res.json();
+    data.forEach(h => { portraits[h.key] = h.portrait; });
+  } catch(e) { /* use letter fallback */ }
+  render('all');
+})();
+
+function render(filterRole) {
+  grid.innerHTML = '';
+  heroes.forEach(h => {
+    if (filterRole !== 'all' && h.role !== filterRole) return;
+    const cls = h.role + '-icon';
+    const imgSrc = portraits[slug(h.name)] || '';
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-icon ${cls}">${imgSrc ? `<img src="${imgSrc}" alt="${h.name}" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:cover">` : h.name[0]}</div>
+        <div style="flex:1;min-width:0">
+          <div class="card-name">${h.name}</div>
+          <div class="card-real">${h.real}</div>
+        </div>
+        <span style="font-size:0.78rem;font-weight:700;color:#fff;background:rgba(255,255,255,0.08);padding:3px 10px;border-radius:4px;white-space:nowrap;margin-right:6px">${h.hp}</span>
+        <div class="card-role" style="color:var(--${h.role})">${h.role}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-story">${h.story}</div>
+        <div class="card-abilities">${h.ab}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function filter(role) {
+  document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`.filters button.${role}`) || document.querySelector('.filters button:first-child');
+  btn.classList.add('active');
+  render(role);
+}
+</script>
+
+</body>
+</html>

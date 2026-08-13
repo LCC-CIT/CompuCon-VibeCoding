@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devil's Advocate — Debate Anything</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1><span class="brand-mark">⚖️</span> Devil's Advocate</h1>
+    <p class="tagline">Pick a side. I'll take the other one — and I won't be polite.</p>
+  </header>
+
+  <!-- Shown when the server has no API key (demo mode) -->
+  <div id="demo-banner" class="demo-banner hidden">
+    <strong>Demo mode:</strong> no API key configured, so the debater works from
+    pre-written rebuttals. Add <code>ANTHROPIC_API_KEY</code> to <code>.env</code>
+    and restart for a live Claude debate.
+  </div>
+
+  <!-- Topic selection -->
+  <main id="topic-view" class="topic-view">
+    <h2 class="view-heading">Choose a battlefield</h2>
+    <div id="topic-grid" class="topic-grid" role="list"></div>
+  </main>
+
+  <!-- Debate view -->
+  <main id="debate-view" class="debate-view hidden">
+    <div class="debate-header">
+      <span id="debate-topic-title" class="debate-topic-title"></span>
+      <button id="switch-topic" class="link-button">← Change topic</button>
+    </div>
+    <div id="messages" class="messages" aria-live="polite"></div>
+    <form id="composer" class="composer" autocomplete="off">
+      <textarea
+        id="user-input"
+        rows="1"
+        placeholder="State your position, then defend it…"
+        maxlength="2000"
+        aria-label="Your argument"
+      ></textarea>
+      <button id="send-button" type="submit">Send</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    Powered by Claude. It argues a side honestly, concedes when you're right, and asks you one question every round.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

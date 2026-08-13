@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lightsaber Forge — Build Your Own Lightsaber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05070d;
+    --panel:rgba(17,22,32,0.82);
+    --panel-border:rgba(120,145,185,0.16);
+    --text:#dfe6f0;
+    --muted:#8a94a6;
+    --acc:#5bd0ff;
+    --acc-soft:rgba(91,208,255,0.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Rajdhani',system-ui,sans-serif;
+    background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(30,50,90,0.35), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:36px 24px 60px}
+
+  /* ---------- Header ---------- */
+  header{text-align:center;margin-bottom:26px}
+  header h1{
+    font-family:'Orbitron',sans-serif;font-weight:800;letter-spacing:6px;
+    font-size:clamp(22px,4vw,40px);margin:0;color:#f4f8ff;
+    text-shadow:0 0 18px var(--acc-soft),0 0 40px rgba(91,208,255,0.18);
+  }
+  header .sub{margin-top:6px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-size:13px}
+  header .sub b{color:var(--acc);font-weight:600}
+
+  /* ---------- Layout ---------- */
+  main{display:flex;gap:28px;align-items:stretch;justify-content:center;flex-wrap:wrap}
+
+  /* ---------- Stage ---------- */
+  .stage{
+    flex:0 1 400px;min-width:300px;
+    display:flex;flex-direction:column;align-items:center;
+    background:var(--panel);border:1px solid var(--panel-border);
+    border-radius:18px;padding:28px 20px 22px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  #saber{position:relative}
+  .saber-svg{width:min(280px,60vw);height:auto;display:block;filter:drop-shadow(0 14px 30px rgba(0,0,0,0.6))}
+
+  .blade-top,.blade-bottom{transform-box:fill-box;transition:transform .55s cubic-bezier(.18,.9,.25,1),opacity .4s ease}
+  .blade-top{transform-origin:50% 100%;transform:scaleY(0);opacity:0}
+  .blade-bottom{transform-origin:50% 0%;transform:scaleY(0);opacity:0}
+  #saber.on .blade-top,#saber.on .blade-bottom{transform:scaleY(1);opacity:1}
+  .blade-side{opacity:0;transition:opacity .35s ease .12s}
+  #saber.on .blade-side{opacity:1}
+
+  .ambient{opacity:0;transition:opacity .6s ease .05s}
+  #saber.on .ambient{opacity:1}
+
+  @keyframes flicker{
+    0%,100%{opacity:.92}8%{opacity:1}16%{opacity:.9}28%{opacity:1}
+    44%{opacity:.93}60%{opacity:1}76%{opacity:.94}88%{opacity:.99}
+  }
+  #saber.on .flicker{animation:flicker 3.2s infinite}
+
+  .saber-name{
+    margin-top:20px;font-family:'Orbitron',sans-serif;letter-spacing:3px;
+    font-size:15px;color:#cfe4ff;text-align:center;min-height:22px;
+    text-shadow:0 0 12px rgba(91,208,255,0.3)
+  }
+
+  .power-row{display:flex;gap:12px;align-items:center;margin-top:18px}
+  .power{
+    width:64px;height:64px;border-radius:50%;cursor:pointer;
+    background:radial-gradient(circle at 35% 30%,#2a3346,#12161f 70%);
+    border:1px solid var(--panel-border);color:#6b7688;
+    font-size:22px;display:grid;place-items:center;
+    transition:all .25s ease;position:relative
+  }
+  .power:hover{border-color:var(--acc-soft);color:#9fb3cf}
+  .power.on{
+    color:#0b0f16;border-color:var(--acc);
+    background:radial-gradient(circle at 35% 30%,#bff0ff,#5bd0ff 45%,#1a8fc4 80%);
+    box-shadow:0 0 22px var(--acc-soft),0 0 46px rgba(91,208,255,0.25)
+  }
+  .sound-btn{
+    cursor:pointer;background:transparent;border:1px solid var(--panel-border);
+    color:var(--muted);border-radius:10px;padding:8px 12px;font-family:inherit;
+    font-size:13px;letter-spacing:1px;transition:all .2s
+  }
+  .sound-btn:hover{color:var(--text);border-color:var(--acc-soft)}
+
+  .hint{margin-top:16px;color:#5d6778;font-size:12px;letter-spacing:1px}
+
+  /* ---------- Panel ---------- */
+  .panel{
+    flex:1 1 460px;min-width:300px;max-width:560px;
+    background:var(--panel);border:1px solid var(--panel-border);
+    border-radius:18px;padding:22px 22px 8px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5)
+  }
+  .section{margin-bottom:20px}
+  .section h2{
+    font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);
+    margin:0 0 10px;font-weight:600;display:flex;align-items:center;gap:10px
+  }
+  .section h2::after{content:"";flex:1;height:1px;background:var(--panel-border)}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+
+  .opt{
+    cursor:pointer;font-family:inherit;color:var(--text);
+    background:rgba(255,255,255,0.03);border:1px solid var(--panel-border);
+    border-radius:10px;transition:all .18s ease
+  }
+  .opt:hover{border-color:var(--acc-soft);background:rgba(91,208,255,0.06)}
+  .opt.active{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset,0 0 14px rgba(91,208,255,0.25)}
+
+  .opt.crystal-swatch{width:34px;height:34px;border-radius:50%;padding:0;
+    background:radial-gradient(circle at 35% 30%, #ffffffd9, var(--c) 45%, var(--c))}
+  .opt.material-swatch{width:42px;height:32px;border-radius:7px;padding:0;
+    background:linear-gradient(90deg,var(--d),var(--l) 30%,var(--b) 50%,var(--l) 70%,var(--d))}
+
+  .opt.shape{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    padding:8px 10px 6px;min-width:64px
+  }
+  .opt.shape .ico{width:24px;height:30px;pointer-events:none}
+  .opt.shape span{font-size:11px;letter-spacing:1px;text-transform:capitalize;color:#b7c2d4;pointer-events:none}
+  .ico{fill:#9aa6b8}
+  .ico line{stroke:#9aa6b8}
+  .opt.shape.active .ico{fill:var(--acc)}
+  .opt.shape.active .ico line{stroke:var(--acc)}
+
+  .tools{display:flex;gap:10px;margin-bottom:20px}
+  .tool{
+    flex:1;cursor:pointer;font-family:'Orbitron',sans-serif;letter-spacing:2px;font-size:13px;
+    padding:12px;border-radius:10px;color:var(--text);
+    background:linear-gradient(180deg,rgba(91,208,255,0.12),rgba(91,208,255,0.03));
+    border:1px solid var(--acc-soft);transition:all .2s
+  }
+  .tool:hover{background:linear-gradient(180deg,rgba(91,208,255,0.22),rgba(91,208,255,0.06));box-shadow:0 0 18px rgba(91,208,255,0.2)}
+
+  footer{margin-top:34px;text-align:center;color:#4b5565;font-size:12px;letter-spacing:1px}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="wrap">
+  <header>
+    <h1>LIGHTSABER FORGE</h1>
+    <div class="sub">Assemble your weapon · <b>crystal</b> · blade style · emitter · sleeve · switch · pommel · material</div>
+  </header>
+
+  <main>
+    <section class="stage">
+      <div id="saber"></div>
+      <div class="saber-name" id="saberName"></div>
+      <div class="power-row">
+        <button class="power" id="power" title="Toggle ignition (Space)">⏻</button>
+        <button class="sound-btn" id="sound" title="Toggle sound">🔊 Sound</button>
+      </div>
+      <div class="hint">SPACE to ignite · R to randomize</div>
+    </section>
+
+    <section class="panel" id="panel"></section>
+  </main>
+
+  <footer>May the Force be with you — craft responsibly.</footer>
+</div>
+
+<script>
+/* =========================================================================
+   Lightsaber Forge — data & rendering
+   Local saber coordinates: centered at x=280, hilt 620..1076 (height 456)
+   ========================================================================= */
+
+const CX = 280;                 // saber center x (viewBox 0 0 560 1200)
+const BASE_Y = 620;             // emitter top / main blade base
+const BOTTOM_Y = 1076;          // pommel bottom (or bottom emitter for staff)
+const HILT_CENTER_Y = 848;      // (BASE_Y + BOTTOM_Y) / 2
+
+const BLADE_LEN = { short:340, standard:500, long:580 };
+
+// ---- Kyber crystals → blade colors --------------------------------------
+const CRYSTALS = {
+  blue:'#45a6ff', green:'#3aff6b', red:'#ff3030', purple:'#c64dff',
+  yellow:'#ffd23d', white:'#f2f7ff', cyan:'#3dffe6', orange:'#ff8c2d'
+};
+const CRYSTAL_KEYS = Object.keys(CRYSTALS);
+
+// ---- Hilt materials → metallic gradient stops ---------------------------
+const MATERIALS = {
+  silver:  {dark:'#757b86', base:'#c4cad4', light:'#f0f3f8'},
+  black:   {dark:'#111319', base:'#2b2f38', light:'#4c525e'},
+  gold:    {dark:'#8a6d1f', base:'#d6b13b', light:'#f3e08a'},
+  copper:  {dark:'#7a4a1f', base:'#c07a3a', light:'#e6a86c'},
+  bronze:  {dark:'#6e4626', base:'#b07b45', light:'#d2a06b'},
+  gunmetal:{dark:'#1e2126', base:'#454b56', light:'#6a7280'}
+};
+const MATERIAL_KEYS = Object.keys(MATERIALS);
+
+// ---- Shape part options --------------------------------------------------
+const EMITTERS = ['classic','angular','rounded','bladed'];
+const SLEEVES  = ['classic','ridged','wrapped','segmented'];
+const SWITCHES = ['button','lever','dial','slider'];
+const POMMELS  = ['classic','round','pointed','flanged'];
+const STYLES   = ['single','double','crossguard'];
+const LENGTHS  = ['short','standard','long'];
+
+const state = { crystal:'blue', emitter:'classic', sleeve:'classic',
+                sw:'button', pommel:'classic', material:'silver',
+                style:'single', bladeLen:'standard', dual:false,
+                ignited:false, sound:true };
+
+const $ = id => document.getElementById(id);
+
+/* =========================================================================
+   Blade geometry
+   ========================================================================= */
+function bladePath(cx, baseY, tip){
+  const s = tip < baseY ? 1 : -1;               // +1 points up, -1 points down
+  const L = Math.abs(tip - baseY);
+  const r = Math.min(130, L * 0.42);            // taper region length
+  const t = tip + s * r;
+  return `M${cx-14},${baseY} L${cx-14},${t} Q${cx-14},${tip} ${cx},${tip} Q${cx+14},${tip} ${cx+14},${t} L${cx+14},${baseY} Z`;
+}
+function corePath(cx, baseY, tip){
+  const s = tip < baseY ? 1 : -1;
+  const L = Math.abs(tip - baseY);
+  const r = Math.min(90, L * 0.35);
+  const t = tip + s * r;
+  const ti = tip + s * 6;                       // core tip inset from blade tip
+  return `M${cx-7},${baseY} L${cx-7},${t} Q${cx-7},${ti} ${cx},${ti} Q${cx+7},${ti} ${cx+7},${t} L${cx+7},${baseY} Z`;
+}
+
+/* =========================================================================
+   Hilt part renderers  (all use the "gmat" horizontal cylinder gradient)
+   ========================================================================= */
+function emitterSVG(m){
+  const g='url(#gmat)';
+  switch(state.emitter){
+    case 'angular':
+      return `<rect x="242" y="620" width="76" height="12" rx="2" fill="${g}"/>
+        <polygon points="250,632 310,632 302,686 258,686" fill="${g}"/>
+        <rect x="258" y="674" width="44" height="8" rx="2" fill="${m.dark}" opacity="0.3"/>`;
+    case 'rounded':
+      return `<path d="M250,686 L250,656 Q250,624 280,624 Q310,624 310,656 L310,686 Z" fill="${g}"/>
+        <rect x="252" y="670" width="56" height="8" rx="3" fill="${m.dark}" opacity="0.28"/>`;
+    case 'bladed':
+      return `<rect x="244" y="620" width="72" height="12" rx="2" fill="${g}"/>
+        <rect x="250" y="632" width="60" height="54" rx="3" fill="${g}"/>
+        <rect x="260" y="598" width="8" height="46" rx="3" fill="${g}"/>
+        <rect x="292" y="598" width="8" height="46" rx="3" fill="${g}"/>`;
+    default: // classic
+      return `<rect x="243" y="620" width="74" height="18" rx="5" fill="${g}"/>
+        <rect x="248" y="620" width="64" height="6" fill="${m.dark}" opacity="0.35"/>
+        <rect x="250" y="638" width="60" height="42" rx="3" fill="${g}"/>
+        <rect x="250" y="668" width="60" height="6" fill="${m.dark}" opacity="0.3"/>`;
+  }
+}
+
+function neckSVG(m){
+  return `<rect x="252" y="686" width="56" height="34" rx="4" fill="url(#gmat)"/>
+    <rect x="252" y="716" width="56" height="4" fill="${m.dark}" opacity="0.3"/>`;
+}
+
+function upperBodySVG(m, c){
+  return `<rect x="248" y="720" width="64" height="58" rx="4" fill="url(#gmat)"/>
+    <rect x="262" y="736" width="36" height="26" rx="4" fill="#0a0d13"/>
+    <rect x="262" y="736" width="36" height="26" rx="4" fill="none" stroke="${m.dark}" stroke-width="2"/>
+    <circle cx="280" cy="749" r="13" fill="${c}" opacity="0.55" filter="url(#blur)"/>
+    <polygon points="280,739 289,749 280,759 271,749" fill="${c}"/>
+    <polygon points="280,739 289,749 280,759 271,749" fill="none" stroke="${c}" stroke-width="1"/>
+    <polygon points="277,742 280,739 280,749 277,752" fill="#ffffff" opacity="0.7"/>`;
+}
+
+function switchZoneSVG(){
+  return `<rect x="248" y="778" width="64" height="58" rx="4" fill="url(#gmat)"/>`;
+}
+
+function sleeveSVG(m){
+  const g='url(#gmat)';
+  let detail='';
+  if(state.sleeve==='classic'){
+    for(let i=0;i<8;i++) detail+=`<rect x="${251+i*8}" y="842" width="3" height="132" fill="${m.dark}" opacity="0.42"/>`;
+  } else if(state.sleeve==='ridged'){
+    for(let y=842;y<=966;y+=9) detail+=`<rect x="249" y="${y}" width="62" height="3" fill="${m.dark}" opacity="0.42"/>`;
+  } else if(state.sleeve==='wrapped'){
+    for(let i=-6;i<16;i++){const x=248+i*12; detail+=`<line x1="${x}" y1="836" x2="${x+46}" y2="980" stroke="${m.dark}" stroke-width="5" opacity="0.4"/>`;}
+  } else { // segmented
+    for(let y=842;y<=962;y+=18) detail+=`<rect x="253" y="${y}" width="54" height="11" rx="5" fill="${g}" stroke="${m.dark}" stroke-width="1"/>`;
+  }
+  return `<rect x="248" y="836" width="64" height="144" rx="6" fill="${g}"/>
+    <g clip-path="url(#sleeveClip)">${detail}</g>
+    <rect x="248" y="836" width="64" height="144" rx="6" fill="none" stroke="${m.dark}" stroke-width="1" opacity="0.5"/>`;
+}
+
+function lowerBodySVG(m){
+  return `<rect x="248" y="980" width="64" height="32" rx="4" fill="url(#gmat)"/>
+    <rect x="248" y="1006" width="64" height="6" fill="${m.dark}" opacity="0.3"/>`;
+}
+
+function pommelSVG(m){
+  const g='url(#gmat)';
+  switch(state.pommel){
+    case 'round':
+      return `<rect x="248" y="1012" width="64" height="12" rx="4" fill="${g}"/>
+        <circle cx="280" cy="1046" r="26" fill="${g}"/>`;
+    case 'pointed':
+      return `<rect x="248" y="1012" width="64" height="14" rx="4" fill="${g}"/>
+        <polygon points="252,1026 308,1026 280,1086" fill="${g}"/>`;
+    case 'flanged':
+      return `<rect x="236" y="1012" width="88" height="14" rx="5" fill="${g}"/>
+        <rect x="248" y="1026" width="64" height="16" fill="${g}"/>
+        <rect x="252" y="1042" width="56" height="26" rx="6" fill="${g}"/>`;
+    default: // classic
+      return `<rect x="248" y="1012" width="64" height="16" rx="4" fill="${g}"/>
+        <path d="M252,1028 L308,1028 L308,1046 Q308,1076 280,1076 Q252,1076 252,1046 Z" fill="${g}"/>`;
+  }
+}
+
+function switchSVG(m, c){
+  const g='url(#gmat)';
+  switch(state.sw){
+    case 'lever':
+      return `<rect x="312" y="796" width="14" height="22" rx="4" fill="${g}"/>
+        <rect x="324" y="802" width="20" height="6" rx="3" fill="${m.dark}"/>
+        <circle cx="346" cy="805" r="4" fill="${c}"/>`;
+    case 'dial':
+      return `<circle cx="324" cy="807" r="13" fill="${g}"/>
+        <circle cx="324" cy="807" r="13" fill="none" stroke="${m.dark}" stroke-width="1.5"/>
+        <circle cx="324" cy="807" r="6" fill="${c}"/>
+        <line x1="324" y1="807" x2="324" y2="796" stroke="${m.dark}" stroke-width="2.5"/>`;
+    case 'slider':
+      return `<rect x="312" y="796" width="24" height="22" rx="5" fill="${g}"/>
+        <rect x="315" y="800" width="18" height="3" fill="${m.dark}"/>
+        <rect x="315" y="811" width="18" height="3" fill="${m.dark}"/>
+        <rect x="319" y="803" width="10" height="8" rx="2" fill="${c}"/>`;
+    default: // button
+      return `<rect x="312" y="794" width="24" height="26" rx="5" fill="${g}"/>
+        <circle cx="324" cy="807" r="7" fill="${c}"/>
+        <circle cx="324" cy="807" r="7" fill="none" stroke="${m.dark}" stroke-width="2"/>`;
+  }
+}
+
+function crossBladesSVG(c){
+  const by=704, topY=by-15, botY=by+15;
+  let s='';
+  for(const d of [-1,1]){
+    const bx = CX + d*34;
+    const tipX = CX + d*135;
+    const tipY = by - 85;
+    s += `<g class="blade-side">
+      <line x1="${bx}" y1="${by}" x2="${tipX}" y2="${tipY}" stroke="${c}" stroke-width="9" opacity="0.55" filter="url(#blur)"/>
+      <polygon points="${bx},${topY} ${bx},${botY} ${tipX},${tipY}" fill="${c}"/>
+      <line x1="${bx}" y1="${by}" x2="${tipX - d*20}" y2="${tipY + 13}" stroke="#ffffff" stroke-width="3" opacity="0.85"/>
+    </g>`;
+  }
+  return s;
+}
+function crossVentsSVG(m){
+  return `<rect x="${CX+30}" y="688" width="16" height="34" rx="4" fill="url(#gmat)"/>
+    <rect x="${CX-46}" y="688" width="16" height="34" rx="4" fill="url(#gmat)"/>
+    <rect x="${CX+30}" y="692" width="16" height="4" fill="${m.dark}" opacity="0.4"/>
+    <rect x="${CX-46}" y="692" width="16" height="4" fill="${m.dark}" opacity="0.4"/>`;
+}
+
+/* =========================================================================
+   One saber, in local coordinates (centered at 280, hilt 620..1076)
+   ========================================================================= */
+function saberContent(){
+  const m = MATERIALS[state.material];
+  const c = CRYSTALS[state.crystal];
+  const L = BLADE_LEN[state.bladeLen];
+  const isDouble = state.style==='double';
+  const isCross  = state.style==='crossguard';
+
+  let ambient = `<g class="ambient"><circle cx="${CX}" cy="${BASE_Y - L*0.5}" r="${L*0.7 + 120}" fill="url(#amb)"/></g>`;
+  if(isDouble) ambient += `<g class="ambient"><circle cx="${CX}" cy="${BOTTOM_Y + L*0.5}" r="${L*0.7 + 120}" fill="url(#amb)"/></g>`;
+
+  const shadow = `<ellipse cx="${CX}" cy="1090" rx="52" ry="10" fill="#000" opacity="0.5"/>`;
+
+  const topTip = BASE_Y - L;
+  const topBlade = `<g class="blade-top">
+    <rect x="${CX-24}" y="${topTip}" width="48" height="${L}" fill="${c}" opacity="0.55" filter="url(#blur)"/>
+    <g class="flicker"><path d="${bladePath(CX, BASE_Y, topTip)}" fill="${c}"/><path d="${corePath(CX, BASE_Y, topTip)}" fill="#ffffff" opacity="0.92"/></g>
+  </g>`;
+
+  let bottomBlade = '';
+  if(isDouble){
+    const botTip = BOTTOM_Y + L;
+    bottomBlade = `<g class="blade-bottom">
+      <rect x="${CX-24}" y="${BOTTOM_Y}" width="48" height="${L}" fill="${c}" opacity="0.55" filter="url(#blur)"/>
+      <g class="flicker"><path d="${bladePath(CX, BOTTOM_Y, botTip)}" fill="${c}"/><path d="${corePath(CX, BOTTOM_Y, botTip)}" fill="#ffffff" opacity="0.92"/></g>
+    </g>`;
+  }
+
+  const crossBlades = isCross ? crossBladesSVG(c) : '';
+  const crossVents  = isCross ? crossVentsSVG(m) : '';
+
+  // For a double-bladed staff, mirror the top emitter onto the bottom.
+  const bottomEnd = isDouble
+    ? `<g transform="translate(0,1696) scale(1,-1)">${emitterSVG(m)}</g>`
+    : pommelSVG(m);
+
+  return `${ambient}${shadow}${topBlade}${bottomBlade}${crossBlades}
+    ${emitterSVG(m)}${neckSVG(m)}${upperBodySVG(m,c)}${switchZoneSVG()}${sleeveSVG(m)}${lowerBodySVG(m)}${bottomEnd}${crossVents}${switchSVG(m,c)}`;
+}
+
+/* =========================================================================
+   Placement / layout
+   ========================================================================= */
+function place(content, px, py, s, r){
+  return `<g transform="translate(${px},${py}) rotate(${r}) scale(${s}) translate(${-CX},${-HILT_CENTER_Y})">${content}</g>`;
+}
+
+function layout(){
+  const L = BLADE_LEN[state.bladeLen];
+  const items = [];
+  if(state.dual){
+    const s = state.style==='double' ? 0.42 : 0.58;
+    items.push({px:186, py:600, s, r:-8});
+    items.push({px:374, py:600, s, r:8});
+  } else if(state.style==='double'){
+    const s = Math.min(1, 1120 / (2*L + 456));
+    items.push({px:280, py:600, s, r:0});
+  } else {
+    items.push({px:280, py:600 + L/2, s:1, r:0});
+  }
+  return items;
+}
+
+function buildSVG(){
+  const m = MATERIALS[state.material];
+  const c = CRYSTALS[state.crystal];
+
+  const defs = `
+    <defs>
+      <linearGradient id="gmat" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="${m.dark}"/>
+        <stop offset="0.16" stop-color="${m.light}"/>
+        <stop offset="0.5" stop-color="${m.base}"/>
+        <stop offset="0.84" stop-color="${m.light}"/>
+        <stop offset="1" stop-color="${m.dark}"/>
+      </linearGradient>
+      <radialGradient id="amb" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="${c}" stop-opacity="0.42"/>
+        <stop offset="0.5" stop-color="${c}" stop-opacity="0.16"/>
+        <stop offset="1" stop-color="${c}" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="blur" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="14"/>
+      </filter>
+      <clipPath id="sleeveClip"><rect x="248" y="836" width="64" height="144" rx="6"/></clipPath>
+    </defs>`;
+
+  const content = saberContent();
+  const sabers = layout().map(o => place(content, o.px, o.py, o.s, o.r)).join('');
+
+  return `<svg class="saber-svg" viewBox="0 0 560 1200" xmlns="http://www.w3.org/2000/svg">
+    ${defs}${sabers}
+  </svg>`;
+}
+
+/* =========================================================================
+   Control panel
+   ========================================================================= */
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+function iconFor(cat, val){
+  const f='#9aa6b8';
+  if(cat==='emitter'){
+    switch(val){
+      case 'angular': return `<svg class="ico" viewBox="0 0 40 48"><rect x="6" y="2" width="28" height="5" rx="1" fill="${f}"/><polygon points="10,7 30,7 27,46 13,46" fill="${f}"/></svg>`;
+      case 'rounded': return `<svg class="ico" viewBox="0 0 40 48"><path d="M12,46 L12,22 Q12,8 20,8 Q28,8 28,22 L28,46 Z" fill="${f}"/></svg>`;
+      case 'bladed': return `<svg class="ico" viewBox="0 0 40 48"><rect x="12" y="16" width="16" height="32" fill="${f}"/><rect x="4" y="6" width="6" height="22" rx="1" fill="${f}"/><rect x="30" y="6" width="6" height="22" rx="1" fill="${f}"/></svg>`;
+      default: return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="6" rx="2" fill="${f}"/><rect x="12" y="8" width="16" height="38" rx="3" fill="${f}"/></svg>`;
+    }
+  }
+  if(cat==='sleeve'){
+    switch(val){
+      case 'ridged': return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="44" rx="3" fill="${f}"/><g fill="#05070d"><rect x="8" y="9" width="24" height="3"/><rect x="8" y="18" width="24" height="3"/><rect x="8" y="27" width="24" height="3"/><rect x="8" y="36" width="24" height="3"/></g></svg>`;
+      case 'wrapped': return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="44" rx="3" fill="${f}"/><g stroke="#05070d" stroke-width="4"><line x1="2" y1="10" x2="38" y2="22"/><line x1="2" y1="24" x2="38" y2="36"/></g></svg>`;
+      case 'segmented': return `<svg class="ico" viewBox="0 0 40 48"><rect x="10" y="2" width="20" height="9" rx="4" fill="${f}"/><rect x="10" y="14" width="20" height="9" rx="4" fill="${f}"/><rect x="10" y="26" width="20" height="9" rx="4" fill="${f}"/><rect x="10" y="38" width="20" height="9" rx="4" fill="${f}"/></svg>`;
+      default: return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="44" rx="3" fill="${f}"/><g fill="#05070d"><rect x="12" y="6" width="3" height="36"/><rect x="18" y="6" width="3" height="36"/><rect x="24" y="6" width="3" height="36"/></g></svg>`;
+    }
+  }
+  if(cat==='sw'){
+    switch(val){
+      case 'lever': return `<svg class="ico" viewBox="0 0 40 48"><rect x="5" y="10" width="12" height="22" rx="3" fill="${f}"/><rect x="15" y="17" width="20" height="6" rx="3" fill="${f}"/></svg>`;
+      case 'dial': return `<svg class="ico" viewBox="0 0 40 48"><circle cx="18" cy="22" r="13" fill="${f}"/><circle cx="18" cy="22" r="6" fill="#05070d"/><rect x="17" y="4" width="2" height="8" fill="${f}"/></svg>`;
+      case 'slider': return `<svg class="ico" viewBox="0 0 40 48"><rect x="6" y="10" width="18" height="22" rx="4" fill="${f}"/><rect x="9" y="14" width="12" height="3" fill="#05070d"/><rect x="9" y="25" width="12" height="3" fill="#05070d"/><rect x="11" y="17" width="8" height="7" fill="#05070d"/></svg>`;
+      default: return `<svg class="ico" viewBox="0 0 40 48"><rect x="6" y="10" width="20" height="22" rx="4" fill="${f}"/><circle cx="16" cy="21" r="6" fill="#05070d"/></svg>`;
+    }
+  }
+  // pommel
+  switch(val){
+    case 'round': return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="8" rx="3" fill="${f}"/><circle cx="20" cy="32" r="12" fill="${f}"/></svg>`;
+    case 'pointed': return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="8" rx="3" fill="${f}"/><polygon points="12,10 28,10 20,46" fill="${f}"/></svg>`;
+    case 'flanged': return `<svg class="ico" viewBox="0 0 40 48"><rect x="4" y="2" width="32" height="9" rx="3" fill="${f}"/><rect x="10" y="13" width="20" height="10" fill="${f}"/><rect x="7" y="25" width="26" height="18" rx="3" fill="${f}"/></svg>`;
+    default: return `<svg class="ico" viewBox="0 0 40 48"><rect x="8" y="2" width="24" height="10" rx="3" fill="${f}"/><path d="M12,12 L28,12 L28,22 Q20,46 20,46 Q20,46 12,22 Z" fill="${f}"/></svg>`;
+  }
+}
+
+function styleIcon(v){
+  const f='#9aa6b8';
+  if(v==='double') return `<svg class="ico" viewBox="0 0 40 48"><rect x="18" y="2" width="4" height="19" fill="${f}"/><rect x="18" y="27" width="4" height="19" fill="${f}"/><rect x="12" y="21" width="16" height="6" rx="2" fill="${f}"/></svg>`;
+  if(v==='crossguard') return `<svg class="ico" viewBox="0 0 40 48"><rect x="18" y="2" width="4" height="28" fill="${f}"/><rect x="12" y="30" width="16" height="16" rx="2" fill="${f}"/><line x1="18" y1="30" x2="4" y2="22" stroke="${f}" stroke-width="4"/><line x1="22" y1="30" x2="36" y2="22" stroke="${f}" stroke-width="4"/></svg>`;
+  return `<svg class="ico" viewBox="0 0 40 48"><rect x="18" y="2" width="4" height="28" fill="${f}"/><rect x="12" y="30" width="16" height="16" rx="2" fill="${f}"/></svg>`;
+}
+function lenIcon(v){
+  const f='#9aa6b8';
+  const h = v==='short'?18 : v==='standard'?28 : 38;
+  const y = 44-h;
+  return `<svg class="ico" viewBox="0 0 40 48"><rect x="18" y="${y}" width="4" height="${h}" fill="${f}"/><rect x="12" y="44" width="16" height="4" rx="1" fill="${f}"/></svg>`;
+}
+function dualIcon(kind){
+  const f='#9aa6b8';
+  if(kind==='two') return `<svg class="ico" viewBox="0 0 40 48"><rect x="10" y="2" width="4" height="44" fill="${f}"/><rect x="26" y="2" width="4" height="44" fill="${f}"/></svg>`;
+  return `<svg class="ico" viewBox="0 0 40 48"><rect x="18" y="2" width="4" height="44" fill="${f}"/></svg>`;
+}
+
+function buildControls(){
+  const crystalBtns = CRYSTAL_KEYS.map(k =>
+    `<button class="opt crystal-swatch ${state.crystal===k?'active':''}" data-cat="crystal" data-val="${k}" style="--c:${CRYSTALS[k]}" title="${cap(k)}"></button>`).join('');
+
+  const materialBtns = MATERIAL_KEYS.map(k=>{
+    const m=MATERIALS[k];
+    return `<button class="opt material-swatch ${state.material===k?'active':''}" data-cat="material" data-val="${k}" style="--d:${m.dark};--l:${m.light};--b:${m.base}" title="${cap(k)}"></button>`;
+  }).join('');
+
+  const shapes = (list, cat) => list.map(v =>
+    `<button class="opt shape ${state[cat]===v?'active':''}" data-cat="${cat}" data-val="${v}">${iconFor(cat,v)}<span>${cap(v)}</span></button>`).join('');
+
+  const styleBtns = STYLES.map(v =>
+    `<button class="opt shape ${state.style===v?'active':''}" data-cat="style" data-val="${v}">${styleIcon(v)}<span>${cap(v)}</span></button>`).join('');
+
+  const lenBtns = LENGTHS.map(v =>
+    `<button class="opt shape ${state.bladeLen===v?'active':''}" data-cat="bladeLen" data-val="${v}">${lenIcon(v)}<span>${cap(v)}</span></button>`).join('');
+
+  const dualBtns = [['off','single'],['on','two']].map(([v,kind]) =>
+    `<button class="opt shape ${(state.dual===(v==='on'))?'active':''}" data-cat="dual" data-val="${v}">${dualIcon(kind)}<span>${v}</span></button>`).join('');
+
+  return `
+    <div class="tools">
+      <button class="tool" id="randomize">⚄ RANDOMIZE</button>
+      <button class="tool" id="reset">RESET</button>
+    </div>
+    <div class="section"><h2>Blade Style</h2><div class="opts">${styleBtns}</div></div>
+    <div class="section"><h2>Blade Length</h2><div class="opts">${lenBtns}</div></div>
+    <div class="section"><h2>Dual Wield</h2><div class="opts">${dualBtns}</div></div>
+    <div class="section"><h2>Kyber Crystal</h2><div class="opts">${crystalBtns}</div></div>
+    <div class="section"><h2>Emitter</h2><div class="opts">${shapes(EMITTERS,'emitter')}</div></div>
+    <div class="section"><h2>Hilt Sleeve</h2><div class="opts">${shapes(SLEEVES,'sleeve')}</div></div>
+    <div class="section"><h2>Ignition Switch</h2><div class="opts">${shapes(SWITCHES,'sw')}</div></div>
+    <div class="section"><h2>Pommel</h2><div class="opts">${shapes(POMMELS,'pommel')}</div></div>
+    <div class="section"><h2>Hilt Material</h2><div class="opts">${materialBtns}</div></div>`;
+}
+
+/* =========================================================================
+   Name generator
+   ========================================================================= */
+const CRYSTAL_NAMES = {blue:'Azure',green:'Verdant',red:'Crimson',purple:'Amethyst',yellow:'Aureate',white:'Radiant',cyan:'Glacial',orange:'Ember'};
+const EMITTER_NAMES = {classic:'Blade',angular:'Edge',rounded:'Halo',bladed:'Fang'};
+const MATERIAL_NAMES = {silver:'Silver',black:'Obsidian',gold:'Aurum',copper:'Copper',bronze:'Bronze',gunmetal:'Gunmetal'};
+function saberName(){
+  const styleWord = state.style==='double' ? 'Staff' : state.style==='crossguard' ? 'Crossguard' : '';
+  const dualWord = state.dual ? 'Twin ' : '';
+  return `${dualWord}${CRYSTAL_NAMES[state.crystal]} ${MATERIAL_NAMES[state.material]} ${EMITTER_NAMES[state.emitter]}${styleWord?' '+styleWord:''}`;
+}
+
+/* =========================================================================
+   WebAudio — hum + ignition whoosh
+   ========================================================================= */
+const audio = {
+  ctx:null, hum:null,
+  ensure(){
+    if(!this.ctx){
+      const AC = window.AudioContext||window.webkitAudioContext;
+      if(!AC) return false;
+      this.ctx = new AC();
+    }
+    if(this.ctx.state==='suspended') this.ctx.resume();
+    return true;
+  },
+  whoosh(dir){
+    if(!this.ctx) return;
+    const t=this.ctx.currentTime;
+    const o=this.ctx.createOscillator(), g=this.ctx.createGain();
+    o.type='sine';
+    o.frequency.setValueAtTime(dir>0?110:900,t);
+    o.frequency.exponentialRampToValueAtTime(dir>0?900:110,t+0.35);
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(0.12,t+0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.4);
+    o.connect(g); g.connect(this.ctx.destination);
+    o.start(); o.stop(t+0.45);
+  },
+  startHum(){
+    if(!this.ensure() || this.hum) return;
+    const ctx=this.ctx, master=ctx.createGain(), filt=ctx.createBiquadFilter();
+    filt.type='lowpass'; filt.frequency.value=420; filt.Q.value=2;
+    master.gain.setValueAtTime(0.0001,ctx.currentTime);
+    master.gain.linearRampToValueAtTime(0.045,ctx.currentTime+0.35);
+    const o1=ctx.createOscillator(); o1.type='sawtooth'; o1.frequency.value=54;
+    const o2=ctx.createOscillator(); o2.type='sawtooth'; o2.frequency.value=55.3;
+    const o3=ctx.createOscillator(); o3.type='sine';    o3.frequency.value=108;
+    const g3=ctx.createGain(); g3.gain.value=0.35;
+    o1.connect(filt); o2.connect(filt); o3.connect(g3); g3.connect(filt);
+    filt.connect(master); master.connect(ctx.destination);
+    o1.start(); o2.start(); o3.start();
+    this.hum={master,o1,o2,o3};
+    this.whoosh(1);
+  },
+  stopHum(){
+    if(!this.hum) return;
+    const ctx=this.ctx, {master,o1,o2,o3}=this.hum;
+    master.gain.linearRampToValueAtTime(0.0001,ctx.currentTime+0.4);
+    const t=ctx.currentTime+0.5;
+    o1.stop(t); o2.stop(t); o3.stop(t);
+    this.hum=null;
+    this.whoosh(-1);
+  }
+};
+
+/* =========================================================================
+   State & events
+   ========================================================================= */
+function render(){
+  $('saber').innerHTML = buildSVG();
+  $('saber').classList.toggle('on', state.ignited);
+  $('panel').innerHTML = buildControls();
+  $('saberName').textContent = state.ignited ? saberName() : '';
+  $('power').classList.toggle('on', state.ignited);
+}
+
+function setIgnited(on){
+  state.ignited = on;
+  $('saber').classList.toggle('on', on);
+  $('saberName').textContent = on ? saberName() : '';
+  $('power').classList.toggle('on', on);
+  if(state.sound){
+    if(on) audio.startHum(); else audio.stopHum();
+  } else if(!on && audio.hum){
+    audio.stopHum();
+  }
+}
+
+function randomize(){
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+  state.crystal=pick(CRYSTAL_KEYS);
+  state.material=pick(MATERIAL_KEYS);
+  state.emitter=pick(EMITTERS);
+  state.sleeve=pick(SLEEVES);
+  state.sw=pick(SWITCHES);
+  state.pommel=pick(POMMELS);
+  state.style=pick(STYLES);
+  state.bladeLen=pick(LENGTHS);
+  state.dual=Math.random()<0.35;
+  render();
+}
+function reset(){
+  Object.assign(state,{crystal:'blue',emitter:'classic',sleeve:'classic',sw:'button',pommel:'classic',material:'silver',style:'single',bladeLen:'standard',dual:false});
+  render();
+}
+
+$('power').addEventListener('click', ()=> setIgnited(!state.ignited));
+$('sound').addEventListener('click', ()=>{
+  state.sound = !state.sound;
+  $('sound').textContent = state.sound ? '🔊 Sound' : '🔇 Muted';
+  if(!state.sound && audio.hum) audio.stopHum();
+  else if(state.sound && state.ignited) audio.startHum();
+});
+
+$('panel').addEventListener('click', e=>{
+  if(e.target.id==='randomize'){ randomize(); return; }
+  if(e.target.id==='reset'){ reset(); return; }
+  const btn = e.target.closest('.opt');
+  if(!btn) return;
+  const {cat,val} = btn.dataset;
+  if(cat==='dual'){ state.dual = (val==='on'); render(); return; }
+  if(cat && val && state[cat]!==val){ state[cat]=val; render(); }
+});
+
+document.addEventListener('keydown', e=>{
+  if(e.code==='Space'){ e.preventDefault(); setIgnited(!state.ignited); }
+  else if(e.key==='r'||e.key==='R'){ randomize(); }
+});
+
+/* =========================================================================
+   Starfield background
+   ========================================================================= */
+(function stars(){
+  const cv=$('stars'), ctx=cv.getContext('2d');
+  let w,h,pts=[];
+  function size(){
+    w=cv.width=innerWidth; h=cv.height=innerHeight;
+    pts=[]; const n=Math.floor(w*h/9000);
+    for(let i=0;i<n;i++) pts.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+0.2,p:Math.random()*Math.PI*2,s:0.3+Math.random()*0.9});
+  }
+  size(); addEventListener('resize',size);
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const s of pts){
+      s.p+=0.008*s.s;
+      const a=0.35+0.65*(0.5+0.5*Math.sin(s.p));
+      ctx.globalAlpha=a;
+      ctx.fillStyle='#dfe8ff';
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+render();
+</script>
+</body>
+</html>

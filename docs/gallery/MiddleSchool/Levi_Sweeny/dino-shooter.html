@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dino Runner</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; overflow: hidden;
+    font-family: 'Courier New', monospace;
+  }
+  canvas { display: block; border: 2px solid #1a1a2e; border-radius: 4px; }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+const W = 1024, H = 500;
+canvas.width = W; canvas.height = H;
+
+function resize() {
+  const scale = Math.min(window.innerWidth / W, window.innerHeight / H) * 0.95;
+  canvas.style.width = W * scale + 'px';
+  canvas.style.height = H * scale + 'px';
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ─── INPUT ──────────────────────────────────────────────
+const keys = {};
+window.addEventListener('keydown', e => {
+  keys[e.code] = true;
+  if (['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','KeyJ','KeyK','KeyF'].includes(e.code)) e.preventDefault();
+});
+window.addEventListener('keyup', e => { keys[e.code] = false; });
+
+// ─── AUDIO (simple oscillator beeps) ────────────────────
+let audioCtx = null;
+function beep(freq, duration, type = 'square', vol = 0.05) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.value = vol;
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
+}
+
+// ─── PARTICLES ──────────────────────────────────────────
+let particles = [];
+function spawnParticles(x, y, n, color, speed = 3, life = 25) {
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const s = Math.random() * speed;
+    particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life, maxLife: life, color, size: 2 + Math.random() * 3 });
+  }
+}
+function updateParticles() {
+  for (let p of particles) { p.x += p.vx; p.y += p.vy; p.life--; }
+  particles = particles.filter(p => p.life > 0);
+}
+function drawParticles(ctx) {
+  for (let p of particles) {
+    ctx.globalAlpha = p.life / p.maxLife;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * (p.life / p.maxLife), 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ─── SCREEN SHAKE ───────────────────────────────────────
+let shakeAmount = 0;
+function screenShake(amt) { shakeAmount = Math.max(shakeAmount, amt); }
+
+// ─── FLOATING TEXT ──────────────────────────────────────
+let floatingTexts = [];
+function floatText(x, y, text, color = '#fff', size = 18) {
+  floatingTexts.push({ x, y, text, color, size, life: 40, maxLife: 40 });
+}
+function updateFloatingTexts() {
+  for (let ft of floatingTexts) { ft.y -= 1; ft.life--; }
+  floatingTexts = floatingTexts.filter(ft => ft.life > 0);
+}
+function drawFloatingTexts(ctx) {
+  for (let ft of floatingTexts) {
+    ctx.globalAlpha = ft.life / ft.maxLife;
+    ctx.fillStyle = ft.color;
+    ctx.font = `bold ${ft.size}px "Courier New"`;
+    ctx.textAlign = 'center';
+    ctx.fillText(ft.text, ft.x, ft.y);
+  }
+  ctx.globalAlpha = 1;
+  ctx.textAlign = 'start';
+}
+
+// ─── GROUND ─────────────────────────────────────────────
+const GROUND_Y = H - 70;
+const GROUND_SEGMENTS = [];
+const SEGMENT_WIDTH = 64;
+let groundOffset = 0;
+
+// ─── OBSTACLE TYPES ─────────────────────────────────────
+// Cactus shapes: each is an array of {x, y, w, h, color} relative to obstacle position
+const CACTUS_TYPES = [
+  // Small single cactus
+  { name: 'small', w: 22, h: 50, shapes: [
+    { rx: 4, ry: 0, rw: 14, rh: 50, color: '#16a34a' },
+    { rx: 2, ry: 10, rw: 7, rh: 25, color: '#15803d' }, // left arm
+    { rx: 12, ry: 20, rw: 7, rh: 18, color: '#15803d' }, // right arm
+  ]},
+  // Tall cactus
+  { name: 'tall', w: 26, h: 72, shapes: [
+    { rx: 7, ry: 0, rw: 12, rh: 72, color: '#16a34a' },
+    { rx: 6, ry: 18, rw: 8, rh: 22, color: '#15803d' },
+    { rx: 14, ry: 30, rw: 7, rh: 16, color: '#15803d' },
+  ]},
+  // Cluster
+  { name: 'cluster', w: 44, h: 55, shapes: [
+    { rx: 0, ry: 5, rw: 12, rh: 50, color: '#16a34a' },
+    { rx: 16, ry: 0, rw: 14, rh: 55, color: '#22c55e' },
+    { rx: 30, ry: 10, rw: 11, rh: 45, color: '#15803d' },
+  ]},
+  // Fat cactus
+  { name: 'fat', w: 32, h: 60, shapes: [
+    { rx: 2, ry: 0, rw: 28, rh: 60, color: '#16a34a' },
+    { rx: 0, ry: 15, rw: 8, rh: 20, color: '#15803d' },
+    { rx: 22, ry: 25, rw: 9, rh: 16, color: '#15803d' },
+  ]},
+];
+
+// ─── OBSTACLE ───────────────────────────────────────────
+class Obstacle {
+  constructor(type, speed) {
+    this.type = type;
+    this.w = type.w;
+    this.h = type.h;
+    this.speed = speed;
+    this.x = W + 50 + Math.random() * 200;
+    this.y = GROUND_Y - type.h;
+    this.alive = true;
+    this.passed = false;
+  }
+  update(speed) {
+    this.speed = speed;
+    this.x -= speed;
+    if (this.x < -80) this.alive = false;
+  }
+  draw(ctx) {
+    ctx.save();
+    const cx = this.x;
+    const baseY = this.y;
+
+    for (let s of this.type.shapes) {
+      const x = cx + s.rx;
+      const y = baseY + s.ry;
+
+      const grad = ctx.createLinearGradient(x, 0, x + s.rw, 0);
+      grad.addColorStop(0, s.color);
+      grad.addColorStop(1, '#14532d');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, y, s.rw, s.rh);
+
+      // Spines
+      ctx.strokeStyle = '#86efac';
+      ctx.lineWidth = 1;
+      for (let sy = y + 4; sy < y + s.rh - 4; sy += 8) {
+        const offset = (sy % 16 === 0) ? 0 : 4;
+        ctx.beginPath();
+        ctx.moveTo(x + offset, sy);
+        ctx.lineTo(x + offset - 3, sy - 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x + s.rw - offset + 1, sy + 4);
+        ctx.lineTo(x + s.rw - offset + 4, sy + 2);
+        ctx.stroke();
+      }
+
+      // Dark rib lines
+      ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+      ctx.lineWidth = 1;
+      for (let rx = x + 5; rx < x + s.rw - 3; rx += 6) {
+        ctx.beginPath();
+        ctx.moveTo(rx, y + 2);
+        ctx.lineTo(rx, y + s.rh - 2);
+        ctx.stroke();
+      }
+    }
+
+    // Small flower on top of tallest cactus
+    if (this.type.name === 'tall') {
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(cx + 13, baseY + 3, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.arc(cx + 13, baseY + 3, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  getHitbox() {
+    return { x: this.x + 3, y: this.y + 4, w: this.w - 6, h: this.h - 6 };
+  }
+}
+
+// ─── BULLET ─────────────────────────────────────────────
+class Bullet {
+  constructor(x, y, vx, vy) {
+    this.x = x; this.y = y; this.vx = vx; this.vy = vy;
+    this.alive = true;
+    this.size = 4;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < -20 || this.x > W + 20 || this.y < -20 || this.y > GROUND_Y + 20) this.alive = false;
+  }
+  draw(ctx) {
+    ctx.fillStyle = '#fbbf24';
+    ctx.shadowColor = '#fbbf24';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    // bright core
+    ctx.fillStyle = '#fff';
+    ctx.shadowBlur = 0;
+    ctx.beginPath();
+    ctx.arc(this.x - this.vx * 0.3, this.y - this.vy * 0.3, this.size * 0.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// ─── PTERODACTYL (shootable flying enemy) ───────────────
+class Pterodactyl {
+  constructor(playerY, gameSpeed) {
+    this.w = 48; this.h = 32;
+    this.x = W + 60 + Math.random() * 200;
+    // Spawn at player's height level
+    this.y = Math.max(40, Math.min(GROUND_Y - this.h - 20, playerY - this.h / 2));
+    this.hp = 1 + (gameSpeed > 10 ? 1 : 0);
+    this.alive = true;
+    this.wingPhase = Math.random() * Math.PI * 2;
+    this.passed = false;
+    this.points = 50;
+    this.homingStrength = 0.03 + Math.random() * 0.02; // how aggressively it tracks player Y
+  }
+  update(player, gameSpeed) {
+    const speed = gameSpeed * 0.7;
+    this.x -= speed;
+    this.wingPhase += 0.14;
+
+    // Home in on the player's current Y position
+    const targetY = player.y + player.h / 2 - this.h / 2;
+    const dy = targetY - this.y;
+    this.y += dy * this.homingStrength;
+
+    // Clamp to screen
+    this.y = Math.max(25, Math.min(GROUND_Y - this.h - 5, this.y));
+
+    if (this.x < -80) this.alive = false;
+  }
+  damage(n) {
+    this.hp -= n;
+    if (this.hp <= 0) { this.alive = false; return true; }
+    spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 5, '#fbbf24', 3, 15);
+    return false;
+  }
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+    // Face LEFT (toward the player on the left)
+    ctx.scale(-1, 1);
+    const flap = Math.sin(this.wingPhase) * 0.5;
+
+    // Wings
+    ctx.fillStyle = '#d97706';
+    ctx.save();
+    ctx.rotate(flap);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(-28, -12);
+    ctx.lineTo(-30, -2);
+    ctx.lineTo(-8, 4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#92400e';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.rotate(-flap * 2);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(28, -12);
+    ctx.lineTo(30, -2);
+    ctx.lineTo(8, 4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+
+    // Body
+    const bodyGrad = ctx.createLinearGradient(0, -8, 0, 8);
+    bodyGrad.addColorStop(0, '#f59e0b');
+    bodyGrad.addColorStop(1, '#b45309');
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 18, 9, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#7c2d12';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Head
+    ctx.fillStyle = '#b45309';
+    ctx.beginPath();
+    ctx.arc(18, -5, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#7c2d12';
+    ctx.stroke();
+
+    // Beak (long, sharp)
+    ctx.fillStyle = '#7c2d12';
+    ctx.beginPath();
+    ctx.moveTo(23, -7);
+    ctx.lineTo(34, -4);
+    ctx.lineTo(24, -2);
+    ctx.closePath();
+    ctx.fill();
+
+    // Crest
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath();
+    ctx.moveTo(14, -12);
+    ctx.lineTo(8, -22);
+    ctx.lineTo(2, -10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Eye (glowing, angry)
+    ctx.fillStyle = '#ef4444';
+    ctx.shadowColor = '#ef4444';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(21, -7, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(22, -7, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // HP bar if damaged
+    const maxHp = (gameSpeed > 10 ? 2 : 1);
+    if (this.hp < maxHp) {
+      ctx.fillStyle = '#333';
+      ctx.fillRect(-12, -18, 24, 3);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(-12, -18, 24 * (this.hp / maxHp), 3);
+    }
+
+    ctx.restore();
+  }
+  getHitbox() {
+    return { x: this.x + 8, y: this.y + 6, w: this.w - 16, h: this.h - 10 };
+  }
+}
+
+// ─── BOSS ───────────────────────────────────────────────
+class Boss {
+  constructor(gameSpeed) {
+    this.w = 340; this.h = 280;
+    this.x = W + 80;
+    this.y = GROUND_Y - this.h + 10;
+    this.maxHp = 120;
+    this.hp = this.maxHp;
+    this.alive = true;
+    this.speed = gameSpeed * 0.5;
+    this.phase = 0;
+    this.phaseTimer = 40;
+    this.attackCooldown = 0;
+    this.animTimer = 0;
+    this.targetX = 330;     // parks in front of player — blocks most of the screen
+    this.arrived = false;
+    this.mouthOpen = 0;
+    this.tailAngle = 0;
+    this.tailSwinging = false;
+    this.biteLunging = false;
+    this.biteX = 0;
+    this.name = 'TYRANT REX';
+    this.points = 2000;
+    this.breathParticles = []; // visual smoke from nostrils
+  }
+
+  update(player, gameSpeed) {
+    this.animTimer++;
+    this.speed = gameSpeed * 0.5;
+
+    // Phase management
+    this.phaseTimer--;
+    if (this.phaseTimer <= 0) {
+      this.phase = (this.phase + 1) % 3;
+      this.phaseTimer = 90 + Math.random() * 70;
+      this.attackCooldown = 0;
+      this.tailSwinging = false;
+      this.biteLunging = false;
+    }
+
+    // Movement: stomp in from right
+    if (!this.arrived) {
+      this.x -= this.speed * 3;
+      screenShake(1); // ground shakes as he walks in
+      if (this.x <= this.targetX) {
+        this.x = this.targetX;
+        this.arrived = true;
+        this.phaseTimer = 30;
+        screenShake(6);
+        beep(40, 0.4, 'sawtooth', 0.12);
+      }
+    }
+
+    // Nostril smoke particles
+    if (this.animTimer % 5 === 0) {
+      const headX = this.w * 0.02 + this.biteX;
+      const headY = this.h * 0.26;
+      this.breathParticles.push({
+        x: headX - 8, y: headY + 12,
+        vx: -1 - Math.random() * 2, vy: -1 - Math.random() * 2,
+        life: 20, maxLife: 20, size: 2 + Math.random() * 3
+      });
+    }
+    for (let bp of this.breathParticles) { bp.x += bp.vx; bp.y += bp.vy; bp.life--; }
+    this.breathParticles = this.breathParticles.filter(bp => bp.life > 0);
+
+    const spawnedPteros = [];
+
+    if (this.arrived) {
+      // Gentle body drift
+      if (this.x > 310) this.x -= 0.2;
+
+      switch (this.phase) {
+        case 0: // SPIT PTERODACTYLS
+          this.mouthOpen = Math.min(22, this.mouthOpen + 1.8);
+          this.attackCooldown--;
+          if (this.attackCooldown <= 0) {
+            this.attackCooldown = 45 + Math.random() * 30;
+            const count = 2 + Math.floor(Math.random() * 3);
+            for (let i = 0; i < count; i++) {
+              const px = this.x + 20;
+              const py = this.y + this.h * 0.32;
+              spawnedPteros.push(new SpitPtero(px, py, player));
+            }
+            beep(220, 0.12, 'square', 0.06);
+            this.mouthOpen = 22;
+          }
+          break;
+
+        case 1: // BITE ATTACK
+          this.mouthOpen = Math.max(0, this.mouthOpen - 1.2);
+          this.attackCooldown--;
+          if (this.attackCooldown <= 0 && !this.biteLunging) {
+            this.attackCooldown = 65 + Math.random() * 45;
+            this.biteLunging = true;
+            this.biteX = -90;
+            this.mouthOpen = 28;
+            beep(80, 0.25, 'sawtooth', 0.1);
+            setTimeout(() => {
+              if (!this.alive) return;
+              const biteHitX = this.x + this.biteX + 10;
+              const biteHitY = this.y + this.h * 0.22;
+              const biteW = 100, biteH = 60;
+              const pHit = player.getHitbox();
+              if (pHit.x < biteHitX + biteW && pHit.x + pHit.w > biteHitX &&
+                  pHit.y < biteHitY + biteH && pHit.y + pHit.h > biteHitY) {
+                player.damage(2);
+                screenShake(10);
+                spawnParticles(player.x + player.w / 2, player.y + player.h / 2, 18, '#ef4444', 5, 25);
+                floatText(player.x + player.w / 2, player.y - 10, '-2', '#ef4444', 24);
+              }
+            }, 250);
+            setTimeout(() => {
+              this.biteLunging = false;
+              this.biteX = 0;
+              this.mouthOpen = 0;
+            }, 450);
+          }
+          if (this.biteLunging && this.biteX < -8) {
+            this.biteX += 2;
+          }
+          break;
+
+        case 2: // TAIL SWING
+          this.mouthOpen = Math.max(0, this.mouthOpen - 1.2);
+          this.attackCooldown--;
+          if (this.attackCooldown <= 0 && !this.tailSwinging) {
+            this.attackCooldown = 70 + Math.random() * 50;
+            this.tailSwinging = true;
+            this.tailAngle = 0;
+            beep(60, 0.3, 'sawtooth', 0.08);
+          }
+          if (this.tailSwinging) {
+            this.tailAngle += 0.06;
+            const tailTipX = this.x + this.w - 10 + Math.cos(this.tailAngle) * 90;
+            const tailTipY = this.y + this.h * 0.35 + Math.sin(this.tailAngle) * 70;
+            const pHit = player.getHitbox();
+            const dist = Math.hypot(tailTipX - (player.x + player.w / 2), tailTipY - (player.y + player.h / 2));
+            if (dist < 40 && this.tailAngle > 0.4 && this.tailAngle < 2.7) {
+              player.damage(1);
+              screenShake(6);
+              spawnParticles(player.x + player.w / 2, player.y + player.h / 2, 10, '#fbbf24', 5, 18);
+            }
+            if (this.tailAngle > Math.PI + 0.5) {
+              this.tailSwinging = false;
+              this.tailAngle = 0;
+            }
+          }
+          break;
+      }
+    } else {
+      this.mouthOpen = Math.max(0, this.mouthOpen - 0.5);
+    }
+
+    this.x = Math.max(200, Math.min(W + 40, this.x));
+    this.y = Math.max(5, Math.min(GROUND_Y - this.h + 10, this.y));
+
+    return spawnedPteros;
+  }
+
+  damage(n) {
+    this.hp -= n;
+    // Hit spark
+    const sx = this.x + Math.random() * this.w * 0.7;
+    const sy = this.y + Math.random() * this.h * 0.7;
+    spawnParticles(sx, sy, 4, '#fff', 3, 10);
+    spawnParticles(sx, sy, 3, '#fbbf24', 2, 8);
+    if (this.hp <= 0) { this.hp = 0; this.alive = false; return true; }
+    return false;
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    const w = this.w, h = this.h;
+    const bob = Math.sin(this.animTimer * 0.035) * 4;
+    const t = this.animTimer;
+
+    // ─── SHADOW ──────────────────────────────────────────
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.beginPath();
+    ctx.ellipse(w * 0.42, h - 8, w * 0.4, 14, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // ─── TAIL ────────────────────────────────────────────
+    ctx.save();
+    if (this.tailSwinging) {
+      ctx.translate(w * 0.78, h * 0.35 + bob);
+      ctx.rotate(this.tailAngle);
+      ctx.translate(-w * 0.78, -(h * 0.35 + bob));
+    }
+    // Tail base
+    const tailGrad = ctx.createLinearGradient(w * 0.7, 0, w + 30, 0);
+    tailGrad.addColorStop(0, '#991b1b');
+    tailGrad.addColorStop(0.5, '#7f1d1d');
+    tailGrad.addColorStop(1, '#450a0a');
+    ctx.strokeStyle = tailGrad;
+    ctx.lineWidth = 18;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(w * 0.75, h * 0.38 + bob);
+    ctx.quadraticCurveTo(w * 0.92, h * 0.25 + bob, w + 25, h * 0.5 + bob);
+    ctx.stroke();
+    // Tail outline
+    ctx.strokeStyle = '#3b0a0a';
+    ctx.lineWidth = 20;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.75, h * 0.38 + bob);
+    ctx.quadraticCurveTo(w * 0.92, h * 0.25 + bob, w + 25, h * 0.5 + bob);
+    ctx.stroke();
+    ctx.strokeStyle = tailGrad;
+    ctx.lineWidth = 18;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.75, h * 0.38 + bob);
+    ctx.quadraticCurveTo(w * 0.92, h * 0.25 + bob, w + 25, h * 0.5 + bob);
+    ctx.stroke();
+    // Tail spikes
+    ctx.fillStyle = '#fca5a5';
+    for (let i = 0; i < 5; i++) {
+      const tx = w * 0.80 + i * 16;
+      const ty = h * 0.32 + bob + i * 3;
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(tx + 5, ty - 14);
+      ctx.lineTo(tx + 10, ty);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // ─── BACK LEG ────────────────────────────────────────
+    ctx.fillStyle = '#450a0a';
+    ctx.beginPath();
+    ctx.ellipse(w * 0.60, h * 0.92, 22, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#3b0a0a';
+    ctx.lineWidth = 12;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(w * 0.55, h * 0.58 + bob);
+    ctx.lineTo(w * 0.58, h * 0.92);
+    ctx.stroke();
+    // Toes
+    ctx.fillStyle = '#1a1a1a';
+    for (let tx of [w * 0.55, w * 0.60, w * 0.65]) {
+      ctx.beginPath();
+      ctx.arc(tx, h * 0.95, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Thigh muscle
+    ctx.strokeStyle = '#7f1d1d';
+    ctx.lineWidth = 14;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.52, h * 0.55 + bob);
+    ctx.lineTo(w * 0.56, h * 0.62 + bob);
+    ctx.stroke();
+
+    // ─── BODY ────────────────────────────────────────────
+    // Main body gradient
+    const bodyGrad = ctx.createRadialGradient(w * 0.43, h * 0.38, 20, w * 0.43, h * 0.38, w * 0.7);
+    bodyGrad.addColorStop(0, '#ef4444');
+    bodyGrad.addColorStop(0.3, '#dc2626');
+    bodyGrad.addColorStop(0.6, '#b91c1c');
+    bodyGrad.addColorStop(0.85, '#7f1d1d');
+    bodyGrad.addColorStop(1, '#450a0a');
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.ellipse(w * 0.43, h * 0.40 + bob, w * 0.36, h * 0.24, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Body outline
+    ctx.strokeStyle = '#3b0a0a';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+
+    // Belly (lighter underside)
+    ctx.fillStyle = '#f87171';
+    ctx.beginPath();
+    ctx.ellipse(w * 0.43, h * 0.53 + bob, w * 0.24, h * 0.1, 0, 0, Math.PI);
+    ctx.fill();
+
+    // ─── BACK RIDGE / SPIKES ─────────────────────────────
+    for (let i = -4; i <= 4; i++) {
+      const sx = w * 0.43 + i * w * 0.08;
+      const spikeH = 12 + Math.abs(i) * 3; // taller toward center
+      ctx.fillStyle = i % 2 === 0 ? '#fca5a5' : '#f87171';
+      ctx.beginPath();
+      ctx.moveTo(sx - 8, h * 0.18 + bob);
+      ctx.lineTo(sx, h * 0.18 - spikeH + bob);
+      ctx.lineTo(sx + 8, h * 0.18 + bob);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#7f1d1d';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // ─── FRONT LEG ───────────────────────────────────────
+    ctx.fillStyle = '#450a0a';
+    ctx.beginPath();
+    ctx.ellipse(w * 0.28, h * 0.92, 22, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#3b0a0a';
+    ctx.lineWidth = 12;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.32, h * 0.58 + bob);
+    ctx.lineTo(w * 0.28, h * 0.92);
+    ctx.stroke();
+    for (let tx of [w * 0.23, w * 0.28, w * 0.33]) {
+      ctx.fillStyle = '#1a1a1a';
+      ctx.beginPath();
+      ctx.arc(tx, h * 0.95, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Thigh
+    ctx.strokeStyle = '#7f1d1d';
+    ctx.lineWidth = 14;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.30, h * 0.55 + bob);
+    ctx.lineTo(w * 0.31, h * 0.62 + bob);
+    ctx.stroke();
+
+    // ─── HEAD ────────────────────────────────────────────
+    const headX = w * 0.02 + this.biteX;
+    const headY = h * 0.24 + bob;
+
+    // Neck
+    const neckGrad = ctx.createLinearGradient(headX, 0, headX + 60, 0);
+    neckGrad.addColorStop(0, '#b91c1c');
+    neckGrad.addColorStop(1, '#dc2626');
+    ctx.fillStyle = neckGrad;
+    ctx.beginPath();
+    ctx.ellipse(headX + 25, headY + 20, 30, 20, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Head shape (large, angular)
+    ctx.fillStyle = '#b91c1c';
+    ctx.beginPath();
+    ctx.moveTo(headX - 10, headY - 20);
+    ctx.lineTo(headX + 20, headY - 28);
+    ctx.lineTo(headX + 40, headY - 5);
+    ctx.lineTo(headX + 30, headY + 15);
+    ctx.lineTo(headX - 5, headY + 12);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#450a0a';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Upper jaw
+    ctx.fillStyle = '#991b1b';
+    ctx.beginPath();
+    ctx.moveTo(headX - 5, headY - 10);
+    ctx.lineTo(headX + 35, headY - 14);
+    ctx.lineTo(headX + 30, headY);
+    ctx.lineTo(headX, headY + 2);
+    ctx.closePath();
+    ctx.fill();
+
+    // ─── JAW (open for attacks) ──────────────────────────
+    const jawOpen = this.mouthOpen;
+    ctx.fillStyle = '#7f1d1d';
+    ctx.beginPath();
+    ctx.moveTo(headX + 5, headY + 4);
+    ctx.lineTo(headX + 28, headY + jawOpen);
+    ctx.lineTo(headX + 5, headY + 12);
+    ctx.closePath();
+    ctx.fill();
+
+    // ─── TEETH (upper row) ───────────────────────────────
+    ctx.fillStyle = '#fff';
+    for (let t = 0; t < 6; t++) {
+      const tx = headX + 5 + t * 7;
+      ctx.beginPath();
+      ctx.moveTo(tx, headY + 2);
+      ctx.lineTo(tx + 1, headY + 10);
+      ctx.lineTo(tx + 4, headY + 2);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // Lower teeth
+    if (jawOpen > 3) {
+      for (let t = 0; t < 5; t++) {
+        const tx = headX + 8 + t * 7;
+        ctx.beginPath();
+        ctx.moveTo(tx, headY + jawOpen - 2);
+        ctx.lineTo(tx + 2, headY + jawOpen - 9);
+        ctx.lineTo(tx + 5, headY + jawOpen - 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    // ─── DROOL ───────────────────────────────────────────
+    if (jawOpen > 5) {
+      ctx.strokeStyle = 'rgba(200,255,200,0.4)';
+      ctx.lineWidth = 1.5;
+      for (let d = 0; d < 3; d++) {
+        const dx = headX + 15 + d * 8;
+        ctx.beginPath();
+        ctx.moveTo(dx, headY + jawOpen);
+        ctx.lineTo(dx + (Math.sin(t * 0.1 + d) * 2), headY + jawOpen + 8 + d * 5);
+        ctx.stroke();
+      }
+    }
+
+    // ─── EYE ─────────────────────────────────────────────
+    const eyeX = headX + 10, eyeY = headY - 8;
+    // Eye socket
+    ctx.fillStyle = '#450a0a';
+    ctx.beginPath();
+    ctx.arc(eyeX, eyeY, 12, 0, Math.PI * 2);
+    ctx.fill();
+    // Glowing eye
+    const glowIntensity = 14 + Math.sin(t * 0.12) * 6;
+    ctx.shadowColor = '#ef4444';
+    ctx.shadowBlur = glowIntensity;
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(eyeX + 1, eyeY, 9, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    // Pupil (slit)
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.ellipse(eyeX + 1, eyeY, 3, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Eye highlight
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(eyeX - 2, eyeY - 3, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // ─── BROW RIDGE ──────────────────────────────────────
+    ctx.strokeStyle = '#3b0a0a';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(headX - 8, headY - 18);
+    ctx.lineTo(headX + 15, headY - 20);
+    ctx.stroke();
+    // Brow spikes
+    ctx.fillStyle = '#7f1d1d';
+    for (let bx of [headX - 6, headX + 2, headX + 10]) {
+      ctx.beginPath();
+      ctx.moveTo(bx, headY - 19);
+      ctx.lineTo(bx - 1, headY - 28);
+      ctx.lineTo(bx + 3, headY - 20);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // ─── HORNS ───────────────────────────────────────────
+    ctx.fillStyle = '#450a0a';
+    // Left horn
+    ctx.beginPath();
+    ctx.moveTo(headX + 18, headY - 24);
+    ctx.lineTo(headX + 22, headY - 42);
+    ctx.lineTo(headX + 26, headY - 22);
+    ctx.closePath();
+    ctx.fill();
+    // Right horn
+    ctx.beginPath();
+    ctx.moveTo(headX + 30, headY - 20);
+    ctx.lineTo(headX + 35, headY - 36);
+    ctx.lineTo(headX + 36, headY - 18);
+    ctx.closePath();
+    ctx.fill();
+
+    // ─── NOSTRILS ────────────────────────────────────────
+    ctx.fillStyle = '#3b0a0a';
+    ctx.beginPath();
+    ctx.ellipse(headX - 2, headY + 6, 5, 3, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Breath smoke
+    for (let bp of this.breathParticles) {
+      if (bp.x > 0 && bp.y > 0) {
+        ctx.fillStyle = `rgba(180,180,180,${bp.life / bp.maxLife * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(bp.x, bp.y, bp.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // ─── TINY ARMS ───────────────────────────────────────
+    ctx.strokeStyle = '#991b1b';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(w * 0.22, h * 0.48 + bob);
+    ctx.lineTo(w * 0.10, h * 0.56 + bob);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w * 0.36, h * 0.48 + bob);
+    ctx.lineTo(w * 0.27, h * 0.56 + bob);
+    ctx.stroke();
+    // Tiny claws
+    ctx.fillStyle = '#1a1a1a';
+    ctx.beginPath(); ctx.arc(w * 0.10, h * 0.56 + bob, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(w * 0.27, h * 0.56 + bob, 3, 0, Math.PI * 2); ctx.fill();
+
+    // ─── SCALES (body texture) ───────────────────────────
+    ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+    ctx.lineWidth = 1;
+    for (let sx = w * 0.22; sx < w * 0.65; sx += 12) {
+      for (let sy = h * 0.28 + bob; sy < h * 0.55 + bob; sy += 10) {
+        const offset = (Math.floor(sy / 10) % 2) * 6;
+        ctx.beginPath();
+        ctx.arc(sx + offset, sy, 5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+
+    // ─── BATTLE SCARS ────────────────────────────────────
+    if (this.hp < this.maxHp * 0.6) {
+      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.25, h * 0.28 + bob);
+      ctx.lineTo(w * 0.42, h * 0.48 + bob);
+      ctx.lineTo(w * 0.48, h * 0.44 + bob);
+      ctx.stroke();
+    }
+    if (this.hp < this.maxHp * 0.3) {
+      ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.52, h * 0.30 + bob);
+      ctx.lineTo(w * 0.62, h * 0.48 + bob);
+      ctx.stroke();
+      // Bleeding scar
+      ctx.strokeStyle = 'rgba(239,68,68,0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.52, h * 0.30 + bob);
+      ctx.lineTo(w * 0.62, h * 0.48 + bob);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
+  getHitbox() {
+    // Big hitbox for the body — stays on the right side blocking the path
+    return { x: this.x + 15, y: this.y + 30, w: this.w - 40, h: this.h - 50 };
+  }
+}
+
+// ─── SPIT PTERO ─────────────────────────────────────────
+class SpitPtero {
+  constructor(x, y, player) {
+    this.w = 30; this.h = 20;
+    this.x = x; this.y = y;
+    this.alive = true;
+    this.wingPhase = Math.random() * Math.PI * 2;
+    this.points = 25;
+    const dx = player.x - x;
+    const dy = player.y - y + (Math.random() - 0.5) * 60;
+    const dist = Math.hypot(dx, dy);
+    const spd = 2.5 + Math.random() * 2.5;
+    this.vx = (dx / dist) * spd;
+    this.vy = (dy / dist) * spd;
+    this.life = 350;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.wingPhase += 0.2;
+    this.life--;
+    if (this.life <= 0 || this.x < -60 || this.x > W + 60 || this.y < -60 || this.y > GROUND_Y + 20) {
+      this.alive = false;
+    }
+  }
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.scale(0.8, 0.8);
+    const flap = Math.sin(this.wingPhase) * 0.5;
+    ctx.fillStyle = '#f59e0b';
+    ctx.save();
+    ctx.rotate(flap);
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-20, -8); ctx.lineTo(-22, -2); ctx.lineTo(-6, 3); ctx.closePath(); ctx.fill();
+    ctx.rotate(-flap * 2);
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(20, -8); ctx.lineTo(22, -2); ctx.lineTo(6, 3); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath(); ctx.ellipse(0, 0, 13, 6, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#b45309';
+    ctx.beginPath(); ctx.arc(12, -3, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#7c2d12';
+    ctx.beginPath(); ctx.moveTo(16, -4); ctx.lineTo(22, -2); ctx.lineTo(17, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath(); ctx.arc(14, -5, 2, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+  getHitbox() {
+    return { x: this.x + 4, y: this.y + 3, w: this.w - 8, h: this.h - 5 };
+  }
+}
+
+// ─── PLAYER ─────────────────────────────────────────────
+class Player {
+  constructor() {
+    this.w = 44;
+    this.h = 52;
+    this.x = 140;
+    this.y = GROUND_Y - this.h;
+    this.vy = 0;
+    this.onGround = true;
+    this.hp = 5;
+    this.maxHp = 5;
+    this.alive = true;
+    this.invincible = 0;
+    this.ducking = false;
+    this.animTimer = 0;
+    this.eyeBlink = 0;
+    this.shootCooldown = 0;
+  }
+  damage(n) {
+    if (this.invincible > 0) return;
+    this.hp -= n;
+    this.invincible = 45;
+    screenShake(6);
+    spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 12, '#ef4444', 5, 25);
+    floatText(this.x + this.w / 2, this.y - 5, '-' + n + ' HP', '#ef4444', 20);
+    beep(100, 0.2, 'sawtooth', 0.08);
+    if (this.hp <= 0) { this.hp = 0; this.alive = false; }
+  }
+  heal(n) {
+    this.hp = Math.min(this.maxHp, this.hp + n);
+    floatText(this.x + this.w / 2, this.y - 25, '+1 HP', '#22c55e', 18);
+    beep(600, 0.1, 'sine', 0.06);
+    setTimeout(() => beep(800, 0.1, 'sine', 0.06), 100);
+  }
+  update() {
+    this.animTimer++;
+    if (this.invincible > 0) this.invincible--;
+    if (this.eyeBlink > 0) this.eyeBlink--;
+
+    // Random blinking
+    if (this.eyeBlink <= 0 && Math.random() < 0.005) this.eyeBlink = 4;
+
+    // Shoot cooldown
+    if (this.shootCooldown > 0) this.shootCooldown--;
+
+    // Jump
+    const jumpPressed = keys['Space'] || keys['ArrowUp'] || keys['KeyW'];
+    this.ducking = keys['ArrowDown'] || keys['KeyS'];
+
+    if (jumpPressed && this.onGround) {
+      this.vy = -12;
+      this.onGround = false;
+      beep(300, 0.1, 'square', 0.04);
+    }
+
+    // Ducking reduces height and drops faster
+    if (this.ducking && this.onGround) {
+      this.h = 34;
+      this.y = GROUND_Y - this.h;
+    } else if (!this.onGround && this.ducking) {
+      // Fast fall when ducking in air
+      this.vy += 0.4;
+    } else {
+      this.h = 52;
+    }
+
+    // Gravity
+    this.vy += 0.7;
+    if (this.vy > 14) this.vy = 14;
+
+    this.y += this.vy;
+
+    // Ground collision
+    if (this.y >= GROUND_Y - this.h) {
+      this.y = GROUND_Y - this.h;
+      this.vy = 0;
+      this.onGround = true;
+      this.h = this.ducking ? 34 : 52;
+      this.y = GROUND_Y - this.h;
+    }
+
+    // Ceiling
+    if (this.y < 20) { this.y = 20; this.vy = 0; }
+  }
+  shoot() {
+    if (this.shootCooldown > 0) return [];
+    this.shootCooldown = 15;
+    beep(900, 0.06, 'square', 0.04);
+    // Bullet spawns from the dino's mouth/head area, firing right
+    const bx = this.x + 36;
+    const by = this.y + (this.ducking ? 8 : 14);
+    return [new Bullet(bx, by, 10, 0)];
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+
+    // Invincibility flicker
+    if (this.invincible > 0 && Math.floor(this.invincible / 4) % 2 === 0) {
+      ctx.globalAlpha = 0.45;
+    }
+
+    const runCycle = this.onGround ? Math.sin(this.animTimer * 0.25) * 3 : 0;
+    const scaleY = this.ducking && this.onGround ? 0.65 : 1;
+    ctx.scale(1, scaleY);
+
+    if (this.ducking && this.onGround) {
+      // ─── DUCKING DINO ────────────────────────────
+      // Body (squished)
+      ctx.fillStyle = '#65a30d';
+      ctx.beginPath();
+      ctx.ellipse(22, 22, 20, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Head (low, forward)
+      ctx.fillStyle = '#65a30d';
+      ctx.beginPath();
+      ctx.arc(38, 14, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      // Jaw
+      ctx.fillStyle = '#4d7c0f';
+      ctx.beginPath();
+      ctx.moveTo(32, 12);
+      ctx.lineTo(46, 13);
+      ctx.lineTo(42, 19);
+      ctx.lineTo(29, 18);
+      ctx.closePath();
+      ctx.fill();
+      // Eye
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(39, 10, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      if (this.eyeBlink <= 0) {
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(40, 10, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Tail
+      ctx.strokeStyle = '#65a30d';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(4, 18);
+      ctx.quadraticCurveTo(-4, 12, -6, 17);
+      ctx.stroke();
+      // Legs (crouched)
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.moveTo(10, 26); ctx.lineTo(6, 35); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(30, 26); ctx.lineTo(34, 35); ctx.stroke();
+    } else {
+      // ─── RUNNING DINO ────────────────────────────
+      // Body
+      ctx.fillStyle = '#65a30d';
+      ctx.beginPath();
+      ctx.ellipse(22, 22, 17, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Belly
+      ctx.fillStyle = '#a3e635';
+      ctx.beginPath();
+      ctx.ellipse(22, 28, 10, 7, 0, 0, Math.PI);
+      ctx.fill();
+      // Head
+      ctx.fillStyle = '#65a30d';
+      ctx.beginPath();
+      ctx.arc(38, 14, 12, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Jaw
+      ctx.fillStyle = '#4d7c0f';
+      ctx.beginPath();
+      ctx.moveTo(32, 19);
+      ctx.lineTo(48, 20);
+      ctx.lineTo(44, 27);
+      ctx.lineTo(29, 26);
+      ctx.closePath();
+      ctx.fill();
+      // Teeth
+      ctx.fillStyle = '#fff';
+      for (let t = 0; t < 3; t++) {
+        ctx.beginPath();
+        ctx.moveTo(33 + t * 5, 19);
+        ctx.lineTo(35 + t * 5, 25);
+        ctx.lineTo(37 + t * 5, 20);
+        ctx.closePath();
+        ctx.fill();
+      }
+      // Eye
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(41, 10, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+      if (this.eyeBlink <= 0) {
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(42, 10, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Eyebrow (angry)
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(36, 5);
+      ctx.lineTo(44, 6);
+      ctx.stroke();
+      // Tail
+      ctx.strokeStyle = '#65a30d';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(6, 16);
+      ctx.quadraticCurveTo(-6, 6, -12, 14);
+      ctx.stroke();
+      // Legs (running animation)
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 4;
+      const legPhase = this.animTimer * 0.3;
+      if (this.onGround) {
+        const l1 = Math.sin(legPhase) * 5;
+        const l2 = Math.sin(legPhase + Math.PI) * 5;
+        ctx.beginPath(); ctx.moveTo(12, 33); ctx.lineTo(12 + l1, 46); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(28, 33); ctx.lineTo(28 + l2, 46); ctx.stroke();
+      } else {
+        ctx.beginPath(); ctx.moveTo(12, 33); ctx.lineTo(8, 44); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(28, 33); ctx.lineTo(32, 44); ctx.stroke();
+      }
+      // Tiny arms
+      ctx.strokeStyle = '#3f6212';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(22, 24); ctx.lineTo(28, 30); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(28, 20); ctx.lineTo(34, 26); ctx.stroke();
+
+      // Speed lines when running fast
+      if (gameSpeed > 8) {
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 3; i++) {
+          const lx = -10 - i * 8;
+          const ly = 15 + i * 8;
+          ctx.beginPath();
+          ctx.moveTo(lx, ly);
+          ctx.lineTo(lx - 6 - Math.random() * 4, ly);
+          ctx.stroke();
+        }
+      }
+    }
+
+    ctx.restore();
+  }
+  getHitbox() {
+    if (this.ducking && this.onGround) {
+      return { x: this.x + 6, y: this.y + 4, w: this.w - 12, h: 26 };
+    }
+    return { x: this.x + 8, y: this.y + 6, w: this.w - 16, h: this.h - 10 };
+  }
+}
+
+// ─── HEALTH PICKUP ─────────────────────────────────────
+class HealthPickup {
+  constructor(speed) {
+    this.x = W + 80;
+    this.y = GROUND_Y - 36;
+    this.w = 22;
+    this.h = 22;
+    this.speed = speed;
+    this.alive = true;
+    this.pulse = 0;
+  }
+  update(speed) {
+    this.speed = speed;
+    this.x -= speed;
+    this.pulse += 0.08;
+    if (this.x < -60) this.alive = false;
+  }
+  draw(ctx) {
+    const p = 1 + Math.sin(this.pulse) * 0.15;
+    ctx.save();
+    ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+    ctx.scale(p, p);
+    // Glow
+    ctx.shadowColor = '#22c55e';
+    ctx.shadowBlur = 14;
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.arc(0, 0, 11, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    // Heart icon
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 14px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('❤', 0, 1);
+    ctx.restore();
+  }
+}
+
+// ─── GAME STATE ─────────────────────────────────────────
+const STATE = { MENU: 0, PLAYING: 1, GAMEOVER: 2 };
+
+let gameState = STATE.MENU;
+let player;
+let obstacles = [];
+let pickups = [];
+let bullets = [];
+let pterodactyls = [];
+let score = 0;
+let gameSpeed = 5;
+let baseSpeed = 5;
+let maxSpeed = 18;
+let spawnTimer = 0;
+let spawnInterval = 90; // frames between spawns
+let difficultyTimer = 0;
+let scoreFloat = 0; // for smooth score display
+let highScore = parseInt(localStorage.getItem('dinoRunnerHighScore') || '0');
+let boss = null;
+let spitPteros = [];
+let bossTriggered = false;
+
+// Starfield
+let stars = [];
+for (let i = 0; i < 80; i++) {
+  stars.push({ x: Math.random() * W, y: Math.random() * (GROUND_Y - 20), size: Math.random() * 1.5 + 0.5, twinkle: Math.random() * Math.PI * 2 });
+}
+
+// Ground texture
+let groundRocks = [];
+for (let i = 0; i < 30; i++) {
+  groundRocks.push({ x: Math.random() * W, size: 2 + Math.random() * 6, y: GROUND_Y + 5 + Math.random() * 10 });
+}
+
+function resetGame() {
+  player = new Player();
+  obstacles = [];
+  pickups = [];
+  bullets = [];
+  pterodactyls = [];
+  particles = [];
+  floatingTexts = [];
+  score = 0;
+  scoreFloat = 0;
+  gameSpeed = baseSpeed;
+  spawnTimer = 60; // grace period before first obstacle
+  spawnInterval = 90;
+  difficultyTimer = 0;
+  shakeAmount = 0;
+  boss = null;
+  spitPteros = [];
+  bossTriggered = false;
+  gameState = STATE.PLAYING;
+}
+
+function spawnObstacle() {
+  const type = CACTUS_TYPES[Math.floor(Math.random() * CACTUS_TYPES.length)];
+  obstacles.push(new Obstacle(type, gameSpeed));
+}
+
+function spawnHealthPickup() {
+  pickups.push(new HealthPickup(gameSpeed));
+}
+
+// ─── COLLISION HELPERS ──────────────────────────────────
+function rectsOverlap(a, b) {
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+
+// ─── UPDATE ─────────────────────────────────────────────
+function update() {
+  if (gameState !== STATE.PLAYING) return;
+
+  // Difficulty increases over time
+  difficultyTimer++;
+  gameSpeed = baseSpeed + Math.floor(difficultyTimer / 600) * 0.75;
+  if (gameSpeed > maxSpeed) gameSpeed = maxSpeed;
+
+  // Spawn interval decreases with speed
+  spawnInterval = Math.max(40, 90 - Math.floor((gameSpeed - baseSpeed) * 6));
+
+  // Update player
+  player.update();
+  // Player shooting
+  if (keys['KeyJ'] || keys['KeyK'] || keys['KeyF'] || keys['ControlLeft'] || keys['ControlRight']) {
+    const newBullets = player.shoot();
+    for (let b of newBullets) bullets.push(b);
+  }
+  if (!player.alive) {
+    gameState = STATE.GAMEOVER;
+    spawnParticles(player.x + player.w / 2, player.y + player.h / 2, 35, '#ef4444', 7, 35);
+    spawnParticles(player.x + player.w / 2, player.y + player.h / 2, 25, '#fbbf24', 5, 30);
+    screenShake(12);
+    beep(60, 0.5, 'sawtooth', 0.1);
+    // Save high score
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem('dinoRunnerHighScore', highScore);
+    }
+    return;
+  }
+
+  // Spawn obstacles
+  spawnTimer--;
+  if (spawnTimer <= 0) {
+    spawnTimer = spawnInterval + Math.floor(Math.random() * spawnInterval * 0.6);
+    spawnObstacle();
+    // Occasionally spawn two close together at higher speeds
+    if (gameSpeed > 9 && Math.random() < 0.3) {
+      setTimeout(() => { if (gameState === STATE.PLAYING) spawnObstacle(); }, 300 + Math.random() * 400);
+    }
+  }
+
+  // Spawn health pickups (rare, when damaged)
+  if (player.hp < player.maxHp && pickups.length === 0 && Math.random() < 0.002) {
+    spawnHealthPickup();
+  }
+
+  // Update obstacles
+  for (let o of obstacles) o.update(gameSpeed);
+  obstacles = obstacles.filter(o => o.alive);
+
+  // Update pickups
+  for (let p of pickups) p.update(gameSpeed);
+  pickups = pickups.filter(p => p.alive);
+
+  // Update bullets
+  for (let b of bullets) b.update();
+  bullets = bullets.filter(b => b.alive);
+
+  // Spawn pterodactyls (homing enemies at player's height)
+  if (gameSpeed > 6 && pterodactyls.length < 3 && Math.random() < 0.01) {
+    pterodactyls.push(new Pterodactyl(player.y, gameSpeed));
+  }
+  // Update pterodactyls (they track toward player)
+  for (let p of pterodactyls) p.update(player, gameSpeed);
+  pterodactyls = pterodactyls.filter(p => p.alive);
+
+  // Collision: bullets vs pterodactyls
+  for (let b of bullets) {
+    if (!b.alive) continue;
+    for (let p of pterodactyls) {
+      if (!p.alive) continue;
+      const pHit = p.getHitbox();
+      if (b.x > pHit.x && b.x < pHit.x + pHit.w && b.y > pHit.y && b.y < pHit.y + pHit.h) {
+        b.alive = false;
+        if (p.damage(1)) {
+          spawnParticles(p.x + p.w / 2, p.y + p.h / 2, 18, '#f59e0b', 5, 28);
+          spawnParticles(p.x + p.w / 2, p.y + p.h / 2, 10, '#ef4444', 4, 20);
+          floatText(p.x + p.w / 2, p.y, '+' + p.points, '#fbbf24', 18);
+          score += p.points;
+          screenShake(3);
+          beep(500, 0.08, 'square', 0.05);
+        }
+        break;
+      }
+    }
+  }
+
+  // Collision: pterodactyls vs player
+  const pHit2 = player.getHitbox();
+  for (let p of pterodactyls) {
+    if (!p.alive) continue;
+    const pHit = p.getHitbox();
+    if (rectsOverlap(pHit2, pHit)) {
+      player.damage(1);
+      p.alive = false;
+      spawnParticles(p.x + p.w / 2, p.y + p.h / 2, 14, '#f59e0b', 5, 22);
+      break;
+    }
+    // Score for passing
+    if (!p.passed && p.x + p.w < player.x) {
+      p.passed = true;
+      score += 15;
+      beep(700, 0.04, 'sine', 0.02);
+    }
+  }
+
+  // Collision: player vs obstacles
+  const pHit = player.getHitbox();
+  for (let o of obstacles) {
+    if (!o.alive) continue;
+    const oHit = o.getHitbox();
+    if (rectsOverlap(pHit, oHit)) {
+      player.damage(1);
+      o.alive = false;
+      spawnParticles(o.x + o.w / 2, o.y + o.h / 2, 10, '#86efac', 4, 18);
+      break; // only one collision per frame
+    }
+    // Score for passing obstacles
+    if (!o.passed && o.x + o.w < player.x) {
+      o.passed = true;
+      score += 10;
+      if (score % 100 === 0 || (score > 0 && score % 100 < 10)) {
+        floatText(player.x + player.w / 2, player.y - 20, '+10', '#fbbf24', 14);
+      }
+      beep(800, 0.05, 'sine', 0.03);
+    }
+  }
+
+  // Collision: player vs health pickups
+  for (let p of pickups) {
+    if (!p.alive) continue;
+    if (rectsOverlap(pHit, { x: p.x, y: p.y, w: p.w, h: p.h })) {
+      p.alive = false;
+      player.heal(1);
+    }
+  }
+
+  // Score increases with distance
+  scoreFloat += gameSpeed * 0.1;
+  if (scoreFloat >= 1) {
+    const points = Math.floor(scoreFloat);
+    score += points;
+    scoreFloat -= points;
+  }
+
+  // ─── BOSS TRIGGER at score 5000 ─────────────────
+  if (!bossTriggered && Math.floor(score) >= 5000) {
+    bossTriggered = true;
+    boss = new Boss(gameSpeed);
+    spitPteros = [];
+    beep(60, 0.8, 'sawtooth', 0.15);
+    floatText(W / 2, H / 2, 'TYRANT REX APPEARS!', '#ef4444', 30);
+  }
+
+  // Boss fight active
+  if (boss && boss.alive) {
+    const newPteros = boss.update(player, gameSpeed);
+    for (let p of newPteros) spitPteros.push(p);
+
+    // Update spit pteros
+    for (let p of spitPteros) p.update();
+    spitPteros = spitPteros.filter(p => p.alive);
+
+    // Bullets vs boss
+    for (let b of bullets) {
+      if (!b.alive) continue;
+      const bHit = boss.getHitbox();
+      if (b.x > bHit.x && b.x < bHit.x + bHit.w && b.y > bHit.y && b.y < bHit.y + bHit.h) {
+        b.alive = false;
+        if (boss.damage(1)) {
+          // Boss defeated!
+          spawnParticles(boss.x + boss.w / 2, boss.y + boss.h / 2, 60, '#ef4444', 12, 55);
+          spawnParticles(boss.x + boss.w / 2, boss.y + boss.h / 2, 50, '#fbbf24', 10, 50);
+          spawnParticles(boss.x + boss.w / 2, boss.y + boss.h / 2, 40, '#fff', 6, 40);
+          screenShake(20);
+          floatText(boss.x + boss.w / 2, boss.y + boss.h / 2 - 20, boss.name + ' DEFEATED!', '#fbbf24', 26);
+          floatText(boss.x + boss.w / 2, boss.y + boss.h / 2 + 10, '+' + boss.points, '#22c55e', 22);
+          score += boss.points;
+          beep(100, 0.3, 'sawtooth', 0.12);
+          setTimeout(() => beep(200, 0.3, 'sawtooth', 0.1), 200);
+          setTimeout(() => beep(400, 0.4, 'sawtooth', 0.1), 400);
+          boss = null;
+          spitPteros = [];
+          // Heal player as reward
+          player.heal(3);
+        }
+        break;
+      }
+    }
+
+    // Bullets vs spit pteros
+    for (let b of bullets) {
+      if (!b.alive) continue;
+      for (let p of spitPteros) {
+        if (!p.alive) continue;
+        const sHit = p.getHitbox();
+        if (b.x > sHit.x && b.x < sHit.x + sHit.w && b.y > sHit.y && b.y < sHit.y + sHit.h) {
+          b.alive = false;
+          p.alive = false;
+          spawnParticles(p.x + p.w / 2, p.y + p.h / 2, 8, '#f59e0b', 4, 18);
+          score += p.points;
+          beep(500, 0.06, 'square', 0.04);
+          break;
+        }
+      }
+    }
+
+    // Spit pteros vs player
+    const pHit3 = player.getHitbox();
+    for (let p of spitPteros) {
+      if (!p.alive) continue;
+      const sHit = p.getHitbox();
+      if (rectsOverlap(pHit3, sHit)) {
+        p.alive = false;
+        player.damage(1);
+        spawnParticles(p.x + p.w / 2, p.y + p.h / 2, 6, '#f59e0b', 3, 14);
+      }
+    }
+
+    // Boss body vs player
+    const bHit = boss.getHitbox();
+    if (rectsOverlap(pHit, bHit)) {
+      player.damage(2);
+      screenShake(8);
+    }
+  }
+
+  // Update particles & texts
+  updateParticles();
+  updateFloatingTexts();
+
+  // Decay shake
+  if (shakeAmount > 0) shakeAmount *= 0.85;
+  if (shakeAmount < 0.1) shakeAmount = 0;
+
+  // Update stars
+  for (let s of stars) {
+    s.x -= gameSpeed * 0.15;
+    if (s.x < -5) { s.x = W + 5; s.y = Math.random() * (GROUND_Y - 20); }
+  }
+
+  // Scroll ground
+  groundOffset = (groundOffset + gameSpeed) % SEGMENT_WIDTH;
+  for (let r of groundRocks) {
+    r.x -= gameSpeed;
+    if (r.x < -10) r.x = W + 10;
+  }
+}
+
+// ─── RENDER ─────────────────────────────────────────────
+function drawSky() {
+  // Sky gradient
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+  skyGrad.addColorStop(0, '#0f172a');
+  skyGrad.addColorStop(0.5, '#1e1b4b');
+  skyGrad.addColorStop(1, '#312e81');
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, W, GROUND_Y);
+
+  // Mountains in the distance
+  ctx.fillStyle = '#1a1035';
+  ctx.beginPath();
+  ctx.moveTo(0, GROUND_Y);
+  for (let x = 0; x <= W; x += 80) {
+    ctx.lineTo(x + 40, GROUND_Y - 40 - Math.sin(x * 0.02) * 30);
+    ctx.lineTo(x + 80, GROUND_Y);
+  }
+  ctx.fill();
+
+  // Stars
+  for (let s of stars) {
+    const alpha = 0.4 + Math.sin(Date.now() * 0.002 + s.twinkle) * 0.3;
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.fillRect(s.x, s.y, s.size, s.size);
+  }
+
+  // Moon
+  ctx.fillStyle = '#fef3c7';
+  ctx.shadowColor = '#fef3c7';
+  ctx.shadowBlur = 30;
+  ctx.beginPath();
+  ctx.arc(820, 80, 35, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  // Moon craters
+  ctx.fillStyle = '#fde68a';
+  ctx.beginPath(); ctx.arc(812, 72, 6, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(830, 85, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(818, 92, 3, 0, Math.PI * 2); ctx.fill();
+}
+
+function drawGround() {
+  // Ground body
+  const gGrad = ctx.createLinearGradient(0, GROUND_Y, 0, H);
+  gGrad.addColorStop(0, '#92400e');
+  gGrad.addColorStop(0.04, '#78350f');
+  gGrad.addColorStop(0.08, '#451a03');
+  gGrad.addColorStop(1, '#1a0a00');
+  ctx.fillStyle = gGrad;
+  ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+
+  // Ground surface line
+  ctx.strokeStyle = '#b45309';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, GROUND_Y);
+  ctx.lineTo(W, GROUND_Y);
+  ctx.stroke();
+
+  // Ground dashes (scrolling texture on surface)
+  ctx.strokeStyle = '#a16207';
+  ctx.lineWidth = 2;
+  for (let x = -groundOffset; x < W + SEGMENT_WIDTH; x += SEGMENT_WIDTH) {
+    ctx.beginPath();
+    ctx.moveTo(x, GROUND_Y + 3);
+    ctx.lineTo(x + SEGMENT_WIDTH * 0.5, GROUND_Y + 3);
+    ctx.stroke();
+  }
+
+  // Small rocks on ground
+  for (let r of groundRocks) {
+    ctx.fillStyle = '#57534e';
+    ctx.beginPath();
+    ctx.arc(r.x, r.y, r.size, 0, Math.PI);
+    ctx.fill();
+  }
+
+  // Dirt patches
+  ctx.fillStyle = '#78350f';
+  for (let x = -groundOffset + 100; x < W + 200; x += 250) {
+    ctx.beginPath();
+    ctx.ellipse(x, GROUND_Y + 8, 40, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawHUD() {
+  // HP hearts
+  for (let i = 0; i < player.maxHp; i++) {
+    const hx = 16 + i * 30;
+    const hy = 16;
+    ctx.fillStyle = i < player.hp ? '#ef4444' : '#374151';
+    ctx.font = '22px monospace';
+    ctx.fillText('❤', hx, hy + 16);
+  }
+
+  // Score
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#fbbf24';
+  ctx.font = 'bold 22px "Courier New"';
+  ctx.fillText(`${Math.floor(score)}`, W - 20, 30);
+  ctx.fillStyle = '#6b7280';
+  ctx.font = '10px "Courier New"';
+  ctx.fillText('SCORE', W - 20, 42);
+
+  // Speed indicator
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '10px "Courier New"';
+  ctx.fillText(`SPEED: ${gameSpeed.toFixed(1)}`, W - 20, 55);
+
+  ctx.textAlign = 'start';
+
+  // Boss HP bar
+  if (boss && boss.alive) {
+    const bw = 500, bh = 14, bx = (W - bw) / 2, by = 6;
+    ctx.fillStyle = '#1a0a0a';
+    ctx.fillRect(bx, by, bw, bh);
+    const ratio = boss.hp / boss.maxHp;
+    const hpGrad = ctx.createLinearGradient(bx, 0, bx + bw * ratio, 0);
+    hpGrad.addColorStop(0, '#dc2626');
+    hpGrad.addColorStop(1, ratio < 0.3 ? '#ef4444' : '#fbbf24');
+    ctx.fillStyle = hpGrad;
+    ctx.fillRect(bx + 2, by + 2, (bw - 4) * ratio, bh - 4);
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(bx, by, bw, bh);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 10px "Courier New"';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${boss.name}  ${Math.ceil(boss.hp)}/${boss.maxHp}`, W / 2, by + 10);
+    // Phase indicator
+    const phases = ['SPITTING PTEROS', 'BITE ATTACK', 'TAIL SWING'];
+    ctx.fillStyle = '#fca5a5';
+    ctx.font = '9px "Courier New"';
+    ctx.fillText(`[ ${phases[boss.phase]} ]`, W / 2, by + 22);
+    ctx.textAlign = 'start';
+  }
+
+  // High score (small, top center)
+  ctx.fillStyle = '#6b7280';
+  ctx.font = '10px "Courier New"';
+  ctx.textAlign = 'center';
+  ctx.fillText(`BEST: ${highScore}`, W / 2, 16);
+  ctx.textAlign = 'start';
+
+  // Controls hint
+  ctx.fillStyle = 'rgba(148,163,184,0.35)';
+  ctx.font = '10px "Courier New"';
+  ctx.fillText('SPACE/↑ = Jump  |  ↓/S = Duck  |  J/K/F/Ctrl = Shoot', 10, H - 10);
+}
+
+function drawMenu() {
+  // Title
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#fbbf24';
+  ctx.font = 'bold 44px "Courier New"';
+  ctx.shadowColor = '#f59e0b';
+  ctx.shadowBlur = 20;
+  ctx.fillText('🦖 DINO RUNNER', W / 2, H / 2 - 55);
+  ctx.shadowBlur = 0;
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '15px "Courier New"';
+  ctx.fillText('Run forever. Dodge cactuses. Shoot pterodactyls.', W / 2, H / 2 - 15);
+
+  // Pulsing start text
+  const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.08;
+  ctx.fillStyle = '#fff';
+  ctx.font = `bold ${Math.floor(20 * pulse)}px "Courier New"`;
+  ctx.fillText('PRESS ENTER OR SPACE TO START', W / 2, H / 2 + 40);
+
+  // Controls
+  ctx.fillStyle = '#64748b';
+  ctx.font = '12px "Courier New"';
+  ctx.fillText('SPACE / ↑ / W = Jump    |    ↓ / S = Duck    |    J/K/F/Ctrl = Shoot', W / 2, H / 2 + 75);
+  ctx.fillText('Shoot down pterodactyls for 50 pts! ❤ pickups heal you.', W / 2, H / 2 + 93);
+
+  // High score
+  if (highScore > 0) {
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = 'bold 14px "Courier New"';
+    ctx.fillText(`HIGH SCORE: ${highScore}`, W / 2, H / 2 + 125);
+  }
+
+  ctx.textAlign = 'start';
+}
+
+function drawGameOver() {
+  ctx.fillStyle = 'rgba(0,0,0,0.65)';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ef4444';
+  ctx.font = 'bold 48px "Courier New"';
+  ctx.fillText('GAME OVER', W / 2, H / 2 - 35);
+
+  ctx.fillStyle = '#fbbf24';
+  ctx.font = '18px "Courier New"';
+  ctx.fillText(`Score: ${Math.floor(score)}`, W / 2, H / 2 + 10);
+
+  const isNewBest = Math.floor(score) >= highScore && Math.floor(score) > 0;
+  if (isNewBest) {
+    ctx.fillStyle = '#fbbf24';
+    ctx.shadowColor = '#fbbf24';
+    ctx.shadowBlur = 15;
+    ctx.font = 'bold 22px "Courier New"';
+    ctx.fillText('🏆 NEW HIGH SCORE! 🏆', W / 2, H / 2 + 38);
+    ctx.shadowBlur = 0;
+  } else {
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '13px "Courier New"';
+    ctx.fillText(`Best: ${highScore}`, W / 2, H / 2 + 38);
+  }
+
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 18px "Courier New"';
+  const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.08;
+  ctx.fillText('PRESS ENTER OR SPACE TO RETRY', W / 2, H / 2 + 72);
+
+  ctx.textAlign = 'start';
+}
+
+function render() {
+  ctx.clearRect(0, 0, W, H);
+
+  ctx.save();
+  if (shakeAmount > 0) {
+    ctx.translate((Math.random() - 0.5) * shakeAmount * 2, (Math.random() - 0.5) * shakeAmount * 2);
+  }
+
+  drawSky();
+  drawGround();
+
+  if (gameState === STATE.MENU) {
+    // Draw a demo player
+    const demoPlayer = new Player();
+    demoPlayer.y = GROUND_Y - demoPlayer.h;
+    demoPlayer.animTimer = Date.now() * 0.02;
+    demoPlayer.draw(ctx);
+    drawMenu();
+    ctx.restore();
+    return;
+  }
+
+  // Draw game objects
+  for (let p of pickups) p.draw(ctx);
+  for (let o of obstacles) o.draw(ctx);
+  for (let p of pterodactyls) p.draw(ctx);
+  for (let b of bullets) b.draw(ctx);
+  if (boss && boss.alive) boss.draw(ctx);
+  for (let p of spitPteros) p.draw(ctx);
+  player.draw(ctx);
+  drawParticles(ctx);
+  drawFloatingTexts(ctx);
+  drawHUD();
+
+  if (gameState === STATE.GAMEOVER) {
+    drawGameOver();
+  }
+
+  ctx.restore();
+}
+
+// ─── GAME LOOP ──────────────────────────────────────────
+function gameLoop() {
+  update();
+  render();
+  requestAnimationFrame(gameLoop);
+}
+
+// ─── EVENTS ─────────────────────────────────────────────
+window.addEventListener('keydown', e => {
+  if (e.code === 'Enter' || e.code === 'Space') {
+    if (gameState === STATE.MENU || gameState === STATE.GAMEOVER) {
+      resetGame();
+      // Prevent the space from triggering an immediate jump
+      keys['Space'] = true;
+      setTimeout(() => { keys['Space'] = false; }, 50);
+    }
+  }
+});
+
+// ─── MOBILE TOUCH ───────────────────────────────────────
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  if (gameState === STATE.MENU || gameState === STATE.GAMEOVER) {
+    resetGame();
+  }
+  // Bottom half = jump, top half = shoot
+  for (let t of e.changedTouches) {
+    const rect = canvas.getBoundingClientRect();
+    const y = (t.clientY - rect.top) / (rect.height / H);
+    if (y > H * 0.5) keys['Space'] = true;
+    else keys['KeyJ'] = true;
+  }
+});
+canvas.addEventListener('touchend', e => {
+  e.preventDefault();
+  keys['Space'] = false;
+  keys['ArrowDown'] = false;
+  keys['KeyJ'] = false;
+});
+
+// ─── START ──────────────────────────────────────────────
+player = new Player();
+gameState = STATE.MENU;
+gameLoop();
+</script>
+</body>
+</html>
